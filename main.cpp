@@ -2,15 +2,20 @@
 // Created by jollu on 07.08.22.
 //
 
-template<typename T>
-class Foo {
-    T t_;
-public:
 
-    explicit Foo(T &t1) : t_(t1) {}
-
-};
+#include <string>
+#include <iostream>
+std::string foo(std::string &str) {
+    std::string res;
+    for(int i(0); i < str.size(); i++) {
+        if(tolower(str[i] < 'z')) res += str[i] +1;
+        else res += "a";
+    }
+    return res;
+}
 
 int main() {
-    Foo<int> foo{5};
+    std::string str = "abz";
+    std::cout << foo(str);
+
 }
