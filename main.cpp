@@ -1,21 +1,30 @@
 //
-// Created by jollu on 07.08.22.
+// Created by jollu.
 //
-
+//RC4 Algorithm
 
 #include <string>
+#include <vector>
 #include <iostream>
-std::string foo(std::string &str) {
-    std::string res;
-    for(int i(0); i < str.size(); i++) {
-        if(tolower(str[i] < 'z')) res += str[i] +1;
-        else res += "a";
+//#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        while(next_permutation(goal.begin(),goal.end())) {
+            if(s == goal) return true;
+        }
+        return false;
     }
-    return res;
-}
+};
 
 int main() {
-    std::string str = "abz";
-    std::cout << foo(str);
+    for (auto i = 'a'; i <= 'z'; ++i) {
+        cout << i << " ";
 
+    }
 }
