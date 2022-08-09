@@ -967,9 +967,9 @@
 
       В компьютерных науках [алгоритм сортировки](https://en.wikipedia.org/wiki/Sorting_algorithm) — это алгоритм,
       который упорядочивает элементы списка
-      
-      #####  Лучшие алгоритмов сортировки
-      
+
+      ##### Лучшие алгоритмов сортировки
+
         - [Selection sort](https://github.com/Jollu8/Algorithms/blob/main/Sort/Selection.cpp)
         - [Bubble sort](https://github.com/Jollu8/Algorithms/blob/main/Sort/Bubble.cpp)
         - [Insertion sort](https://github.com/Jollu8/Algorithms/blob/main/Sort/Insertion.cpp)
@@ -986,8 +986,56 @@
         - Bitcoin sort
         - Tree sort
         - Gnome sort
-      
+
       [Подробно](https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D1%81%D0%BE%D1%80%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B8)
       </details>
+
+  ---
+
+  #### 41. Какие алгоритмы работы со строками знаете?
+
+    - <details><summary>Ответ:</summary>
+       
+       Ответ требует доработки(требуется ру контент)
+
+      ##### Тематики
+
+        - [Алгоритмы точного сопоставления строк](https://www.hackerearth.com/practice/notes/exact-string-matching-algorithms/)
+        - [Алгоритмы приближенного сопоставления строк](https://stackoverflow.com/questions/49263/approximate-string-matching-algorithms/50110#50110)
+
+      1. ##### Алгоритмы, основанные на сравнении символов:
+      
+         - [Наивный алгоритм поиска шаблонов](https://www.tutorialspoint.com/Naive-Pattern-Searching)
+         - [Алгоритм KMP для поиска шаблонов](https://www.tutorialcup.com/interview/algorithm/kmp-algorithm.htm)
+         - [Алгоритм Бойера Мура для поиска по образцу](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm)
+         - [Trie | (Insert and Search)](https://www.techiedelight.com/trie-implementation-insert-search-delete)
+
+      2. ##### Метод детерминированного конечного автомата (DFA):
+
+         - [Алгоритм конечных автоматов для поиска шаблонов](https://tutorialspoint.dev/algorithm/pattern-searching-algorithms/searching-for-patterns-set-5-finite-automata)
+
+      3. ##### Алгоритмы на основе Bit (метод параллелизма)
+
+         - [Алгоритм Ахо-Корасика для поиска шаблонов](https://github.com/cjgdev/aho_corasick)
+      
+      4. ##### Алгоритмы сопоставления хэш-строки:
+       
+         - [Алгоритм Рабина-Карпа для поиска образов](https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm#Use_of_hashing_for_shifting_substring_search)
+
+      </details>
+    
+  ---
+
+  #### 42. Какие алгоритмы на графах знаете?
+ 
+    - <details><summary>Ответ:</summary>
+
+      [Граф](https://ru.wikipedia.org/wiki/%D0%93%D1%80%D0%B0%D1%84_(%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0)) — это нелинейная структура данных, состоящая из узлов и ребер. Узлы иногда также называют вершинами, а ребра — линиями или дугами, соединяющими любые два узла в графе. Более формально график можно определить как
+   
+      ##### Алгоритмы
+      
+        ###### 
+  
+  </details>
 
 [//]: # ([Автор вопросов]&#40;https://dou.ua/lenta/articles/interview-questions-c-developer/&#41;)
