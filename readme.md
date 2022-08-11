@@ -3361,4 +3361,12 @@
 
     </details>
 
+  ---
+
+  #### 66. Какие особенности статических полей класса?
+
+    - <details><summary>Ответ:</summary>
+  
+    </details>
+
 [//]: # ([/: # &#40;[Автор вопросов]&#40;https://dou.ua/lenta/articles/interview-questions-c-developer/&#41;&#41;)
