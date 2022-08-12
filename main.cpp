@@ -4,10 +4,9 @@
 //
 
 
-
+#include <iostream>
 
 int main() {
-    [[maybe_unused]] int  x = {};
-    [[maybe_unused]] int n{0};
+    std::cout << "Hello world";
 
 }
