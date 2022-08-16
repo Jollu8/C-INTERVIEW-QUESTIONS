@@ -4,4 +4,4 @@ project(C_INTERVIEW_QUESTIONS)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(C_INTERVIEW_QUESTIONS
-        main.cpp)
+        main.cpp Codes/105_1.cpp Codes/105_2.cpp Codes/105_3.cpp)

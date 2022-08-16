@@ -55,6 +55,24 @@ build CMakeFiles/C_INTERVIEW_QUESTIONS.dir/main.cpp.o: CXX_COMPILER__C_INTERVIEW
   OBJECT_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
   OBJECT_FILE_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
 
+build CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_1.cpp.o: CXX_COMPILER__C_INTERVIEW_QUESTIONS_Debug /home/jollu/Desktop/C-INTERVIEW-QUESTIONS/Codes/105_1.cpp || cmake_object_order_depends_target_C_INTERVIEW_QUESTIONS
+  DEP_FILE = CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_1.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  OBJECT_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
+  OBJECT_FILE_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes
+
+build CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_2.cpp.o: CXX_COMPILER__C_INTERVIEW_QUESTIONS_Debug /home/jollu/Desktop/C-INTERVIEW-QUESTIONS/Codes/105_2.cpp || cmake_object_order_depends_target_C_INTERVIEW_QUESTIONS
+  DEP_FILE = CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_2.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  OBJECT_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
+  OBJECT_FILE_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes
+
+build CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_3.cpp.o: CXX_COMPILER__C_INTERVIEW_QUESTIONS_Debug /home/jollu/Desktop/C-INTERVIEW-QUESTIONS/Codes/105_3.cpp || cmake_object_order_depends_target_C_INTERVIEW_QUESTIONS
+  DEP_FILE = CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_3.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  OBJECT_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
+  OBJECT_FILE_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target C_INTERVIEW_QUESTIONS
@@ -63,7 +81,7 @@ build CMakeFiles/C_INTERVIEW_QUESTIONS.dir/main.cpp.o: CXX_COMPILER__C_INTERVIEW
 #############################################
 # Link the executable C_INTERVIEW_QUESTIONS
 
-build C_INTERVIEW_QUESTIONS: CXX_EXECUTABLE_LINKER__C_INTERVIEW_QUESTIONS_Debug CMakeFiles/C_INTERVIEW_QUESTIONS.dir/main.cpp.o
+build C_INTERVIEW_QUESTIONS: CXX_EXECUTABLE_LINKER__C_INTERVIEW_QUESTIONS_Debug CMakeFiles/C_INTERVIEW_QUESTIONS.dir/main.cpp.o CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_1.cpp.o CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_2.cpp.o CMakeFiles/C_INTERVIEW_QUESTIONS.dir/Codes/105_3.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
   POST_BUILD = :
