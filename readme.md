@@ -7062,4 +7062,260 @@
   ---
 
   #### 128. В чем разница между vector и list и в каких случаях их лучше использовать?
+
+    - <details><summary>Ответ:</summary>
+
+        - [std::vector](https://en.cppreference.com/w/cpp/container/vector): Вектор — это тип динамического массива,
+          который может автоматически изменять размер после вставки или
+          удаления элементов. Элементы в векторе размещаются в непрерывном хранилище, чтобы к ним можно было получить
+          доступ и пройти с помощью итераторов. Элемент вставляется в конец вектора.
+        - [std::list](https://en.cppreference.com/w/cpp/container/list): Список представляет собой двойную связанную
+          последовательность, которая поддерживает как прямой, так и
+          обратный обход. Время, затрачиваемое на вставку и удаление в начале, конце и середине, постоянно. Он имеет
+          несмежную память и не имеет предварительно выделенной памяти.
+
+        <img src="Images/img_128_1.png">
+
+   </details>
+
+---
+
+- ### Многопоточность
+
+  #### 129. Что вам известно о многопоточности?
+
+    - <details><summaryю>Ответ:</summaryю>
+
+      Поддержка многопоточности была введена в C+11. До C++11 нам приходилось использовать
+      потоки  [POSIX threads or p threads library in C](https://www.geeksforgeeks.org/multithreading-c-2/). Хотя эта
+      библиотека выполняла свою работу, отсутствие какого-либо стандартного языкового набора функций вызывало серьезные
+      проблемы с переносимостью. C++ 11 избавился от всего этого и дал нам std::thread . Классы потоков и связанные с
+      ними функции определены в заголовочном файле потока .
+
+      [std::thread](https://en.cppreference.com/w/cpp/thread/thread) — это класс потока, представляющий один поток в
+      C++. Чтобы запустить поток, нам просто нужно создать новый
+      объект потока и передать исполняемый код, который будет вызываться (т. е. вызываемый объект) в конструктор
+      объекта.
+      После создания объекта запускается новый поток, который будет выполнять код, указанный в callable.
+
+      Вызываемый может быть любым из трех
+
+        - Указатель функции
+        - Функциональный объект
+        - Лямбда-выражение
+
+      После определения callable передайте его конструктору.
+
+      ```c++
+      #include<thread>
+      std::thread thread_object(callable)
+      ```
+
+      Запуск потока с помощью указателя на функцию
+      В следующем фрагменте кода показано, как это делается.
+
+      ```c++
+      void foo(param)
+      {
+          // Do something
+      }
+
+      // The parameters to the function are put after the comma
+      std::thread thread_obj(foo, params);
+      ```
+
+      Запуск потока с использованием лямбда-выражения
+
+      Следующий фрагмент кода демонстрирует, как это делается
+
+      ```c++
+           // Define a lamda expression
+           auto f = [](params) {
+          // Do Something
+      };
+    
+      // Pass f and its parameters to thread
+      // object constructor as
+      std::thread thread_object(f, params);
+      ```
+
+      Мы также можем передавать лямбда-функции непосредственно в конструктор.
+
+      ```c++
+      std::thread thread_object([](params) {
+      // Do Something
+      };, params);
+      ```
+
+      Запуск потоков с использованием функциональных объектов
+
+      Следующий фрагмент кода демонстрирует, как это делается
+
+      ```c++
+      // Define the class of function object
+      class fn_object_class {
+          // Overload () operator
+          void operator()(params)
+          {
+          // Do Something
+          }
+      }
+    
+      // Create thread object
+      std::thread thread_object(fn_object_class(), params)
+      ```
+
+      Ожидание завершения потоков
+
+      После запуска потока нам может потребоваться дождаться завершения потока, прежде чем мы сможем предпринять
+      какие-либо действия. Например, если мы передаем задачу инициализации графического интерфейса приложения потоку,
+      нам нужно дождаться завершения потока, чтобы убедиться, что графический интерфейс загружен правильно.
+
+      Чтобы дождаться потока, используйте функцию std::thread::join() . Эта функция заставляет текущий поток ждать, пока
+      поток, указанный *this , не завершит выполнение.
+      Например, чтобы заблокировать основной поток до завершения потока t1, мы должны сделать
+
+      ```c++
+      int main()
+      {
+          // Start thread t1
+          std::thread t1(callable);
+    
+          // Wait for t1 to finish
+          t1.join();
+      
+          // t1 has finished do other stuff
+      
+          ...
+      }
+      ```
+
+      Полная программа на C++
+
+      Программа C++ приведена ниже. Он запускает три потока из основной функции. Каждый поток вызывается с
+      использованием одного из вызываемых объектов, указанных выше.
+
+      ```c++
+      // CPP program to demonstrate multithreading
+      // using three different callables.
+      #include <iostream>
+      #include <thread>
+      using namespace std;
+     
+      // A dummy function
+      void foo(int Z)
+      {
+          for (int i = 0; i < Z; i++) {
+          cout << "Thread using function"
+               " pointer as callable\n";
+          }
+      }
+    
+      // A callable object
+      class thread_obj {
+      public:
+          void operator()(int x)
+          {
+              for (int i = 0; i < x; i++)
+                  cout << "Thread using function"
+                      " object as  callable\n";
+          }
+      };
+    
+      int main()
+      {
+          cout << "Threads 1 and 2 and 3 "
+              "operating independently" << endl;
+
+          // This thread is launched by using 
+          // function pointer as callable
+          thread th1(foo, 3);
+  
+          // This thread is launched by using
+          // function object as callable
+          thread th2(thread_obj(), 3);
+  
+           // Define a Lambda Expression
+           auto f = [](int x) {
+               for (int i = 0; i < x; i++)
+                   cout << "Thread using lambda"
+                       " expression as callable\n";
+           };
+   
+          // This thread is launched by using 
+          // lamda expression as callable
+          thread th3(f, 3);
+  
+          // Wait for the threads to finish
+          // Wait for thread t1 to finish
+          th1.join();
+  
+          // Wait for thread t2 to finish
+          th2.join();
+  
+          // Wait for thread t3 to finish
+          th3.join();
+  
+          return 0;
+      }
+      ```
+
+    </details>
+
+  ---
+
+  #### 130. Что общего и различного в процессах и потоках?
+
+    - <details><summary>ответ:</summary>
+
+        - Процесс. Процессы — это в основном программы, которые отправляются из состояния готовности и планируются в ЦП
+          для
+          выполнения. PCB (блок управления процессом) содержит концепцию процесса. Процесс может создавать другие
+          процессы, которые называются дочерними процессами. Процессу требуется больше времени для завершения, и он
+          изолирован, что означает, что он не использует память совместно с каким-либо другим процессом.
+
+        - Поток: поток — это сегмент процесса, что означает, что процесс может иметь несколько потоков, и эти несколько
+          потоков содержатся внутри процесса. Поток имеет три состояния: выполняется, готов и заблокирован.
+
+          Поток занимает меньше времени для завершения по сравнению с процессом, но, в отличие от процесса, потоки не
+          изолируются.
+
+       <img src="Images/img_130_1.png">
+
+      Разница между процессом и потоком:
+  
+      <img src="Images/img_130_2.png">
+      
+      <img src="Images/img_130_3.png">
+
+  </details>
+
+  ---
+
+  ####   131. Как синхронизировать передачи информации между потоками?
+
+    - <details><summary>Ответ:</summary>
+  
+      Ответ требует доработки!
+    - https://www.modernescpp.com/index.php/c-core-guidelines-sharing-data-between-threads
+  
+    </details>
+
+  --- 
+
+  #### 132. Какая разница между мьютексом и семафором?
+
+    - <details><summary>Ответ:</summary>
+  
+       erfer
+     </details>
+
+  ---
+
+  #### 132. Какая разница между мьютексом и семафором?
+
+    - <details><summary>Ответ:</summary>
+  
+  
+   </details>
 [//]: # ([/: # &#40;[Автор вопросов]&#40;https://dou.ua/lenta/articles/interview-questions-c-developer/&#41;&#41;)

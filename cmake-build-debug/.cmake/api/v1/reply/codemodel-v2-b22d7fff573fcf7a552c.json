@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "C_INTERVIEW_QUESTIONS::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-C_INTERVIEW_QUESTIONS-Debug-48642a7d1f1030abc08f.json",
+					"jsonFile" : "target-C_INTERVIEW_QUESTIONS-Debug-06e425decfe38b25832c.json",
 					"name" : "C_INTERVIEW_QUESTIONS",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/jollu/Desktop/C-INTERVIEW-QUESTIONS/cmake-build-debug",
-		"source" : "/home/jollu/Desktop/C-INTERVIEW-QUESTIONS"
+		"build" : "/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug",
+		"source" : "/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS"
 	},
 	"version" : 
 	{
