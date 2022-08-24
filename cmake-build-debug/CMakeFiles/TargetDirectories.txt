@@ -1,3 +1,0 @@
-/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/C_INTERVIEW_QUESTIONS.dir
-/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
