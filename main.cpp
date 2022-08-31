@@ -1,64 +1,82 @@
 #include <iostream>
-//#include <thread>
-//#include <string>
 #include <vector>
+#include <fstream>
+#include <sstream>
+#include <unordered_set>
+#include <bitset>
 
 
-
-class Finder {
-    std::vector<int> vec_;
-public:
-    Finder() : vec_() {}
-    auto find(int n) {
-        return std::find(vec_.begin(), vec_.end(), n);
+bool is_alpha(std::string &s) {
+    for (auto i: s) {
+        if (!isdigit(i)) return false;
     }
-
-    auto add_element(int n) {
-        vec_.push_back(n);
-    }
-    bool empty() {
-        return vec_.empty() ? true : false;
-    }
-    int get_size() {
-        return vec_.size();
-    }
-    void set_size(int n) {
-        vec_.reserve(n);
-    }
-//    vec.erase(std::remove(vec.begin(), vec.end(), userinput), vec.end());
-    auto remove_el(int n) {
-        auto res = std::find(vec_.begin(), vec_.end(),n);
-        if(res != vec_.end()) {
-            vec_.erase(remove(vec_.begin(), vec_.end(), n), vec_.end());
-            return true;
-        } else
-        return false;
-    }
-};
-
-int main() {
-    std::cout << "Enter size element:";
-    int size_el;
-    std::cin >> size_el;
-    Finder finder;
-    finder.set_size(size_el);
-    int n = 0;
-    while (n < size_el) {
-        int element;
-        std::cout <<"Enter element:";
-        std::cin >> element;
-        finder.add_element(element);
-        n++;
-    }
-
-    while (!finder.empty()) {
-        std::cout << "Enter element for erase:";
-        int delete_element;
-        std::cin >> delete_element;
-        auto after_del_el = finder.remove_el(delete_element);
-        if(after_del_el) std::cout << "Deleted " << delete_element << std::endl;
-        else std::cout << "Not found" << std::endl;
-    }
-    std::cout << "Finder if empty!" <<std::endl;
+    return true;
 }
 
+int size_unique(std::vector<std::string> &vec) {
+    std::unordered_set<char> res;
+    for (auto i = 0; i < 3; i++) {
+        for (auto it: vec[i]) {
+            res.insert(it);
+        }
+    }
+    return res.size();
+}
+
+int count_birth(std::string &s1, std::string &s2) {
+    int count = 0;
+    for (auto i: s1) {
+        count += i - '0';
+    }
+    for (auto i: s2) count += i - '0';
+    return count;
+}
+
+int main() {
+    std::ifstream iFile("./input.txt");
+    std::string getInputFile;
+    std::vector<std::vector<std::string >> tokens;
+
+    std::string res;
+
+    while (iFile >> getInputFile) {
+        if (getInputFile.size() < 3) continue;
+
+
+        std::istringstream ss{std::move(getInputFile)};
+        std::string s;
+        std::vector<std::string> vec;
+        while (getline(ss, s, ',')) {
+            vec.push_back(s);
+        }
+        int sizeB = count_birth(vec[3], vec[4]);
+        int countUniqueFullName = size_unique(vec);
+        int size_ch = tolower(vec[0][0]) - 'a' + 1;
+        int resAll = countUniqueFullName + (sizeB * 64) + (size_ch * 256);
+
+        std::stringstream convertHex;
+        convertHex << std::hex << resAll;
+        std::string str;
+        convertHex >> str;
+        int sizeSTR = str.size() - 3;
+        std::string stringAfterSStream;
+        for(auto i = sizeSTR; i < str.size(); i++) {
+            if(isalpha(str[i])) stringAfterSStream += toupper(str[i]);
+            else stringAfterSStream += str[i];
+        }
+        if(res.empty()) {
+            res = stringAfterSStream;
+        }else {
+            res += " " + stringAfterSStream;
+        }
+
+
+    }
+    iFile.close();
+
+
+    std::ofstream outFile("./output.txt");
+
+    outFile << res;
+    outFile.close();
+}
