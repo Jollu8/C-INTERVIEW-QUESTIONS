@@ -8445,11 +8445,11 @@
   #### 170. Есть структура по типу «односвязный список». Напишите функцию, которая разворачивает список. То есть, первый элемент становится последним, а последний - первым.
 
     - <details><summary>Ответ:</summary>
-  
-      - <img src="Images/img_170_1.png">
-    
-      - Source [code](Codes/code_170_1.cpp)
-  
+
+        - <img src="Images/img_170_1.png">
+
+        - Source [code](Codes/code_170_1.cpp)
+
     </details>
 
   ---
@@ -8457,7 +8457,7 @@
   #### 171. Напишите реализацию функции int atoi (const char *str); преобразования строки в число.
 
     - <details><summary>Ответ:</summary>
-  
+
       ```c++
       int my_atoi(std::string str) {
           int ans = 0;
@@ -8473,8 +8473,29 @@
   #### 172. Для структуры типа односвязный список напишите функцию вставки элемента.
 
     - <details><summary>Ответ:</summary>
-  
-       trash
+
+        - Перво создать конструктора
+      ```c++
+      struct Node {
+          int data;
+          struct Node* next;
+          Node(int data)
+          {
+              this->data = data;
+              next = NULL;
+          }
+      };
+      ```
+        - func add
+      ```c++
+       void push(int data)
+      {
+          Node* temp = new Node(data);
+          temp->next = head;
+          head = temp;
+      }
+      ```
+        - source [code](Codes/junior/code_172_1.cpp)
     </details>
 
   ---
@@ -8482,7 +8503,175 @@
   #### 173. Реализуйте класс vector.
 
     - <details><summary>Ответ:</summary>
-  
-      trash
+      source [code](https://github.com/Jollu8/Algorithms/blob/main/Containers/Vector.cpp)
      </details>
+
+  ---
+
+  #### 174. Реализуйте бинарный поиск в массиве.
+
+    - <details><summary>Ответ:</summary>
+
+        - recursive binary search
+
+      ```c++
+      int binary_search_in_c_array_recursive(int arr[], int l, int r, int length) {
+          if (r >= 1) {
+              int mid = l + (r - 1) / 2;
+              if (arr[mid] == length) return mid;
+
+              if (arr[mid] > length)return binary_search_in_c_array_recursive(arr, l, mid - 1, length);
+
+              return binary_search_in_c_array_recursive(arr, mid + 1, r, length);
+          }
+          return -1;
+      }
+      ```
+
+        - none recursive binary search
+      ```c++
+      int binary_search_in_c_array(int arr[], int l, int r, int length) {
+          while (l < -r) {
+              int m = l + (r - l) / 2;
+              if (arr[m] == length)return m;
+              if (arr[m] < length) return m;
+              else r = m - 1;
+          }
+          return -1;
+      }
+      ```
+      source [code](Codes/junior/code_174_1.cpp)
+    </details>
+
+  ---
+
+  #### 175. Реализуйте любую сортировку.
+
+    - <details><summary>Ответ:</summary>
+
+        - [All my sorts](https://github.com/Jollu8/Algorithms/tree/main/Sort)
+    </details>
+
+  ---
+
+  #### 176. Реализуйте макрос для сравнения двух строк.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      #define min(a,b) (((a) > (b)) ? (a) : (b))
+      ```
+        - main output
+
+      ```c++
+      #include <iostream>
+      int main() {
+          std::string str1 = "Hello";
+          std::string str2 = "Hello1";
+          std::cout << min(str1, str2);
+      }
+      ```
+        - source [code](./Codes/junior/code_176_1.cpp)
+
+    </details>
+
+  ---
+
+  #### 177. Реализуйте реверс строк.
+
+    - <details><summary>Ответ:</summary>
+
+        - stl reverse algorithm
+      ```c++
+      #include <iterator>
+      #include <vector>
+     
+      template<typename T>
+      void reverse(T &begin, T &end) {
+          using iter_cast = typename std::iterator_traits<T>::iterator_category;
+          if constexpr (std::is_base_of_v<std::random_access_iterator_tag, iter_cast>) {
+              if (begin == end) return;
+              for (--end; begin < end; (void) ++begin, --end)
+                  std::iter_swap(begin, end);
+          } else while ((begin != end) && (begin != --end)) std::iter_swap(begin++, end);
+      } 
+      ```
+        - main nad output
+      ```c++
+      #include <vector>
+      #include <numeric>
+
+       
+      int main() {
+          std::vector<int> vec(10);
+          std::iota(vec.begin(), vec.end(), 1);
+          reverse(vec.begin(), vec.end());
+          for (auto i: vec) std::cout << i << ' ';
+          }
+      ```
+        - source [code](./Codes/junior/code_177_1.cpp)
+
+    </details>
+
+  ---
+
+  #### 178. Реализуйте перевода числа из строки в int.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c
+       std::string str = "7";
+       std::cout << "Stringstream method" << std::endl;
+       std::stringstream ss;
+       ss << str;
+       int n1;
+       ss >> n1;
+       std::cout << n1 << std::endl;
+       std::cout << "Sscanf method " << std::endl;
+       int n2;
+       sscanf(str.c_str(), "%d", &n2);
+       std::cout << n2 << std::endl;
+       std::cout << "stoi method" << std::endl;
+       int n3 = std::stoi(str);
+       std::cout << n3 << std::endl;
+      ```
+        - source [code ](Codes/junior/code_178_1.cpp)
+    </details>
+
+  ---
+
+  #### 179. Реализуйте подсчет слов в предложении.
+
+    - <details><summary>ответ:</summary>
+
+      ```c++
+      int count_words(std::string const & str) {
+      std::stringstream stream(str);
+      return std::distance(std::istream_iterator<std::string>(stream), std::istream_iterator<std::string>());
+      }
+      ```
+    </details>
+
+  ---
+
+  #### 180. Реализуйте подсчет чисел Фибоначчи.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      int count_fib(int low, int high) {
+          int f1 = 0, f2 = 1, f3 = 1;
+          int result = 0;
+          while (f1 <= high) {
+              if (f1 >= low) result++;
+              f1 = f2;
+              f2 = f3;
+              f3 = f1 + f2;
+          }
+          return result;
+      }
+      ```
+      source [code](Codes/junior/code_180_1.cpp)
+    </details>
+
 [//]: # ([/: # &#40;[Автор вопросов]&#40;https://dou.ua/lenta/articles/interview-questions-c-developer/&#41;&#41;)
