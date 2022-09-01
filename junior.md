@@ -1,6 +1,6 @@
 # junior
 
-- ### <span style="color:red">Общие вопросы</span>.
+- ### <span style="color:red">*Общие вопросы*</span>.
 
   #### 1. В чем заключаются основные принципы ООП?
 
