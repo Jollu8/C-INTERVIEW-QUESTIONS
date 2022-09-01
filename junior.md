@@ -8674,4 +8674,212 @@
       source [code](Codes/junior/code_180_1.cpp)
     </details>
 
+  ---
+
+  #### 181. Найдите такие элементы двух массивов, которые попадаются только в каждом из них. Желательно использовать STL.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      #include <unordered_set>
+  
+      std::unordered_set<int> copy_element(std::unordered_set<int> &v1, std::unordered_set<int> &v2) {
+          std::unordered_set<int> res;
+          for (auto it: v1) {
+               if (v2.contains(it)) 
+               res.insert(it);
+          }
+          return res;
+      }
+      ```
+      source [code](Codes/junior/code_181_1.cpp)
+     </details>
+
+  ---
+
+  #### 182. Удалите из unordered_map элементы, которые делятся на 2 и выведите ключи этих элементов.
+
+    - <details><summary>Ответ:</summary>
+
+     ```c++
+     void delete_element_from_u_map(std::unordered_map<int, int> &m) {
+         for (auto it = m.begin(); it != m.end();) {
+             if (it->second % 2 == 0) {
+                 std::cout << it->first << ' ';
+                 it = m.erase(it);
+             } else it++;
+         }
+     }
+     ```
+    - source [code](Codes/junior/code_182_1.cpp)
+    </details>
+
+  ---
+
+  #### 183. Напишите класс для логирования, который мог бы логировать к консоли или файлу.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      namespace dj {
+          inline bool print(std::ostream& out) {
+          return !!(out << std::endl);
+          }
+          template<typename T>
+          bool print(std::ostream& out, T&& value)
+          {
+              return !!(out << std::forward<T>(value) << std::endl);
+          }
+          template<typename First, typename ... Rest>
+          bool print(std::ostream& out, First&& first, Rest&& ... rest)
+          {
+              return !!(out << std::forward<First>(first)) && print(out, std::forward<Rest>(rest)...);
+          }
+          inline std::mutex logger_mtx;
+          class log_stream {
+          public:
+               log_stream(std::string_view str, std::ostream& ifile) : name(str), file(ifile)
+               {
+                   std::string s{ "[" };
+                   name = s + name + "] ";
+               }
+               template <typename... Args>
+               bool operator() (Args&&... args) {
+               bool OK = print(file, std::forward<Args>(args)...);
+               {
+                   std::lock_guard<std::mutex> lck(logger_mtx);
+                   print(std::cout, name, std::forward<Args>(args)...);
+                   if (!OK) {
+                      print(std::cout, name, "-- Error writing to log file. --");
+                   }
+               }
+               return OK;
+          }
+          private:
+              std::string name;
+              std::ostream& file;
+          };
+      }
+      ```
+        - source [code](./Codes/junior/code_182_1.cpp)
+    </details>
+
+  ---
+
+  #### 184. Напишите функцию для определения, является ли определенный год високосным.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      bool leap_year(int year) {
+         return (((year%4) == 0) && (((year%100)!=0) || ((year%400) == 0)));
+      }
+      ```
+      leap [years](https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D1%81%D0%BE%D0%BA%D0%BE%D1%81%D0%BD%D1%8B%D0%B9_%D0%B3%D0%BE%D0%B4)
+    </details>
+
+  ---
+
+  #### 185. Напишите функцию для определения, является ли определенное слово палиндромом.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      #include <iostream>
+      #include <string>
+      #include <algorithm>
+   
+      bool is_palindrome(std::string &pal) {
+          std::string s(pal);
+          std::reverse(s.begin(), s.end());
+          return pal == s; 
+      }
+   
+      int main() {
+      std::string s = "madam"; 
+      std::cout << std::boolalpha << is_palindrome(s);
+      }
+      ```
+     </details>
+
+  ---
+
+  #### 186. Напишите реализацию паттерна Singleton.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      class Singleton {
+      public:
+          static Singleton *get_instance();
+          Singleton(const Singleton &) = delete;
+
+          Singleton(Singleton &&) = delete;
+
+          Singleton &operator=(const Singleton &) = delete;
+
+          Singleton &operator=(Singleton &&) = delete;
+
+          friend class Singleton_destroyer;
+
+      private:
+          Singleton();
+    
+          ~Singleton();
+    
+          static Singleton *ptr;
+      };
+    
+      class Singleton_destroyer {
+      public:
+          ~Singleton_destroyer() {
+              delete Singleton::ptr;
+          }
+      };
+      ```
+        - More [materials ](https://stackoverflow.com/questions/1008019/c-singleton-design-pattern/1008289#1008289)
+
+    </details>
+
+  ---
+
+  #### 187. Напишите реализацию std::vector с операциями: push_back, push_front, pop_back, pop_front, size, clear.
+
+    - <details><summary>Отвте:</summary>
+
+      ```c++
+      #define MAX 100
+      class Dequeue {
+          int arr[MAX];
+          int front,rear, size;
+      public:
+          Dequeue(int size) {
+              front = -1;
+              rear = 0;
+              this->size = size;
+          }
+
+         void insert_front(int n) ;
+         void insert_rear(int n);
+         void delete_front();
+         void delete_rear();
+    
+         bool is_full();
+         bool is_empty();
+         int get_front();
+         int get_rear();
+      };
+      ```
+      source [code](Codes/junior/code_187_1.cpp)
+    </details>
+
+  ---
+
+  ####  188. Напишите рекурсивный поиск значения в дереве бинарного поиска.
+
+    - <details><summary>Ответ:</summary>
+  
+  
+    </details>
+
 [//]: # ([/: # &#40;[Автор вопросов]&#40;https://dou.ua/lenta/articles/interview-questions-c-developer/&#41;&#41;)
