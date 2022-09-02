@@ -8711,7 +8711,7 @@
            }
        }
        ```
-      - source [code](Codes/junior/code_182_1.cpp)
+        - source [code](Codes/junior/code_182_1.cpp)
     </details>
 
   ---
@@ -8875,11 +8875,89 @@
 
   ---
 
-  ####  188. Напишите рекурсивный поиск значения в дереве бинарного поиска.
+  #### 188. Напишите рекурсивный поиск значения в дереве бинарного поиска.
 
     - <details><summary>Ответ:</summary>
-  
-  
+
+      ```c++
+      template <class T>
+      bool BST<T>::search(const struct Node<T> *root, const T& x) const {
+          if (root == NULL)
+              return false;
+          else
+              if (root->data == x)
+                  return true;
+              else
+                  if (root->data < x)
+                      return search(root->right, x);
+                  else
+          return search(root->left, x);
+      }
+      ```
     </details>
 
-[//]: # ([/: # &#40;[Автор вопросов]&#40;https://dou.ua/lenta/articles/interview-questions-c-developer/&#41;&#41;)
+  ---
+
+  #### 189. Напишите функцию, которая проверяет, является ли дерево сбалансированным.
+
+    - <details><summary>Ответ:</summary>
+
+        - Struct Node
+
+      ```c++
+      class Node {
+      public:
+          int data_;
+          Node *left_;
+          Node *right_;
+          Node(int d) {
+              int data = d;
+              left_ = right_ = NULL;
+          }
+      };
+      ```
+        - function to calculate the height =f a tree
+
+      ```c++
+      int height(Node * node) {
+          if(node == NULL) return 0;
+          return 1 + std::max(height(node->left_), height(node->right_));
+      }
+      ```
+
+        - Function true if binary tree
+
+      ```c++
+      bool is_balanced(Node*node) {
+          int lhs;
+          int rhs;
+          if(node == NULL) return 1;
+          lhs = height(node->left_);
+          rhs = height(node->right_);
+          if(std::abs(lhs - rhs) <= 1 && is_balanced(node->left_) && is_balanced(node->right_)) return 1;
+          return 0;
+      }
+      ``` 
+      source [code](Codes/junior/code_189_1.cpp)
+    </details>
+
+  ---
+
+  #### 190. Напишить функцию для поиска уникального элемента в массиве.
+
+    - <details><summary>Ответ:</summary>
+
+      ```c++
+      #include <iostream>
+      #include <unordered_set>
+      #include <vector>
+      
+      int main() {
+          std::vector<int> vec{1, 2, 3, 4, 4, 5, 3, 2, 1};
+          std::unordered_set<int> mySet(vec.begin(), vec.end());
+          for (auto i: mySet) std::cout << i << ' ';
+      }
+      ```
+    </details>
+
+  ([Автор вопросов](https://dou.ua/lenta/articles/interview-questions-c-developer/))
