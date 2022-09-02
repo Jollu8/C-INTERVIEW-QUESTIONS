@@ -28,11 +28,12 @@
             - Data race
             - STL
             - Algorithms
+            - I love my life because of C++
 
         - Unlike
             - Pointers
             - C++
-            - My life
+            - I hate my life because it has to do with C++
     </details>
 
   ---
@@ -430,6 +431,5 @@
   #### 8. Что такое операционная система? Какие существуют типы по назначению?
 
     - <details><summary>Ответ:</summary>
-  
-      
+
     </details>
