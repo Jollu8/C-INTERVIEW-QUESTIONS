@@ -8701,17 +8701,17 @@
 
     - <details><summary>Ответ:</summary>
 
-     ```c++
-     void delete_element_from_u_map(std::unordered_map<int, int> &m) {
-         for (auto it = m.begin(); it != m.end();) {
-             if (it->second % 2 == 0) {
-                 std::cout << it->first << ' ';
-                 it = m.erase(it);
-             } else it++;
-         }
-     }
-     ```
-    - source [code](Codes/junior/code_182_1.cpp)
+       ```c++
+       void delete_element_from_u_map(std::unordered_map<int, int> &m) {
+           for (auto it = m.begin(); it != m.end();) {
+               if (it->second % 2 == 0) {
+                   std::cout << it->first << ' ';
+                   it = m.erase(it);
+               } else it++;
+           }
+       }
+       ```
+      - source [code](Codes/junior/code_182_1.cpp)
     </details>
 
   ---
