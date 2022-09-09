@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="C_INTERVIEW_QUESTIONS" targetName="C_INTERVIEW_QUESTIONS" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="95d9d95d-9596-4d5c-bb5e-d051f3f9659c" name="Changes" comment="!">
+      <change afterPath="$PROJECT_DIR$/img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middle.md" beforeDir="false" afterPath="$PROJECT_DIR$/middle.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2022" />
+    <option name="minorVersion" value="2.1" />
+  </component>
+  <component name="ProjectId" id="2DgS2b2hddrnDbKSL5R6K58kmRe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/Images/middle&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CPPToolchains&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Images/middle" />
+      <recent name="$PROJECT_DIR$/Images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="C_INTERVIEW_QUESTIONS" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="C_INTERVIEW_QUESTIONS" TARGET_NAME="C_INTERVIEW_QUESTIONS" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="C_INTERVIEW_QUESTIONS" RUN_TARGET_NAME="C_INTERVIEW_QUESTIONS">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="95d9d95d-9596-4d5c-bb5e-d051f3f9659c" name="Changes" comment="" />
+      <created>1661119027657</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1661119027657</updated>
+      <workItem from="1661119029372" duration="606000" />
+      <workItem from="1661191842987" duration="1583000" />
+      <workItem from="1661241928325" duration="4053000" />
+      <workItem from="1661258328459" duration="2153000" />
+      <workItem from="1661267297705" duration="2905000" />
+      <workItem from="1661342794019" duration="3049000" />
+      <workItem from="1661416090742" duration="4393000" />
+      <workItem from="1661517058460" duration="5682000" />
+      <workItem from="1661532301059" duration="11000" />
+      <workItem from="1661535428004" duration="633000" />
+      <workItem from="1661539647967" duration="1495000" />
+      <workItem from="1661598916650" duration="2051000" />
+      <workItem from="1661603907148" duration="12102000" />
+      <workItem from="1661624089498" duration="2454000" />
+      <workItem from="1661626579106" duration="853000" />
+      <workItem from="1661629516703" duration="954000" />
+      <workItem from="1661696657228" duration="5080000" />
+      <workItem from="1661770915560" duration="1465000" />
+      <workItem from="1661862847345" duration="10101000" />
+      <workItem from="1661938538566" duration="2942000" />
+      <workItem from="1661941489830" duration="7153000" />
+      <workItem from="1661957129816" duration="5531000" />
+      <workItem from="1662018260799" duration="916000" />
+      <workItem from="1662020246284" duration="14565000" />
+      <workItem from="1662115796655" duration="25231000" />
+      <workItem from="1662384761212" duration="14920000" />
+      <workItem from="1662552704851" duration="6451000" />
+      <workItem from="1662639730693" duration="9249000" />
+    </task>
+    <task id="LOCAL-00001" summary="!">
+      <created>1661342532648</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1661342532648</updated>
+    </task>
+    <task id="LOCAL-00002" summary="!">
+      <created>1661342806967</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1661342806967</updated>
+    </task>
+    <task id="LOCAL-00003" summary="!">
+      <created>1661523012597</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1661523012597</updated>
+    </task>
+    <task id="LOCAL-00004" summary="!">
+      <created>1661523022631</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1661523022631</updated>
+    </task>
+    <task id="LOCAL-00005" summary="!">
+      <created>1661614572605</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1661614572605</updated>
+    </task>
+    <task id="LOCAL-00006" summary="!">
+      <created>1661621597069</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1661621597069</updated>
+    </task>
+    <task id="LOCAL-00007" summary="!">
+      <created>1661946747481</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1661946747481</updated>
+    </task>
+    <task id="LOCAL-00008" summary="!">
+      <created>1662022313135</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1662022313135</updated>
+    </task>
+    <task id="LOCAL-00009" summary="!">
+      <created>1662022961383</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1662022961383</updated>
+    </task>
+    <task id="LOCAL-00010" summary="!">
+      <created>1662023264507</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1662023264507</updated>
+    </task>
+    <task id="LOCAL-00011" summary="!">
+      <created>1662059123415</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1662059123415</updated>
+    </task>
+    <task id="LOCAL-00012" summary="!">
+      <created>1662115888537</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1662115888537</updated>
+    </task>
+    <task id="LOCAL-00013" summary="!">
+      <created>1662135146401</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1662135146401</updated>
+    </task>
+    <task id="LOCAL-00014" summary="!">
+      <created>1662150732306</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1662150732306</updated>
+    </task>
+    <task id="LOCAL-00015" summary="!">
+      <created>1662150935994</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1662150935994</updated>
+    </task>
+    <task id="LOCAL-00016" summary="!">
+      <created>1662220842075</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1662220842075</updated>
+    </task>
+    <task id="LOCAL-00017" summary="!">
+      <created>1662220928633</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1662220928633</updated>
+    </task>
+    <task id="LOCAL-00018" summary="!">
+      <created>1662564347234</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1662564347234</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="!" />
+    <option name="LAST_COMMIT_MESSAGE" value="!" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
