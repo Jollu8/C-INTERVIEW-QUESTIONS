@@ -1,3 +1,12 @@
-/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/C_INTERVIEW_QUESTIONS.dir
-/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_4.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_9.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_10.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_11.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_14_1.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_14_2.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_15.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_22.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_23_1.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_23_2.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/rebuild_cache.dir

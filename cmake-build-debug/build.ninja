@@ -8,7 +8,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: C_INTERVIEW_QUESTIONS
+# Project: cppinterview
 # Configurations: Debug
 # =============================================================================
 
@@ -36,44 +36,323 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug/
+cmake_ninja_workdir = /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target C_INTERVIEW_QUESTIONS
+# Object build statements for EXECUTABLE target junior_4
 
 
 #############################################
-# Order-only phony target for C_INTERVIEW_QUESTIONS
+# Order-only phony target for junior_4
 
-build cmake_object_order_depends_target_C_INTERVIEW_QUESTIONS: phony || CMakeFiles/C_INTERVIEW_QUESTIONS.dir
+build cmake_object_order_depends_target_junior_4: phony || CMakeFiles/junior_4.dir
 
-build CMakeFiles/C_INTERVIEW_QUESTIONS.dir/main.cpp.o: CXX_COMPILER__C_INTERVIEW_QUESTIONS_Debug /Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/main.cpp || cmake_object_order_depends_target_C_INTERVIEW_QUESTIONS
-  DEP_FILE = CMakeFiles/C_INTERVIEW_QUESTIONS.dir/main.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++20
-  OBJECT_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
-  OBJECT_FILE_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
+build CMakeFiles/junior_4.dir/Codes/junior/code_4.cpp.o: CXX_COMPILER__junior_4_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/code_4.cpp || cmake_object_order_depends_target_junior_4
+  DEP_FILE = CMakeFiles/junior_4.dir/Codes/junior/code_4.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_4.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_4.dir/Codes/junior
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target C_INTERVIEW_QUESTIONS
+# Link build statements for EXECUTABLE target junior_4
 
 
 #############################################
-# Link the executable C_INTERVIEW_QUESTIONS
+# Link the executable junior_4
 
-build C_INTERVIEW_QUESTIONS: CXX_EXECUTABLE_LINKER__C_INTERVIEW_QUESTIONS_Debug CMakeFiles/C_INTERVIEW_QUESTIONS.dir/main.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
-  OBJECT_DIR = CMakeFiles/C_INTERVIEW_QUESTIONS.dir
+build junior_4: CXX_EXECUTABLE_LINKER__junior_4_Debug CMakeFiles/junior_4.dir/Codes/junior/code_4.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_4.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = C_INTERVIEW_QUESTIONS
-  TARGET_PDB = C_INTERVIEW_QUESTIONS.dbg
+  TARGET_FILE = junior_4
+  TARGET_PDB = junior_4.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_9
+
+
+#############################################
+# Order-only phony target for junior_9
+
+build cmake_object_order_depends_target_junior_9: phony || CMakeFiles/junior_9.dir
+
+build CMakeFiles/junior_9.dir/Codes/junior/code_9.cpp.o: CXX_COMPILER__junior_9_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/code_9.cpp || cmake_object_order_depends_target_junior_9
+  DEP_FILE = CMakeFiles/junior_9.dir/Codes/junior/code_9.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_9.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_9.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_9
+
+
+#############################################
+# Link the executable junior_9
+
+build junior_9: CXX_EXECUTABLE_LINKER__junior_9_Debug CMakeFiles/junior_9.dir/Codes/junior/code_9.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_9.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_9
+  TARGET_PDB = junior_9.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_10
+
+
+#############################################
+# Order-only phony target for junior_10
+
+build cmake_object_order_depends_target_junior_10: phony || CMakeFiles/junior_10.dir
+
+build CMakeFiles/junior_10.dir/Codes/junior/jcode_10.cpp.o: CXX_COMPILER__junior_10_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_10.cpp || cmake_object_order_depends_target_junior_10
+  DEP_FILE = CMakeFiles/junior_10.dir/Codes/junior/jcode_10.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_10.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_10.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_10
+
+
+#############################################
+# Link the executable junior_10
+
+build junior_10: CXX_EXECUTABLE_LINKER__junior_10_Debug CMakeFiles/junior_10.dir/Codes/junior/jcode_10.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_10.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_10
+  TARGET_PDB = junior_10.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_11
+
+
+#############################################
+# Order-only phony target for junior_11
+
+build cmake_object_order_depends_target_junior_11: phony || CMakeFiles/junior_11.dir
+
+build CMakeFiles/junior_11.dir/Codes/junior/jcode_11.cpp.o: CXX_COMPILER__junior_11_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_11.cpp || cmake_object_order_depends_target_junior_11
+  DEP_FILE = CMakeFiles/junior_11.dir/Codes/junior/jcode_11.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_11.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_11.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_11
+
+
+#############################################
+# Link the executable junior_11
+
+build junior_11: CXX_EXECUTABLE_LINKER__junior_11_Debug CMakeFiles/junior_11.dir/Codes/junior/jcode_11.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_11.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_11
+  TARGET_PDB = junior_11.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_14_1
+
+
+#############################################
+# Order-only phony target for junior_14_1
+
+build cmake_object_order_depends_target_junior_14_1: phony || CMakeFiles/junior_14_1.dir
+
+build CMakeFiles/junior_14_1.dir/Codes/junior/jcode_14_1.cpp.o: CXX_COMPILER__junior_14_1_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_14_1.cpp || cmake_object_order_depends_target_junior_14_1
+  DEP_FILE = CMakeFiles/junior_14_1.dir/Codes/junior/jcode_14_1.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_14_1.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_14_1.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_14_1
+
+
+#############################################
+# Link the executable junior_14_1
+
+build junior_14_1: CXX_EXECUTABLE_LINKER__junior_14_1_Debug CMakeFiles/junior_14_1.dir/Codes/junior/jcode_14_1.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_14_1.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_14_1
+  TARGET_PDB = junior_14_1.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_14_2
+
+
+#############################################
+# Order-only phony target for junior_14_2
+
+build cmake_object_order_depends_target_junior_14_2: phony || CMakeFiles/junior_14_2.dir
+
+build CMakeFiles/junior_14_2.dir/Codes/junior/jcode_14_2.cpp.o: CXX_COMPILER__junior_14_2_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_14_2.cpp || cmake_object_order_depends_target_junior_14_2
+  DEP_FILE = CMakeFiles/junior_14_2.dir/Codes/junior/jcode_14_2.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_14_2.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_14_2.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_14_2
+
+
+#############################################
+# Link the executable junior_14_2
+
+build junior_14_2: CXX_EXECUTABLE_LINKER__junior_14_2_Debug CMakeFiles/junior_14_2.dir/Codes/junior/jcode_14_2.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_14_2.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_14_2
+  TARGET_PDB = junior_14_2.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_15
+
+
+#############################################
+# Order-only phony target for junior_15
+
+build cmake_object_order_depends_target_junior_15: phony || CMakeFiles/junior_15.dir
+
+build CMakeFiles/junior_15.dir/Codes/junior/jcode_15.cpp.o: CXX_COMPILER__junior_15_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_15.cpp || cmake_object_order_depends_target_junior_15
+  DEP_FILE = CMakeFiles/junior_15.dir/Codes/junior/jcode_15.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_15.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_15.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_15
+
+
+#############################################
+# Link the executable junior_15
+
+build junior_15: CXX_EXECUTABLE_LINKER__junior_15_Debug CMakeFiles/junior_15.dir/Codes/junior/jcode_15.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_15.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_15
+  TARGET_PDB = junior_15.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_22
+
+
+#############################################
+# Order-only phony target for junior_22
+
+build cmake_object_order_depends_target_junior_22: phony || CMakeFiles/junior_22.dir
+
+build CMakeFiles/junior_22.dir/Codes/junior/jcode_22.cpp.o: CXX_COMPILER__junior_22_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_22.cpp || cmake_object_order_depends_target_junior_22
+  DEP_FILE = CMakeFiles/junior_22.dir/Codes/junior/jcode_22.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_22.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_22.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_22
+
+
+#############################################
+# Link the executable junior_22
+
+build junior_22: CXX_EXECUTABLE_LINKER__junior_22_Debug CMakeFiles/junior_22.dir/Codes/junior/jcode_22.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_22.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_22
+  TARGET_PDB = junior_22.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_23_1
+
+
+#############################################
+# Order-only phony target for junior_23_1
+
+build cmake_object_order_depends_target_junior_23_1: phony || CMakeFiles/junior_23_1.dir
+
+build CMakeFiles/junior_23_1.dir/Codes/junior/jcode_23_1.cpp.o: CXX_COMPILER__junior_23_1_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_23_1.cpp || cmake_object_order_depends_target_junior_23_1
+  DEP_FILE = CMakeFiles/junior_23_1.dir/Codes/junior/jcode_23_1.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_23_1.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_23_1.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_23_1
+
+
+#############################################
+# Link the executable junior_23_1
+
+build junior_23_1: CXX_EXECUTABLE_LINKER__junior_23_1_Debug CMakeFiles/junior_23_1.dir/Codes/junior/jcode_23_1.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_23_1.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_23_1
+  TARGET_PDB = junior_23_1.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_23_2
+
+
+#############################################
+# Order-only phony target for junior_23_2
+
+build cmake_object_order_depends_target_junior_23_2: phony || CMakeFiles/junior_23_2.dir
+
+build CMakeFiles/junior_23_2.dir/Codes/junior/jcode_23_2.cpp.o: CXX_COMPILER__junior_23_2_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_23_2.cpp || cmake_object_order_depends_target_junior_23_2
+  DEP_FILE = CMakeFiles/junior_23_2.dir/Codes/junior/jcode_23_2.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_23_2.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_23_2.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_23_2
+
+
+#############################################
+# Link the executable junior_23_2
+
+build junior_23_2: CXX_EXECUTABLE_LINKER__junior_23_2_Debug CMakeFiles/junior_23_2.dir/Codes/junior/jcode_23_2.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_23_2.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_23_2
+  TARGET_PDB = junior_23_2.dbg
 
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -84,7 +363,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS -B/Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug
+  COMMAND = cd /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS -B/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -100,9 +379,9 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/jolluemil/CLionProjects/C-INTERVIEW-QUESTIONS/cmake-build-debug
+# Folder: /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug
 
-build all: phony C_INTERVIEW_QUESTIONS
+build all: phony junior_4 junior_9 junior_10 junior_11 junior_14_1 junior_14_2 junior_15 junior_22 junior_23_1 junior_23_2
 
 # =============================================================================
 # Built-in targets
@@ -111,14 +390,14 @@ build all: phony C_INTERVIEW_QUESTIONS
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-GNU-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
+build ../CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-GNU-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
 
 
 #############################################
