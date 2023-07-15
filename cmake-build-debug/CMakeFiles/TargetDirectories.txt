@@ -8,5 +8,7 @@
 /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_22.dir
 /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_23_1.dir
 /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_23_2.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_33.dir
+/Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/junior_37.dir
 /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/edit_cache.dir
 /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug/CMakeFiles/rebuild_cache.dir

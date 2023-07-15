@@ -50,3 +50,13 @@ set_target_properties(junior_23_2 PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON
         )
+add_executable(junior_33 Codes/junior/jcode_33.cpp)
+set_target_properties(junior_33 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+        )
+add_executable(junior_37 Codes/junior/jcode_37.cpp)
+set_target_properties(junior_37 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+        )

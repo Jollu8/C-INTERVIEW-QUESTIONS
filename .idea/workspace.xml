@@ -14,6 +14,7 @@
       <config projectName="cppinterview" targetName="junior_9" />
       <config projectName="cppinterview" targetName="junior_11" />
       <config projectName="cppinterview" targetName="junior_22" />
+      <config projectName="cppinterview" targetName="junior_33" />
       <config projectName="cppinterview" targetName="junior_4" />
       <config projectName="cppinterview" targetName="junior_15" />
       <config projectName="cppinterview" targetName="junior_23_1" />
@@ -30,52 +31,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95d9d95d-9596-4d5c-bb5e-d051f3f9659c" name="Changes" comment="!">
-      <change afterPath="$PROJECT_DIR$/Codes/junior/code_4.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/code_9.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_10.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_11.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_14_1.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_14_2.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_15.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_22.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_23_1.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_23_2.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_33.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_37.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_172_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_174_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_176_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_177_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_178_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_180_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_181_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_182_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_187_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Codes/junior/code_189_1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-798c023f4e8ff22788b1.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-5d703892d2bca8473ada.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-0ebe81c9c0895960cad4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-09-06T12-03-53-0174.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-C_INTERVIEW_QUESTIONS-Debug-766742acf909ed9403c4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-9002b9f304a9a6bc85b8.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeCXXCompiler.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/junior.md" beforeDir="false" afterPath="$PROJECT_DIR$/junior.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -180,6 +143,16 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="junior_33" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_33" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_33">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="junior_37" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_37" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_37">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="junior_4" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_4" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_4">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -200,6 +173,8 @@
       <item itemvalue="CMake Application.junior_22" />
       <item itemvalue="CMake Application.junior_23_1" />
       <item itemvalue="CMake Application.junior_23_2" />
+      <item itemvalue="CMake Application.junior_33" />
+      <item itemvalue="CMake Application.junior_37" />
       <item itemvalue="Google Test.junior_11" />
     </list>
   </component>
@@ -239,7 +214,7 @@
       <workItem from="1662384761212" duration="14920000" />
       <workItem from="1662552704851" duration="6451000" />
       <workItem from="1662639730693" duration="9249000" />
-      <workItem from="1689434499382" duration="6923000" />
+      <workItem from="1689434499382" duration="10762000" />
     </task>
     <task id="LOCAL-00001" summary="!">
       <created>1661342532648</created>
@@ -367,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662564347234</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="!">
+      <created>1689441828742</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1689441828742</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
