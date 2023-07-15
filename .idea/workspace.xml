@@ -11,17 +11,24 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="cppinterview" targetName="junior_9" />
+      <config projectName="cppinterview" targetName="junior_68" />
+      <config projectName="cppinterview" targetName="junior_69" />
       <config projectName="cppinterview" targetName="junior_11" />
       <config projectName="cppinterview" targetName="junior_22" />
       <config projectName="cppinterview" targetName="junior_33" />
-      <config projectName="cppinterview" targetName="junior_4" />
+      <config projectName="cppinterview" targetName="junior_66" />
+      <config projectName="cppinterview" targetName="junior_67" />
       <config projectName="cppinterview" targetName="junior_15" />
+      <config projectName="cppinterview" targetName="junior_37" />
       <config projectName="cppinterview" targetName="junior_23_1" />
       <config projectName="cppinterview" targetName="junior_10" />
       <config projectName="cppinterview" targetName="junior_14_2" />
+      <config projectName="cppinterview" targetName="junior_65" />
       <config projectName="cppinterview" targetName="junior_14_1" />
       <config projectName="cppinterview" targetName="junior_23_2" />
+      <config projectName="cppinterview" targetName="junior_63" />
+      <config projectName="cppinterview" targetName="junior_9" />
+      <config projectName="cppinterview" targetName="junior_4" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -31,8 +38,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95d9d95d-9596-4d5c-bb5e-d051f3f9659c" name="Changes" comment="!">
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_33.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_37.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_41.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_63.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_65.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_66.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_67.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_68.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_69.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
@@ -158,6 +170,36 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="junior_63" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_63" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_63">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="junior_65" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_65" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_65">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="junior_66" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_66" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_66">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="junior_67" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_67" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_67">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="junior_68" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_68" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_68">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="junior_69" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_69" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_69">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="junior_9" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_9" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_9">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -166,6 +208,12 @@
     <list>
       <item itemvalue="CMake Application.junior_10" />
       <item itemvalue="CMake Application.junior_4" />
+      <item itemvalue="CMake Application.junior_63" />
+      <item itemvalue="CMake Application.junior_65" />
+      <item itemvalue="CMake Application.junior_66" />
+      <item itemvalue="CMake Application.junior_67" />
+      <item itemvalue="CMake Application.junior_68" />
+      <item itemvalue="CMake Application.junior_69" />
       <item itemvalue="CMake Application.junior_9" />
       <item itemvalue="CMake Application.junior_14_1" />
       <item itemvalue="CMake Application.junior_14_2" />
@@ -214,7 +262,7 @@
       <workItem from="1662384761212" duration="14920000" />
       <workItem from="1662552704851" duration="6451000" />
       <workItem from="1662639730693" duration="9249000" />
-      <workItem from="1689434499382" duration="10762000" />
+      <workItem from="1689434499382" duration="19159000" />
     </task>
     <task id="LOCAL-00001" summary="!">
       <created>1661342532648</created>
@@ -349,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689441828742</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="!">
+      <created>1689449895188</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1689449895188</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

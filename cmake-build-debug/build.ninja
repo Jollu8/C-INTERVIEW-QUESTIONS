@@ -409,6 +409,192 @@ build junior_37: CXX_EXECUTABLE_LINKER__junior_37_Debug CMakeFiles/junior_37.dir
   TARGET_FILE = junior_37
   TARGET_PDB = junior_37.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_63
+
+
+#############################################
+# Order-only phony target for junior_63
+
+build cmake_object_order_depends_target_junior_63: phony || CMakeFiles/junior_63.dir
+
+build CMakeFiles/junior_63.dir/Codes/junior/jcode_63.cpp.o: CXX_COMPILER__junior_63_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_63.cpp || cmake_object_order_depends_target_junior_63
+  DEP_FILE = CMakeFiles/junior_63.dir/Codes/junior/jcode_63.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_63.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_63.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_63
+
+
+#############################################
+# Link the executable junior_63
+
+build junior_63: CXX_EXECUTABLE_LINKER__junior_63_Debug CMakeFiles/junior_63.dir/Codes/junior/jcode_63.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_63.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_63
+  TARGET_PDB = junior_63.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_65
+
+
+#############################################
+# Order-only phony target for junior_65
+
+build cmake_object_order_depends_target_junior_65: phony || CMakeFiles/junior_65.dir
+
+build CMakeFiles/junior_65.dir/Codes/junior/jcode_65.cpp.o: CXX_COMPILER__junior_65_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_65.cpp || cmake_object_order_depends_target_junior_65
+  DEP_FILE = CMakeFiles/junior_65.dir/Codes/junior/jcode_65.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_65.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_65.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_65
+
+
+#############################################
+# Link the executable junior_65
+
+build junior_65: CXX_EXECUTABLE_LINKER__junior_65_Debug CMakeFiles/junior_65.dir/Codes/junior/jcode_65.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_65.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_65
+  TARGET_PDB = junior_65.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_66
+
+
+#############################################
+# Order-only phony target for junior_66
+
+build cmake_object_order_depends_target_junior_66: phony || CMakeFiles/junior_66.dir
+
+build CMakeFiles/junior_66.dir/Codes/junior/jcode_66.cpp.o: CXX_COMPILER__junior_66_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_66.cpp || cmake_object_order_depends_target_junior_66
+  DEP_FILE = CMakeFiles/junior_66.dir/Codes/junior/jcode_66.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_66.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_66.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_66
+
+
+#############################################
+# Link the executable junior_66
+
+build junior_66: CXX_EXECUTABLE_LINKER__junior_66_Debug CMakeFiles/junior_66.dir/Codes/junior/jcode_66.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_66.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_66
+  TARGET_PDB = junior_66.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_67
+
+
+#############################################
+# Order-only phony target for junior_67
+
+build cmake_object_order_depends_target_junior_67: phony || CMakeFiles/junior_67.dir
+
+build CMakeFiles/junior_67.dir/Codes/junior/jcode_67.cpp.o: CXX_COMPILER__junior_67_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_67.cpp || cmake_object_order_depends_target_junior_67
+  DEP_FILE = CMakeFiles/junior_67.dir/Codes/junior/jcode_67.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_67.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_67.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_67
+
+
+#############################################
+# Link the executable junior_67
+
+build junior_67: CXX_EXECUTABLE_LINKER__junior_67_Debug CMakeFiles/junior_67.dir/Codes/junior/jcode_67.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_67.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_67
+  TARGET_PDB = junior_67.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_68
+
+
+#############################################
+# Order-only phony target for junior_68
+
+build cmake_object_order_depends_target_junior_68: phony || CMakeFiles/junior_68.dir
+
+build CMakeFiles/junior_68.dir/Codes/junior/jcode_68.cpp.o: CXX_COMPILER__junior_68_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_68.cpp || cmake_object_order_depends_target_junior_68
+  DEP_FILE = CMakeFiles/junior_68.dir/Codes/junior/jcode_68.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_68.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_68.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_68
+
+
+#############################################
+# Link the executable junior_68
+
+build junior_68: CXX_EXECUTABLE_LINKER__junior_68_Debug CMakeFiles/junior_68.dir/Codes/junior/jcode_68.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_68.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_68
+  TARGET_PDB = junior_68.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target junior_69
+
+
+#############################################
+# Order-only phony target for junior_69
+
+build cmake_object_order_depends_target_junior_69: phony || CMakeFiles/junior_69.dir
+
+build CMakeFiles/junior_69.dir/Codes/junior/jcode_69.cpp.o: CXX_COMPILER__junior_69_Debug /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/Codes/junior/jcode_69.cpp || cmake_object_order_depends_target_junior_69
+  DEP_FILE = CMakeFiles/junior_69.dir/Codes/junior/jcode_69.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -std=gnu++20
+  OBJECT_DIR = CMakeFiles/junior_69.dir
+  OBJECT_FILE_DIR = CMakeFiles/junior_69.dir/Codes/junior
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target junior_69
+
+
+#############################################
+# Link the executable junior_69
+
+build junior_69: CXX_EXECUTABLE_LINKER__junior_69_Debug CMakeFiles/junior_69.dir/Codes/junior/jcode_69.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk
+  OBJECT_DIR = CMakeFiles/junior_69.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = junior_69
+  TARGET_PDB = junior_69.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -443,7 +629,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug
 
-build all: phony junior_4 junior_9 junior_10 junior_11 junior_14_1 junior_14_2 junior_15 junior_22 junior_23_1 junior_23_2 junior_33 junior_37
+build all: phony junior_4 junior_9 junior_10 junior_11 junior_14_1 junior_14_2 junior_15 junior_22 junior_23_1 junior_23_2 junior_33 junior_37 junior_63 junior_65 junior_66 junior_67 junior_68 junior_69
 
 # =============================================================================
 # Built-in targets

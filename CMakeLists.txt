@@ -60,3 +60,32 @@ set_target_properties(junior_37 PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON
         )
+add_executable(junior_63 Codes/junior/jcode_63.cpp)
+set_target_properties(junior_63 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+        )
+add_executable(junior_65 Codes/junior/jcode_65.cpp)
+set_target_properties(junior_65 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+        )
+add_executable(junior_66 Codes/junior/jcode_66.cpp)
+set_target_properties(junior_66 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+        )
+add_executable(junior_67 Codes/junior/jcode_67.cpp)
+set_target_properties(junior_67 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+        )
+add_executable(junior_68 Codes/junior/jcode_68.cpp)
+set_target_properties(junior_68 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON
+        )
+add_executable(junior_69 Codes/junior/jcode_69.cpp)
+set_target_properties(junior_69 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
