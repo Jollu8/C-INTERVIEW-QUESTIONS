@@ -17,10 +17,12 @@
       <config projectName="cppinterview" targetName="junior_22" />
       <config projectName="cppinterview" targetName="junior_33" />
       <config projectName="cppinterview" targetName="junior_66" />
+      <config projectName="cppinterview" targetName="junior_88" />
       <config projectName="cppinterview" targetName="junior_67" />
       <config projectName="cppinterview" targetName="junior_15" />
       <config projectName="cppinterview" targetName="junior_37" />
       <config projectName="cppinterview" targetName="junior_23_1" />
+      <config projectName="cppinterview" targetName="junior_83" />
       <config projectName="cppinterview" targetName="junior_10" />
       <config projectName="cppinterview" targetName="junior_14_2" />
       <config projectName="cppinterview" targetName="junior_65" />
@@ -37,7 +39,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95d9d95d-9596-4d5c-bb5e-d051f3f9659c" name="Changes" comment="!" />
+    <list default="true" id="95d9d95d-9596-4d5c-bb5e-d051f3f9659c" name="Changes" comment="!">
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_83.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_88.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/junior.md" beforeDir="false" afterPath="$PROJECT_DIR$/junior.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,6 +99,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Images/middle" />
       <recent name="$PROJECT_DIR$/Images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Codes/junior" />
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.junior_4">
@@ -185,6 +196,16 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="junior_83" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_83" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_83">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="junior_88" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_88" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_88">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="junior_9" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cppinterview" TARGET_NAME="junior_9" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cppinterview" RUN_TARGET_NAME="junior_9">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -199,6 +220,8 @@
       <item itemvalue="CMake Application.junior_67" />
       <item itemvalue="CMake Application.junior_68" />
       <item itemvalue="CMake Application.junior_69" />
+      <item itemvalue="CMake Application.junior_83" />
+      <item itemvalue="CMake Application.junior_88" />
       <item itemvalue="CMake Application.junior_9" />
       <item itemvalue="CMake Application.junior_14_1" />
       <item itemvalue="CMake Application.junior_14_2" />
@@ -247,7 +270,7 @@
       <workItem from="1662384761212" duration="14920000" />
       <workItem from="1662552704851" duration="6451000" />
       <workItem from="1662639730693" duration="9249000" />
-      <workItem from="1689434499382" duration="21410000" />
+      <workItem from="1689434499382" duration="28205000" />
     </task>
     <task id="LOCAL-00001" summary="!">
       <created>1661342532648</created>
@@ -410,7 +433,21 @@
       <option name="project" value="LOCAL" />
       <updated>1689466230902</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="!">
+      <created>1689466317084</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1689466317084</updated>
+    </task>
+    <task id="LOCAL-00025" summary="!">
+      <created>1689466348744</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1689466348744</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

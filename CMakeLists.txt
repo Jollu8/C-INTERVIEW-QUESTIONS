@@ -89,3 +89,13 @@ add_executable(junior_69 Codes/junior/jcode_69.cpp)
 set_target_properties(junior_69 PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
+
+add_executable(junior_83 Codes/junior/jcode_83.cpp)
+set_target_properties(junior_83 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
+add_executable(junior_88 Codes/junior/jcode_88.cpp)
+set_target_properties(junior_88 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
