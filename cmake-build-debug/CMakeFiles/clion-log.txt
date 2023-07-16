@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -DCMAKE_CXX_COMPILER=/opt/homebrew/bin/g++ -G Ninja -S /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS -B /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/jolluemil/Desktop/cpptasks/C-INTERVIEW-QUESTIONS/cmake-build-debug
