@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.22)
 project(cppinterview)
 add_executable(junior_4 Codes/junior/code_4.cpp)
 set_target_properties(junior_4 PROPERTIES
@@ -99,3 +99,4 @@ add_executable(junior_88 Codes/junior/jcode_88.cpp)
 set_target_properties(junior_88 PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
+
