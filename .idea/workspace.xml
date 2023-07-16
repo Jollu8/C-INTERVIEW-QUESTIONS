@@ -38,20 +38,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95d9d95d-9596-4d5c-bb5e-d051f3f9659c" name="Changes" comment="!">
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_41.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_63.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_65.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_66.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_67.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_68.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Codes/junior/jcode_69.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/junior.md" beforeDir="false" afterPath="$PROJECT_DIR$/junior.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +250,7 @@
       <workItem from="1662384761212" duration="14920000" />
       <workItem from="1662552704851" duration="6451000" />
       <workItem from="1662639730693" duration="9249000" />
-      <workItem from="1689434499382" duration="19159000" />
+      <workItem from="1689434499382" duration="20113000" />
     </task>
     <task id="LOCAL-00001" summary="!">
       <created>1661342532648</created>
@@ -404,7 +392,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689449895188</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="!">
+      <created>1689464211920</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1689464211920</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
