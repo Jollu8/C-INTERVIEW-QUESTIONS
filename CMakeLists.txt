@@ -100,3 +100,11 @@ set_target_properties(junior_88 PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
+add_executable(junior_187 Codes/junior/jcode_187.cpp)
+set_target_properties(junior_187 PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+add_executable(test test.cpp)
+set_target_properties(test PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
