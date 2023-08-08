@@ -108,3 +108,9 @@ add_executable(test test.cpp)
 set_target_properties(test PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
+
+
+add_executable(example example.cpp)
+set_target_properties(example PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
