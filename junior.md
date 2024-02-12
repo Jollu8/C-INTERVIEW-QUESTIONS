@@ -1079,6 +1079,7 @@ virtual int A() = 0;
 
 
 - ### <span style="color:red">*Memory*</span>
+
 <a id="memory"></a>
 ### Выделение и управление памятью
 
