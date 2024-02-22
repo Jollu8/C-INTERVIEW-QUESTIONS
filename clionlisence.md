@@ -1,4 +1,3 @@
-лицензия для JetBrains (Hunan university )
+лицензия для продукции JetBrains  (Hunan university )
 
-важно, если вы их РФ, рекомендую включить впн
 пишите мне tg @LordJollu 
