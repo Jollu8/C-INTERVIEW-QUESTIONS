@@ -9,6 +9,7 @@
 4. Чтение всех больших книг
 ---
 
+
 ## 1. Основы языка
 - Прежде всего, перейдите по [ссылке](https://www.hackerrank.com/domains/cpp?filters%5Bstatus%5D%5B%5D=unsolved&badge_type=cpp). Если что-то не получается, прочитайте [гид](./readme.md) по остальным темам.
 
@@ -17,7 +18,9 @@
 - Если некоторые материалы доступны только для премиум-аккаунта, переходите по этим ссылкам.
 - [graph](https://www.hackerearth.com/practice/algorithms/graphs/graph-representation/practice-problems/)
 - вот еще [мап](https://neetcode.io/roadmap)
+> Прежде начать создай себе вот такую таблицу
 
+ <img src="./img/table_card.png">
 
 ## 3. SQL
 - Выполните все эти [задачи](https://leetcode.com/explore/learn/card/sql-language/).
