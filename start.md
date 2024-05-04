@@ -23,7 +23,7 @@
  <img src="./img/table_card.png">
 
 ## 3. SQL
-- Выполните все эти [задачи](https://leetcode.com/explore/learn/card/sql-language/).
+- Выполните все эти [задачи и теория](https://rocksql.com/main_page).
 
 ## 4. Проектирование систем
 - Перейдите по этой [ссылке](https://leetcode.com/explore/learn/card/system-design/).
