@@ -25,7 +25,7 @@
 ### 💻 [ОС](materials/OS.md)
 ### ☁️ Компьютерная сеть
 ### 🌩 Сетевое программирование
-### 💾 [База данных теория ](https://www.w3schools.com/sql/default.asp) И  [практика](https://leetcode.com/studyplan/top-sql-50/) 
+### 💾 [База данных теория и пркатика (ru) ](https://stepik.org/course/63054/syllabus) И  [практика leetcode](https://leetcode.com/studyplan/top-sql-50/) 
 ### 📏 [System design](https://github.com/madd86/awesome-system-design)
 ### ⚙️ Библиотека загрузки ссылок
 
