@@ -11,7 +11,12 @@
 
 
 ## 1. Основы языка
-- Прежде всего, перейдите по [ссылке](https://www.hackerrank.com/domains/cpp?filters%5Bstatus%5D%5B%5D=unsolved&badge_type=cpp). Если что-то не получается, прочитайте [гид](./readme.md) по остальным темам.
+- Прежде всего, перейдите:
+ [ссылке eng](https://www.hackerrank.com/domains/cpp?filters%5Bstatus%5D%5B%5D=unsolved&badge_type=cpp).
+[база с практикой ru](https://stepik.org/course/7/promo)
+[средний с практикой ru](https://stepik.org/course/3206) 
+
+ Если что-то не получается, прочитайте [гид](./readme.md) по остальным темам.
 
 ## 2. DSA
 - Как только вы освоите основы языка, перейдите по этой [ссылке](https://leetcode.com/explore/learn/card/the-leetcode-beginners-guide/679/sql-syntax/4358/).
