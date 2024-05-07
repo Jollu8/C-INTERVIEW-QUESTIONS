@@ -12,9 +12,9 @@
 
 ## 1. Основы языка
 - Прежде всего, перейдите:
- [ссылке eng](https://www.hackerrank.com/domains/cpp?filters%5Bstatus%5D%5B%5D=unsolved&badge_type=cpp).
-[база с практикой ru](https://stepik.org/course/7/promo)
-[средний с практикой ru](https://stepik.org/course/3206) 
+- [ссылке eng](https://www.hackerrank.com/domains/cpp?filters%5Bstatus%5D%5B%5D=unsolved&badge_type=cpp).
+- [база с практикой ru](https://stepik.org/course/7/promo)
+- [средний с практикой ru](https://stepik.org/course/3206) 
 
  Если что-то не получается, прочитайте [гид](./readme.md) по остальным темам.
 
