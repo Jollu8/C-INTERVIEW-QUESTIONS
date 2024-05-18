@@ -21,5 +21,11 @@
 | 17. |                   [Longest sub array](./src/problems/task_017.cpp)                    |      |          |
 | 18. |                  [Is one edit distance](./src/problems/task_018.cpp)                  |      |          |
 | 19. |                    [283. Move zeros](./src/problems/task_019.cpp)                     |      |          |
-| 20. |                                                                                       |      |          |
-| 21. |                                                                                       |      |          |
+| 20. |                [22. Generate Parentheses](./src/problems/task_020.cpp)                |      |          |
+| 21. |                [206. Reverse Linked List](./src/problems/task_021.cpp)                |      |          |
+| 22. |                   [49. Group Anagrams](./src/problems/task_021.cpp)                   |      |          |
+| 23. |                                                                                       |      |          |
+| 24. |                                                                                       |      |          |
+| 25. |                                                                                       |      |          |
+| 26. |                                                                                       |      |          |
+| 27. |                                                                                       |      |          |

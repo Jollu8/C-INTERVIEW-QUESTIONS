@@ -1,5 +1,5 @@
 //// Created by @Jollu8 on 5/18/24.
-//// Description 49. Group Anagrams
+//// Description https://leetcode.com/problems/group-anagrams/description/
 ////  @Solution
 #include <vector>
 #include <cassert>
@@ -29,5 +29,3 @@ public:
         return ans;
     }
 };
-
-
