@@ -35,9 +35,10 @@ public:
 
 
 int main() {
-    string str = "aaabbcccssssc";
+    using namespace std::string_literals;
+    string str = "aaabbcccssssc"s;
     Solution s;
-    assert(s.LRE(str) == "a3b2c3s4c");
-    std::cout << "OK!\n";
+    assert(s.LRE(str) == "a3b2c3s4c"s);
+    std::cout << "OK!\n"s;
 
 }

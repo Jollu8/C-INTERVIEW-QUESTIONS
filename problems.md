@@ -24,8 +24,11 @@
 | 20. |                [22. Generate Parentheses](./src/problems/task_020.cpp)                |      |          |
 | 21. |                [206. Reverse Linked List](./src/problems/task_021.cpp)                |      |          |
 | 22. |                   [49. Group Anagrams](./src/problems/task_021.cpp)                   |      |          |
-| 23. |                                                                                       |      |          |
-| 24. |                                                                                       |      |          |
-| 25. |                                                                                       |      |          |
-| 26. |                                                                                       |      |          |
-| 27. |                                                                                       |      |          |
+| 23. |                 [125. Valid Palindrome](./src/problems/task_023.cpp)                  |      |          |
+| 24. |                  [56. Merge Intervals](./src/problems/task_024.cpp)                   |      |          |
+| 25. |            [98. Validate Binary Search Tree](./src/problems/task_025.cpp)             |      |          |
+| 26. |                 [20. Valid Parentheses](./src/problems/task_026.cpp)                  |      |          |
+| 27. |                [42. Trapping Rain Water](./src/problems/task_027.cpp)                 |      |          |
+| 28. |                      [LRE problem](./src/problems/task_028.cpp)                       |      |          |
+| 29. |                                                                                       |      |          |
+| 30. |                                                                                       |      |          |
