@@ -2,7 +2,7 @@
 
 |  N  |                                         Title                                         | tags | Comments |
 |:---:|:-------------------------------------------------------------------------------------:|:----:|:--------:|
-| 1.  |                   [Delete Smiles](./src/problems/task_001.cpp)                        |      |          |
+| 1.  |                     [Delete Smiles](./src/problems/task_001.cpp)                      |      |          |
 | 2.  |                     [Simplify Path](./src/problems/task_002.cpp)                      |      |          |
 | 3.  |                  [356. Line Reflection](./src/problems/task_003.cpp)                  |      |          |
 | 4.  |                  [Meeting room 1 and 2](./src/problems/task_004.cpp)                  |      |          |
@@ -18,8 +18,8 @@
 | 14. | [28. Find the Index of the First Occurrence in a String](./src/problems/task_014.cpp) |      |          |
 | 15. |                  [279. Perfect Squares](./src/problems/task_015.cpp)                  |      |          |
 | 16. |         [150. Evaluate Reverse Polish Notation](./src/problems/task_016.cpp)          |      |          |
-| 17. |                                                                                       |      |          |
-| 18. |                                                                                       |      |          |
-| 19. |                                                                                       |      |          |
+| 17. |                   [Longest sub array](./src/problems/task_017.cpp)                    |      |          |
+| 18. |                  [Is one edit distance](./src/problems/task_018.cpp)                  |      |          |
+| 19. |                    [283. Move zeros](./src/problems/task_019.cpp)                     |      |          |
 | 20. |                                                                                       |      |          |
 | 21. |                                                                                       |      |          |

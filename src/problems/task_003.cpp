@@ -12,6 +12,7 @@
 ////даже если некоторые точки повторяются.
 
 
+
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -22,45 +23,98 @@
 #include <memory>
 #include <set>
 #include <cassert>
+
 using namespace std;
 
-
-class Solution {
+class Solution_1 {
 public:
-    bool isReflected(vector<vector<int>> &A) {
-        set<pair<int, int>> u;
-        int a = 1e9, b = -1e9;
+    bool isReflected(vector<vector<int>> &A, set<pair<int, int>> u = {}) {
+        std::transform(A.begin(), A.end(), std::inserter(u, u.begin()),
+                       [](auto &v) -> pair<int, int> { return {v[0], v[1]}; });
 
-        for (auto &v: A) {
-            u.insert({v[0], v[1]});
-            a = min(a, v[0]);
-            b = max(b, v[0]);
-        }
-        auto s = a + b;
+        auto s = u.begin()->first + u.rbegin()->first;
+        return std::all_of(A.begin(), A.end(),
+                           [&u, &s](const vector<int> &v) { return u.contains({s - v.front(), v.back()}); });
+    }
+};
+
+
+class Solution_2 {
+public:
+    bool isReflected(vector<vector<int>> &A, set<pair<int, int>> u = {}) {
         for (auto &v: A)
-            if (!u.contains({s - v[0], v[1]})) return false;
+            u.insert({v[0], v[1]});
 
+        auto s = u.begin()->first + u.rbegin()->first;
+        for (auto &v: A) if (!u.contains({s - v.front(), v.back()})) return false;
         return true;
     }
 };
 
-void test() {
-    vector<vector<int>> v {{1, 1}, {3, 1}, {7, 1}, {9, 1}};
-    vector<vector<int>> v1 {{1, 1}, {-1, 1}};
-    vector<vector<int>> v2 {{1, 1}, {-1, -1}};
-    vector<vector<int>> v3 {{0, 0}, {1, 0}, {2, 0}};
-    vector<vector<int>> v4 {{0, 0}, {1, 1}, {2, 2}, {3, 3}, {4, 5}, {5, 5}};
-    Solution s;
-    assert(s.isReflected(v) == true);
-    assert(s.isReflected(v1) == true);
-    assert(s.isReflected(v2) == false);
-    assert(s.isReflected(v3) == true);
-    assert(s.isReflected(v4) == false);
 
-}
-int main(){
+class Solution_3 {
+public:
+    bool isReflected(vector<vector<int>> &A) {
+        unordered_map<int, unordered_set<int>> u;
+        int a = -1e9, b = 1e9;
+
+        for (auto &v: A) {
+            u[v[0]].insert(v[1]);
+            a = max(a, v[0]);
+            b = min(b, v[0]);
+        }
+        int s = a + b;
+        return all_of(A.begin(), A.end(), [&u, &s](const vector<int> &v) {
+            return u[s - v[0]].contains(v[1]);
+        });
+    }
+};
+
+void test();
+
+int main() {
     test();
     std::cout << "OK!\n";
 }
 
+void test() {
+    vector<vector<int>> v{{1, 1},
+                          {3, 1},
+                          {7, 1},
+                          {9, 1}};
+    vector<vector<int>> v1{{1,  1},
+                           {-1, 1}};
+    vector<vector<int>> v2{{1,  1},
+                           {-1, -1}};
+    vector<vector<int>> v3{{0, 0},
+                           {1, 0},
+                           {2, 0}};
+    vector<vector<int>> v4{{0, 0},
+                           {1, 1},
+                           {2, 2},
+                           {3, 3},
+                           {4, 5},
+                           {5, 5}};
+    Solution_1 s1;
+    Solution_2 s2;
+    Solution_3 s3;
+    assert(s1.isReflected(v) == true);
+    assert(s1.isReflected(v1) == true);
+    assert(s1.isReflected(v2) == false);
+    assert(s1.isReflected(v3) == true);
+    assert(s1.isReflected(v4) == false);
+
+    assert(s2.isReflected(v) == true);
+    assert(s2.isReflected(v1) == true);
+    assert(s2.isReflected(v2) == false);
+    assert(s2.isReflected(v3) == true);
+    assert(s2.isReflected(v4) == false);
+
+    assert(s3.isReflected(v) == true);
+    assert(s3.isReflected(v1) == true);
+    assert(s3.isReflected(v2) == false);
+    assert(s3.isReflected(v3) == true);
+    assert(s3.isReflected(v4) == false);
+
+}
 
