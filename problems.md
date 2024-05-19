@@ -30,8 +30,8 @@
 | 26. |                 [20. Valid Parentheses](./src/problems/task_026.cpp)                  |      |          |
 | 27. |                [42. Trapping Rain Water](./src/problems/task_027.cpp)                 |      |          |
 | 28. |                      [LRE problem](./src/problems/task_028.cpp)                       |      |          |
-| 29. |                                                                                       |      |          |
-| 30. |                                                                                       |      |          |
-|     |                                                                                       |      |          |
-|     |                                                                                       |      |          |
-|     |                                                                                       |      |          |
+| 29. |              [map with get random element](./src/problems/task_029.cpp)               |      |          |
+| 30. |                     [Get second max](./src/problems/task_030.cpp)                     |      |          |
+| 31. |               [560. Subarray Sum Equals K](./src/problems/task_031.cpp)               |      |          |
+| 32. |           [438. Find All Anagrams in a String](./src/problems/task_032.cpp)           |      |          |
+| 33. |                            [](./src/problems/task_033.cpp)                            |      |          |

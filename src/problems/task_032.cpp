@@ -47,9 +47,8 @@ public:
 int main() {
     Solution s;
 
-     auto ans =  s.findAnagrams("abacb", "abc");  // Выводит: (0,2)
+    auto ans =  s.findAnagrams("abacb", "abc");  // Выводит: (0,2)
 
-     std::cout << ans.size();
+    std::cout << ans.size();
     return 0;
 }
-
