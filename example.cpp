@@ -21,35 +21,22 @@ using namespace std;
 //// @class
 class Solution {
 public:
-    vector<int> findAnagrams(string s, string p) {
-        ios_base::sync_with_stdio(0);
-        cin.tie(0);
-        cout.tie(0);
-        vector<int> a(26), b(26), ans;
-        int n = s.size(), m = p.size();
-        if(n < m) return {};
-        for(int i = 0; i < m; ++i) {
-            ++a[p[i] - 'a'];
-            ++b[s[i] - 'a'];
+    string addStrings(string A1, string A2) {
+        [&]() {
+            int n = A1.size(), m = A2.size();
+            if (n > m) A2 = string(n - m, '0') + A2;
+            else if (m > n) A1 = string(m - n, '0') + A1;
+        }();
+        string ans;
+        int cnt{};
+        ans.reserve(A1.size() + 2);
+        for (int i = A1.size() - 1; i >= 0; --i) {
+            cnt = cnt * 10 + (A1[i] - '0');
+            cnt = cnt * 10 + (A2[i] - '0');
+            ans = (char) ('0' + cnt % 10) + ans;
+            cnt /= 10;
         }
-        if(a == b)ans.push_back(0);
-        for(int i = m; i < n; ++i) {
-            --b[s[i-m] - 'a'];
-            ++b[s[i] - 'a'];
-
-            if(a == b) ans.push_back(i-m+1);
-        }
+        if (cnt) ans = std::to_string(cnt) + ans;
         return ans;
-
     }
 };
-
-int main() {
-    Solution s;
-
-     auto ans =  s.findAnagrams("abacb", "abc");  // Выводит: (0,2)
-
-     std::cout << ans.size();
-    return 0;
-}
-

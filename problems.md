@@ -34,4 +34,4 @@
 | 30. |                     [Get second max](./src/problems/task_030.cpp)                     |      |          |
 | 31. |               [560. Subarray Sum Equals K](./src/problems/task_031.cpp)               |      |          |
 | 32. |           [438. Find All Anagrams in a String](./src/problems/task_032.cpp)           |      |          |
-| 33. |                            [](./src/problems/task_033.cpp)                            |      |          |
+| 33. |                    [415. Add Strings](./src/problems/task_033.cpp)                    |      |          |
