@@ -17,26 +17,56 @@
 
 using namespace std;
 
+//class Solution {
+//public:
+//    string LRE(string &s) {
+//        string ans;
+//        ans += s[0];
+//        if (s.size() == 1) return ans;
+//
+//        for (int cnt = 1, r = 1; r < s.size(); ++r) {
+//            if (s[r - 1] == s[r])++cnt;
+//            else if (cnt > 1) {
+//                ans += {(char) (cnt + '0'),  s[r]};
+//                cnt = 1;
+//            } else ans += s[r];
+//            if (r + 1 == s.size())ans += (cnt > 1 ? string() + (char) (cnt + '0') : "");
+//        }
+//        return ans;
+//    }
+//};
 
-//// @class
+
 class Solution {
 public:
-    string addStrings(string A1, string A2) {
-        [&]() {
-            int n = A1.size(), m = A2.size();
-            if (n > m) A2 = string(n - m, '0') + A2;
-            else if (m > n) A1 = string(m - n, '0') + A1;
-        }();
+    string LRE(string &s) {
         string ans;
-        int cnt{};
-        ans.reserve(A1.size() + 2);
-        for (int i = A1.size() - 1; i >= 0; --i) {
-            cnt = cnt * 10 + (A1[i] - '0');
-            cnt = cnt * 10 + (A2[i] - '0');
-            ans = (char) ('0' + cnt % 10) + ans;
-            cnt /= 10;
+        ans += s[0];
+        for (int cnt = 1, i = 1; i < s.size();) {
+            while (i < s.size() && ans.back() == s[i]) {
+                ++cnt;
+                ++i;
+            }
+            if (cnt > 1)
+                ans += to_string(cnt);
+            if (i < s.size())
+                ans += s[i];
+            cnt = 1;
+            ++i;
         }
-        if (cnt) ans = std::to_string(cnt) + ans;
+        std::cout << ans << '\n';
         return ans;
     }
 };
+
+int main() {
+    string str = "abbccc";
+    Solution s;
+    assert(s.LRE(str) == "ab2c3");
+}
+
+
+
+
+
+
