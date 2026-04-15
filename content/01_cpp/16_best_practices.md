@@ -214,7 +214,7 @@
 200. Какие основные best practices современного C++ ты бы сформулировал для нового проекта?
 
 
-[<- Prev](./15_macro_and_build.md)       [Main](./README.MD)
+[<- Prev](./15_macro_and_build.md)       [Main](README.md)
 
 [1]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=chatgpt.com "C++ Core Guidelines"
 [2]: https://en.cppreference.com/w/cpp/language/raii.html?utm_source=chatgpt.com "RAII"

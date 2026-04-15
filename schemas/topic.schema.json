@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/topic.schema.json",
+  "title": "Topic",
+  "description": "Schema for indexed topic files in the repository",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "section",
+    "path",
+    "question_count",
+    "headings",
+    "links"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique topic identifier, usually derived from relative path"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable title of the topic"
+    },
+    "section": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Top-level content section, for example 01_cpp"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^content/.+\\.md$",
+      "description": "Repository-relative path to markdown file"
+    },
+    "question_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of detected questions inside the topic file"
+    },
+    "headings": {
+      "type": "array",
+      "description": "Markdown headings extracted from file",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "links": {
+      "type": "array",
+      "description": "Markdown links found in file",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
