@@ -35,4 +35,13 @@
 cmake-build-debug/
 cmake-build-release/
 
+# Temp files
 
+generated/index.json
+generated/stats.json
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+venv/
