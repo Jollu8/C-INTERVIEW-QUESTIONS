@@ -68,7 +68,7 @@
 ## ELITE LEVEL
 
 4. Modern Processor Design
-   [https://www.mhprofessional.com/modern-processor-design-fundamentals-of-superscalar-processors-9781578700530-usa](https://www.mhprofessional.com/modern-processor-design-fundamentals-of-superscalar-processors-9781578700530-usa)
+   [https://www.amazon.com/Modern-Processor-Design-Fundamentals-Superscalar/dp/1478607831](https://www.amazon.com/Modern-Processor-Design-Fundamentals-Superscalar/dp/1478607831)
 
 5. Computer Architecture: A Quantitative Approach
    [https://www.elsevier.com/books/computer-architecture-a-quantitative-approach/hennessy/978-0-12-811905-1](https://www.elsevier.com/books/computer-architecture-a-quantitative-approach/hennessy/978-0-12-811905-1)
