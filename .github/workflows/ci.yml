@@ -30,11 +30,17 @@ jobs:
       - name: Build stats
         run: python scripts/stats.py
 
+      - name: Check generated files are up to date
+        run: git diff --exit-code -- generated/index.json generated/stats.json
+
       - name: Validate links
         run: python scripts/validate_links.py
 
       - name: Validate metadata
         run: python scripts/validate_meta.py
+
+      - name: Lint Python
+        run: ruff check scripts tests
 
       - name: Run tests
         run: pytest

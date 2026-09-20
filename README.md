@@ -35,6 +35,8 @@ python scripts/validate_meta.py
 
 # 6. Запустить тесты
 pytest
+```
+
 ---
 
 ## 📌 О проекте
