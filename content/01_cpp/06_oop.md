@@ -8,120 +8,593 @@
 	**Источник:** [Cppreference: classes](https://en.cppreference.com/w/cpp/language/classes)
 
 2. Какие основные идеи лежат в основе ООП?
+
+	**Ответ:** Основные идеи ООП — инкапсуляция, абстракция, наследование и полиморфизм.
+	**Источник:** [Cppreference: classes](https://en.cppreference.com/w/cpp/language/classes)
 3. Что такое объект?
+
+	**Ответ:** Объект — область памяти с типом, значением и временем жизни.
+	**Источник:** [Cppreference: object](https://en.cppreference.com/w/cpp/language/object)
 4. Что такое класс?
+
+	**Ответ:** Класс — пользовательский тип, описывающий данные, операции и правила создания объектов.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 5. Чем класс отличается от объекта?
+
+	**Ответ:** Класс является описанием типа, а объект — конкретным экземпляром этого типа.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 6. Что такое экземпляр класса?
+
+	**Ответ:** Это объект, созданный с типом конкретного класса.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 7. Что такое состояние объекта?
+
+	**Ответ:** Это значения его полей и связанных ресурсов в определённый момент времени.
+	**Источник:** [Cppreference: data members](https://en.cppreference.com/w/cpp/language/data_members)
 8. Что такое поведение объекта?
+
+	**Ответ:** Это набор операций, доступных через функции-члены и другие функции интерфейса.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 9. Что такое поля класса?
+
+	**Ответ:** Поля — данные-члены, составляющие состояние объектов класса.
+	**Источник:** [Cppreference: data members](https://en.cppreference.com/w/cpp/language/data_members)
 10. Что такое методы класса?
+
+	**Ответ:** Методы — функции-члены, объявленные в классе и работающие с его объектом.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 11. Что такое атрибуты объекта?
+
+	**Ответ:** Это свойства или данные, описывающие состояние объекта; в C++ обычно они представлены полями.
+	**Источник:** [Cppreference: data members](https://en.cppreference.com/w/cpp/language/data_members)
 12. Что такое данные-члены класса?
+
+	**Ответ:** Это объявленные в классе переменные, которые бывают нестатическими или статическими.
+	**Источник:** [Cppreference: data members](https://en.cppreference.com/w/cpp/language/data_members)
 13. Что такое функции-члены класса?
+
+	**Ответ:** Это функции, связанные с классом; нестатические функции получают неявный `this`.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 14. Как объявить класс в C++?
+
+	**Ответ:** Используют `class Name { ... };`, после закрывающей фигурной скобки ставится точка с запятой.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 15. Как создать объект класса?
+
+	**Ответ:** Объявите переменную типа класса, например `Widget widget{};`.
+	**Источник:** [Cppreference: initialization](https://en.cppreference.com/w/cpp/language/initialization)
 16. Что такое спецификатор доступа?
+
+	**Ответ:** Он определяет, какие части класса доступны из разных контекстов программы.
+	**Источник:** [Cppreference: access](https://en.cppreference.com/w/cpp/language/access)
 17. Какие спецификаторы доступа есть в C++?
+
+	**Ответ:** `public`, `protected` и `private`.
+	**Источник:** [Cppreference: access](https://en.cppreference.com/w/cpp/language/access)
 18. Что означает `public`?
+
+	**Ответ:** Объявленные после него члены доступны внешнему коду при доступном самом объекте или типе.
+	**Источник:** [Cppreference: access](https://en.cppreference.com/w/cpp/language/access)
 19. Что означает `private`?
+
+	**Ответ:** Члены доступны самому классу и его друзьям, но не обычному внешнему коду.
+	**Источник:** [Cppreference: access](https://en.cppreference.com/w/cpp/language/access)
 20. Что означает `protected`?
+
+	**Ответ:** Члены доступны классу, его друзьям и производным классам.
+	**Источник:** [Cppreference: access](https://en.cppreference.com/w/cpp/language/access)
 21. Какой доступ по умолчанию у членов `class`?
+
+	**Ответ:** `private`.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 22. Какой доступ по умолчанию у членов `struct`?
+
+	**Ответ:** `public`.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 23. Чем `class` отличается от `struct` в C++?
+
+	**Ответ:** Главное различие — доступ по умолчанию и режим наследования: у `class` private, у `struct` public.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 24. Что такое инкапсуляция?
+
+	**Ответ:** Это объединение данных и операций с контролем доступа к внутреннему представлению объекта.
+	**Источник:** [Cppreference: access](https://en.cppreference.com/w/cpp/language/access)
 25. Зачем скрывать данные внутри класса?
+
+	**Ответ:** Чтобы защищать инварианты и менять реализацию без изменения внешнего контракта.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 26. Почему прямой доступ ко всем полям объекта считается плохой практикой?
+
+	**Ответ:** Он позволяет нарушить инварианты и связывает внешний код с деталями хранения.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 27. Что такое интерфейс класса?
+
+	**Ответ:** Это доступные клиенту типы, функции и гарантии, описывающие способы использования класса.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 28. Что такое реализация класса?
+
+	**Ответ:** Это внутренние поля и код методов, обеспечивающие поведение класса.
+	**Источник:** [Cppreference: class](https://en.cppreference.com/w/cpp/language/class)
 29. Что такое метод доступа к данным объекта?
+
+	**Ответ:** Это функция, через которую читают или изменяют состояние объекта по правилам интерфейса.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 30. Что такое геттер?
+
+	**Ответ:** Геттер — метод, возвращающий поле или производное от него значение.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 31. Что такое сеттер?
+
+	**Ответ:** Сеттер — метод, принимающий новое значение и изменяющий состояние с проверкой условий.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 32. Когда геттеры и сеттеры действительно полезны?
+
+	**Ответ:** Когда доступ нужно контролировать, валидировать, логировать или сохранить возможность изменить хранение.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 33. Почему сеттеры не всегда стоит делать для всех полей?
+
+	**Ответ:** Универсальные сеттеры ослабляют инварианты и превращают объект в открытую структуру.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 34. Что такое конструктор?
+
+	**Ответ:** Конструктор — специальная функция, инициализирующая объект при создании.
+	**Источник:** [Cppreference: initializer list](https://en.cppreference.com/w/cpp/language/initializer_list)
 35. Когда вызывается конструктор?
+
+	**Ответ:** Он вызывается при создании объекта, включая создание базового подобъекта или поля.
+	**Источник:** [Cppreference: initializer list](https://en.cppreference.com/w/cpp/language/initializer_list)
 36. Для чего нужен конструктор?
+
+	**Ответ:** Он устанавливает начальное состояние объекта и проверяет необходимые условия его существования.
+	**Источник:** [C++ Core Guidelines: constructors](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 37. Что такое конструктор по умолчанию?
+
+	**Ответ:** Это конструктор, который можно вызвать без аргументов.
+	**Источник:** [Cppreference: default constructor](https://en.cppreference.com/w/cpp/language/default_constructor)
 38. Когда компилятор может сгенерировать конструктор по умолчанию?
+
+	**Ответ:** Если пользователь не объявил конфликтующий конструктор, он может быть неявно объявлен компилятором.
+	**Источник:** [Cppreference: default constructor](https://en.cppreference.com/w/cpp/language/default_constructor)
 39. Что такое деструктор?
+
+	**Ответ:** Деструктор — специальная функция, завершающая lifetime объекта и освобождающая его ресурсы.
+	**Источник:** [Cppreference: destructor](https://en.cppreference.com/w/cpp/language/destructor)
 40. Когда вызывается деструктор?
+
+	**Ответ:** При завершении lifetime объекта, например при выходе из области видимости или удалении.
+	**Источник:** [Cppreference: destructor](https://en.cppreference.com/w/cpp/language/destructor)
 41. Для чего нужен деструктор?
+
+	**Ответ:** Для освобождения ресурсов, которыми владеет объект, и выполнения финальных действий lifetime.
+	**Источник:** [C++ Core Guidelines: RAII](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 42. Может ли класс иметь несколько конструкторов?
+
+	**Ответ:** Да, конструкторы можно перегружать разными списками параметров.
+	**Источник:** [Cppreference: constructors](https://en.cppreference.com/w/cpp/language/initializer_list)
 43. Что такое перегрузка конструкторов?
+
+	**Ответ:** Это несколько конструкторов, принимающих разные параметры и создающих объект разными способами.
+	**Источник:** [Cppreference: constructors](https://en.cppreference.com/w/cpp/language/initializer_list)
 44. Можно ли перегружать методы класса?
+
+	**Ответ:** Да, если методы различаются списком параметров или cv/ref-квалификаторами.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 45. По каким правилам методы считаются перегруженными?
+
+	**Ответ:** Они различаются по параметрам и квалификаторам; одного возвращаемого типа недостаточно.
+	**Источник:** [Cppreference: overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution)
 46. Можно ли перегрузить метод только по возвращаемому типу?
+
+	**Ответ:** Нет, возвращаемый тип не участвует в выборе перегрузки.
+	**Источник:** [Cppreference: overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution)
 47. Что такое объект на стеке?
+
+	**Ответ:** В практическом смысле это объект автоматической длительности хранения; физическое размещение стандарт не гарантирует.
+	**Источник:** [Cppreference: storage duration](https://en.cppreference.com/w/cpp/language/storage_duration)
 48. Что такое объект в динамической памяти?
+
+	**Ответ:** Это объект динамической длительности хранения, созданный средствами динамического выделения.
+	**Источник:** [Cppreference: dynamic storage duration](https://en.cppreference.com/w/cpp/language/storage_duration)
 49. Чем отличается `Class obj;` от `Class* p = new Class;`?
+
+	**Ответ:** Первый объект имеет автоматическую длительность, второй создаётся динамически и требует корректного управления владением.
+	**Источник:** [Cppreference: new expression](https://en.cppreference.com/w/cpp/language/new)
 50. Почему управление временем жизни объекта важно в ООП?
+
+	**Ответ:** Ошибки lifetime приводят к утечкам, use-after-free и нарушению инвариантов объекта.
+	**Источник:** [C++ Core Guidelines: RAII](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 
 ## Ниже среднего уровня
 
 51. Что такое `this` в методе класса?
+
+	**Ответ:** `this` — указатель на объект, для которого вызван нестатический метод.
+	**Источник:** [Cppreference: this pointer](https://en.cppreference.com/w/cpp/language/this)
 52. Что хранит указатель `this`?
+
+	**Ответ:** Адрес текущего объекта.
+	**Источник:** [Cppreference: this pointer](https://en.cppreference.com/w/cpp/language/this)
 53. Можно ли обращаться к полям объекта без `this->` внутри метода?
+
+	**Ответ:** Да, нестатические поля обычно неявно ищутся через текущий объект.
+	**Источник:** [Cppreference: this pointer](https://en.cppreference.com/w/cpp/language/this)
 54. Когда `this->` действительно нужен?
+
+	**Ответ:** При конфликте имён и для зависимых имён в шаблонном базовом классе.
+	**Источник:** [Cppreference: dependent name](https://en.cppreference.com/w/cpp/language/dependent_name)
 55. Что такое константный метод класса?
+
+	**Ответ:** Это метод с квалификатором `const`, который не изменяет обычное состояние объекта.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 56. Как объявить `const`-метод?
+
+	**Ответ:** Добавьте `const` после списка параметров: `int size() const;`.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 57. Что можно делать внутри `const`-метода?
+
+	**Ответ:** Читать состояние и изменять только `mutable`-члены или внешние объекты с допустимым доступом.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 58. Почему `const`-методы важны для интерфейса класса?
+
+	**Ответ:** Они позволяют выполнять операции чтения через `const`-объекты и ссылки.
+	**Источник:** [Cppreference: member functions](https://en.cppreference.com/w/cpp/language/member_functions)
 59. Что такое инициализация полей класса?
+
+	**Ответ:** Это создание и начальная настройка полей до выполнения тела конструктора.
+	**Источник:** [Cppreference: initialization](https://en.cppreference.com/w/cpp/language/initialization)
 60. Чем инициализация полей в списке инициализации отличается от присваивания в теле конструктора?
+
+	**Ответ:** Список сразу конструирует поле, а присваивание выполняется уже после его инициализации.
+	**Источник:** [Cppreference: initializer list](https://en.cppreference.com/w/cpp/language/initializer_list)
 61. Что такое список инициализации конструктора?
+
+	**Ответ:** Это часть после `:`, где инициализируются базовые классы и поля.
+	**Источник:** [Cppreference: initializer list](https://en.cppreference.com/w/cpp/language/initializer_list)
 62. Почему `const`-поля нужно инициализировать именно в списке инициализации?
+
+	**Ответ:** `const`-объект нельзя присвоить после создания.
+	**Источник:** [Cppreference: cv qualification](https://en.cppreference.com/w/cpp/language/cv)
 63. Почему ссылки-члены нужно инициализировать в списке инициализации?
+
+	**Ответ:** Ссылка должна быть привязана при создании и не может быть переназначена.
+	**Источник:** [Cppreference: reference initialization](https://en.cppreference.com/w/cpp/language/reference_initialization)
 64. В каком порядке инициализируются поля класса?
+
+	**Ответ:** В порядке объявления полей в классе, после базовых классов и до тела конструктора.
+	**Источник:** [Cppreference: initializer list](https://en.cppreference.com/w/cpp/language/initializer_list)
 65. Зависит ли порядок инициализации от порядка в списке инициализации?
+
+	**Ответ:** Нет, порядок списка не меняет порядок, заданный объявлениями класса.
+	**Источник:** [Cppreference: initializer list](https://en.cppreference.com/w/cpp/language/initializer_list)
 66. Почему порядок объявления полей важнее порядка в конструкторе?
+
+	**Ответ:** Именно порядок объявлений определяет реальные зависимости и порядок создания членов.
+	**Источник:** [Cppreference: initializer list](https://en.cppreference.com/w/cpp/language/initializer_list)
 67. Что такое статические члены класса?
+
+	**Ответ:** Это члены, принадлежащие классу и общие для его объектов.
+	**Источник:** [Cppreference: static members](https://en.cppreference.com/w/cpp/language/static)
 68. Чем статическое поле отличается от обычного поля?
+
+	**Ответ:** Статическое поле существует в одной общей сущности, а обычное поле есть в каждом объекте.
+	**Источник:** [Cppreference: static members](https://en.cppreference.com/w/cpp/language/static)
 69. Что такое статический метод класса?
+
+	**Ответ:** Это метод без неявного `this`, не зависящий от конкретного объекта.
+	**Источник:** [Cppreference: static members](https://en.cppreference.com/w/cpp/language/static)
 70. Чем статический метод отличается от обычного?
+
+	**Ответ:** Он не имеет `this` и напрямую работает только со статическими членами и аргументами.
+	**Источник:** [Cppreference: static members](https://en.cppreference.com/w/cpp/language/static)
 71. Может ли статический метод обращаться к нестатическим полям без объекта?
+
+	**Ответ:** Нет, ему нужен явный объект или указатель на объект.
+	**Источник:** [Cppreference: static members](https://en.cppreference.com/w/cpp/language/static)
 72. Когда удобно использовать статические поля?
+
+	**Ответ:** Для состояния, общего для всех объектов класса, например счётчика экземпляров.
+	**Источник:** [Cppreference: static members](https://en.cppreference.com/w/cpp/language/static)
 73. Когда удобно использовать статические методы?
+
+	**Ответ:** Для операций, связанных с классом, но не требующих состояния конкретного объекта.
+	**Источник:** [Cppreference: static members](https://en.cppreference.com/w/cpp/language/static)
 74. Что такое дружественная функция?
+
+	**Ответ:** Это внешняя функция, которой класс предоставил доступ к private и protected членам.
+	**Источник:** [Cppreference: friend](https://en.cppreference.com/w/cpp/language/friend)
 75. Что даёт `friend`-функции доступ к приватным членам?
+
+	**Ответ:** Она получает специальное разрешение обращаться к private и protected членам конкретного класса.
+	**Источник:** [Cppreference: friend](https://en.cppreference.com/w/cpp/language/friend)
 76. Когда `friend` оправдан?
+
+	**Ответ:** Когда внешней функции или оператору нужен контролируемый доступ к внутреннему представлению класса.
+	**Источник:** [Cppreference: friend](https://en.cppreference.com/w/cpp/language/friend)
 77. Что такое дружественный класс?
+
+	**Ответ:** Это класс, которому другой класс предоставил доступ к своим private и protected членам.
+	**Источник:** [Cppreference: friend](https://en.cppreference.com/w/cpp/language/friend)
 78. Почему чрезмерное использование `friend` может ухудшать дизайн?
+
+	**Ответ:** Оно расширяет связанность и ослабляет инкапсуляцию, связывая код с деталями реализации.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 79. Что такое композиция в ООП?
+
+	**Ответ:** Композиция строит объект из других объектов, которыми он управляет или владеет.
+	**Источник:** [Cppreference: object](https://en.cppreference.com/w/cpp/language/object)
 80. Что значит, что один объект содержит другой объект?
+
+	**Ответ:** Один класс имеет поле или подобъект другого типа и определяет его роль в своём состоянии.
+	**Источник:** [Cppreference: data members](https://en.cppreference.com/w/cpp/language/data_members)
 81. Чем композиция отличается от простого использования другого класса?
+
+	**Ответ:** При композиции другой объект является частью состояния и обычно связан с lifetime владельца.
+	**Источник:** [Cppreference: data members](https://en.cppreference.com/w/cpp/language/data_members)
 82. Что такое агрегация?
+
+	**Ответ:** Это связь “целое содержит части”, при которой части могут жить независимо от владельца.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 83. Чем композиция отличается от агрегации?
+
+	**Ответ:** При композиции владелец отвечает за lifetime частей, а при агрегации части могут существовать отдельно.
+	**Источник:** [C++ Core Guidelines: interfaces](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 84. Как время жизни объекта-владельца связано с композицией?
+
+	**Ответ:** Владеемые подобъекты создаются и уничтожаются вместе с объектом-владельцем.
+	**Источник:** [Cppreference: object lifetime](https://en.cppreference.com/w/cpp/language/lifetime)
 85. Что такое отношение “has-a”?
+
+	**Ответ:** Это отношение содержания: объект имеет другую сущность как часть своего состояния или зависимости.
+	**Источник:** [Cppreference: data members](https://en.cppreference.com/w/cpp/language/data_members)
 86. Почему композицию часто предпочитают наследованию?
+
+	**Ответ:** Она уменьшает связанность и позволяет заменять детали без расширения иерархии типов.
+	**Источник:** [C++ Core Guidelines: object-oriented programming](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 87. Что такое наследование?
+
+	**Ответ:** Это создание производного класса на основе одного или нескольких базовых классов.
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
 88. Что означает отношение “is-a”?
+
+	**Ответ:** Производный объект должен быть корректно используем там, где ожидается объект базового типа.
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
 89. Когда наследование уместно?
+
+	**Ответ:** Когда есть устойчивое отношение подстановки и производный класс расширяет контракт базового.
+	**Источник:** [C++ Core Guidelines: object-oriented programming](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 90. Когда наследование неуместно?
+
+	**Ответ:** Когда нужна только повторная реализация или связь означает “has-a”; тогда обычно лучше композиция.
+	**Источник:** [C++ Core Guidelines: object-oriented programming](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
 91. Как объявить производный класс в C++?
+
+	**Ответ:** Укажите базовый класс после двоеточия, например `class Dog : public Animal {};`.
+	**Пример:**
+
+	```cpp
+	Dog dog;
+	```
+
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
+
 92. Что наследуется от базового класса?
+
+	**Ответ:** Производный класс получает базовые подобъекты и доступные ему члены, но не становится копией исходного класса.
+	**Пример:**
+
+	```cpp
+	class Dog : public Animal {};
+	Dog dog;
+	dog.eat();
+	```
+
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
+
 93. Что не наследуется от базового класса буквально как член?
+
+	**Ответ:** Конструкторы и деструктор не наследуются как обычные члены; их вызов происходит по правилам создания подобъектов.
+	**Пример:**
+
+	```cpp
+	Dog dog; // сначала вызывается конструктор Animal
+	```
+
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
+
 94. Что происходит с приватными членами базового класса в производном?
+
+	**Ответ:** Они остаются частью базового подобъекта, но напрямую недоступны производному классу.
+	**Пример:**
+
+	```cpp
+	class Dog : public Animal {
+		void show() { /* Animal::name недоступно */ }
+	};
+	```
+	**Источник:** [Cppreference: access](https://en.cppreference.com/w/cpp/language/access)
+
 95. Как `public`-наследование влияет на интерфейс?
+
+	**Ответ:** Public-члены базы остаются public, protected-члены остаются protected, сохраняя отношение подстановки.
+	**Пример:**
+
+	```cpp
+	Animal& animal = dog;
+	```
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
+
 96. Чем `public`, `protected` и `private` наследование отличаются друг от друга?
+
+	**Ответ:** Они определяют доступ к унаследованным public и protected членам через производный тип.
+	**Пример:**
+
+	```cpp
+	class Adapter : private Base {};
+	```
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
+
 97. Что такое базовый класс?
+
+	**Ответ:** Это класс, чьи свойства и интерфейс используются при формировании производного класса.
+	**Пример:**
+
+	```cpp
+	class Dog : public Animal {};
+	```
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
+
 98. Что такое производный класс?
+
+	**Ответ:** Это класс, который наследует один или несколько базовых классов и может расширять их поведение.
+	**Пример:**
+
+	```cpp
+	class Dog : public Animal {
+		void bark();
+	};
+	```
+	**Источник:** [Cppreference: derived class](https://en.cppreference.com/w/cpp/language/derived_class)
+
 99. В каком порядке вызываются конструкторы базового и производного классов?
+
+	**Ответ:** Сначала создаётся базовый подобъект, затем поля и тело конструктора производного класса.
+	**Пример:**
+
+	```cpp
+	Dog dog; // сначала конструируется Animal
+	```
+	**Источник:** [Cppreference: initialization order](https://en.cppreference.com/w/cpp/language/initializer_list)
+
 100. В каком порядке вызываются деструкторы базового и производного классов?
+
+	**Ответ:** Сначала выполняется деструктор производного класса, затем уничтожаются его поля и базовый подобъект.
+	**Пример:**
+
+	```cpp
+	// ~Dog() вызывается до ~Animal()
+	```
+
+	**Источник:** [Cppreference: destructor](https://en.cppreference.com/w/cpp/language/destructor)
 
 ## Средний уровень
 
 101. Что такое полиморфизм в ООП?
+
+	**Ответ:** Полиморфизм позволяет обращаться к объектам разных типов через общий интерфейс.
+	**Пример:**
+
+	```cpp
+	Shape& shape = circle;
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 102. Какие виды полиморфизма обычно выделяют в C++?
+
+	**Ответ:** Обычно выделяют статический полиморфизм времени компиляции и динамический полиморфизм через виртуальные функции.
+	**Пример:**
+
+	```cpp
+	Shape& shape = circle;
+	shape.draw();
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 103. Что такое статический полиморфизм?
+
+	**Ответ:** Это выбор конкретной реализации на этапе компиляции через шаблоны, перегрузки или CRTP.
+	**Пример:**
+
+	```cpp
+	template<class T>
+	void draw(T& value) {}
+	```
+
+	**Источник:** [Cppreference: templates](https://en.cppreference.com/w/cpp/language/templates)
+
 104. Что такое динамический полиморфизм?
+
+	**Ответ:** Это выбор переопределённого виртуального метода во время выполнения по фактическому типу объекта.
+	**Пример:**
+
+	```cpp
+	Shape* shape = new Circle;
+	shape->draw();
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 105. Чем перегрузка функций относится к полиморфизму?
+
+	**Ответ:** Перегрузка позволяет одному имени обозначать разные реализации, выбранные по параметрам вызова.
+	**Пример:**
+
+	```cpp
+	void print(int);
+	void print(std::string);
+	```
+
+	**Источник:** [Cppreference: overload resolution](https://en.cppreference.com/w/cpp/language/overload_resolution)
+
 106. Что такое виртуальная функция?
+
+	**Ответ:** Это функция-член, которую производный класс может переопределить для динамического вызова.
+	**Пример:**
+
+	```cpp
+	virtual void draw() const = 0;
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 107. Как объявить виртуальный метод?
+
+	**Ответ:** Добавьте `virtual` в объявление метода базового класса.
+	**Пример:**
+
+	```cpp
+	virtual void run();
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 108. Что даёт ключевое слово `virtual`?
+
+	**Ответ:** Оно разрешает переопределение метода и динамический выбор реализации через базовый интерфейс.
+	**Пример:**
+
+	```cpp
+	Base* p = new Derived;
+	p->run();
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 109. Когда происходит позднее связывание вызова метода?
+
+	**Ответ:** При вызове виртуального метода через указатель или ссылку на базовый класс.
+	**Пример:**
+
+	```cpp
+	Base& base_ref = derived;
+	base_ref.run();
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 110. Чем позднее связывание отличается от раннего?
+
+	**Ответ:** Раннее связывание выбирается компилятором, а позднее виртуальное связывание определяется во время выполнения.
+	**Пример:**
+
+	```cpp
+	obj.run();       // ранний выбор
+	base_ref.run();  // поздний выбор
+	```
+
+	**Источник:** [Cppreference: virtual functions](https://en.cppreference.com/w/cpp/language/virtual)
+
 111. Почему для динамического полиморфизма нужен указатель или ссылка на базовый класс?
 112. Что произойдёт, если вызвать переопределённый метод через объект по значению?
 113. Что такое переопределение метода?
