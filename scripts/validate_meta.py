@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX_FILE = ROOT / "generated" / "index.json"
+SCHEMA_FILE = ROOT / "schemas" / "topic.schema.json"
 
 REQUIRED_FIELDS = {
     "id": str,
@@ -26,6 +27,13 @@ def load_index() -> list[dict]:
     if not isinstance(data, list):
         raise ValueError("generated/index.json must contain a JSON array")
 
+    return data
+
+
+def load_schema() -> dict:
+    data = json.loads(SCHEMA_FILE.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("topic.schema.json must contain a JSON object")
     return data
 
 
@@ -88,15 +96,23 @@ def validate_record(item: dict, seen_ids: set[str], index: int) -> list[str]:
 def main() -> None:
     try:
         index = load_index()
+        schema = load_schema()
     except Exception as exc:
         print(f"Validation failed: {exc}")
         sys.exit(1)
 
+    from jsonschema import Draft202012Validator
+
     seen_ids: set[str] = set()
     errors: list[str] = []
+    schema_validator = Draft202012Validator(schema)
 
     for idx, item in enumerate(index):
         errors.extend(validate_record(item, seen_ids, idx))
+        for error in schema_validator.iter_errors(item):
+            location = ".".join(str(part) for part in error.absolute_path)
+            suffix = f" at {location}" if location else ""
+            errors.append(f"Entry #{idx}: schema error{suffix}: {error.message}")
 
     if errors:
         print("Metadata validation failed:")

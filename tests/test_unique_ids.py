@@ -14,7 +14,9 @@ def load_index() -> list[dict]:
 def test_index_ids_are_unique() -> None:
     index = load_index()
     ids = [item["id"] for item in index if isinstance(item, dict) and "id" in item]
-    assert len(ids) == len(set(ids)), "Duplicate topic ids found in generated/index.json"
+    assert len(ids) == len(set(ids)), (
+        "Duplicate topic ids found in generated/index.json"
+    )
 
 
 def test_index_ids_are_non_empty_strings() -> None:

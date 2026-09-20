@@ -11,7 +11,7 @@ OUTPUT_FILE = GENERATED_DIR / "index.json"
 
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$", re.MULTILINE)
 LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
-QUESTION_RE = re.compile(r"^\s*(?:Q:|[-*]\s*Q:|##+\s*Q:)", re.MULTILINE)
+QUESTION_RE = re.compile(r"^\s*(?:Q:|[-*+]\s*Q:|##+\s*Q:|\d+[.)]\s+)", re.MULTILINE)
 
 
 def iter_markdown_files(content_dir: Path) -> list[Path]:

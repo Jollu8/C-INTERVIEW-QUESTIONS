@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from scripts.build_index import count_questions
+
 ROOT = Path(__file__).resolve().parents[1]
 INDEX_FILE = ROOT / "generated" / "index.json"
 
@@ -39,7 +41,9 @@ def test_index_paths_exist() -> None:
 
     for i, item in enumerate(index):
         path = ROOT / item["path"]
-        assert path.exists(), f"Entry #{i}: referenced path does not exist -> {item['path']}"
+        assert path.exists(), (
+            f"Entry #{i}: referenced path does not exist -> {item['path']}"
+        )
 
 
 def test_question_count_is_non_negative() -> None:
@@ -47,6 +51,16 @@ def test_question_count_is_non_negative() -> None:
 
     for i, item in enumerate(index):
         assert item["question_count"] >= 0, f"Entry #{i}: question_count must be >= 0"
+
+
+def test_question_count_matches_markdown_files() -> None:
+    for i, item in enumerate(load_index()):
+        path = ROOT / item["path"]
+        text = path.read_text(encoding="utf-8")
+        expected = count_questions(text)
+        assert item["question_count"] == expected, (
+            f"Entry #{i}: question_count does not match {item['path']}"
+        )
 
 
 def test_headings_and_links_contain_strings() -> None:

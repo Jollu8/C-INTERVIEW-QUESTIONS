@@ -6,10 +6,9 @@
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 ![Status](https://img.shields.io/badge/status-in%20progress-orange)
 
-````markdown
 ## C++ INTERVIEW-QUESTIONS
 
-Структурированный сборник 20000+ вопросов и материалов для подготовки к техническим собеседованиям.
+Структурированный сборник 18 000+ вопросов и материалов для подготовки к техническим собеседованиям.
 
 Репозиторий охватывает не только C/C++, но и широкий инженерный стек:
 алгоритмы, concurrency, Linux, networking, инструменты разработки, тестирование, архитектуру, базы данных и Python.
@@ -36,8 +35,6 @@ python scripts/validate_meta.py
 
 # 6. Запустить тесты
 pytest
-````
-
 ---
 
 ## 📌 О проекте
