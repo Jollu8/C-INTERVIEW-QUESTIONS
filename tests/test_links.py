@@ -1,6 +1,8 @@
 import re
 from pathlib import Path
 
+import pytest
+
 from scripts.validate_links import validate_links
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,4 +36,43 @@ def test_missing_anchor_is_reported(tmp_path: Path) -> None:
 
     errors = validate_links(tmp_path, tmp_path)
 
-    assert errors == ["source.md: missing anchor -> target.md#missing"]
+    assert errors == [
+        "source.md:1: missing anchor '#missing' in target file\n"
+        "   Link: [Target](target.md#missing)\n"
+        "   Resolved file: target.md"
+    ]
+
+
+@pytest.mark.parametrize("fence", ["```", "~~~~"])
+@pytest.mark.parametrize("indent", ["", "     "])
+def test_code_blocks_are_not_links(tmp_path: Path, fence: str, indent: str) -> None:
+    source = tmp_path / "source.md"
+    source.write_text(
+        f"{indent}{fence}cpp\n"
+        f"{indent}auto pred = [threshold](int x) {{ return x > threshold; }};\n"
+        f"{indent}[Example](not-a-file.md)\n"
+        f"{indent}{fence}\n"
+        "[Broken](missing.md)\n",
+        encoding="utf-8",
+    )
+
+    assert validate_links(tmp_path, tmp_path) == [
+        "source.md:5: broken link (target file not found)\n"
+        "   Link: [Broken](missing.md)\n"
+        "   Resolved file: missing.md"
+    ]
+
+
+def test_broken_link_reports_resolved_relative_path(tmp_path: Path) -> None:
+    content = tmp_path / "content"
+    content.mkdir()
+    (content / "source.md").write_text(
+        "# Heading\n\nSee [Guide](../guides/missing.md#intro).\n",
+        encoding="utf-8",
+    )
+
+    assert validate_links(content, tmp_path) == [
+        "content/source.md:3: broken link (target file not found)\n"
+        "   Link: [Guide](../guides/missing.md#intro)\n"
+        "   Resolved file: guides/missing.md"
+    ]
