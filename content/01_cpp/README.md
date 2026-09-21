@@ -16,6 +16,3 @@
 14. [Препроцессор_и_сборка](./14_macro_and_build.md)
 15. [Performance](./15_performance.md)
 16. [Best_practices](./16_best_practices.md)
-
-
-                    [Next ->](./02_types.md)
