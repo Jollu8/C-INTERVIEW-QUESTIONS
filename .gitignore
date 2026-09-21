@@ -36,6 +36,7 @@ cmake-build-debug/
 cmake-build-release/
 
 # Temp files
+_site/
 
 generated/index.json
 generated/stats.json
