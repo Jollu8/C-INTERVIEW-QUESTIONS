@@ -45,31 +45,36 @@ pytest
 
 Особенность проекта:
 
-* вопросы идут последовательно;
-* темы углубляются постепенно;
-* допускаются повторения для закрепления;
-* структура важнее "уникальности каждого вопроса".
+- вопросы идут последовательно;
+- темы углубляются постепенно;
+- допускаются повторения для закрепления;
+- структура важнее "уникальности каждого вопроса".
 
 Большинство вопросов:
 
-* собраны из открытых источников;
-* дополнены и расширены;
-* частично сгенерированы с помощью ИИ.
+- собраны из открытых источников;
+- дополнены и расширены;
+- частично сгенерированы с помощью ИИ.
 
 ---
 
 ## 🧠 Тематические разделы
 
-* [01_cpp](./content/01_cpp/README.md) — C/C++
-* [02_algorithms_and_ds](./content/02_algorithms_and_ds/README.md) — алгоритмы
-* [03_concurrency](./content/03_concurrency/README.md) — многопоточность
-* [04_system_linux](./content/04_system_linux/README.md) — Linux / system
-* [05_networking](./content/05_networking/README.md) — сети
-* [06_tools_build_debug](./content/06_tools_build_debug/README.md) — инструменты
-* [07_testing_and_quality](./content/07_testing_and_quality/README.md) — тестирование
-* [08_architecture_and_design](./content/08_architecture_and_design/README.md) — архитектура
-* [09_database_and_storage](./content/09_database_and_storage/README.md) — базы данных
-* [10_python](./content/10_python/README.md) — Python
+| Раздел                       | Вопросы                                                   | Ответы |
+| ---------------------------- | --------------------------------------------------------- | :----: |
+| C/C++                        | [Вопросы](./content/01_cpp/README.md)                     |   ☑    |
+| Алгоритмы и структуры данных | [Вопросы](./content/02_algorithms_and_ds/README.md)       |   ☐    |
+| Многопоточность              | [Вопросы](./content/03_concurrency/README.md)             |   ☐    |
+| Linux / system               | [Вопросы](./content/04_system_linux/README.md)            |   ☐    |
+| Сети                         | [Вопросы](./content/05_networking/README.md)              |   ☐    |
+| Инструменты разработки       | [Вопросы](./content/06_tools_build_debug/README.md)       |   ☐    |
+| Тестирование                 | [Вопросы](./content/07_testing_and_quality/README.md)     |   ☐    |
+| Архитектура                  | [Вопросы](./content/08_architecture_and_design/README.md) |   ☐    |
+| Базы данных                  | [Вопросы](./content/09_database_and_storage/README.md)    |   ☐    |
+| Python                       | [Темы](./content/10_python/README.md)                     |   ☐    |
+
+В разделе C/C++ ответы добавлены к темам от [основ](./content/01_cpp/01_base.md)
+до [STL](./content/01_cpp/08_stl.md) включительно. Остальные темы пока содержат только вопросы.
 
 ---
 
@@ -83,13 +88,13 @@ pytest
 python scripts/build_index.py
 ```
 
-* сканирует `content/**/*.md`
-* извлекает:
+- сканирует `content/**/*.md`
+- извлекает:
+  - заголовки
+  - ссылки
+  - количество вопросов
 
-    * заголовки
-    * ссылки
-    * количество вопросов
-* формирует `generated/index.json`
+- формирует `generated/index.json`
 
 ---
 
@@ -101,9 +106,9 @@ python scripts/stats.py
 
 Генерирует:
 
-* общее количество тем
-* количество вопросов
-* распределение по секциям
+- общее количество тем
+- количество вопросов
+- распределение по секциям
 
 → `generated/stats.json`
 
@@ -117,8 +122,10 @@ python scripts/validate_links.py
 
 Проверяет:
 
-* все локальные markdown-ссылки
-* отсутствие битых путей
+- локальные Markdown-ссылки в `content/**/*.md` вне блоков кода
+- существование целевых файлов и якорей
+
+Корневой `README.md` не входит в область проверки.
 
 ---
 
@@ -130,10 +137,10 @@ python scripts/validate_meta.py
 
 Проверяет:
 
-* структуру `index.json`
-* обязательные поля
-* уникальность `id`
-* существование файлов
+- структуру `index.json`
+- обязательные поля
+- уникальность `id`
+- существование файлов
 
 ---
 
@@ -145,10 +152,10 @@ pytest
 
 Покрывают:
 
-* структуру проекта
-* ссылки
-* уникальность id
-* консистентность данных
+- структуру проекта
+- ссылки
+- уникальность id
+- консистентность данных
 
 ---
 
@@ -183,6 +190,7 @@ content/<section>/<topic>.md
 
 ```bash
 python scripts/build_index.py
+python scripts/stats.py
 python scripts/validate_meta.py
 pytest
 ```
@@ -191,8 +199,8 @@ pytest
 
 ## 🛠 Требования
 
-* Python 3.10+
-* pip
+- Python 3.10+
+- pip
 
 ---
 
@@ -206,9 +214,9 @@ pytest
 
 В репозитории могут встречаться:
 
-* Undefined Behavior
-* tricky cases
-* неоднозначные вопросы
+- Undefined Behavior
+- tricky cases
+- неоднозначные вопросы
 
 Это сделано намеренно для глубины понимания.
 
@@ -218,8 +226,7 @@ pytest
 
 ИИ использовался для:
 
-* редактирования текста
-* переформулирования
-* генерации части вопросов
-* структурирования проекта
-
+- редактирования текста
+- переформулирования
+- генерации части вопросов
+- структурирования проекта
