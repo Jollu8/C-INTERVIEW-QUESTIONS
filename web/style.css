@@ -6,3 +6,14 @@ body>main{width:100%;flex:1}
 .site-footer a{font-size:13px;padding:8px 0;text-decoration:none;text-underline-offset:4px}
 .site-footer a:hover{text-decoration:underline}
 @media(max-width:760px){.site-footer{padding:16px 20px}.site-footer nav{gap:4px 20px}}
+.topic[hidden],.select-all[hidden]{display:none}
+.topic-search{padding:18px 0;border-bottom:1px solid #dde2e0}
+.topic-search label{display:block;font-size:13px;margin-bottom:8px}
+.topic-search input{width:100%;padding:12px;border:1px solid #cbd5cf;border-radius:5px;background:white;color:inherit}
+.question-rating{margin:24px 0;display:flex;flex-wrap:wrap;gap:10px}
+.question-rating legend{margin-bottom:10px}
+.question-rating [data-mark=known][aria-pressed=true]{background:#19654e;color:white;border-color:#19654e}
+.question-rating [data-mark=review][aria-pressed=true]{background:#f4e4bb;color:#674711;border-color:#b89550}
+.progress-tools{border-top:1px solid #dce3df;margin-top:24px;padding-top:16px}
+.progress-tools h3{font-size:14px;font-weight:600;margin:0 0 12px}
+.progress-tools button{font-size:13px;margin:0 8px 8px 0}
