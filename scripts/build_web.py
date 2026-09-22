@@ -11,21 +11,33 @@ from markdown_it import MarkdownIt
 ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN = MarkdownIt("commonmark", {"html": False})
 SECTION_NAMES = [
-    "C/C++", "Алгоритмы и структуры данных", "Многопоточность",
-    "Linux и системы", "Сети", "Инструменты разработки", "Тестирование",
-    "Архитектура", "Базы данных", "Python",
+    "C/C++",
+    "Алгоритмы и структуры данных",
+    "Многопоточность",
+    "Linux и системы",
+    "Сети",
+    "Инструменты разработки",
+    "Тестирование",
+    "Архитектура",
+    "Базы данных",
+    "Python",
 ]
 
 
 def parse_questions(source: str, path: str) -> list[dict]:
     tokens = MARKDOWN.parse(source)
     lines = source.splitlines()
-    boundaries = sorted({
-        token.map[0] for token in tokens if token.map and (
-            (token.type == "list_item_open" and token.level == 1)
-            or (token.type == "heading_open" and token.level == 0)
-        )
-    })
+    boundaries = sorted(
+        {
+            token.map[0]
+            for token in tokens
+            if token.map
+            and (
+                (token.type == "list_item_open" and token.level == 1)
+                or (token.type == "heading_open" and token.level == 0)
+            )
+        }
+    )
     questions = []
     heading = ""
     occurrences: dict[str, int] = {}
@@ -47,18 +59,20 @@ def parse_questions(source: str, path: str) -> list[dict]:
         start, end = token.map
         # Some answers are under-indented and fall outside the Markdown list item.
         end = next((line for line in boundaries if line > start), len(lines))
-        body = textwrap.dedent("\n".join(lines[paragraph.map[1]:end])).strip()
+        body = textwrap.dedent("\n".join(lines[paragraph.map[1] : end])).strip()
         body = re.sub(r"(?m)^\[<- Prev\].*$", "", body).strip()
         has_answer = bool(re.search(r"\*\*Ответ\s*:\*\*", body))
         digest = hashlib.sha256(question.encode()).hexdigest()[:16]
         occurrences[digest] = occurrences.get(digest, 0) + 1
-        questions.append({
-            "id": f"{path}:{digest}:{occurrences[digest]}",
-            "question": MARKDOWN.render(question),
-            "answer": MARKDOWN.render(body) if has_answer else None,
-            "group": heading.replace("_", " "),
-            "line": start + 1,
-        })
+        questions.append(
+            {
+                "id": f"{path}:{digest}:{occurrences[digest]}",
+                "question": MARKDOWN.render(question),
+                "answer": MARKDOWN.render(body) if has_answer else None,
+                "group": heading.replace("_", " "),
+                "line": start + 1,
+            }
+        )
     return questions
 
 
@@ -74,13 +88,16 @@ def build_catalog() -> dict:
             questions = parse_questions(source, path)
             if not questions:
                 continue
-            title = next((line[2:] for line in source.splitlines()
-                          if line.startswith("# ")), file.stem)
+            title = next(
+                (line[2:] for line in source.splitlines() if line.startswith("# ")),
+                file.stem,
+            )
             title = re.sub(r"^\d+[_ .-]*", "", title).replace("_", " ")
             topics.append({"id": path, "title": title, "questions": questions})
         index = int(directory.name.split("_", 1)[0]) - 1
-        sections.append({"id": directory.name, "title": SECTION_NAMES[index],
-                         "topics": topics})
+        sections.append(
+            {"id": directory.name, "title": SECTION_NAMES[index], "topics": topics}
+        )
     return {"sections": sections}
 
 
@@ -89,7 +106,9 @@ def write_web(catalog: dict, directory: Path) -> None:
     chunks.mkdir(parents=True, exist_ok=True)
     for section in catalog["sections"]:
         for topic in section["topics"]:
-            payload = json.dumps(topic["questions"], ensure_ascii=False, separators=(",", ":"))
+            payload = json.dumps(
+                topic["questions"], ensure_ascii=False, separators=(",", ":")
+            )
             digest = hashlib.sha256(payload.encode()).hexdigest()[:16]
             topic["file"] = f"topics/{digest}.js"
             (directory / topic["file"]).write_text(
@@ -99,12 +118,17 @@ def write_web(catalog: dict, directory: Path) -> None:
             )
             # Keep stable IDs and answer flags for filters and saved progress.
             topic["questions"] = [
-                {"id": q["id"].removeprefix(topic["id"] + ":"), "answer": bool(q["answer"])}
+                {
+                    "id": q["id"].removeprefix(topic["id"] + ":"),
+                    "answer": bool(q["answer"]),
+                }
                 for q in topic["questions"]
             ]
     (directory / "data.js").write_text(
-        "window.QUESTION_CATALOG = " + json.dumps(catalog, ensure_ascii=False, separators=(",", ":"))
-        + ";\n", encoding="utf-8",
+        "window.QUESTION_CATALOG = "
+        + json.dumps(catalog, ensure_ascii=False, separators=(",", ":"))
+        + ";\n",
+        encoding="utf-8",
     )
 
 
@@ -115,7 +139,8 @@ def version_assets(directory: Path) -> None:
         digest = hashlib.sha256((directory / name).read_bytes()).hexdigest()[:16]
         source = re.sub(
             rf'((?:src|href)="){re.escape(name)}(?:\?v=[a-f0-9]+)?"',
-            lambda m: m.group(1) + name + "?v=" + digest + '"', source,
+            lambda m: m.group(1) + name + "?v=" + digest + '"',
+            source,
         )
     index.write_text(source, encoding="utf-8")
 
