@@ -84,12 +84,46 @@ def build_catalog() -> dict:
     return {"sections": sections}
 
 
+def write_web(catalog: dict, directory: Path) -> None:
+    chunks = directory / "topics"
+    chunks.mkdir(parents=True, exist_ok=True)
+    for section in catalog["sections"]:
+        for topic in section["topics"]:
+            payload = json.dumps(topic["questions"], ensure_ascii=False, separators=(",", ":"))
+            digest = hashlib.sha256(payload.encode()).hexdigest()[:16]
+            topic["file"] = f"topics/{digest}.js"
+            (directory / topic["file"]).write_text(
+                "window.QUESTION_TOPICS = window.QUESTION_TOPICS || {};\n"
+                + f"window.QUESTION_TOPICS[{json.dumps(topic['id'])}] = {payload};\n",
+                encoding="utf-8",
+            )
+            # Keep stable IDs and answer flags for filters and saved progress.
+            topic["questions"] = [
+                {"id": q["id"].removeprefix(topic["id"] + ":"), "answer": bool(q["answer"])}
+                for q in topic["questions"]
+            ]
+    (directory / "data.js").write_text(
+        "window.QUESTION_CATALOG = " + json.dumps(catalog, ensure_ascii=False, separators=(",", ":"))
+        + ";\n", encoding="utf-8",
+    )
+
+
+def version_assets(directory: Path) -> None:
+    index = directory / "index.html"
+    source = index.read_text(encoding="utf-8")
+    for name in ("data.js", "app.js", "style.css"):
+        digest = hashlib.sha256((directory / name).read_bytes()).hexdigest()[:16]
+        source = re.sub(
+            rf'((?:src|href)="){re.escape(name)}(?:\?v=[a-f0-9]+)?"',
+            lambda m: m.group(1) + name + "?v=" + digest + '"', source,
+        )
+    index.write_text(source, encoding="utf-8")
+
+
 def main() -> None:
     catalog = build_catalog()
-    output = ROOT / "web" / "data.js"
-    output.write_text("window.QUESTION_CATALOG = " + json.dumps(
-        catalog, ensure_ascii=False, separators=(",", ":")
-    ) + ";\n", encoding="utf-8")
+    write_web(catalog, ROOT / "web")
+    version_assets(ROOT / "web")
     count = sum(len(t["questions"]) for s in catalog["sections"] for t in s["topics"])
     print(f"Built web/data.js: {count} questions")
 

@@ -32,6 +32,9 @@ if (!catalog) {
   root.innerHTML = '<h1>Не удалось загрузить вопросы</h1><p>Файл данных недоступен. Попробуйте обновить страницу.</p>';
 } else {
   for (const section of catalog.sections) for (const topic of section.topics) {
+    for (const question of topic.questions) {
+      if (!question.id.startsWith(`${topic.id}:`)) question.id = `${topic.id}:${question.id}`;
+    }
     topics.set(topic.id, topic);
     for (const question of topic.questions) all.set(question.id, {...question, topic: topic.title, section: section.title});
   }
@@ -119,9 +122,53 @@ function start() {
   }
   Object.assign(state, {queue, position: 0, revealed: [], view: 'study'}); save(); render(); window.scrollTo(0, 0);
 }
+function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.onload = resolve;
+    script.onerror = () => { script.remove(); reject(new Error('Loading failed')); };
+    document.head.append(script);
+  });
+}
+async function loadTopic(topic) {
+  if (!topic.loading) topic.loading = loadScript(topic.file).then(() => {
+    for (const question of window.QUESTION_TOPICS[topic.id]) {
+      Object.assign(all.get(question.id), question);
+    }
+    delete window.QUESTION_TOPICS[topic.id];
+  }).catch(error => { topic.loading = null; throw error; });
+  return topic.loading;
+}
+function loadRenderResources() {
+  if (loadRenderResources.started) return;
+  loadRenderResources.started = true;
+  const resources = document.querySelector('#render-resources').content;
+  resources.querySelectorAll('link').forEach(link => document.head.append(link.cloneNode(true)));
+  // KaTeX auto-render depends on KaTeX; highlighting loads independently.
+  const scripts = [...resources.querySelectorAll('script')];
+  loadScript(scripts[0].src).then(() => loadScript(scripts[1].src))
+    .then(() => renderMath(root)).catch(() => {});
+  loadScript(scripts[2].src).then(() => highlightCode(root)).catch(() => {});
+}
 function study() {
   const q = all.get(state.queue[state.position]);
   if (!q) { state.view = 'setup'; save(); render(); return; }
+  if (q.question === undefined) {
+    root.innerHTML = '<p role="status">Загрузка вопросов…</p><button id="back-loading">К темам</button>';
+    document.querySelector('#back-loading').onclick = () => { state.view = 'setup'; save(); render(); };
+    const stillCurrent = () => state.view === 'study' && state.queue[state.position] === q.id;
+    loadTopic(topics.get(q.id.split(':')[0])).then(() => {
+      if (stillCurrent()) study();
+    }).catch(() => {
+      if (!stillCurrent()) return;
+      root.innerHTML = '<p role="status">Не удалось загрузить вопросы. Проверьте соединение.</p><button id="retry">Повторить</button><button id="back-loading">К темам</button>';
+      document.querySelector('#retry').onclick = study;
+      document.querySelector('#back-loading').onclick = () => { state.view = 'setup'; save(); render(); };
+    });
+    return;
+  }
+  loadRenderResources();
   const revealed = state.revealed.includes(q.id);
   root.innerHTML = `<div class="study-top"><button class="text-button" id="back-setup">← К темам</button><span>${state.position + 1} / ${state.queue.length}</span></div><progress value="${state.position + 1}" max="${state.queue.length}" aria-label="Прогресс"></progress><article class="question"><p class="eyebrow">${escapeHtml(q.section)} / ${escapeHtml(q.topic)}</p><p class="group">${escapeHtml(q.group)}</p><div class="question-title">${q.question}</div>${q.answer ? `<button class="reveal" id="reveal" aria-expanded="${revealed}">${revealed ? 'Скрыть ответ' : 'Показать ответ'}</button><div class="answer" ${revealed ? '' : 'hidden'}>${q.answer}</div>` : '<p class="no-answer">Ответ пока не добавлен</p>'}<a class="source-link" href="../${q.id.split(':')[0]}" target="_blank" rel="noopener">Исходный материал ↗</a></article><nav class="question-nav" aria-label="Навигация по вопросам"><button id="prev" ${state.position === 0 ? 'disabled' : ''}>← Назад</button><button class="primary" id="next">${state.position === state.queue.length - 1 ? 'Завершить' : 'Следующий →'}</button></nav>`;
   renderMath(root);
