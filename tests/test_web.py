@@ -1,5 +1,9 @@
 from scripts.build_pages import package_pages
 from scripts.build_web import parse_questions
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_answer_code_and_nested_lists_stay_in_question() -> None:
@@ -36,6 +40,25 @@ def test_html_in_content_is_escaped() -> None:
     )
     assert "<script>" not in questions[0]["question"]
     assert "<img " not in questions[0]["answer"]
+
+
+def test_web_loads_and_runs_math_renderer() -> None:
+    index = (ROOT / "web/index.html").read_text(encoding="utf-8")
+    app = (ROOT / "web/app.js").read_text(encoding="utf-8")
+    assert "katex.min.css" in index
+    assert "katex.min.js" in index
+    assert "auto-render.min.js" in index
+    assert "renderMath(root)" in app
+    assert "ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']" in app
+
+
+def test_web_loads_and_runs_code_highlighter() -> None:
+    index = (ROOT / "web/index.html").read_text(encoding="utf-8")
+    app = (ROOT / "web/app.js").read_text(encoding="utf-8")
+    assert "highlightjs/cdn-release" in index
+    assert "highlight.min.js" in index
+    assert "highlightCode(root)" in app
+    assert "window.hljs.highlightElement(block)" in app
 
 
 def test_under_indented_answer_is_preserved() -> None:

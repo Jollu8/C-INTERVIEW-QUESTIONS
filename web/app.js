@@ -50,6 +50,23 @@ function pool() {
     .filter(q => (!state.onlyAnswers || q.answer) && (!state.onlyReview || state.marks[q.id] === 'review')).map(q => q.id);
 }
 function countText(list) { return `${list.length.toLocaleString('ru')} вопросов · ${list.filter(q => q.answer).length.toLocaleString('ru')} с ответами`; }
+function renderMath(container) {
+  if (typeof window.renderMathInElement !== 'function') return;
+  window.renderMathInElement(container, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+    ],
+    ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+    throwOnError: false,
+  });
+}
+function highlightCode(container) {
+  if (!window.hljs) return;
+  container.querySelectorAll('pre code').forEach(block => window.hljs.highlightElement(block));
+}
 function render() {
   if (state.view === 'setup') setup();
   else if (state.view === 'done') complete();
@@ -107,6 +124,8 @@ function study() {
   if (!q) { state.view = 'setup'; save(); render(); return; }
   const revealed = state.revealed.includes(q.id);
   root.innerHTML = `<div class="study-top"><button class="text-button" id="back-setup">← К темам</button><span>${state.position + 1} / ${state.queue.length}</span></div><progress value="${state.position + 1}" max="${state.queue.length}" aria-label="Прогресс"></progress><article class="question"><p class="eyebrow">${escapeHtml(q.section)} / ${escapeHtml(q.topic)}</p><p class="group">${escapeHtml(q.group)}</p><div class="question-title">${q.question}</div>${q.answer ? `<button class="reveal" id="reveal" aria-expanded="${revealed}">${revealed ? 'Скрыть ответ' : 'Показать ответ'}</button><div class="answer" ${revealed ? '' : 'hidden'}>${q.answer}</div>` : '<p class="no-answer">Ответ пока не добавлен</p>'}<a class="source-link" href="../${q.id.split(':')[0]}" target="_blank" rel="noopener">Исходный материал ↗</a></article><nav class="question-nav" aria-label="Навигация по вопросам"><button id="prev" ${state.position === 0 ? 'disabled' : ''}>← Назад</button><button class="primary" id="next">${state.position === state.queue.length - 1 ? 'Завершить' : 'Следующий →'}</button></nav>`;
+  renderMath(root);
+  highlightCode(root);
   if (revealed || !q.answer) {
     const mark = state.marks[q.id];
     document.querySelector('.source-link').insertAdjacentHTML('beforebegin', `<fieldset class="question-rating"><legend>Ваша оценка</legend><button data-mark="known" aria-pressed="${mark === 'known'}">Знаю</button><button data-mark="review" aria-pressed="${mark === 'review'}">Повторить</button></fieldset>`);

@@ -17,3 +17,4 @@ body>main{width:100%;flex:1}
 .progress-tools{border-top:1px solid #dce3df;margin-top:24px;padding-top:16px}
 .progress-tools h3{font-size:14px;font-weight:600;margin:0 0 12px}
 .progress-tools button{font-size:13px;margin:0 8px 8px 0}
+.katex-display{overflow-x:auto;overflow-y:hidden;padding:2px 0}
