@@ -6,6 +6,7 @@ const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;'
 const all = new Map();
 const topics = new Map();
 let state = {selected: [], mode: 'ordered', onlyAnswers: false, onlyReview: false, marks: {}, queue: [], position: 0, revealed: [], view: 'setup'};
+let settingsExpanded = false;
 function restore(saved) {
   if (!saved || !['queue', 'selected', 'revealed'].every(key =>
     Array.isArray(saved[key]) && saved[key].every(id => typeof id === 'string')) ||
@@ -70,14 +71,52 @@ function highlightCode(container) {
   if (!window.hljs) return;
   container.querySelectorAll('pre code').forEach(block => window.hljs.highlightElement(block));
 }
+function addCodeCopyButtons(container) {
+  container.querySelectorAll('.answer pre').forEach(pre => {
+    if (pre.parentElement.classList.contains('code-example')) return;
+    const code = pre.querySelector('code') || pre;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-example';
+    const toolbar = document.createElement('div');
+    toolbar.className = 'code-toolbar';
+    const status = document.createElement('span');
+    status.setAttribute('role', 'status');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'copy-code';
+    button.textContent = 'Копировать';
+    button.setAttribute('aria-label', 'Копировать код примера');
+    button.onclick = async () => {
+      button.disabled = true;
+      status.textContent = '';
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        status.textContent = 'Скопировано';
+      } catch (_) {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(code);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        status.textContent = 'Скопируйте выделенный код вручную';
+      } finally {
+        button.disabled = false;
+      }
+    };
+    pre.before(wrapper);
+    toolbar.append(status, button);
+    wrapper.append(toolbar, pre);
+  });
+}
 function render() {
+  document.querySelector('#footer-source').hidden = state.view !== 'setup';
   if (state.view === 'setup') setup();
   else if (state.view === 'done') complete();
   else study();
 }
 function setup() {
-  root.innerHTML = `<div class="page-heading"><div><p class="eyebrow">БИБЛИОТЕКА / 10 РАЗДЕЛОВ</p><h1>Что повторим сегодня?</h1></div><span class="total">${all.size.toLocaleString('ru')} вопросов</span></div>
-    ${state.queue.length ? '<div class="resume"><span>Есть сохранённая подборка</span><button id="resume">Продолжить →</button></div>' : ''}
+  root.innerHTML = `<div class="page-heading"><h1 class="library-heading">Библиотека / 10 разделов</h1><span class="total"><strong>${all.size.toLocaleString('ru')}</strong><span>вопросов</span></span></div>
+    ${state.queue.length ? '<div class="resume"><span>Есть сохранённая подборка</span><button id="resume" aria-label="Продолжить сохранённую подборку">Продолжить<span class="resume-mobile-label"> подборку</span> →</button></div>' : ''}
     <div class="setup-layout"><section class="library" aria-label="Темы">${catalog.sections.map((s, index) => {
       const qs = s.topics.flatMap(t => t.questions);
       return `<details ${index === 0 ? 'open' : ''}><summary><span class="section-number">${String(index + 1).padStart(2, '0')}</span><span class="section-name">${escapeHtml(s.title)}<small>${qs.length ? countText(qs) : 'Пока только план тем'}</small></span><span class="expand">+</span></summary>
@@ -99,9 +138,29 @@ function setup() {
   document.querySelector('#only-answers').onchange = event => { state.onlyAnswers = event.target.checked; updateSelection(); save(); };
   document.querySelector('#start').onclick = start;
   addPracticeTools();
+  addSettingsToggle();
   const resume = document.querySelector('#resume');
   if (resume) resume.onclick = () => { state.view = 'study'; save(); render(); };
   updateSelection();
+}
+function addSettingsToggle() {
+  const settings = document.querySelector('.settings');
+  const options = document.createElement('div');
+  options.id = 'training-options';
+  options.className = 'training-options';
+  options.append(...settings.querySelectorAll('fieldset, .answer-filter, .progress-tools'));
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'settings-toggle';
+  toggle.setAttribute('aria-controls', options.id);
+  const update = () => {
+    toggle.setAttribute('aria-expanded', String(settingsExpanded));
+    toggle.textContent = settingsExpanded ? 'Скрыть настройки −' : 'Настройки тренировки +';
+    settings.classList.toggle('settings-expanded', settingsExpanded);
+  };
+  toggle.onclick = () => { settingsExpanded = !settingsExpanded; update(); };
+  update();
+  settings.querySelector('h2').after(toggle, options);
 }
 function updateSelection() {
   const count = pool().length;
@@ -173,6 +232,7 @@ function study() {
   root.innerHTML = `<div class="study-top"><button class="text-button" id="back-setup">← К темам</button><span>${state.position + 1} / ${state.queue.length}</span></div><progress value="${state.position + 1}" max="${state.queue.length}" aria-label="Прогресс"></progress><article class="question"><p class="eyebrow">${escapeHtml(q.section)} / ${escapeHtml(q.topic)}</p><p class="group">${escapeHtml(q.group)}</p><div class="question-title">${q.question}</div>${q.answer ? `<button class="reveal" id="reveal" aria-expanded="${revealed}">${revealed ? 'Скрыть ответ' : 'Показать ответ'}</button><div class="answer" ${revealed ? '' : 'hidden'}>${q.answer}</div>` : '<p class="no-answer">Ответ пока не добавлен</p>'}<a class="source-link" href="../${q.id.split(':')[0]}" target="_blank" rel="noopener">Исходный материал ↗</a></article><nav class="question-nav" aria-label="Навигация по вопросам"><button id="prev" ${state.position === 0 ? 'disabled' : ''}>← Назад</button><button class="primary" id="next">${state.position === state.queue.length - 1 ? 'Завершить' : 'Следующий →'}</button></nav>`;
   renderMath(root);
   highlightCode(root);
+  addCodeCopyButtons(root);
   if (revealed || !q.answer) {
     const mark = state.marks[q.id];
     document.querySelector('.source-link').insertAdjacentHTML('beforebegin', `<fieldset class="question-rating"><legend>Ваша оценка</legend><button data-mark="known" aria-pressed="${mark === 'known'}">Знаю</button><button data-mark="review" aria-pressed="${mark === 'review'}">Повторить</button></fieldset>`);
