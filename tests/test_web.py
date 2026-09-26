@@ -170,6 +170,7 @@ def test_updated_topics_keep_answers_inside_questions() -> None:
         'content/03_concurrency/01_base.md': 100,
         'content/04_system_linux/01_operating_systems.md': 168,
         'content/05_networking/01_osi_and_tcp_ip.md': 74,
+        'content/06_tools_build_debug/01_build.md': 121,
     }
     for path, expected in topics.items():
         questions = parse_questions((ROOT / path).read_text(), path)
