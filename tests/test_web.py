@@ -161,3 +161,20 @@ def test_asset_versions_follow_content(tmp_path) -> None:
     second = (tmp_path / "index.html").read_text()
     assert second != first
     assert second.split("</script>", 1)[1] == first.split("</script>", 1)[1]
+
+
+def test_updated_topics_keep_answers_inside_questions() -> None:
+    topics = {
+        'content/01_cpp/14_macro_and_build.md': 260,
+        'content/01_cpp/15_performance.md': 250,
+        'content/03_concurrency/01_base.md': 100,
+        'content/04_system_linux/01_operating_systems.md': 168,
+        'content/05_networking/01_osi_and_tcp_ip.md': 74,
+    }
+    for path, expected in topics.items():
+        questions = parse_questions((ROOT / path).read_text(), path)
+        assert len(questions) == expected, path
+        for question in questions:
+            assert '<strong>Ответ:' not in question['question'], path
+        if 'operating_systems' not in path:
+            assert all(question['answer'] for question in questions), path

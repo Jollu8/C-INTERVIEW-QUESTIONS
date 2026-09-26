@@ -1,921 +1,3771 @@
-# Препроцессор*и*сборка
+# Препроцессор и сборка
+
 
 ## Лёгкий уровень
 
+
 1. Что такое препроцессор в C++?
 
-   **Ответ:** Препроцессор — это предварительный инструмент конвейера трансляции, выполняющий текстовые преобразования исходного кода (включение файлов, макроподстановку, условную компиляцию) до начала синтаксического и семантического анализа компилятором.
+      **Ответ:** Препроцессор — это предварительный инструмент конвейера трансляции, выполняющий текстовые преобразования исходного кода (включение файлов, макроподстановку, условную компиляцию) до начала синтаксического и семантического анализа компилятором.
+
+      **Пример:**
+
+      ```cpp
+      #define BUFFER_SIZE 512
+      char buffer[BUFFER_SIZE]; // Препроцессор заменит BUFFER_SIZE на 512
+      ```
+
+
+   **Источник:** [Cppreference: Preprocessor](https://en.cppreference.com/w/cpp/preprocessor?utm_source=gemini)
+
+2. На каком этапе обработки кода работает препроцессор?
+
+      **Ответ:** Препроцессор работает на самых первых фазах трансляции C++ (фазы 1–4 из 9 стандартизированных), выполняя нормализацию символов, объединение строк, удаление комментариев и выполнение директив до передачи результата компилятору.
+
+      **Пример:**
+      ```bash
+   # Получение вывода препроцессора (фазы 1-4) в GCC/Clang:
+   g++ -E main.cpp -o main.i
+
+   ```
+
+   **Источник:** [Cppreference: Translation phases](https://en.cppreference.com/w/cpp/language/translation_phases?utm_source=gemini)
+
+3. Чем препроцессор отличается от компилятора?
+
+   **Ответ:** Препроцессор оперирует сырым текстом и лексемами препроцессинга без понимания грамматики, типов данных, пространств имён и областей видимости; компилятор выполняет синтаксический анализ, проверку системы типов и генерацию машинного или ассемблерного кода.
 
    **Пример:**
 
    ```cpp
-   #define BUFFER_SIZE 512
-   char buffer[BUFFER_SIZE]; // Препроцессор заменит BUFFER_SIZE на 512
+   #define FOO int x;
+   // Препроцессор лишь копирует текст "int x;", а компилятор проверяет синтаксис и аллоцирует переменную
+   FOO
+
    ```
 
-````
-
-**Источник:** [Cppreference: Preprocessor](https://en.cppreference.com/w/cpp/preprocessor?utm_source=gemini)
-ß
-2. На каком этапе обработки кода работает препроцессор?
-**Ответ:** Препроцессор работает на самых первых фазах трансляции C++ (фазы 1–4 из 9 стандартизированных), выполняя нормализацию символов, объединение строк, удаление комментариев и выполнение директив до передачи результата компилятору.
-**Пример:**
-```bash
-# Получение вывода препроцессора (фазы 1-4) в GCC/Clang:
-g++ -E main.cpp -o main.i
-
-````
-
-**Источник:** [Cppreference: Translation phases](https://en.cppreference.com/w/cpp/language/translation_phases?utm_source=gemini)
-
-3. Чем препроцессор отличается от компилятора?
-**Ответ:** Препроцессор оперирует сырым текстом и лексемами препроцессинга без понимания грамматики, типов данных, пространств имён и областей видимости; компилятор выполняет синтаксический анализ, проверку системы типов и генерацию машинного или ассемблерного кода.
-**Пример:**
-
-```cpp
-#define FOO int x;
-// Препроцессор лишь копирует текст "int x;", а компилятор проверяет синтаксис и аллоцирует переменную
-FOO
-
-```
-
-**Источник:** [The C++ Programming Language (Bjarne Stroustrup)](https://www.stroustrup.com/4th.html?utm_source=gemini)
+   **Источник:** [The C++ Programming Language (Bjarne Stroustrup)](https://www.stroustrup.com/4th.html?utm_source=gemini)
 
 4. Что такое директива препроцессора?
-**Ответ:** Директива препроцессора — это специальная строка в исходном тексте программы, начинающаяся с символа `#` (без учёта пробелов перед ним), которая даёт препроцессору команду выполнить определенное текстовое преобразование.
-**Пример:**
 
-```cpp
-#line 100 "generated_source.cpp" // Директива управления информацией о строках
+   **Ответ:** Директива препроцессора — это специальная строка в исходном тексте программы, начинающаяся с символа `#` (без учёта пробелов перед ним), которая даёт препроцессору команду выполнить определенное текстовое преобразование.
 
-```
+   **Пример:**
 
-**Источник:** [Cppreference: Preprocessor](https://en.cppreference.com/w/cpp/preprocessor?utm_source=gemini)
+   ```cpp
+   #line 100 "generated_source.cpp" // Директива управления информацией о строках
+
+   ```
+
+   **Источник:** [Cppreference: Preprocessor](https://en.cppreference.com/w/cpp/preprocessor?utm_source=gemini)
 
 5. Почему директивы препроцессора начинаются с символа `#`?
-**Ответ:** Символ решётки `#` был исторически выбран создателями языка C (Деннисом Ритчи и Майком Леском) в качестве уникального управляющего префикса в начале строки, не конфликтующего с базовыми лексемами, идентификаторами и операторами языка.
-**Пример:**
 
-```c
-/* Исторический C78: строки с '#' обрабатывались отдельной утилитой /lib/cpp */
-#include <stdio.h>
+   **Ответ:** Символ решётки `#` был исторически выбран создателями языка C (Деннисом Ритчи и Майком Леском) в качестве уникального управляющего префикса в начале строки, не конфликтующего с базовыми лексемами, идентификаторами и операторами языка.
 
-```
+   **Пример:**
 
-**Источник:** [The Development of the C Language (Dennis M. Ritchie)](https://www.bell-labs.com/usr/dmr/www/chist.html?utm_source=gemini)
+   ```c
+   /* Исторический C78: строки с '#' обрабатывались отдельной утилитой /lib/cpp */
+   #include <stdio.h>
+
+   ```
+
+   **Источник:** [The Development of the C Language (Dennis M. Ritchie)](https://www.bell-labs.com/usr/dmr/www/chist.html?utm_source=gemini)
 
 6. Что делает директива `#include`?
-**Ответ:** Директива `#include` предписывает препроцессору найти указанный заголовочный или исходный файл, полностью прочитать его содержимое и вставить его «как есть» в текущую точку единицы трансляции вместо самой строки директивы.
-**Пример:**
 
-```cpp
-#include <iostream> // Содержимое заголовка iostream вставляется в эту строку
+   **Ответ:** Директива `#include` предписывает препроцессору найти указанный заголовочный или исходный файл, полностью прочитать его содержимое и вставить его «как есть» в текущую точку единицы трансляции вместо самой строки директивы.
 
-```
+   **Пример:**
 
-**Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
+   ```cpp
+   #include <iostream> // Содержимое заголовка iostream вставляется в эту строку
+
+   ```
+
+   **Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
 
 7. Что делает директива `#define`?
-**Ответ:** Директива `#define` определяет макрос препроцессора, ассоциируя идентификатор либо со списком параметров и телом подстановки (функциональный макрос), либо просто с последовательностью токенов (объектный макрос).
-**Пример:**
 
-```cpp
-#define PLATFORM_ID 1
+   **Ответ:** Директива `#define` определяет макрос препроцессора, ассоциируя идентификатор либо со списком параметров и телом подстановки (функциональный макрос), либо просто с последовательностью токенов (объектный макрос).
 
-```
+   **Пример:**
 
-**Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
+   ```cpp
+   #define PLATFORM_ID 1
+
+   ```
+
+   **Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
 
 8. Что делает директива `#undef`?
-**Ответ:** Директива `#undef` отменяет текущее определение макроса с указанным именем, после чего данный идентификатор больше не заменяется препроцессором и считается неопределённым для директив `#ifdef`/`#ifndef`.
-**Пример:**
 
-```cpp
-#define DEBUG_MODE
-#undef DEBUG_MODE
-// Теперь DEBUG_MODE не определён
+   **Ответ:** Директива `#undef` отменяет текущее определение макроса с указанным именем, после чего данный идентификатор больше не заменяется препроцессором и считается неопределённым для директив `#ifdef`/`#ifndef`.
 
-```
+   **Пример:**
 
-**Источник:** [Cppreference: Replacing text macros: #undef](https://www.google.com/search?q=https://en.cppreference.com/w/cpp/preprocessor/replace%2523.23undef&utm_source=gemini)
+   ```cpp
+   #define DEBUG_MODE
+   #undef DEBUG_MODE
+   // Теперь DEBUG_MODE не определён
+
+   ```
+
+   **Источник:** [Cppreference: Replacing text macros: #undef](https://www.google.com/search?q=https://en.cppreference.com/w/cpp/preprocessor/replace%2523.23undef&utm_source=gemini)
 
 9. Что делает директива `#if`?
-**Ответ:** Директива `#if` проверяет константное целочисленное выражение времени препроцессинга; если выражение истинно (не равно нулю), последующий блок кода включается в компиляцию, иначе он отбрасывается до парной директивы `#elif`, `#else` или `#endif`.
-**Пример:**
 
-```cpp
-#define VERSION 2
-#if VERSION > 1
-    void new_feature();
-#endif
+   **Ответ:** Директива `#if` проверяет константное целочисленное выражение времени препроцессинга; если выражение истинно (не равно нулю), последующий блок кода включается в компиляцию, иначе он отбрасывается до парной директивы `#elif`, `#else` или `#endif`.
 
-```
+   **Пример:**
 
-**Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+   ```cpp
+   #define VERSION 2
+   #if VERSION > 1
+       void new_feature();
+   #endif
+
+   ```
+
+   **Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
 
 10. Что делает директива `#ifdef`?
-**Ответ:** Директива `#ifdef IDENTIFIER` проверяет факт определения макроса с заданным именем (эквивалентно `#if defined(IDENTIFIER)`); код внутри ветки компилируется только в том случае, если макрос был предварительно объявлен через `#define` или флаг компилятора `-D`.
-**Пример:**
 
-```cpp
-#ifdef __linux__
-    #include <unistd.h>
-#endif
+    **Ответ:** Директива `#ifdef IDENTIFIER` проверяет факт определения макроса с заданным именем (эквивалентно `#if defined(IDENTIFIER)`); код внутри ветки компилируется только в том случае, если макрос был предварительно объявлен через `#define` или флаг компилятора `-D`.
 
-```
+    **Пример:**
 
-**Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+    ```cpp
+    #ifdef __linux__
+        #include <unistd.h>
+    #endif
+
+    ```
+
+    **Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
 
 11. Что делает директива `#ifndef`?
-**Ответ:** Директива `#ifndef IDENTIFIER` проверяет, что макрос с указанным именем _не_ был определён (эквивалентно `#if !defined(IDENTIFIER)`); используется преимущественно для предотвращения повторного включения заголовочных файлов.
-**Пример:**
 
-```cpp
-#ifndef MY_HEADER_H
-#define MY_HEADER_H
-// Содержимое заголовочного файла
-#endif
+    **Ответ:** Директива `#ifndef IDENTIFIER` проверяет, что макрос с указанным именем _не_ был определён (эквивалентно `#if !defined(IDENTIFIER)`); используется преимущественно для предотвращения повторного включения заголовочных файлов.
 
-```
+    **Пример:**
 
-**Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+    ```cpp
+    #ifndef MY_HEADER_H
+    #define MY_HEADER_H
+    // Содержимое заголовочного файла
+    #endif
+
+    ```
+
+    **Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
 
 12. Что делает директива `#elif`?
-**Ответ:** Директива `#elif` (сокращение от «else if») предоставляет альтернативную ветку условной компиляции с дополнительным логическим выражением, если условие предшествующего `#if` или `#elif` оказалось ложным.
-**Пример:**
 
-```cpp
-#if defined(_WIN32)
-    const char* os = "Windows";
-#elif defined(__APPLE__)
-    const char* os = "macOS";
-#endif
+    **Ответ:** Директива `#elif` (сокращение от «else if») предоставляет альтернативную ветку условной компиляции с дополнительным логическим выражением, если условие предшествующего `#if` или `#elif` оказалось ложным.
 
-```
+    **Пример:**
 
-**Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+    ```cpp
+    #if defined(_WIN32)
+        const char* os = "Windows";
+    #elif defined(__APPLE__)
+        const char* os = "macOS";
+    #endif
+
+    ```
+
+    **Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
 
 13. Что делает директива `#else`?
-**Ответ:** Директива `#else` открывает блок кода, который будет включён в единицу трансляции в том случае, если все предшествующие условия в цепочке `#if`/`#elif`/`#ifdef`/`#ifndef` вернули ложь.
-**Пример:**
 
-```cpp
-#ifdef TEST_MODE
-    int port = 8080;
-#else
-    int port = 80;
-#endif
+    **Ответ:** Директива `#else` открывает блок кода, который будет включён в единицу трансляции в том случае, если все предшествующие условия в цепочке `#if`/`#elif`/`#ifdef`/`#ifndef` вернули ложь.
 
-```
+    **Пример:**
 
-**Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+    ```cpp
+    #ifdef TEST_MODE
+        int port = 8080;
+    #else
+        int port = 80;
+    #endif
+
+    ```
+
+    **Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
 
 14. Что делает директива `#endif`?
-**Ответ:** Директива `#endif` обозначает окончание области действия блока условной компиляции, открытого директивами `#if`, `#ifdef` или `#ifndef`.
-**Пример:**
 
-```cpp
-#if 0
-    // Этот код полностью вырезается препроцессором
-#endif
+    **Ответ:** Директива `#endif` обозначает окончание области действия блока условной компиляции, открытого директивами `#if`, `#ifdef` или `#ifndef`.
 
-```
+    **Пример:**
 
-**Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+    ```cpp
+    #if 0
+        // Этот код полностью вырезается препроцессором
+    #endif
+
+    ```
+
+    **Источник:** [Cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
 
 15. Что делает директива `#error`?
-**Ответ:** Директива `#error message` принудительно прерывает процесс компиляции на этапе препроцессинга и выводит указанное пользователем диагностическое сообщение в консоль сборщика.
-**Пример:**
 
-```cpp
-#if __cplusplus < 202002L
-    #error "This library requires at least a C++20 compliant compiler!"
-#endif
+    **Ответ:** Директива `#error message` принудительно прерывает процесс компиляции на этапе препроцессинга и выводит указанное пользователем диагностическое сообщение в консоль сборщика.
 
-```
+    **Пример:**
 
-**Источник:** [Cppreference: Error directive](https://www.google.com/search?q=https://en.cppreference.com/w/cpp/preprocessor/error&utm_source=gemini)
+    ```cpp
+    #if __cplusplus < 202002L
+        #error "This library requires at least a C++20 compliant compiler!"
+    #endif
+
+    ```
+
+    **Источник:** [Cppreference: Error directive](https://www.google.com/search?q=https://en.cppreference.com/w/cpp/preprocessor/error&utm_source=gemini)
 
 16. Для чего нужна директива `#pragma`?
-**Ответ:** Директива `#pragma` передаёт платформозависимые указания и специальные команды конкретному компилятору (управление предупреждениями, выравниванием структур, оптимизациями или подавлением повторных включений), сохраняя переносимость (неизвестные прагмы игнорируются).
-**Пример:**
 
-```cpp
-#pragma once
-#pragma pack(push, 1)
+    **Ответ:** Директива `#pragma` передаёт платформозависимые указания и специальные команды конкретному компилятору (управление предупреждениями, выравниванием структур, оптимизациями или подавлением повторных включений), сохраняя переносимость (неизвестные прагмы игнорируются).
 
-```
+    **Пример:**
 
-**Источник:** [Cppreference: Diagnostic directives: #pragma](https://en.cppreference.com/w/cpp/preprocessor/impl?utm_source=gemini)
+    ```cpp
+    #pragma once
+    #pragma pack(push, 1)
+
+    ```
+
+    **Источник:** [Cppreference: Diagnostic directives: #pragma](https://en.cppreference.com/w/cpp/preprocessor/impl?utm_source=gemini)
 
 17. Что такое макрос?
 
-**Ответ:** Макрос — это именованный фрагмент текста или шаблон замены, зарегистрированный в таблице препроцессора, который автоматически подставляется и раскрывается в коде везде, где встречается его идентификатор.
+    **Ответ:** Макрос — это именованный фрагмент текста или шаблон замены, зарегистрированный в таблице препроцессора, который автоматически подставляется и раскрывается в коде везде, где встречается его идентификатор.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#define PI 3.14159
-double area = PI * r * r;
+    ```cpp
+    #define PI 3.14159
+    double area = PI * r * r;
 
-```
+    ```
 
-**Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
+    **Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
 
 18. Чем объектоподобный макрос отличается от функциональноподобного?
 
-**Ответ:** Объектный макрос не принимает аргументов и замещает идентификатор фиксированной последовательностью токенов; функциональноподобный макрос имеет список формальных параметров в круглых скобках сразу за именем (без пробела) и подставляет аргументы в шаблон.
+    **Ответ:** Объектный макрос не принимает аргументов и замещает идентификатор фиксированной последовательностью токенов; функциональноподобный макрос имеет список формальных параметров в круглых скобках сразу за именем (без пробела) и подставляет аргументы в шаблон.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#define MAX_ITEMS 100               // Объектный
-#define SQUARE(x) ((x) * (x))       // Функциональноподобный
+    ```cpp
+    #define MAX_ITEMS 100               // Объектный
+    #define SQUARE(x) ((x) * (x))       // Функциональноподобный
 
-```
+    ```
 
-**Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
+    **Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
 
 19. Как объявить простой макрос-константу?
 
-**Ответ:** Макрос-константа объявляется с помощью директивы `#define`, за которой следует имя идентификатора в верхнем регистре (согласно общепринятой конвенции) и значение подстановки.
+    **Ответ:** Макрос-константа объявляется с помощью директивы `#define`, за которой следует имя идентификатора в верхнем регистре (согласно общепринятой конвенции) и значение подстановки.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#define TIMEOUT_MS 5000
+    ```cpp
+    #define TIMEOUT_MS 5000
 
-```
+    ```
 
-**Источник:** [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini)
+    **Источник:** [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini)
 
 20. Как объявить макрос с параметрами?
 
-**Ответ:** Макрос с параметрами объявляется директивой `#define NAME(arg1, arg2) ...`, где открывающая круглая скобка следует вплотную за именем макроса без пробельного символа, а параметры в теле оборачиваются в скобки для сохранения приоритета операций.
+    **Ответ:** Макрос с параметрами объявляется директивой `#define NAME(arg1, arg2) ...`, где открывающая круглая скобка следует вплотную за именем макроса без пробельного символа, а параметры в теле оборачиваются в скобки для сохранения приоритета операций.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+    ```cpp
+    #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-```
+    ```
 
-**Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
+    **Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
 
 21. Что такое подстановка макроса?
 
-**Ответ:** Подстановка (раскрытие) макроса — это процесс текстовой замены идентификатора макроса на связанную с ним последовательность токенов препроцессором, сопровождающийся подстановкой фактических аргументов вместо формальных параметров (если макрос с параметрами).
+    **Ответ:** Подстановка (раскрытие) макроса — это процесс текстовой замены идентификатора макроса на связанную с ним последовательность токенов препроцессором, сопровождающийся подстановкой фактических аргументов вместо формальных параметров (если макрос с параметрами).
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#define ADD(a, b) ((a) + (b))
-int x = ADD(2, 3); // Превращается в: int x = ((2) + (3));
+    ```cpp
+    #define ADD(a, b) ((a) + (b))
+    int x = ADD(2, 3); // Превращается в: int x = ((2) + (3));
 
-```
+    ```
 
-**Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
+    **Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
 
 22. Чем макрос отличается от переменной `const`?
 
-**Ответ:** Переменная `const` подчиняется правилам областей видимости (scope), имеет строгий тип данных, адрес в памяти и проверяется компилятором; макрос глобален для всего последующего текста файла, не имеет типа и подменяется до компиляции.
+    **Ответ:** Переменная `const` подчиняется правилам областей видимости (scope), имеет строгий тип данных, адрес в памяти и проверяется компилятором; макрос глобален для всего последующего текста файла, не имеет типа и подменяется до компиляции.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-const int GlobalLimit = 100; // Типобезопасно, имеет область видимости
-#define MACRO_LIMIT 100      // Игнорирует namespaces и классы, засоряя глобальный скоуп
+    ```cpp
+    const int GlobalLimit = 100; // Типобезопасно, имеет область видимости
+    #define MACRO_LIMIT 100      // Игнорирует namespaces и классы, засоряя глобальный скоуп
 
-```
+    ```
 
-**Источник:** [C++ Core Guidelines: ES.31: Don’t use macros for constants or functions](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523Res-macros&utm_source=gemini)
+    **Источник:** [C++ Core Guidelines: ES.31: Don’t use macros for constants or functions](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523Res-macros&utm_source=gemini)
 
 23. Чем макрос отличается от `constexpr`?
 
-**Ответ:** `constexpr` функции и переменные являются полноправными конструкциями C++, типизированы, могут вычисляться как в compile-time, так и в runtime, доступны для отладки в IDE и подчиняются правилам пространств имён, в отличие от слепой замены текста макросом.
+    **Ответ:** `constexpr` функции и переменные являются полноправными конструкциями C++, типизированы, могут вычисляться как в compile-time, так и в runtime, доступны для отладки в IDE и подчиняются правилам пространств имён, в отличие от слепой замены текста макросом.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-constexpr int square(int x) { return x * x; } // Типобезопасно, без побочных эффектов двойного вычисления
-#define SQUARE(x) ((x) * (x))                 // SQUARE(x++) вызовет x++ дважды!
+    ```cpp
+    constexpr int square(int x) { return x * x; } // Типобезопасно, без побочных эффектов двойного вычисления
+    #define SQUARE(x) ((x) * (x))                 // SQUARE(x++) вызовет x++ дважды!
 
-```
+    ```
 
-**Источник:** [Cppreference: constexpr specifier](https://en.cppreference.com/w/cpp/language/constexpr?utm_source=gemini)
+    **Источник:** [Cppreference: constexpr specifier](https://en.cppreference.com/w/cpp/language/constexpr?utm_source=gemini)
 
 24. Почему макросы не знают о типах?
 
-**Ответ:** Препроцессор работает на фазах трансляции, предшествующих синтаксическому разбору, построению AST и семантическому анализу; для него любой исходный код — это лишь набор символов и токенов без концепции типов языка C++.
+    **Ответ:** Препроцессор работает на фазах трансляции, предшествующих синтаксическому разбору, построению AST и семантическому анализу; для него любой исходный код — это лишь набор символов и токенов без концепции типов языка C++.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#define SET_VAL(target, val) target = val;
-// Макрос подставит аргументы даже если типы несовместимы, ошибка возникнет только в компиляторе
+    ```cpp
+    #define SET_VAL(target, val) target = val;
+    // Макрос подставит аргументы даже если типы несовместимы, ошибка возникнет только в компиляторе
 
-```
+    ```
 
-**Источник:** [The Design and Evolution of C++ (Bjarne Stroustrup)](https://www.stroustrup.com/dne.html?utm_source=gemini)
+    **Источник:** [The Design and Evolution of C++ (Bjarne Stroustrup)](https://www.stroustrup.com/dne.html?utm_source=gemini)
 
 25. Почему макросы считаются текстовой подстановкой?
 
-**Ответ:** Потому что алгоритм их работы сводится исключительно к манипуляциям над лексемами и строками: замене одного фрагмента текста на другой с подстановкой строковых фрагментов аргументов без проверки валидности синтаксиса результирующего C++ кода.
+    **Ответ:** Потому что алгоритм их работы сводится исключительно к манипуляциям над лексемами и строками: замене одного фрагмента текста на другой с подстановкой строковых фрагментов аргументов без проверки валидности синтаксиса результирующего C++ кода.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#define NUMBER 1 + 2
-int result = NUMBER * 3; // Раскрывается в 1 + 2 * 3 = 7, а не (1 + 2) * 3 = 9
+    ```cpp
+    #define NUMBER 1 + 2
+    int result = NUMBER * 3; // Раскрывается в 1 + 2 * 3 = 7, а не (1 + 2) * 3 = 9
 
-```
+    ```
 
-**Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
+    **Источник:** [Cppreference: Replacing text macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini)
 
 26. Что такое заголовочный файл?
 
-**Ответ:** Заголовочный файл (header, `.h`/`.hpp`) — это текстовый файл, содержащий интерфейсные объявления типов данных, структур, классов, сигнатур функций, шаблонов и констант, предназначенный для совместного включения через `#include` в различные единицы трансляции.
+    **Ответ:** Заголовочный файл (header, `.h`/`.hpp`) — это текстовый файл, содержащий интерфейсные объявления типов данных, структур, классов, сигнатур функций, шаблонов и констант, предназначенный для совместного включения через `#include` в различные единицы трансляции.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// math_utils.hpp
-#pragma once
-int add(int a, int b); // Объявление интерфейса
+    ```cpp
+    // math_utils.hpp
+    #pragma once
+    int add(int a, int b); // Объявление интерфейса
 
-```
+    ```
 
-**Источник:** [Cppreference: Headers and source files](https://en.cppreference.com/w/cpp/language?utm_source=gemini)
+    **Источник:** [Cppreference: Headers and source files](https://en.cppreference.com/w/cpp/language?utm_source=gemini)
 
 27. Что такое исходный файл `.cpp`?
 
-**Ответ:** Исходный файл (`.cpp`, `.cc`, `.cxx`) — это файл с исходным кодом программы, содержащий конкретную реализацию объявленных функций и методов, который напрямую передается компилятору в качестве самостоятельной единицы трансляции.
+    **Ответ:** Исходный файл (`.cpp`, `.cc`, `.cxx`) — это файл с исходным кодом программы, содержащий конкретную реализацию объявленных функций и методов, который напрямую передается компилятору в качестве самостоятельной единицы трансляции.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// math_utils.cpp
-#include "math_utils.hpp"
-int add(int a, int b) { return a + b; } // Реализация
+    ```cpp
+    // math_utils.cpp
+    #include "math_utils.hpp"
+    int add(int a, int b) { return a + b; } // Реализация
 
-```
+    ```
 
-**Источник:** [Cppreference: Translation units](https://en.cppreference.com/w/cpp/language/translation_phases?utm_source=gemini)
+    **Источник:** [Cppreference: Translation units](https://en.cppreference.com/w/cpp/language/translation_phases?utm_source=gemini)
 
 28. Чем заголовочный файл отличается от файла реализации?
 
-**Ответ:** Заголовочный файл декларирует контракты (_что_ доступно для вызова) и обычно не компилируется отдельно в объектный файл; файл реализации определяет исполняемый код (_как_ это работает) и компилируется в `.o`/`.obj` файл.
+    **Ответ:** Заголовочный файл декларирует контракты (_что_ доступно для вызова) и обычно не компилируется отдельно в объектный файл; файл реализации определяет исполняемый код (_как_ это работает) и компилируется в `.o`/`.obj` файл.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// .hpp -> объявление: void print_message();
-// .cpp -> определение: void print_message() { std::cout << "Hello\n"; }
+    ```cpp
+    // .hpp -> объявление: void print_message();
+    // .cpp -> определение: void print_message() { std::cout << "Hello\n"; }
 
-```
+    ```
 
-**Источник:** [C++ Core Guidelines: Source files](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523S-source&utm_source=gemini)
+    **Источник:** [C++ Core Guidelines: Source files](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523S-source&utm_source=gemini)
 
 29. Для чего вообще разделяют `.h/.hpp` и `.cpp`?
 
-**Ответ:** Разделение ускоряет компиляцию за счёт параллельной сборки независимых единиц трансляции, скрывает детали реализации за стабильными границами интерфейса и предотвращает нарушения One Definition Rule (ODR) при линковке неинлайновых сущностей.
+    **Ответ:** Разделение ускоряет компиляцию за счёт параллельной сборки независимых единиц трансляции, скрывает детали реализации за стабильными границами интерфейса и предотвращает нарушения One Definition Rule (ODR) при линковке неинлайновых сущностей.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// Изменение тела функции в .cpp перекомпилирует только один файл, не затрагивая зависимые модули
+    ```cpp
+    // Изменение тела функции в .cpp перекомпилирует только один файл, не затрагивая зависимые модули
 
-```
+    ```
 
-**Источник:** [Large-Scale C++ Software Design (John Lakos)](https://www.oreilly.com/?utm_source=gemini)
+    **Источник:** [Large-Scale C++ Software Design (John Lakos)](https://www.oreilly.com/?utm_source=gemini)
 
 30. Что такое единица трансляции?
 
-**Ответ:** Единица трансляции (Translation Unit, TU) — это исходный файл (`.cpp`) вместе со всеми включенными в него заголовочными файлами и раскрытыми макросами после завершения работы препроцессора, передаваемый на вход компилятору.
+    **Ответ:** Единица трансляции (Translation Unit, TU) — это исходный файл (`.cpp`) вместе со всеми включенными в него заголовочными файлами и раскрытыми макросами после завершения работы препроцессора, передаваемый на вход компилятору.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// main.cpp + все заголовочные файлы из #include = единый поток кода для одной единицы трансляции
+    ```cpp
+    // main.cpp + все заголовочные файлы из #include = единый поток кода для одной единицы трансляции
 
-```
+    ```
 
-**Источник:** [Cppreference: Translation phases: Translation unit](https://en.cppreference.com/w/cpp/language/translation_phases?utm_source=gemini)
+    **Источник:** [Cppreference: Translation phases: Translation unit](https://en.cppreference.com/w/cpp/language/translation_phases?utm_source=gemini)
 
 31. Что обычно входит в одну единицу трансляции после препроцессинга?
 
-**Ответ:** В развернутую единицу трансляции входят тысячи строк объявлений стандартной библиотеки и сторонних заголовков, типы данных, инлайн-функторы, шаблоны и непосредственно код самого исходного файла `.cpp` (без комментариев и директив препроцессора).
+    **Ответ:** В развернутую единицу трансляции входят тысячи строк объявлений стандартной библиотеки и сторонних заголовков, типы данных, инлайн-функторы, шаблоны и непосредственно код самого исходного файла `.cpp` (без комментариев и директив препроцессора).
 
-**Пример:**
+    **Пример:**
 
-```bash
-# Простой файл с '#include <vector>' после препроцессора разворачивается в 20 000+ строк кода
+    ```bash
+    # Простой файл с '#include <vector>' после препроцессора разворачивается в 20 000+ строк кода
 
-```
+    ```
 
-**Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
+    **Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
 
 32. Что значит “подключить заголовок”?
 
-**Ответ:** Это значит прописать директиву `#include <header>` или `#include "header"`, предписывая препроцессору найти данный заголовок в файловой системе и физически вставить всё его содержимое в текущую точку файла.
+    **Ответ:** Это значит прописать директиву `#include <header>` или `#include "header"`, предписывая препроцессору найти данный заголовок в файловой системе и физически вставить всё его содержимое в текущую точку файла.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#include "config.h" // Подключение пользовательского заголовка
+    ```cpp
+    #include "config.h" // Подключение пользовательского заголовка
 
-```
+    ```
 
-**Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
+    **Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
 
 33. Чем `#include <...>` отличается от `#include "..."`?
 
-**Ответ:** Порядком и алгоритмом поиска файла в каталогах: форма со скобками `<...>` ищет заголовок строго по системным стандартным путям компилятора (`-I`); форма с кавычками `"..."` сначала проверяет текущую директорию с исходным файлом, и только затем переходит к системным путям.
+    **Ответ:** Порядком и алгоритмом поиска файла в каталогах: форма со скобками `<...>` ищет заголовок строго по системным стандартным путям компилятора (`-I`); форма с кавычками `"..."` сначала проверяет текущую директорию с исходным файлом, и только затем переходит к системным путям.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#include <string>     // Системный каталог стандартной библиотеки
-#include "my_class.h" // Текущая папка проекта
+    ```cpp
+    #include <string>     // Системный каталог стандартной библиотеки
+    #include "my_class.h" // Текущая папка проекта
 
-```
+    ```
 
-**Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
+    **Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
 
 34. Когда используют угловые скобки в `#include`?
 
-**Ответ:** Угловые скобки `<...>` используют при подключении компонентов стандартной библиотеки C++, системных API заголовков ОС (POSIX, Windows SDK) и внешних сторонних библиотек, установленных в системные или внешние include-директории.
+    **Ответ:** Угловые скобки `<...>` используют при подключении компонентов стандартной библиотеки C++, системных API заголовков ОС (POSIX, Windows SDK) и внешних сторонних библиотек, установленных в системные или внешние include-директории.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#include <vector>
-#include <fcntl.h>
-#include <boost/asio.hpp>
+    ```cpp
+    #include <vector>
+    #include <fcntl.h>
+    #include <boost/asio.hpp>
 
-```
+    ```
 
-**Источник:** [C++ Core Guidelines: SF.12: Prefer the quoted form of #include for files relative to the including file and the angle bracket form everywhere else](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523SF-include-syntax&utm_source=gemini)
+    **Источник:** [C++ Core Guidelines: SF.12: Prefer the quoted form of #include for files relative to the including file and the angle bracket form everywhere else](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523SF-include-syntax&utm_source=gemini)
 
 35. Когда используют кавычки в `#include`?
 
-**Ответ:** Двойные кавычки `"..."` используют для подключения собственных заголовочных файлов проекта, расположенных относительно текущего исходного файла или в локальных директориях исходного кода приложения.
+    **Ответ:** Двойные кавычки `"..."` используют для подключения собственных заголовочных файлов проекта, расположенных относительно текущего исходного файла или в локальных директориях исходного кода приложения.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#include "network/socket.hpp"
-#include "../common/types.hpp"
+    ```cpp
+    #include "network/socket.hpp"
+    #include "../common/types.hpp"
 
-```
+    ```
 
-**Источник:** [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini)
+    **Источник:** [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini)
 
 36. Что происходит, если один и тот же заголовок подключить несколько раз?
 
-**Ответ:** Без использования защитных механизмов содержимое файла вставится повторно, что приведёт к ошибкам компилятора о повторном переопределении типов, структур, классов или неинлайновых переменных (`redefinition of 'struct Foo'`).
+    **Ответ:** Без использования защитных механизмов содержимое файла вставится повторно, что приведёт к ошибкам компилятора о повторном переопределении типов, структур, классов или неинлайновых переменных (`redefinition of 'struct Foo'`).
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// a.h
-struct Bar {};
-// main.cpp
-#include "a.h"
-#include "a.h" // Ошибка компиляции: redefinition of 'struct Bar'
+    ```cpp
+    // a.h
+    struct Bar {};
+    // main.cpp
+    #include "a.h"
+    #include "a.h" // Ошибка компиляции: redefinition of 'struct Bar'
 
-```
+    ```
 
-**Источник:** [Cppreference: One Definition Rule](https://www.google.com/search?q=https://en.cppreference.com/w/cpp/language/definition%2523One_Definition_Rule&utm_source=gemini)
+    **Источник:** [Cppreference: One Definition Rule](https://www.google.com/search?q=https://en.cppreference.com/w/cpp/language/definition%2523One_Definition_Rule&utm_source=gemini)
 
 37. Что такое include guard?
 
-**Ответ:** Include guard (страж включения) — это идиома препроцессора, оборачивающая всё содержимое заголовочного файла в связку `#ifndef`, `#define` и `#endif`, гарантирующая, что тело файла будет включено в единицу трансляции ровно один раз.
+    **Ответ:** Include guard (страж включения) — это идиома препроцессора, оборачивающая всё содержимое заголовочного файла в связку `#ifndef`, `#define` и `#endif`, гарантирующая, что тело файла будет включено в единицу трансляции ровно один раз.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#ifndef MY_PROJECT_LOGGER_HPP
-#define MY_PROJECT_LOGGER_HPP
+    ```cpp
+    #ifndef MY_PROJECT_LOGGER_HPP
+    #define MY_PROJECT_LOGGER_HPP
 
-class Logger {};
+    class Logger {};
 
-#endif // MY_PROJECT_LOGGER_HPP
+    #endif // MY_PROJECT_LOGGER_HPP
 
-```
+    ```
 
-**Источник:** [Wikipedia: Include guard](https://en.wikipedia.org/wiki/Include_guard?utm_source=gemini)
+    **Источник:** [Wikipedia: Include guard](https://en.wikipedia.org/wiki/Include_guard?utm_source=gemini)
 
 38. Зачем нужны include guards?
 
-**Ответ:** Они защищают проект от ошибок нарушения One Definition Rule (ODR) и рекурсивных циклических включений, когда заголовок `A.h` косвенно включает `B.h`, а тот в свою очередь снова включает `A.h`.
+    **Ответ:** Они защищают проект от ошибок нарушения One Definition Rule (ODR) и рекурсивных циклических включений, когда заголовок `A.h` косвенно включает `B.h`, а тот в свою очередь снова включает `A.h`.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// Без include guards включение headers приведёт к бесконечной вложенности препроцессора:
-// fatal error: #include nested too deeply
+    ```cpp
+    // Без include guards включение headers приведёт к бесконечной вложенности препроцессора:
+    // fatal error: #include nested too deeply
 
-```
+    ```
 
-**Источник:** [C++ Core Guidelines: SF.8: Use #include guards for all .h files](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523Rs-guards&utm_source=gemini)
+    **Источник:** [C++ Core Guidelines: SF.8: Use #include guards for all .h files](https://www.google.com/search?q=https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%2523Rs-guards&utm_source=gemini)
 
 39. Как выглядит классический include guard?
 
-**Ответ:** Он состоит из трёх директив: проверки отсутствия уникального макроса `#ifndef`, немедленного его определения `#define` и закрытия блока `#endif` в самом конце файла.
+    **Ответ:** Он состоит из трёх директив: проверки отсутствия уникального макроса `#ifndef`, немедленного его определения `#define` и закрытия блока `#endif` в самом конце файла.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#ifndef UNIQUE_NAME_HPP
-#define UNIQUE_NAME_HPP
+    ```cpp
+    #ifndef UNIQUE_NAME_HPP
+    #define UNIQUE_NAME_HPP
 
-// Объявления
+    // Объявления
 
-#endif // UNIQUE_NAME_HPP
+    #endif // UNIQUE_NAME_HPP
 
-```
+    ```
 
-**Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
+    **Источник:** [Cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include?utm_source=gemini)
 
 40. Что такое `#pragma once`?
 
-**Ответ:** `#pragma once` — это директива препроцессора, поддерживаемая всеми современными компиляторами, сообщающая, что текущий файл должен быть физически открыт и прочитан препроцессором только один раз в рамках сборки данной единицы трансляции.
+    **Ответ:** `#pragma once` — это директива препроцессора, поддерживаемая всеми современными компиляторами, сообщающая, что текущий файл должен быть физически открыт и прочитан препроцессором только один раз в рамках сборки данной единицы трансляции.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-#pragma once
+    ```cpp
+    #pragma once
 
-class Engine {};
+    class Engine {};
 
-```
+    ```
 
-**Источник:** [Wikipedia: Pragma once](https://en.wikipedia.org/wiki/Pragma_once?utm_source=gemini)
+    **Источник:** [Wikipedia: Pragma once](https://en.wikipedia.org/wiki/Pragma_once?utm_source=gemini)
 
 41. Чем `#pragma once` похоже на include guard?
 
-**Ответ:** Она решает абсолютно идентичную практическую задачу: предотвращает дублирование кода заголовков, исключает ошибки многократного переопределения типов и разрывает циклы взаимозависимых включений.
+    **Ответ:** Она решает абсолютно идентичную практическую задачу: предотвращает дублирование кода заголовков, исключает ошибки многократного переопределения типов и разрывает циклы взаимозависимых включений.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// И #pragma once, и include guard гарантируют однократное включение тела заголовка в TU
+    ```cpp
+    // И #pragma once, и include guard гарантируют однократное включение тела заголовка в TU
 
-```
+    ```
 
-**Источник:** [GCC Online Docs: Pragmas](https://gcc.gnu.org/onlinedocs/cpp/Pragmas.html?utm_source=gemini)
+    **Источник:** [GCC Online Docs: Pragmas](https://gcc.gnu.org/onlinedocs/cpp/Pragmas.html?utm_source=gemini)
 
 42. Чем `#pragma once` отличается от include guard?
 
-**Ответ:** `#pragma once` не стандартизирована (хотя де-факто повсеместно поддержана), избавляет от необходимости придумывать уникальные имена макросов и ускоряет сборку (компилятор даже не открывает файл повторно), но может сбоить при работе со сложными симлинками или распределёнными файловыми системами.
+    **Ответ:** `#pragma once` не стандартизирована (хотя де-факто повсеместно поддержана), избавляет от необходимости придумывать уникальные имена макросов и ускоряет сборку (компилятор даже не открывает файл повторно), но может сбоить при работе со сложными симлинками или распределёнными файловыми системами.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// #pragma once: 1 строка, нет риска опечатки в имени макроса, не входит в стандарт ISO C++
-// include guard: 3 строки, гарантированная переносимость стандартом C++
+    ```cpp
+    // #pragma once: 1 строка, нет риска опечатки в имени макроса, не входит в стандарт ISO C++
+    // include guard: 3 строки, гарантированная переносимость стандартом C++
 
-```
+    ```
 
-**Источник:** [Clang Documentation: #pragma once](https://clang.llvm.org/?utm_source=gemini)
+    **Источник:** [Clang Documentation: #pragma once](https://clang.llvm.org/?utm_source=gemini)
 
 43. Что такое процесс сборки программы?
 
-**Ответ:** Сборка программы — это многоэтапный автоматизированный процесс трансформации набора текстовых файлов с исходным кодом C++ в готовый исполнимый бинарный файл, динамическую (`.so`/`.dll`) или статическую (`.a`/`.lib`) библиотеку.
+    **Ответ:** Сборка программы — это многоэтапный автоматизированный процесс трансформации набора текстовых файлов с исходным кодом C++ в готовый исполнимый бинарный файл, динамическую (`.so`/`.dll`) или статическую (`.a`/`.lib`) библиотеку.
 
-**Пример:**
+    **Пример:**
 
-```bash
-g++ main.cpp utils.cpp -o my_app
+    ```bash
+    g++ main.cpp utils.cpp -o my_app
 
-```
+    ```
 
-**Источник:** [Computer Systems: A Programmer's Perspective (CS:APP)](http://csapp.cs.cmu.edu/?utm_source=gemini)
+    **Источник:** [Computer Systems: A Programmer's Perspective (CS:APP)](http://csapp.cs.cmu.edu/?utm_source=gemini)
 
 44. Из каких основных этапов состоит сборка C++-программы?
 
-**Ответ:** Классический конвейер сборки состоит из 4 последовательных этапов:
+        **Ответ:** Классический конвейер сборки состоит из 4 последовательных этапов:
 
-1. Препроцессинг (Preprocessing)
-2. Компиляция (Compilation)
-3. Ассемблирование (Assembly)
-4. Компоновка / Линковка (Linking)
+    1. Препроцессинг (Preprocessing)
+    2. Компиляция (Compilation)
+    3. Ассемблирование (Assembly)
+    4. Компоновка / Линковка (Linking)
 
-**Пример:**
+       **Пример:**
 
-```cpp
-// .cpp -> [Препроцессор] -> .i -> [Компилятор] -> .s -> [Ассемблер] -> .o -> [Линкер] -> executable
+       ```cpp
+       // .cpp -> [Препроцессор] -> .i -> [Компилятор] -> .s -> [Ассемблер] -> .o -> [Линкер] -> executable
 
-```
+       ```
 
-**Источник:** [GCC Documentation: Overall Options](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html?utm_source=gemini)
+       **Источник:** [GCC Documentation: Overall Options](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html?utm_source=gemini)
 
 45. Что такое препроцессинг?
 
-**Ответ:** Препроцессинг — это первый этап сборки, на котором обрабатываются директивы `#`, разворачиваются заголовочные файлы `#include`, подставляются макросы `#define`, отсекаются неактивные ветки условий `#if` и формируется чистый монолитный текст единицы трансляции.
+    **Ответ:** Препроцессинг — это первый этап сборки, на котором обрабатываются директивы `#`, разворачиваются заголовочные файлы `#include`, подставляются макросы `#define`, отсекаются неактивные ветки условий `#if` и формируется чистый монолитный текст единицы трансляции.
 
-**Пример:**
+    **Пример:**
 
-```bash
-# Выполнение только этапа препроцессинга:
-clang++ -E main.cpp -o main.ii
+    ```bash
+    # Выполнение только этапа препроцессинга:
+    clang++ -E main.cpp -o main.ii
 
-```
+    ```
 
-**Источник:** [Cppreference: Preprocessor](https://en.cppreference.com/w/cpp/preprocessor?utm_source=gemini)
+    **Источник:** [Cppreference: Preprocessor](https://en.cppreference.com/w/cpp/preprocessor?utm_source=gemini)
 
 46. Что такое компиляция?
 
-**Ответ:** Компиляция (в узком смысле) — это этап, на котором синтаксический анализатор разбирает текст единицы трансляции, строит абстрактное синтаксическое дерево (AST), проверяет семантику и систему типов, выполняет оптимизации и генерирует текстовый ассемблерный код целевой процессорной архитектуры.
+    **Ответ:** Компиляция (в узком смысле) — это этап, на котором синтаксический анализатор разбирает текст единицы трансляции, строит абстрактное синтаксическое дерево (AST), проверяет семантику и систему типов, выполняет оптимизации и генерирует текстовый ассемблерный код целевой процессорной архитектуры.
 
-**Пример:**
+    **Пример:**
 
-```bash
-# Остановка после генерации ассемблерного кода:
-g++ -S main.cpp -o main.s
+    ```bash
+    # Остановка после генерации ассемблерного кода:
+    g++ -S main.cpp -o main.s
 
-```
+    ```
 
-**Источник:** [Cppreference: Compilation](https://en.cppreference.com/w/cpp/language?utm_source=gemini)
+    **Источник:** [Cppreference: Compilation](https://en.cppreference.com/w/cpp/language?utm_source=gemini)
 
 47. Что такое ассемблирование?
 
-**Ответ:** Ассемблирование — это этап, на котором ассемблер транслирует человекочитаемый ассемблерный листинг целевой архитектуры в двоичный машинный код процессора и упаковывает его в промежуточный объектный файл (`.o` или `.obj`).
+    **Ответ:** Ассемблирование — это этап, на котором ассемблер транслирует человекочитаемый ассемблерный листинг целевой архитектуры в двоичный машинный код процессора и упаковывает его в промежуточный объектный файл (`.o` или `.obj`).
 
-**Пример:**
+    **Пример:**
 
-```bash
-# Генерация объектного файла без линковки:
-g++ -c main.cpp -o main.o
+    ```bash
+    # Генерация объектного файла без линковки:
+    g++ -c main.cpp -o main.o
 
-```
+    ```
 
-**Источник:** [GNU Assembler (as) Manual](https://sourceware.org/binutils/docs/as/?utm_source=gemini)
+    **Источник:** [GNU Assembler (as) Manual](https://sourceware.org/binutils/docs/as/?utm_source=gemini)
 
 48. Что такое компоновка?
 
-**Ответ:** Компоновка (линковка) — это финальный этап сборки, на котором линкер объединяет множество объектных файлов (`.o`) и системных библиотек, сопоставляет неразрешенные символы (адреса внешних функций и глобальных переменных) и формирует результирующий исполняемый файл.
+    **Ответ:** Компоновка (линковка) — это финальный этап сборки, на котором линкер объединяет множество объектных файлов (`.o`) и системных библиотек, сопоставляет неразрешенные символы (адреса внешних функций и глобальных переменных) и формирует результирующий исполняемый файл.
 
-**Пример:**
+    **Пример:**
 
-```bash
-# Ручной запуск компоновщика через g++:
-g++ main.o utils.o -o application
+    ```bash
+    # Ручной запуск компоновщика через g++:
+    g++ main.o utils.o -o application
 
-```
+    ```
 
-**Источник:** [Linkers and Loaders (John R. Levine)](https://www.iecc.com/linker/?utm_source=gemini)
+    **Источник:** [Linkers and Loaders (John R. Levine)](https://www.iecc.com/linker/?utm_source=gemini)
 
 49. Что делает компилятор?
 
-**Ответ:** Компилятор преобразует высокоуровневые конструкции C++ в низкоуровневые инструкции: производит лексический, синтаксический и семантический анализ, генерирует промежуточное представление (IR), выполняет оптимизации (инлайнинг, векторизацию, разворот циклов) и порождает объектный код.
+    **Ответ:** Компилятор преобразует высокоуровневые конструкции C++ в низкоуровневые инструкции: производит лексический, синтаксический и семантический анализ, генерирует промежуточное представление (IR), выполняет оптимизации (инлайнинг, векторизацию, разворот циклов) и порождает объектный код.
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// Компилятор превращает C++ выражение:
-// int z = x + y;
-// в машинную инструкцию: add eax, edx
+    ```cpp
+    // Компилятор превращает C++ выражение:
+    // int z = x + y;
+    // в машинную инструкцию: add eax, edx
 
-```
+    ```
 
-**Источник:** [LLVM Project: Compiler Architecture](https://www.aosabook.org/en/llvm.html?utm_source=gemini)
+    **Источник:** [LLVM Project: Compiler Architecture](https://www.aosabook.org/en/llvm.html?utm_source=gemini)
 
 50. Что делает линкер?
 
-**Ответ:** Линкер связывает вызовы функций с их фактическими определениями в других объектных файлах (resolution), выполняет перемещение адресов секций кода и данных (relocation) и генерирует единый бинарный файл формата ELF (Linux) или PE (Windows).
+    **Ответ:** Линкер связывает вызовы функций с их фактическими определениями в других объектных файлах (resolution), выполняет перемещение адресов секций кода и данных (relocation) и генерирует единый бинарный файл формата ELF (Linux) или PE (Windows).
 
-**Пример:**
+    **Пример:**
 
-```cpp
-// Если линкер не найдет тело объявленной функции print(), он выбросит ошибку:
-// undefined reference to 'print()'
+    ```cpp
+    // Если линкер не найдет тело объявленной функции print(), он выбросит ошибку:
+    // undefined reference to 'print()'
 
-```
+    ```
 
-**Источник:** [System V Application Binary Interface](https://refspecs.linuxfoundation.org/elf/gabi4+/contents.html?utm_source=gemini)
+    **Источник:** [System V Application Binary Interface](https://refspecs.linuxfoundation.org/elf/gabi4+/contents.html?utm_source=gemini)
 
 ## Ниже среднего уровня
 
+
 51. Что получается после работы препроцессора?
+
+    **Ответ:** Результатом работы препроцессора является так называемая единица трансляции (Translation Unit) — текстовый поток, в котором раскрыты все директивы `#include` (их содержимое физически вставлено в файл), подставлены значения и тела макросов `#define`, отсечены неактивные ветки условной компиляции (`#if`, `#ifdef`), а также удалены все комментарии.
+
+    **Пример:**
+
+    ```cpp
+    // Команда для генерации результата препроцессинга:
+    // g++ -E main.cpp -o main.i
+    // В main.i будет чистый C++ код без макросов и комментариев
+    ```
+
+    **Источник:** [cppreference: Phases of translation](https://en.cppreference.com/w/cpp/language/translation_phases)
+
 52. Что получает компилятор на вход после препроцессинга?
+
+    **Ответ:** Компилятор (frontend) получает на вход единицу трансляции — один непрерывный плоский поток C++-кода, полностью очищенный от директив `#` (за исключением служебных маркеров строк `#line`) и готовый к лексическому, синтаксическому и семантическому анализу.
+
+    **Пример:**
+
+    ```cpp
+    // Исходный файл main.cpp содержал:
+    // #define MAX_VAL 100
+    // int limit = MAX_VAL;
+    //
+    // Компилятор на вход получает только:
+    // int limit = 100;
+    ```
+
+    **Источник:** [GCC Online Docs: Preprocessor Output](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Output.html)
+
 53. Что такое объектный файл?
+
+    **Ответ:** Объектный файл — это промежуточный бинарный файл, порождаемый ассемблером/компилятором из одной единицы трансляции. Он содержит сгенерированный машинный код, сегменты инициализированных и неинициализированных данных, таблицу символов (определенных и требуемых внешних), а также таблицы перемещений (relocation records), необходимые линкеру для финальной сборки.
+
+    **Пример:**
+
+    ```bash
+    # Получение объектного файла из исходника без линковки:
+    g++ -c math.cpp -o math.o
+    ```
+
+    **Источник:** [System V Application Binary Interface (ELF Specification)](https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.intro.html)
+
 54. Что такое исполняемый файл?
+
+    **Ответ:** Исполняемый файл — это законченный бинарный файл (форматов ELF, PE или Mach-O), содержащий машинные инструкции, метаданные и структуру заголовков, достаточную для того, чтобы операционная система (загрузчик OS loader) могла отобразить его сегменты в виртуальную память процесса, настроить стек/кучу и передать управление на точку входа (например, `_start`).
+
+    **Пример:**
+
+    ```bash
+    # Запуск исполняемого файла в POSIX-системе:
+    ./my_application
+    ```
+
+    **Источник:** [OSDev Wiki: Executable and Linkable Format](https://wiki.osdev.org/ELF)
+
 55. Что такое библиотека?
+
+    **Ответ:** Библиотека — это структурированный набор скомпилированного кода (функций, классов, глобальных данных) и служебных таблиц символов, упакованный в отдельный файл для повторного использования другими программами без необходимости повторной компиляции исходников.
+
+    **Пример:**
+
+    ```cpp
+    // Использование сторонней библиотеки через заголовок и флаг линковки:
+    #include <zlib.h>
+    // Сборка с флагом: g++ main.o -lz
+    ```
+
+    **Источник:** [TLDP: Program Library HOWTO](https://tldp.org/HOWTO/Program-Library-HOWTO/index.html)
+
 56. Чем статическая библиотека отличается от динамической?
+
+    **Ответ:** Статическая библиотека внедряется линкером непосредственно в тело итогового бинарника на этапе сборки (копируются нужные объектные модули). Динамическая библиотека связывается поверхностно на этапе сборки и загружается в память динамическим загрузчиком либо при старте процесса, либо во время его выполнения (`dlopen`), что позволяет разделять один и тот же код в физической памяти между несколькими процессами.
+
+    **Пример:**
+
+    ```bash
+    # Статическая линковка:
+    g++ main.o libmath.a -o app_static
+    # Динамическая линковка:
+    g++ main.o -L. -lmath -o app_shared
+    ```
+
+    **Источник:** [Levine, J. R. "Linkers and Loaders"](https://www.iecc.com/linker/)
+
 57. Что такое `.o` или `.obj` файл?
+
+    **Ответ:** Это стандартные расширения для объектных файлов. Расширение `.o` принято в POSIX-совместимых ОС (Linux, macOS) для формата ELF/Mach-O, а `.obj` используется преимущественно в Windows и компиляторах MSVC для формата COFF.
+
+    **Пример:**
+
+    ```bash
+    # Сборка под MSVC порождает .obj:
+    cl /c utility.cpp # Создает utility.obj
+    ```
+
+    **Источник:** [Microsoft Docs: MSVC Compiler Reference /c](https://learn.microsoft.com/en-us/cpp/build/reference/c-compile-without-linking)
+
 58. Что такое `.a` или `.lib`?
+
+    **Ответ:** Это статические библиотеки (архивы). Файл `.a` (Linux/macOS) создается утилитой `ar` и представляет собой обычный архив сжатых `.o` файлов с таблицей символов. Файл `.lib` в Windows может быть как статической библиотекой (архив `.obj` файлов), так и «библиотекой импорта» (import library), содержащей заглушки для связывания с `.dll`.
+
+    **Пример:**
+
+    ```bash
+    # Создание статического архива в Linux:
+    ar rcs libutils.a file1.o file2.o
+    ```
+
+    **Источник:** [GNU Binutils: ar documentation](https://sourceware.org/binutils/docs/binutils/ar.html)
+
 59. Что такое `.so`, `.dll`, `.dylib`?
+
+    **Ответ:** Это расширения динамических (разделяемых) библиотек в различных операционных системах: `.so` (Shared Object) — Linux и Unix-подобные системы; `.dll` (Dynamic Link Library) — Microsoft Windows; `.dylib` (Dynamic Library) — Apple macOS.
+
+    **Пример:**
+
+    ```bash
+    # Просмотр зависимостей от динамических библиотек в Linux:
+    ldd my_program
+    # Вывод: libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6
+    ```
+
+    **Источник:** [Linux man-pages: ld.so(8)](https://man7.org/linux/man-pages/man8/ld.so.8.html)
+
 60. Что такое символ в контексте компоновки?
+
+    **Ответ:** Символ — это поименованная запись в таблице символов объектного файла, которая связывает идентификатор (имя функции, переменной, mangled name) со смещением относительно секции кода (`.text`) или данных (`.data`, `.bss`), либо указывает, что идентификатор должен быть найден во внешнем файле.
+
+    **Пример:**
+
+    ```bash
+    # Просмотр таблицы символов через утилиту nm:
+    nm -C my_file.o
+    # Вывод: 0000000000000000 T calculate_sum(int, int)
+    ```
+
+    **Источник:** [System V ABI: Symbol Table](https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.symtab.html)
+
 61. Что такое определение символа?
+
+    **Ответ:** Определение символа — это создание самого объекта или функции, при котором компилятор резервирует конкретное место в секции данных или генерирует машинный код в секции `.text`. Такое действие создает запись в таблице символов с установленным адресом и ненулевым размером.
+
+    **Пример:**
+
+    ```cpp
+    int global_counter = 0; // Определение глобального символа (резервирует 4 байта в .bss/.data)
+
+    void execute_task() {}  // Определение функции (генерирует инструкции в секции .text)
+    ```
+
+    **Источник:** [cppreference: Definitions and ODR](https://en.cppreference.com/w/cpp/language/definition)
+
 62. Что такое объявление символа?
+
+    **Ответ:** Объявление символа — это инструкция компилятору о существовании идентификатора, его типе и сигнатуре, без выделения под него памяти или генерации машинного кода. Объявление сообщает компилятору: «данный символ существует, проверяй соответствие типов, а реальный адрес подставит линкер».
+
+    **Пример:**
+
+    ```cpp
+    extern int global_counter; // Объявление переменной (память не выделяется)
+    void execute_task();       // Объявление (сигнатура) функции
+    ```
+
+    **Источник:** [cppreference: Declarations](https://en.cppreference.com/w/cpp/language/declarations)
+
 63. Чем объявление функции отличается от её определения в контексте сборки?
+
+    **Ответ:** Объявление нужно только компилятору для проверки корректности вызова (аргументы, возвращаемый тип) на этапе генерации единичного `.o` файла. Определение порождает реальный машинный код в секции `.text` объектного файла, адрес которого линкер обязан подставить на место вызовов во время этапа компоновки.
+
+    **Пример:**
+
+    ```cpp
+    void run(); // Объявление: компилятор сгенерирует call run [смещение 0000 и метку для релокации]
+
+    void run() { /*...*/ } // Определение: генерирует тело функции и экспортирует символ run
+    ```
+
+    **Источник:** [GCC: Function Declarations vs Definitions](https://gcc.gnu.org/onlinedocs/)
+
 64. Почему функция может быть объявлена в заголовке, но определена в `.cpp`?
+
+    **Ответ:** Такое разделение позволяет включать заголовок во множество разных единиц трансляции для использования интерфейса без дублирования кода. Определение при этом компилируется всего один раз в один объектный файл, что предотвращает множественное появление одного и того же тела функции и ускоряет компиляцию.
+
+    **Пример:**
+
+    ```cpp
+    // math_utils.h
+    int add(int a, int b); // Видно всем, кто подключит header
+
+    // math_utils.cpp
+    #include "math_utils.h"
+    int add(int a, int b) { return a + b; } // Скомпилируется ровно один раз в math_utils.o
+    ```
+
+    **Источник:** [C++ Core Guidelines: SF.1 Keep declarations in header files](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf1-keep-declarations-in-header-files)
+
 65. Почему линкеру нужны определения, а не только объявления?
+
+    **Ответ:** Инструкция процессорного вызова (например, `call` в архитектуре x86) требует реального абсолютного или относительного адреса перехода. Объявление не порождает адреса в памяти. Если определение отсутствует, линкер не сможет выполнить операцию релокации (relocation) и подставить валидный адрес в команду перехода.
+
+    **Пример:**
+
+    ```cpp
+    // Объявление есть:
+    void fetch_data();
+
+    int main() {
+        fetch_data(); // Компилятор оставил дыру под адрес для линкера.
+                      // Без тела fetch_data() подставить нечего.
+    }
+    ```
+
+    **Источник:** [Eli Bendersky: How linkers work](https://eli.thegreenplace.net/2011/08/25/load-time-relocation-of-shared-libraries)
+
 66. Что такое unresolved external symbol?
+
+    **Ответ:** Это ошибка этапа компоновки (в MSVC: `LNK2019`, в GNU/Clang: `undefined reference`), означающая, что компилятор на основе объявления оставил в объектном файле запрос на связывание внешнего символа, но ни в одном из переданных линкеру объектных файлов и библиотек этот символ так и не был найден в списке экспортируемых определений.
+
+    **Пример:**
+
+    ```bash
+    # Ошибка линкера:
+    # undefined reference to `Database::connect()'
+    # error: ld returned 1 exit status
+    ```
+
+    **Источник:** [Microsoft Docs: Linker Tools Error LNK2019](https://learn.microsoft.com/en-us/cpp/error-messages/tool-errors/linker-tools-error-lnk2019)
+
 67. Когда возникает ошибка линковки из-за отсутствующего определения?
+
+    **Ответ:** Ошибка возникает, если: 1) не был скомпилирован или передан линкеру соответствующий `.cpp` файл; 2) забыли подключить нужную библиотеку (`-lmylib`); 3) не совпали сигнатуры в объявлении и определении (из-за чего сгенерировались разные mangled-имена); 4) метод класса объявлен, но его тело не написано; 5) шаблонный метод определен в `.cpp` без явной инстанциации.
+
+    **Пример:**
+
+    ```cpp
+    struct Logger {
+        static void log(); // Объявлено
+    };
+    // Забыли написать void Logger::log() { ... }
+    int main() { Logger::log(); } // Вызовет unresolved external symbol
+    ```
+
+    **Источник:** [GCC FAQs: Undefined references](https://gcc.gnu.org/wiki/VerboseDiagnostics#undefined_reference)
+
 68. Что такое multiple definition error?
+
+    **Ответ:** Это ошибка компоновки (в GNU/Clang: `multiple definition of...`, в MSVC: `LNK2005`), означающая, что один и тот же не-inline символ со внешней компоновкой (external linkage) был скомпилирован и определен с одинаковым именем в двух или более различных объектных файлах, переданных линкеру.
+
+    **Пример:**
+
+    ```bash
+    # Ошибка линкера:
+    # main.o: multiple definition of `global_config'
+    # config.o: first defined here
+    ```
+
+    **Источник:** [GNU ld: Duplicate symbols](https://sourceware.org/binutils/docs/ld/Options.html)
+
 69. Почему multiple definition error часто связан с заголовками?
+
+    **Ответ:** Директива `#include` выполняет копирование текста. Если в заголовочном файле находится определение обычной функции или переменной, и этот заголовок включен в два разных файла (`a.cpp` и `b.cpp`), компилятор продублирует тело функции в оба объектных файла (`a.o` и `b.o`). При сведении этих файлов вместе линкер обнаружит два одинаковых сильных символа и выдаст ошибку.
+
+    **Пример:**
+
+    ```cpp
+    // common.h
+    int counter = 0; // Определение! Включение common.h в два .cpp приведет к дублированию символа.
+    ```
+
+    **Источник:** [C++ Core Guidelines: SF.2 Do not put data definitions in header files](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf2-do-not-put-data-definitions-in-header-files)
+
 70. Почему определение обычной функции в заголовке может быть проблемой?
+
+    **Ответ:** По умолчанию функции имеют внешнюю компоновку (external linkage). Определение обычной (не `inline`, не `static`) функции в заголовке порождает «сильный» (strong) символ в каждом объектном файле, куда этот заголовок включен. На этапе линковки это нарушает правило ODR и приводит к конфликту имен между объектными модулями.
+
+    **Пример:**
+
+    ```cpp
+    // math.h
+    int square(int x) { return x * x; } // Ошибка при включении в >= 2 файлов: duplicate symbol
+    ```
+
+    **Источник:** [cppreference: Storage duration and linkage](https://en.cppreference.com/w/cpp/language/storage_duration)
+
 71. Когда функцию можно определять в заголовке?
+
+    **Ответ:** Функцию можно безопасно определять в заголовке, если она: 1) помечена спецификатором `inline`; 2) определена прямо внутри объявления класса или структуры (неявно считается `inline`); 3) является шаблонной функцией (templates); 4) имеет внутреннюю компоновку (`static` или помещена в анонимное пространство имен, хотя последнее в заголовочных файлах не рекомендуется).
+
+    **Пример:**
+
+    ```cpp
+    // header.h
+    inline int max(int a, int b) { return a > b ? a : b; } // Корректно
+
+    struct Calculator {
+        int get_zero() { return 0; } // Корректно (неявно inline)
+    };
+    ```
+
+    **Источник:** [cppreference: inline specifier](https://en.cppreference.com/w/cpp/language/inline)
+
 72. Что означает `inline` с точки зрения ODR и заголовков?
+
+    **Ответ:** С точки зрения ODR и компоновщика, ключевое слово `inline` — это указание линкеру разрешить множественные идентичные определения этого символа в разных единицах трансляции. Компилятор помечает такой символ как «слабый» (weak symbol), а линкер при сборке просто отбрасывает дубликаты, оставляя ровно одну копию для всей программы.
+
+    **Пример:**
+
+    ```cpp
+    // utils.h
+    inline void debug_print() { /*...*/ } // Разрешено включать в N файлов проекта, дубли сольются линкером
+    ```
+
+    **Источник:** [cppreference: Inline function linkage](https://en.cppreference.com/w/cpp/language/inline)
+
 73. Что такое ODR — One Definition Rule?
+
+    **Ответ:** One Definition Rule (правило одного определения) — фундаментальный стандарт C++, гласящий: 1) в любой единице трансляции переменная, функция, класс, перечисление или шаблон не могут иметь более одного определения; 2) в рамках всей программы сущности со внешней компоновкой (не `inline`) должны иметь ровно одно определение; 3) `inline`-функции и типы могут определяться в разных единицах трансляции, но эти определения обязаны быть посимвольно/семантически идентичны.
+
+    **Пример:**
+
+    ```cpp
+    // Нарушение части 1 ODR (в пределах одной единицы трансляции):
+    int val = 5;
+    int val = 10; // Ошибка компиляции: redefinition of 'int val'
+    ```
+
+    **Источник:** [ISO C++ Standard: One Definition Rule (§ 6.3 [basic.def.odr])](https://eel.is/c++draft/basic.def.odr)
+
 74. Почему ODR важен для больших C++-проектов?
+
+    **Ответ:** В больших проектах без строгого соблюдения ODR возникают трудноуловимые ошибки неопределенного поведения (Undefined Behavior). Если структура данных или класс определены по-разному в разных единицах трансляции (например, из-за разных дефайнов сборки), то разные части бинарного файла будут работать с несовпадающими смещениями полей в памяти, что приводит к разрушению памяти (memory corruption) и крашам в рантайме.
+
+    **Пример:**
+
+    ```cpp
+    // В файле A.cpp: struct Data { int x; int y; };
+    // В файле B.cpp: struct Data { double x; };
+    // Передача Data между ними приведет к UB из-за нарушения ODR!
+    ```
+
+    **Источник:** [SEI CERT C++ Coding Standard: DCL60-CPP](https://wiki.sei.cmu.edu/confluence/display/cplusplus/DCL60-CPP.+Obey+the+one-definition+rule)
+
 75. Что считается нарушением ODR?
+
+    **Ответ:** Нарушением ODR считается: дублирование не-`inline` определений функций или переменных в разных файлах; расхождение определений одного и того же класса/структуры в разных единицах трансляции (разный порядок членов, разные размеры, разные флаги компиляции типа `-DDEBUG`); наличие нескольких определений шаблона, если их токены или поиск имен различаются.
+
+    **Пример:**
+
+    ```cpp
+    // file1.cpp
+    struct Config { int timeout; };
+
+    // file2.cpp
+    struct Config { double timeout; }; // ODR violation! Линкер часто не сообщает об этом.
+    ```
+
+    **Источник:** [cppreference: ODR Violations](https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule)
+
 76. Почему include guard не решает все проблемы ODR?
+
+    **Ответ:** Include guard (`#pragma once` или `#ifndef GUARDFLAG`) защищает только от повторного включения заголовочного файла внутри **одной конкретной** единицы трансляции (одного `.cpp`). Если заголовок с обычным определением функции будет подключен в два независимых файла (`file1.cpp` и `file2.cpp`), guard отработает в каждом из них изолированно, определение попадет в оба `.o` файла, и линкер завершится ошибкой множественного определения.
+
+    **Пример:**
+
+    ```cpp
+    #ifndef FOO_H
+    #define FOO_H
+    void print() {} // Guard спасет от дублей внутри main.cpp,
+    #endif          // но при включении в other.cpp возникнет ошибка линковки
+    ```
+
+    **Источник:** [LearnCpp: Header guards](https://www.learncpp.com/cpp-tutorial/header-guards/)
+
 77. Что такое forward declaration?
+
+    **Ответ:** Forward declaration (предварительное объявление) — это объявление идентификатора (класса, структуры, функции) без предоставления его полного описания и внутренней структуры. Для компилятора это делает тип так называемым «неполным» (incomplete type), позволяя оперировать указателями и ссылками на него без включения тяжелых файлов определений.
+
+    **Пример:**
+
+    ```cpp
+    class Engine; // Forward declaration класса
+
+    class Car {
+        Engine* engine_; // Указателю не требуется знание размера Engine
+    };
+    ```
+
+    **Источник:** [cppreference: Incomplete types](https://en.cppreference.com/w/cpp/language/type#Incomplete_type)
+
 78. Когда достаточно forward declaration вместо `#include`?
+
+    **Ответ:** Forward declaration достаточно, когда объявляются: 1) указатели или ссылки на тип (`T*`, `T&`); 2) аргументы или возвращаемые типы функций в их сигнатурах; 3) статические методы и поля, если компилятору в данной точке не требуется вычислять размер `sizeof(T)` или обращаться к внутренним полям и методам типа `T`.
+
+    **Пример:**
+
+    ```cpp
+    // Header.h
+    class Worker; // Достаточно, #include "Worker.h" не нужен!
+
+    void process(const Worker& w);
+    Worker* create_worker();
+    ```
+
+    **Источник:** [Google C++ Style Guide: Forward Declarations](https://google.github.io/styleguide/cppguide.html#Forward_Declarations)
+
 79. Почему forward declaration помогает уменьшать зависимости?
+
+    **Ответ:** Замена `#include` на forward declaration предотвращает каскадное втягивание транзитивных заголовков. В результате размер препроцессированного файла уменьшается, компилятор парсит меньше кода, а изменение внутренней реализации класса не провоцирует перекомпиляцию тех файлов проекта, которые используют только интерфейсные указатели на этот класс.
+
+    **Пример:**
+
+    ```cpp
+    // Вместо подтягивания всего огромного Widget.h:
+    // #include "Widget.h" (втягивает 50 вложенных хедеров)
+    class Widget; // Размер файла на этапе препроцессинга не раздувается
+    ```
+
+    **Источник:** [Games from Within: Physical Structure and C++ (Noel Llopis)](https://gamesfromwithin.com/physical-structure-and-c-part-1)
+
 80. Когда forward declaration недостаточно?
+
+    **Ответ:** Предварительного объявления недостаточно, когда компилятору необходимо знать полный тип (complete type): 1) создание экземпляра по значению (`T obj;`); 2) наследование от типа (`class Derived : public Base`); 3) вызов оператора `sizeof(T)` или `alignof(T)`; 4) обращение к членам и методам (`ptr->foo()`); 5) использование в контейнерах стандартной библиотеки (например, по значению `std::vector<T>` требует полного типа при инстанцировании ряда методов).
+
+    **Пример:**
+
+    ```cpp
+    class Worker;
+    // Worker w; // Ошибка: incomplete type 'Worker'
+    // sizeof(Worker); // Ошибка: invalid application of 'sizeof' to incomplete type
+    ```
+
+    **Источник:** [cppreference: Incomplete type restrictions](https://en.cppreference.com/w/cpp/language/type#Incomplete_type)
+
 81. Можно ли объявить класс вперёд и хранить его по значению?
+
+    **Ответ:** Нет, нельзя. Чтобы выделить память под переменную или поле объекта на стеке, в статической памяти или внутри другого класса, компилятор обязан точно знать его размер в байтах и требования к выравниванию (alignment). Неполный тип этих данных не предоставляет.
+
+    **Пример:**
+
+    ```cpp
+    class Engine;
+
+    struct Rocket {
+        Engine engine; // Ошибка компиляции: field 'engine' has incomplete type 'Engine'
+    };
+    ```
+
+    **Источник:** [ISO C++ Standard: Incomplete types (§ 6.8.1 [basic.types.general])](https://eel.is/c++draft/basic.types.general)
+
 82. Почему для поля-объекта нужен полный тип?
+
+    **Ответ:** Компилятор формирует память класса как непрерывную структуру со строгими смещениями (offsets) каждого поля. Чтобы вычислить общий размер родительского класса и определить смещение следующих за ним полей, компилятору критически необходим точный размер и выравнивание каждого вложенного поля-объекта, что возможно узнать только из полного определения.
+
+    **Пример:**
+
+    ```cpp
+    #include "Engine.h" // Обязателен полный тип!
+
+    struct Car {
+        Engine e; // Компилятору нужно знать sizeof(Engine),
+        int speed; // чтобы знать, по какому смещению расположить 'speed'
+    };
+    ```
+
+    **Источник:** [cppreference: Objects and alignment](https://en.cppreference.com/w/cpp/language/object)
+
 83. Почему для указателя или ссылки часто достаточно неполного типа?
+
+    **Ответ:** На конкретной аппаратной платформе все объектные указатели и ссылки имеют фиксированный, заранее известный компилятору размер (обычно 8 байт на 64-битной архитектуре и 4 байта на 32-битной), вне зависимости от того, на объект какого типа и размера они указывают.
+
+    **Пример:**
+
+    ```cpp
+    class UnknownClass; // Incomplete type
+
+    struct Container {
+        UnknownClass* ptr; // Компилятор знает: размер ptr ровно 8 байт (на x86_64)
+    };
+    ```
+
+    **Источник:** [Bjarne Stroustrup: The C++ Programming Language (Chapter: Pointers and Arrays)](https://www.stroustrup.com/)
+
 84. Что такое циклические зависимости между заголовками?
+
+    **Ответ:** Циклическая зависимость (circular dependency) возникает, когда заголовочный файл `A.h` включает в себя `B.h`, а `B.h`, прямо или косвенно через цепочку других файлов, включает в себя `A.h`.
+
+    **Пример:**
+
+    ```cpp
+    // File: A.h
+    #include "B.h"
+    struct A { B* b; };
+
+    // File: B.h
+    #include "A.h"
+    struct B { A* a; };
+    ```
+
+    **Источник:** [Large-Scale C++ Software Design (John Lakos)](https://www.informit.com/store/large-scale-c-plus-plus-software-design-9780201633627)
+
 85. Почему взаимные `#include` между заголовками — плохая идея?
+
+    **Ответ:** Из-за include guard один из заголовков неизбежно будет прочитан препроцессором до конца раньше другого, в результате чего второй заголовок попытается использовать типы первого еще до того, как они будут определены компилятором. Это приводит к загадочным ошибкам компиляции вроде «unknown type name» и сильнейшей связанности архитектуры (tight coupling).
+
+    **Пример:**
+
+    ```cpp
+    // При разворачивании цикла A.h -> B.h -> A.h:
+    // Guard файла A.h уже установлен, B.h не получит определение struct A
+    // Ошибка: 'A' has not been declared inside B.h
+    ```
+
+    **Источник:** [C++ Core Guidelines: Circular dependencies](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf-source-files)
+
 86. Как forward declaration помогает разрывать циклические зависимости?
+
+    **Ответ:** Forward declaration позволяет избавиться от директивы `#include` в одном или обоих заголовочных файлах, заменяя её опережающим объявлением класса для указателей/ссылок. Полные определения переносятся в `.cpp` файлы, в которых цикличность включений уже не вызывает проблем со сборкой.
+
+    **Пример:**
+
+    ```cpp
+    // A.h
+    class B; // Разорвали цикл: не включаем B.h
+    struct A {
+        B* b;
+    };
+    ```
+
+    **Источник:** [Google C++ Style Guide: Forward Declarations](https://google.github.io/styleguide/cppguide.html#Forward_Declarations)
+
 87. Что такое транзитивное подключение заголовков?
+
+    **Ответ:** Транзитивное подключение — это ситуация, при которой исходный файл `main.cpp` подключает `A.h`, а `A.h` внутри себя подключает `B.h`. В результате `main.cpp` косвенно (транзитивно) получает доступ ко всем объявлениям из `B.h`, даже если сам явно не писал `#include "B.h"`.
+
+    **Пример:**
+
+    ```cpp
+    // Library.h включает <string>
+    // User.cpp:
+    #include "Library.h"
+    std::string text = "Hello"; // Работает "случайно" за счет транзитивности
+    ```
+
+    **Источник:** [cppreference: Source file inclusion](https://en.cppreference.com/w/cpp/preprocessor/include)
+
 88. Почему “заголовок подключился случайно через другой заголовок” — опасная зависимость?
+
+    **Ответ:** Это делает код хрупким. Если автор промежуточного заголовка (`A.h`) проведет рефакторинг и удалит ставший ненужным `#include "B.h"`, весь зависимый код (`User.cpp`), который неявно полагался на транзитивный заголовок, сломается с ошибками компиляции, хотя внешне логика `User.cpp` никак не менялась (проблема «include what you use»).
+
+    **Пример:**
+
+    ```cpp
+    // В Library.h убрали #include <string>
+    // User.cpp внезапно падает при сборке: error: 'string' in namespace 'std' does not name a type
+    ```
+
+    **Источник:** [Include What You Use (IWYU) Concept](https://include-what-you-use.org/)
+
 89. Почему хороший заголовок должен быть самодостаточным?
+
+    **Ответ:** Самодостаточный заголовок (self-contained header) включает в себя все зависимости, необходимые для его собственной успешной компиляции. Это гарантирует, что порядок подключения заголовков в `.cpp` файлах пользователей не будет иметь значения, и подключение заголовка в чистом файле никогда не приведет к ошибкам компиляции из-за отсутствующих типов.
+
+    **Пример:**
+
+    ```cpp
+    // MyHeader.h обязан сам включить <string>, если использует ее в интерфейсе:
+    #pragma once
+    #include <string> // Без этого файл несамодостаточен
+
+    void greet(const std::string& name);
+    ```
+
+    **Источник:** [Google C++ Style Guide: Self-contained Headers](https://google.github.io/styleguide/cppguide.html#Self_contained_Headers)
+
 90. Что значит, что заголовок должен компилироваться сам по себе?
+
+    **Ответ:** Это значит, что если создать изолированный тестовый файл `test.cpp`, состоящий всего из одной строчки `#include "header.h"`, он должен компилироваться компилятором без каких-либо ошибок. Заголовок не должен неявно требовать, чтобы перед ним обязательно был подключен какой-то другой файл (например, `<windows.h>`).
+
+    **Пример:**
+
+    ```bash
+    # Проверка самодостаточности заголовка:
+    echo '#include "my_header.h"' > test.cpp && g++ -c test.cpp
+    ```
+
+    **Источник:** [C++ Core Guidelines: SF.11 Make header files self-contained](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf11-make-header-files-self-contained)
+
 91. Что такое минимизация зависимостей на уровне include?
+
+    **Ответ:** Это практика проектирования C++-кода, направленная на сокращение количества директив `#include` внутри заголовочных файлов до строго необходимого минимума. Достигается за счет использования предварительных объявлений (forward declarations), выноса деталей реализации в `.cpp` файлы и применения идиомы PIMPL (Pointer to Implementation).
+
+    **Пример:**
+
+    ```cpp
+    // Pimpl идиома для скрытия зависимостей:
+    class NetworkClient {
+        struct Impl; // Все тяжелые сокеты спрятаны внутри Impl
+        Impl* pimpl;
+    };
+    ```
+
+    **Источник:** [cppreference: PIMPL Idiom](https://en.cppreference.com/w/cpp/language/pimpl)
+
 92. Почему слишком много `#include` замедляет сборку?
+
+    **Ответ:** Препроцессор работает методом примитивной текстовой вставки. Включение одного тяжелого стандартного заголовка (например, `<iostream>` или `<vector>`) может развернуть исходный файл в десятки тысяч строк кода. Если 100 исходных файлов проекта подключают этот заголовок, компилятор вынужден парсить, строить AST и проверять типы для этих миллионов строк снова и снова для каждого `.cpp`.
+
+    **Пример:**
+
+    ```bash
+    # Файл из 3 строк:
+    # #include <iostream>
+    # int main() {}
+    # После препроцессора (g++ -E) превращается в ~30 000 строк кода!
+    ```
+
+    **Источник:** [Games from Within: Physical Structure and C++](https://gamesfromwithin.com/physical-structure-and-c-part-2)
+
 93. Что такое время компиляции проекта?
+
+    **Ответ:** Время компиляции (Build Time / Compilation Time) — это суммарное физическое время, затрачиваемое инструментами сборки (препроцессором, компилятором, ассемблером и линкером) на преобразование дерева исходных файлов проекта в готовые исполняемые бинарные модули или библиотеки.
+
+    **Пример:**
+
+    ```bash
+    # Замер времени сборки проекта:
+    time cmake --build . --parallel 8
+    ```
+
+    **Источник:** [LLVM Docs: Benchmarking Build Times](https://llvm.org/docs/BenchmarkingBuildTimes.html)
+
 94. Почему изменение одного заголовка может вызвать перекомпиляцию множества файлов?
+
+    **Ответ:** Системы сборки (Make, Ninja) отслеживают зависимости на основе графа включений. Если заголовочный файл меняется (изменяется timestamp файла), система сборки считает невалидными и отправляет на обязательную перекомпиляцию все без исключения единицы трансляции, которые прямо или транзитивно включают данный заголовок.
+
+    **Пример:**
+
+    ```
+          [Core.h] (изменен)
+          /      \
+      [A.cpp]   [B.cpp]  -> Оба файла перекомпилируются заново!
+    ```
+
+    **Источник:** [GNU Make Manual: How Make Figures Out Out-of-date Targets](https://www.gnu.org/software/make/manual/make.html#How-Make-Works)
+
 95. Что такое dependency graph в сборке?
+
+    **Ответ:** Dependency graph (граф зависимостей) — это ориентированный ациклический граф (DAG), узлами которого являются файлы (исходные, заголовочные, объектные, исполняемые), а ребрами — отношения зависимости между ними. Он определяет строгий частичный порядок шагов сборки и показывает, что необходимо пересобрать при изменении конкретного узла.
+
+    **Пример:**
+
+    ```
+    main.cpp -> main.o \
+                         -> app.exe (линковка зависит от main.o и math.o)
+    math.cpp -> math.o /
+    ```
+
+    **Источник:** [Ninja Build System Manual: Concepts](https://ninja-build.org/manual.html)
+
 96. Что такое инкрементальная сборка?
+
+    **Ответ:** Инкрементальная сборка — это механизм оптимизации системы сборки, при котором компилируются только те файлы, которые были изменены с момента предыдущей сборки (или зависят от изменившихся файлов), в то время как результаты неизмененных файлов повторно используются в готовом виде.
+
+    **Пример:**
+
+    ```bash
+    # Изменили только user.cpp:
+    ninja
+    # [1/2] Compiling user.cpp -> user.o
+    # [2/2] Linking app.exe (быстрая сборка без перекомпиляции остальных 100 файлов)
+    ```
+
+    **Источник:** [CMake Documentation: Dependency Checking](https://cmake.org/cmake/help/latest/manual/cmake-buildsystem.7.html)
+
 97. Чем полная сборка отличается от инкрементальной?
+
+    **Ответ:** При полной сборке (clean build) все промежуточные артефакты (кэши, `.o`, `.obj`, `.a`, бинарники) удаляются, и проект перекомпилируется абсолютно с нуля. При инкрементальной сборке система сравнивает метки времени (timestamps) или хеши файлов и компилирует строго дельту изменений, экономя время разработчика.
+
+    **Пример:**
+
+    ```bash
+    # Полная сборка:
+    make clean && make -j8
+    # Инкрементальная сборка:
+    make -j8
+    ```
+
+    **Источник:** [Microsoft Docs: Building Projects in Visual Studio](https://learn.microsoft.com/en-us/visualstudio/ide/building-and-cleaning-projects-and-solutions-in-visual-studio)
+
 98. Почему инкрементальная сборка так важна в больших проектах?
+
+    **Ответ:** В больших проектах (таких как Chromium, LLVM, игровые движки) полная сборка может занимать от 40 минут до нескольких часов даже на мощных многопоточных серверах. Быстрая инкрементальная сборка (за секунды) критически необходима для сохранения продуктивного цикла обратной связи разработчика (Edit-Compile-Run-Test).
+
+    **Пример:**
+
+    ```bash
+    # Инкрементальная пересборка 1 файла в LLVM занимает ~5 секунд,
+    # тогда как полная сборка проекта требует около 1 часа.
+    ```
+
+    **Источник:** [LLVM Project: Getting Started with the LLVM System (Build Performance)](https://llvm.org/docs/GettingStarted.html)
+
 99. Что такое флаг компилятора?
-100.  Для чего нужны ключи командной строки компилятора?
+
+    **Ответ:** Флаг компилятора — это параметр или аргумент командной строки, передаваемый компилятору для изменения его режима работы: управления уровнем оптимизации, включения предупреждений, выбора стандарта языка, генерации отладочной информации или определения макросов препроцессора.
+
+    **Пример:**
+
+    ```bash
+    # -Wall, -Wextra (предупреждения), -O2 (оптимизация), -std=c++20 (стандарт)
+    g++ -std=c++20 -O2 -Wall -Wextra main.cpp -o main
+    ```
+
+    **Источник:** [GCC Online Docs: Option Summary](https://gcc.gnu.org/onlinedocs/gcc/Option-Summary.html)
+
+100. Для чего нужны ключи командной строки компилятора?
+
+     **Ответ:** Ключи командной строки компилятора служат интерфейсом настройки всего процесса трансляции. Они определяют пути поиска заголовочных файлов (`-I`) и библиотек (`-L`), целевую архитектуру процессора (`-march`), санитайзеры (`-fsanitize=address`), генерацию отладочных символов (`-g`) и параметры линкера, позволяя адаптировать сборку под разработку, тестирование или релиз.
+
+     **Пример:**
+
+     ```bash
+     # Подключение директории хедеров (-I) и включение AddressSanitizer (-fsanitize=address):
+     g++ -I./include -g -fsanitize=address main.cpp -o debug_app
+     ```
+
+     **Источник:** [Clang Compiler User's Manual](https://clang.llvm.org/docs/UsersManual.html)
 
 ## Средний уровень
 
+
 101. Что такое условная компиляция?
+
+     **Ответ:** Условная компиляция — это механизм препроцессора, позволяющий включать или исключать фрагменты исходного кода из финального потока компиляции (единицы трансляции) на основе заданных условий: наличия объявленных макроопределений, значений целочисленных констант или проверки версий компилятора.
+
+     **Пример:**
+
+     ```cpp
+     #if defined(_WIN32)
+         #include <windows.h>
+     #elif defined(__linux__)
+         #include <unistd.h>
+     #endif
+     ```
+
+     **Источник:** [cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+
 102. Когда используют `#if`, `#ifdef`, `#ifndef`?
+
+     **Ответ:** Директивы `#ifdef` и `#ifndef` используют для проверки факта объявления идентификатора препроцессора (часто в include guards или для включения платформозависимых фичей). Директива `#if` применяется при необходимости вычисления составных булевых или целочисленных выражений (`#if FOO > 2 && defined(BAR)`).
+
+     **Пример:**
+
+     ```cpp
+     #ifndef BUFFER_SIZE
+     #define BUFFER_SIZE 1024
+     #endif
+
+     #if (BUFFER_SIZE * 2) > 4096
+         #error "Buffer is too large"
+     #endif
+     ```
+
+     **Источник:** [GCC Docs: Conditionals](https://gcc.gnu.org/onlinedocs/cpp/Conditionals.html?utm_source=gemini)
+
 103. Что такое макрос-переключатель конфигурации?
+
+     **Ответ:** Макрос-переключатель (feature toggle / configuration flag) — это препроцессорный идентификатор, значение или наличие которого передаётся через систему сборки или конфигурационный заголовок для изменения поведения, состава компилируемых компонентов или выбора платформенных API в проекте.
+
+     **Пример:**
+
+     ```cpp
+     // Передается через флаг компилятора: -DENABLE_LOGGING=1
+     #if ENABLE_LOGGING
+         #define LOG(x) std::cout << x << '\n'
+     #else
+         #define LOG(x) ((void)0)
+     #endif
+     ```
+
+     **Источник:** [C++ Core Guidelines: Preprocessor macros](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#es31-dont-use-macros-for-constants-or-functions)
+
 104. Как с помощью препроцессора включать или отключать части кода?
+
+     **Ответ:** Код помещается в ветви `#if ... #else ... #endif`. Те фрагменты, условие для которых вычислилось в ноль (false), препроцессор просто отсекает — компилятор не производит над ними лексический и синтаксический анализ, и они не попадают в таблицу символов и бинарный файл.
+
+     **Пример:**
+
+     ```cpp
+     #if 0
+         // Этот код полностью игнорируется компилятором
+         temporary_disabled_function();
+     #endif
+     ```
+
+     **Источник:** [cppreference: Conditional inclusion](https://en.cppreference.com/w/cpp/preprocessor/conditional?utm_source=gemini)
+
 105. Что такое debug/release-конфигурации сборки?
+
+     **Ответ:** Это стандартные наборы флагов сборки (build profiles), настроенные под конкретные цели: конфигурация Debug оптимизирована для простоты отладки и быстрой компиляции, а конфигурация Release — для минимизации размера и максимизации скорости выполнения конечной программы.
+
+     **Пример:**
+
+     ```bash
+     # Debug: генерация отладки (-g), без оптимизаций (-O0)
+     g++ -g -O0 main.cpp -o app_debug
+
+     # Release: макс. скорость (-O3), выключение проверок (-DNDEBUG)
+     g++ -O3 -DNDEBUG main.cpp -o app_release
+     ```
+
+     **Источник:** [CMake Docs: CMAKE_BUILD_TYPE](https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?utm_source=gemini)
+
 106. Чем debug-сборка обычно отличается от release-сборки?
+
+     **Ответ:** Debug-сборка компилируется без инлайнинга и переупорядочивания инструкций (`-O0`), содержит отладочную информацию (таблицы DWARF/PDB), оставляет включенными макросы `assert`, а также может включать дополнительные рантайм-проверки стандартной библиотеки (например, `_GLIBCXX_DEBUG`). Release-сборка компилируется с оптимизациями (`-O2` / `-O3`), вырезанными ассертами (`-DNDEBUG`) и часто с удалёнными символами отладки (`strip`).
+
+     **Пример:**
+
+     ```cpp
+     #ifdef NDEBUG
+         // Специфичный для Release быстрый путь без проверок
+     #else
+         // Специфичная для Debug валидация внутренних структур данных
+     #endif
+     ```
+
+     **Источник:** [Microsoft Docs: Understanding Debug and Release configurations](https://learn.microsoft.com/en-us/visualstudio/debugger/how-to-set-debug-and-release-configurations?utm_source=gemini)
+
 107. Что такое оптимизации компилятора?
+
+     **Ответ:** Оптимизации компилятора — это автоматические трансформации промежуточного представления (IR) и машинного кода, сохраняющие наблюдаемое поведение программы (as-if rule), но направленные на ускорение работы, сокращение потребления памяти, уменьшение размера инструкций или энергопотребления процессора.
+
+     **Пример:**
+
+     ```cpp
+     // Исходный код:
+     int calc() { return 2 * 4; }
+     // После Constant Folding и Inlining компилятор просто подставит число 8:
+     // mov eax, 8
+     ```
+
+     **Источник:** [LLVM Project: Optimization Passes](https://llvm.org/docs/Passes.html?utm_source=gemini)
+
 108. Почему поведение программы в debug и release может различаться?
+
+     **Ответ:** В Release-сборке агрессивные оптимизации компилятора полагаются на предположение об отсутствии в коде Неопределенного Поведения (Undefined Behavior). Если в программе есть чтение неинициализированной памяти, выход за границы массива или гонки данных, компилятор может выкинуть целые ветки `if`, переупорядочить операции или изменить распределение переменных на регистрах, из-за чего скрытые баги проявляются только в Release.
+
+     **Пример:**
+
+     ```cpp
+     int get_val() {
+         int x; // Неинициализировано. В Debug стек часто забит нулями,
+         return x; // а в Release вернется произвольный мусор из регистра.
+     }
+     ```
+
+     **Источник:** [SEI CERT C++: Undefined Behavior](https://wiki.sei.cmu.edu/confluence/display/cplusplus/CC.+Undefined+Behavior?utm_source=gemini)
+
 109. Что такое символы отладки?
+
+     **Ответ:** Символы отладки (Debug Symbols / Debug Information) — это специальные метаданные (форматы DWARF на Linux, PDB на Windows), связывающие машинный код и смещения адресов в памяти с исходным кодом: номерами строк, именами исходных файлов, названиями локальных переменных и их типами.
+
+     **Пример:**
+
+     ```bash
+     # Флаг компилятора для генерации символов отладки:
+     g++ -g main.cpp -o app
+     # Просмотр секций DWARF утилитой objdump:
+     objdump --dwarf=info app
+     ```
+
+     **Источник:** [DWARF Debugging Information Format Standard](https://dwarfstd.org/?utm_source=gemini)
+
 110. Для чего нужна отладочная информация в бинарнике?
+
+     **Ответ:** Она необходима отладчикам (GDB, LLDB, Visual Studio Debugger) и профилировщикам для построения читаемого стека вызовов (stack trace) при крашах, установки точек останова (breakpoints) по строкам кода, пошагового выполнения программы и отображения текущих значений локальных структур и переменных.
+
+     **Пример:**
+
+     ```text
+     # Стек вызова с отладочной информацией:
+     #0  main () at main.cpp:14
+     # Стек вызова БЕЗ отладочной информации:
+     #0  0x0000000000401126 in ?? ()
+     ```
+
+     **Источник:** [GDB Documentation: Debugging Information](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Symbols.html?utm_source=gemini)
+
 111. Что такое `NDEBUG`?
+
+     **Ответ:** `NDEBUG` (No Debug) — это стандартный макрос языка C и C++, определенный спецификацией ISO. Если этот макрос объявлен до включения заголовка `<cassert>` (или `<assert.h>`), он отключает работу макроса `assert`.
+
+     **Пример:**
+
+     ```bash
+     # Передача компилятору для выключения assert в релизе:
+     g++ -DNDEBUG -O3 main.cpp -o main
+     ```
+
+     **Источник:** [ISO C++ Standard: C debugging libraries (§ 19.3 \[cassert.syn\])](https://eel.is/c++draft/cassert.syn?utm_source=gemini)
+
 112. Как `NDEBUG` связан с `assert`?
+
+     **Ответ:** В заголовке `<cassert>` заложена условная директива: если макрос `NDEBUG` объявлен, макрос `assert(expr)` разворачивается в пустоту `((void)0)`. Если `NDEBUG` не объявлен, `assert(expr)` генерирует проверку выражения и вызов аварийного завершения `abort()` при ложном результате.
+
+     **Пример:**
+
+     ```cpp
+     #ifdef NDEBUG
+         #define assert(condition) ((void)0)
+     #else
+         #define assert(condition) /* код печати ошибки и abort() */
+     #endif
+     ```
+
+     **Источник:** [cppreference: assert](https://en.cppreference.com/w/cpp/error/assert?utm_source=gemini)
+
 113. Что делает макрос `assert`?
+
+     **Ответ:** Макрос `assert` оценивает булево выражение в рантайме. Если выражение ложно (`false`), он выводит в стандартный поток ошибок диагностическое сообщение (текст условия, имя файла `__FILE__`, номер строки `__LINE__` и имя функции) и прерывает выполнение программы системным вызовом `std::abort()`.
+
+     **Пример:**
+
+     ```cpp
+     #include <cassert>
+
+     void divide(int a, int b) {
+         assert(b != 0); // Если b == 0, программа упадет с ассертом
+         int res = a / b;
+     }
+     ```
+
+     **Источник:** [cppreference: assert](https://en.cppreference.com/w/cpp/error/assert?utm_source=gemini)
+
 114. Почему `assert` относится и к препроцессору, и к сборке?
+
+     **Ответ:** К препроцессору он относится потому, что реализован как макрос, который переопределяется при каждом включении `<cassert>` в зависимости от директивы `#define NDEBUG`. К сборке он относится потому, что управление его поведением во всем проекте обычно централизованно задается сборочной системой через флаг `-DNDEBUG` в зависимости от типа сборки (Debug/Release).
+
+     **Пример:**
+
+     ```cmake
+     # CMake автоматически добавляет -DNDEBUG для конфигурации Release
+     target_compile_definitions(my_target PRIVATE $<$<CONFIG:Release>:NDEBUG>)
+     ```
+
+     **Источник:** [CMake Documentation: Generator Expressions](https://cmake.org/cmake/help/latest/manual/cmake-generator-expressions.7.html?utm_source=gemini)
+
 115. Что такое predefined macros?
+
+     **Ответ:** Predefined macros (предопределенные макросы) — это служебные макросы, которые компилятор автоматически предоставляет препроцессору без явного объявления со стороны разработчика. Они содержат информацию о текущем компиляторе, версии стандарта C++, дате сборки, операционной системе и целевой процессорной архитектуре.
+
+     **Пример:**
+
+     ```cpp
+     #if __cplusplus >= 202002L
+         // Код для стандарта C++20 и выше
+     #endif
+     ```
+
+     **Источник:** [cppreference: Predefined preprocessor symbols](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini#Predefined_macros)
+
 116. Что делают `__FILE__`, `__LINE__`, `__DATE__`, `__TIME__`?
+
+     **Ответ:** Это стандартные макросы препроцессора, которые разворачиваются в: `__FILE__` — строковый литерал с путем к текущему компилируемому файлу; `__LINE__` — целое число, равное номеру текущей строки; `__DATE__` — дату препроцессинга ("Mmm dd yyyy"); `__TIME__` — время препроцессинга ("hh:mm:ss").
+
+     **Пример:**
+
+     ```cpp
+     std::cout << "Compiled on: " << __DATE__ << " at " << __TIME__ << '\n';
+     std::cout << "Error at " << __FILE__ << ":" << __LINE__ << '\n';
+     ```
+
+     **Источник:** [cppreference: Predefined macros](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini#Predefined_macros)
+
 117. Для чего полезен `__func__`?
+
+     **Ответ:** Идентификатор `__func__` возвращает имя текущей функции в виде статического константного массива символов. Он активно используется в библиотеках логирования, профилирования и обработчиках ошибок для автоматической фиксации точки выполнения без ручного хардкода имени функции.
+
+     **Пример:**
+
+     ```cpp
+     void process_order() {
+         std::cout << "Entering function: " << __func__ << '\n'; // Напечатает: process_order
+     }
+     ```
+
+     **Источник:** [cppreference: __func__](https://en.cppreference.com/w/cpp/language/function?utm_source=gemini#__func__)
+
 118. Чем `__func__` отличается от препроцессорных макросов?
+
+     **Ответ:** В отличие от препроцессорных макросов (`__FILE__`, `__LINE__`), которые раскрываются до этапа синтаксического анализа, `__func__` — это не макрос, а неявно объявляемая компилятором локальная переменная (как если бы в начале каждой функции компилятор добавил `static const char __func__[] = "имя_функции";`). Поэтому к нему нельзя применить операции конкатенации строк препроцессора.
+
+     **Пример:**
+
+     ```cpp
+     // Ошибка препроцессора:
+     // const char* msg = "In function: " __func__; // НЕ сработает, так как __func__ не строковый литерал препроцессора
+     ```
+
+     **Источник:** [ISO C++ Standard: Function definitions (§ 9.5.1 \[dcl.fct.def.general\])](https://eel.is/c++draft/dcl.fct.def.general?utm_source=gemini)
+
 119. Что такое token pasting оператор `##`?
+
+     **Ответ:** Оператор `##` (склейка токенов) используется внутри тела макроса для слияния двух независимых синтаксических токенов в один новый идентификатор или литерал во время работы препроцессора.
+
+     **Пример:**
+
+     ```cpp
+     #define DECLARE_VAR(type, id) type var_##id
+
+     DECLARE_VAR(int, counter); // Разворачивается в: int var_counter;
+     ```
+
+     **Источник:** [cppreference: Replacing text macros (## operator)](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini#Operator_##)
+
 120. Что такое stringizing оператор `#` внутри макросов?
+
+     **Ответ:** Оператор `#` (стрингификация / превращение в строку) ставится перед параметром макроса с параметрами и превращает переданный аргумент в строковый литерал, автоматически обрамляя его двойными кавычками и экранируя внутренние спецсимволы.
+
+     **Пример:**
+
+     ```cpp
+     #define PRINT_EXPR(expr) std::cout << #expr << " = " << (expr) << '\n'
+
+     PRINT_EXPR(2 + 2); // Развернется в: std::cout << "2 + 2" << " = " << (2 + 2) << '\n';
+     ```
+
+     **Источник:** [cppreference: Replacing text macros (# operator)](https://en.cppreference.com/w/cpp/preprocessor/replace?utm_source=gemini#Operator_#)
+
 121. Для чего используются `#` и `##` в макросах?
+
+     **Ответ:** Они используются для шаблонной кодогенерации (boilerplate generation), создания таблиц связывания (X-Macros), генерации уникальных имен идентификаторов (например, по номеру строки или переданному суффиксу), а также для автоматического захвата исходного C++-кода в строковые логи и ассерты.
+
+     **Пример:**
+
+     ```cpp
+     #define CHECK(cond) if (!(cond)) log_failed(#cond, __FILE__, __LINE__)
+     ```
+
+     **Источник:** [GCC Docs: Preprocessor Concatenation](https://gcc.gnu.org/onlinedocs/cpp/Concatenation.html?utm_source=gemini)
+
 122. Почему макросы с параметрами требуют особой осторожности со скобками?
+
+     **Ответ:** Препроцессор не анализирует структуру выражений, а производит «слепую» подстановку текста. Если параметр макроса или всё тело макроса не обёрнуты в круглые скобки, приоритет окружающих операторов в точке подстановки может исказить математическую логику выражения.
+
+     **Пример:**
+
+     ```cpp
+     #define MULTIPLY(a, b) a * b
+     int res = MULTIPLY(1 + 2, 3); // 1 + 2 * 3 = 7, а ожидалось (1 + 2) * 3 = 9!
+     ```
+
+     **Источник:** [SEI CERT C++: PRE01-C. Use parentheses within macros around parameter names](https://wiki.sei.cmu.edu/confluence/display/c/PRE01-C.+Use+parentheses+within+macros+around+parameter+names?utm_source=gemini)
+
 123. Чем опасен макрос `#define SQR(x) x*x`?
+
+     **Ответ:** Этот макрос страдает сразу от двух проблем: отсутствия скобок вокруг аргументов (что ломает приоритет операций) и отсутствия скобок вокруг всего выражения, а также двойного вычисления аргумента, если в качестве `x` передается выражение с побочным эффектом.
+
+     **Пример:**
+
+     ```cpp
+     #define SQR(x) x*x
+     int val = SQR(2 + 3); // 2 + 3 * 2 + 3 = 11 вместо 25!
+     int res = 100 / SQR(2); // 100 / 2 * 2 = 100 вместо 25!
+     ```
+
+     **Источник:** [LearnCpp: Macro pitfalls](https://www.learncpp.com/cpp-tutorial/unnamed-and-inline-namespaces/?utm_source=gemini)
+
 124. Почему макросы могут давать неожиданный результат из-за приоритета операторов?
+
+     **Ответ:** Поскольку подстановка токенов происходит до построения синтаксического дерева (AST), окружающие макрос операции (сложение, сдвиги, тернарный оператор) связываются с неэкранированными внутренними частями макроса в соответствии с глобальной таблицей приоритетов C++.
+
+     **Пример:**
+
+     ```cpp
+     #define ADD(a, b) a + b
+     int res = ADD(1, 2) * ADD(3, 4); // 1 + 2 * 3 + 4 = 1 + 6 + 4 = 11, а не 3 * 7 = 21!
+     ```
+
+     **Источник:** [C++ Core Guidelines: ES.31](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#es31-dont-use-macros-for-constants-or-functions)
+
 125. Почему у макросов могут быть побочные эффекты?
+
+     **Ответ:** Если параметр используется в теле макроса дважды или более раз, переданное в качестве аргумента выражение будет физически продублировано препроцессором и вычислено в рантайме столько же раз, что приводит к повторному вызову функций или повторным модификациям переменных.
+
+     **Пример:**
+
+     ```cpp
+     #define MAX(a, b) ((a) > (b) ? (a) : (b))
+     int a = 5, b = 2;
+     int m = MAX(a++, b); // a инкрементируется ДВАЖДЫ!
+     ```
+
+     **Источник:** [SEI CERT C++: PRE31-C. Avoid side effects in arguments to unsafe macros](https://wiki.sei.cmu.edu/confluence/display/c/PRE31-C.+Avoid+side+effects+in+arguments+to+unsafe+macros?utm_source=gemini)
+
 126. Чем опасен макрос с аргументом вроде `i++`?
+
+     **Ответ:** Если макрос дублирует аргумент, `i++` выполнится несколько раз, что приведёт к искажению данных. Если же один и тот же параметр модифицируется в выражении без точек следования (sequence points / sequenced-before relationships), это влечет за собой Неопределенное Поведение (UB).
+
+     **Пример:**
+
+     ```cpp
+     #define SQUARE(x) ((x) * (x))
+     int i = 2;
+     int res = SQUARE(i++); // UB до C++17, неожиданное значение (i инкрементируется дважды)
+     ```
+
+     **Источник:** [cppreference: Order of evaluation](https://en.cppreference.com/w/cpp/language/eval_order?utm_source=gemini)
+
 127. Почему макрос не стоит использовать там, где лучше функция или шаблон?
+
+     **Ответ:** Макросы не уважают пространства имен (`namespace`), не проверяют соответствие типов аргументов, игнорируют правила областей видимости (scope), не могут быть нормально отлажены в интерактивном дебаггере (нельзя зайти внутрь макроса по `F11`) и часто порождают труднопонимаемые ошибки компилятора.
+
+     **Пример:**
+
+     ```cpp
+     // Плохо:
+     #define MIN(a, b) (((a) < (b)) ? (a) : (b))
+
+     // Идеально на C++:
+     template <typename T>
+     constexpr const T& min(const T& a, const T& b) {
+         return (a < b) ? a : b;
+     }
+     ```
+
+     **Источник:** [C++ Core Guidelines: ES.32 Use const, constexpr, or inline functions instead of macros](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#es32-use-const-constexpr-or-inline-functions-instead-of-macros)
+
 128. Когда макрос всё же уместен?
+
+     **Ответ:** Макросы остаются незаменимыми в узких сценариях: 1) включение include guards; 2) условная компиляция и платформозависимый код (`#ifdef _WIN32`); 3) сбор диагностических метаданных компилятора (`__FILE__`, `__LINE__`); 4) генерация табличного кода (X-macros); 5) интеграция со сторонними библиотеками тестирования и рефлексии (Google Test: `TEST(Suite, Case)`).
+
+     **Пример:**
+
+     ```cpp
+     #define ASSERT_NOT_NULL(ptr) \
+         if (!(ptr)) throw std::runtime_error(std::string("Null pointer in ") + __FILE__)
+     ```
+
+     **Источник:** [Google C++ Style Guide: Preprocessor Macros](https://google.github.io/styleguide/cppguide.html?utm_source=gemini#Preprocessor_Macros)
+
 129. Что такое include path?
+
+     **Ответ:** Include path (путь поиска включений) — это список системных и пользовательских каталогов файловой системы, в которых препроцессор по очереди ищет файлы, указанные в директивах `#include <...>` или `#include "..."`.
+
+     **Пример:**
+
+     ```bash
+     # Добавление каталога в include path через флаг -I:
+     g++ -I/usr/local/include/mylib -I./include main.cpp -o main
+     ```
+
+     **Источник:** [GCC Online Docs: Search Path](https://gcc.gnu.org/onlinedocs/cpp/Search-Path.html?utm_source=gemini)
+
 130. Как компилятор ищет заголовочные файлы?
+
+     **Ответ:** При `#include "file.h"` препроцессор сначала ищет файл в каталоге текущего компилируемого файла, а затем обходит каталоги из флагов `-I` и стандартные системные папки. При `#include <file.h>` поиск сразу начинается со списка путей, переданных флагу `-I`, и стандартных системных директорий.
+
+     **Пример:**
+
+     ```cpp
+     #include "my_local.h" // Поиск: текущая папка -> -I -> системные пути
+     #include <vector>     // Поиск: -I -> системные пути (текущая папка пропускается)
+     ```
+
+     **Источник:** [GCC Online Docs: Include Syntax](https://gcc.gnu.org/onlinedocs/cpp/Include-Syntax.html?utm_source=gemini)
+
 131. Что такое системные заголовки?
+
+     **Ответ:** Системные заголовки — это файлы заголовочных интерфейсов, поставляемые вместе со стандартной библиотекой C++ (например, `<iostream>`, `<memory>`) или системными библиотеками ОС (POSIX, WinAPI). Компилятор обращается с ними особо: по умолчанию подавляет большинство варнингов и ускоряет парсинг.
+
+     **Пример:**
+
+     ```bash
+     # Флаг -isystem добавляет путь с трактовкой заголовков как системных:
+     g++ -isystem ./third_party/boost main.cpp -o main
+     ```
+
+     **Источник:** [GCC Online Docs: System Headers](https://gcc.gnu.org/onlinedocs/cpp/System-Headers.html?utm_source=gemini)
+
 132. Что такое пользовательские заголовки?
+
+     **Ответ:** Пользовательские заголовки — это файлы проекта или локальных библиотек (обычно с расширениями `.h`, `.hpp`), написанные разработчиками приложения. Для них компилятор применяет все включенные уровни предупреждений (`-Wall`, `-Wextra`, `-Werror`).
+
+     **Пример:**
+
+     ```cpp
+     #include "controllers/user_controller.hpp" // Пользовательский заголовок проекта
+     ```
+
+     **Источник:** [LearnCpp: Header files](https://www.learncpp.com/cpp-tutorial/header-files/?utm_source=gemini)
+
 133. Что такое precompiled headers?
+
+     **Ответ:** Precompiled Headers (PCH) — это технология ускорения сборки, при которой группа редко изменяемых тяжелых заголовков (STL, Boost, API ОС) парсится и компилируется компилятором один раз в бинарный образ (дамп AST и таблицы символов с расширением `.gch` в GCC или `.pch` в MSVC).
+
+     **Пример:**
+
+     ```bash
+     # Создание PCH в GCC:
+     g++ -x c++-header pch.h -o pch.h.gch
+     ```
+
+     **Источник:** [Clang Docs: Precompiled Headers](https://clang.llvm.org/docs/PCHInternals.html?utm_source=gemini)
+
 134. Для чего используют precompiled headers?
+
+     **Ответ:** PCH используют для устранения главного узкого места компиляции C++ — повторного парсинга сотен тысяч строк шаблонного кода стандартной библиотеки и сторонних SDK в каждой отдельной единице трансляции, сокращая общее время пересборки проекта на 30–70%.
+
+     **Пример:**
+
+     ```cpp
+     // pch.h
+     #include <vector>
+     #include <string>
+     #include <map>
+     #include <algorithm>
+     #include <windows.h>
+     ```
+
+     **Источник:** [Microsoft Docs: Precompiled Header Files](https://learn.microsoft.com/en-us/cpp/build/creating-precompiled-header-files?utm_source=gemini)
+
 135. Какие плюсы дают precompiled headers?
+
+     **Ответ:** Главный плюс — резкое ускорение компиляции каждой единицы трансляции, так как компилятор загружает готовые структуры данных из оперативной памяти или файла вместо долгого лексического разбора, раскрытия макросов и шаблонного анализа.
+
+     **Пример:**
+
+     ```cmake
+     # Включение PCH через современный CMake:
+     target_precompile_headers(my_project PRIVATE pch.h)
+     ```
+
+     **Источник:** [CMake Docs: target_precompile_headers](https://cmake.org/cmake/help/latest/command/target_precompile_headers.html?utm_source=gemini)
+
 136. Какие недостатки или сложности есть у precompiled headers?
+
+     **Ответ:** Недостатки: 1) при изменении самого PCH пересобирается весь проект; 2) тяжелый бинарный кэш PCH может занимать гигабайты дисковой памяти; 3) скрывает реальные зависимости исходных файлов («случайные зависимости»); 4) требует строгой идентичности ключей компиляции во всех `.cpp` файлах.
+
+     **Пример:**
+
+     ```text
+     # Ошибка компилятора при расхождении флагов:
+     # fatal error: file 'pch.h.gch' was not built with the same compiler options
+     ```
+
+     **Источник:** [GCC Online Docs: Precompiled Headers Caveats](https://gcc.gnu.org/onlinedocs/gcc/Precompiled-Headers.html?utm_source=gemini)
+
 137. Что такое translation unit boundary?
+
+     **Ответ:** Translation unit boundary (граница единицы трансляции) — это логический и физический барьер видимости между отдельными процессами компиляции `.cpp` файлов. Всё, что находится внутри единицы трансляции без явного экспорта через таблицу символов линкера, изолировано и недоступно другим `.cpp` файлам.
+
+     **Пример:**
+
+     ```cpp
+     // a.cpp
+     static int internal_data = 42; // Не выходит за границу TU 'a.cpp'
+     ```
+
+     **Источник:** [cppreference: Translation units](https://en.cppreference.com/w/cpp/language/translation_phases?utm_source=gemini)
+
 138. Почему внутренние детали `.cpp` не видны напрямую другим `.cpp`?
+
+     **Ответ:** Компилятор C++ работает по модели независимой компиляции: каждый `.cpp` файл компилируется изолированным процессом без состояния и памяти о существовании других файлов проекта. Единственное связующее звено между ними — это экспортируемые имена в таблице символов объектных файлов, сводимые линкером на более позднем этапе.
+
+     **Пример:**
+
+     ```cpp
+     // file1.cpp
+     void secret_impl() {}
+
+     // file2.cpp
+     // secret_impl(); // Ошибка: компилятор не знает о существовании функции без объявления
+     ```
+
+     **Источник:** [Bjarne Stroustrup: Design and Evolution of C++ (Separate Compilation)](https://www.stroustrup.com/?utm_source=gemini)
+
 139. Что такое external linkage?
+
+     **Ответ:** External linkage (внешняя компоновка) — это свойство идентификатора (функции или переменной), означающее, что его имя экспортируется в глобальную таблицу символов объектного файла, благодаря чему он может быть найден, связан и использован другими единицами трансляции программы.
+
+     **Пример:**
+
+     ```cpp
+     // Обычная глобальная функция имеет external linkage:
+     void global_action() {} // Символ 'global_action' доступен линкеру из любого .o файла
+     ```
+
+     **Источник:** [cppreference: Storage duration and linkage](https://en.cppreference.com/w/cpp/language/storage_duration?utm_source=gemini#Linkage)
+
 140. Что такое internal linkage?
+
+     **Ответ:** Internal linkage (внутренняя компоновка) — это свойство идентификатора, означающее, что символ локализован строго внутри своей единицы трансляции. Компилятор помечает такой символ как локальный (Local) в таблице символов объектного файла, и линкер игнорирует его при попытках внешнего связывания.
+
+     **Пример:**
+
+     ```cpp
+     // Символ local_action виден ТОЛЬКО внутри этого .cpp файла:
+     static void local_action() {}
+     ```
+
+     **Источник:** [cppreference: Storage duration and linkage](https://en.cppreference.com/w/cpp/language/storage_duration?utm_source=gemini#Linkage)
+
 141. Как `static` на уровне файла влияет на linkage?
+
+     **Ответ:** Ключевое слово `static`, примененное к глобальной переменной или функции на уровне файла (file scope), принудительно меняет ее компоновку с внешней (external) на внутреннюю (internal). Это скрывает сущность от остальных единиц трансляции и предотвращает конфликты имен (ODR violations) при линковке.
+
+     **Пример:**
+
+     ```cpp
+     // a.cpp
+     static int id = 1; // Уникален для a.cpp
+     // b.cpp
+     static int id = 2; // Уникален для b.cpp, конфликта не будет
+     ```
+
+     **Источник:** [ISO C++ Standard: Linkage (§ 6.6 \[basic.link\])](https://eel.is/c++draft/basic.link?utm_source=gemini)
+
 142. Что такое анонимное namespace и зачем его используют в `.cpp`?
+
+     **Ответ:** Анонимное (безымянное) namespace — это конструкция `namespace { ... }`, которая присваивает всем объявленным внутри неё типам, функциям и переменным внутреннюю компоновку (internal linkage), делая их доступными исключительно в пределах текущей единицы трансляции и предотвращая утечку внутренних деталей реализации в глобальный скоуп.
+
+     **Пример:**
+
+     ```cpp
+     namespace {
+         void helper_logic() { /* доступно только в текущем .cpp */ }
+     }
+     ```
+
+     **Источник:** [cppreference: Namespaces (Unnamed namespaces)](https://en.cppreference.com/w/cpp/language/namespace?utm_source=gemini#Unnamed_namespaces)
+
 143. Чем `static` на уровне файла отличается от анонимного namespace?
+
+     **Ответ:** Спецификатор `static` может быть применен только к функциям и объектам (переменным), но не может скрывать определения пользовательских типов (классов, структур, перечислений). Анонимное пространство имен C++ является современным стандартом и способно скрывать абсолютно любые сущности, включая целые классы и шаблоны.
+
+     **Пример:**
+
+     ```cpp
+     namespace {
+         // Внутренний вспомогательный класс (через static так сделать нельзя):
+         struct LocalHelper {
+             int x;
+         };
+     }
+     ```
+
+     **Источник:** [C++ Core Guidelines: SF.21 Don't use an unnamed namespace in a header](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#sf21-dont-use-an-unnamed-namespace-in-a-header)
+
 144. Что такое name mangling?
+
+     **Ответ:** Name mangling (декорирование имен) — это механизм компилятора C++, шифрующий имя функции, информацию о её пространстве имен, классе, а также типах всех принимаемых параметров в единую уникальную строку символов. Это позволяет линкеру различать перегруженные функции с одинаковым именем.
+
+     **Пример:**
+
+     ```text
+     // Исходная функция C++:
+     void print(int);
+     // Превращается компилятором (Itanium ABI) в мангированное имя:
+     _Z5printi
+     ```
+
+     **Источник:** [Itanium C++ ABI: External Names (Mangler)](https://itanium-cxx-abi.github.io/cxx-abi/abi.html?utm_source=gemini#mangling)
+
 145. Почему в C++ имена функций и шаблонов кодируются сложнее, чем в C?
+
+     **Ответ:** Язык C не поддерживает перегрузку функций, пространства имен, классы и шаблоны, поэтому символ в C практически совпадает с именем функции (`print` -> `_print`). В C++ одновременно могут существовать функции `foo(int)` и `foo(double)` в разных неймспейсах, поэтому линкеру требуется уникальный текстовый идентификатор, содержащий всю сигнатуру.
+
+     **Пример:**
+
+     ```text
+     namespace Math {
+         double square(double); // _ZN4Math6squareEd
+         int square(int);       // _ZN4Math6squareEi
+     }
+     ```
+
+     **Источник:** [Microsoft Docs: Decorated Names](https://learn.microsoft.com/en-us/cpp/build/reference/decorated-names?utm_source=gemini)
+
 146. Зачем нужен `extern "C"`?
+
+     **Ответ:** Конструкция `extern "C"` указывает компилятору C++ использовать правила связывания и соглашения о вызовах языка C (C linkage), полностью отключая name mangling для объявленных под ней функций, что позволяет линкеру связать их по простому, недекорированному имени.
+
+     **Пример:**
+
+     ```cpp
+     extern "C" {
+         void legacy_c_function(int a); // В таблице символов останется просто legacy_c_function
+     }
+     ```
+
+     **Источник:** [cppreference: Language linkage](https://en.cppreference.com/w/cpp/language/language_linkage?utm_source=gemini)
+
 147. Когда используют `extern "C"`?
+
+     **Ответ:** Его используют в двух ключевых случаях: 1) при подключении C-библиотек к C++-проекту; 2) при создании динамических библиотек на C++, функции которых планируется экспортировать наружу для вызова из чистого C, Python (через `ctypes`/`CFFI`), C# (P/Invoke) или через системный `dlsym`.
+
+     **Пример:**
+
+     ```cpp
+     #ifdef __cplusplus
+     extern "C" {
+     #endif
+
+     void my_api_call();
+
+     #ifdef __cplusplus
+     }
+     #endif
+     ```
+
+     **Источник:** [LearnCpp: Calling C code from C++](https://www.learncpp.com/cpp-tutorial/language-linkage-and-calling-c-functions-from-c/?utm_source=gemini)
+
 148. Почему `extern "C"` важен при взаимодействии с C-библиотеками?
+
+     **Ответ:** Если подключить заголовок библиотеки на C в C++-файл без `extern "C"`, компилятор C++ сгенерирует для вызовов функций декорированные имена (mangled names). Однако скомпилированная C-библиотека экспортирует простые имена без декораций. В результате на этапе компоновки линкер выдаст ошибку `undefined reference`.
+
+     **Пример:**
+
+     ```text
+     # Без extern "C" линкер ищет _Z7executev вместо execute:
+     # undefined reference to `_Z7executev'
+     ```
+
+     **Источник:** [Oracle Solaris Studio C++ User's Guide: Mixing C and C++](https://docs.oracle.com/cd/E19205-01/819-5267/bkafd/index.html?utm_source=gemini)
+
 149. Что такое ABI compatibility?
+
+     **Ответ:** ABI (Application Binary Interface) compatibility — это совместимость между скомпилированными бинарными модулями на низком машинном уровне. Она определяет идентичность: правил декорирования имен (name mangling), расположения полей структур в памяти (размеры и выравнивания), соглашений о вызовах (calling conventions), обработки исключений и устройства таблиц виртуальных методов (`vtable`).
+
+     **Пример:**
+
+     ```text
+     Если Библиотека А собрана с размером std::string в 32 байта (GCC 5+ C++11 ABI),
+     а Программа Б с размером в 8 байт (старый CoW ABI), их вызовы приведут к крашу памяти.
+     ```
+
+     **Источник:** [GCC Wiki: Dual C++11 ABI](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html?utm_source=gemini)
+
 150. Почему несовместимость ABI может ломать линковку или работу программы?
+
+     **Ответ:** Несовместимость может проявляться на двух этапах. На этапе линковки: разные форматы декорирования имен сделают невозможным связывание символов (undefined reference). На этапе выполнения: несовпадение соглашений о вызове (повреждение стека), разные смещения полей в структурах или несовместимые таблицы виртуальных методов приведут к повреждению памяти, сбою в регистрах и Segmentation Fault.
+
+     **Пример:**
+
+     ```cpp
+     // Библиотека скомпилирована с: struct Packet { int id; double val; };
+     // Приложение скомпилировано с: struct Packet { int id; float val; };
+     // Передача Packet* приведет к чтению битого значения val в рантайме.
+     ```
+
+     **Источник:** [KDE Community: Binary Compatibility Issues](https://community.kde.org/Policies/Binary_Compatibility_Issues_With_C%2B%2B?utm_source=gemini)
 
 ## Выше среднего уровня
 
+
 151. Что такое статическая линковка?
+
+     **Ответ:** Статическая линковка — это этап компоновки, при котором линкер извлекает необходимый объектный код из статических библиотек (`.a` / `.lib`) и физически копирует его непосредственно в итоговый исполняемый файл или динамическую библиотеку, разрешая все смещения адресов на этапе сборки.
+
+     **Пример:**
+
+     ```
+     # Линковка статической библиотеки libmath.a в бинарник:
+     g++ main.o libmath.a -o app_static
+
+     ```
+
+     **Источник:** [Levine, J. R. "Linkers and Loaders"](https://www.iecc.com/linker/?utm_source=gemini)
+
 152. Что такое динамическая линковка?
+
+     **Ответ:** Динамическая линковка — это механизм, при котором на этапе сборки в бинарник внедряется лишь таблица импорта (список имен требуемых библиотек и символов), а связывание машинного кода и разрешение фактических адресов откладывается до момента запуска программы или вызова функции с помощью загрузчика операционной системы.
+
+     **Пример:**
+
+     ```
+     # Динамическое связывание с libmath.so:
+     g++ main.o -L. -lmath -o app_dynamic
+
+     ```
+
+     **Источник:** [Linux man-pages: ld.so(8)](https://man7.org/linux/man-pages/man8/ld.so.8.html?utm_source=gemini)
+
 153. Какие плюсы у статической линковки?
+
+     **Ответ:** Основные преимущества: автономность и портабельность бинарника (отсутствие внешних зависимостей типа "DLL Hell"), отсутствие задержек на разрешение символов при запуске ОС, а также потенциальная возможность линкеру удалить неиспользуемый мёртвый код (Dead Code Stripping / LTO).
+
+     **Пример:**
+
+     ```
+     # Автономный бинарник для развертывания в минимальном Docker-контейнере:
+     g++ -static main.cpp -o standalone_app
+
+     ```
+
+     **Источник:** [GCC Online Docs: Options for Linking](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html?utm_source=gemini)
+
 154. Какие минусы у статической линковки?
+
+     **Ответ:** Минусы: существенное увеличение размера исполняемого файла на диске, дублирование одного и того же машинного кода в оперативной памяти при параллельном запуске нескольких приложений, а также необходимость полной перекомпиляции и перелинковки бинарника при любом исправлении ошибок или уязвимостей в библиотеке.
+
+     **Пример:**
+
+     ```
+     # Если 10 процессов используют static libcrypto, в RAM будет 10 копий кода библиотеки.
+
+     ```
+
+     **Источник:** [Computer Systems: A Programmer's Perspective (Bryant, O'Hallaron)](https://csapp.cs.cmu.edu/?utm_source=gemini)
+
 155. Какие плюсы у динамической линковки?
+
+     **Ответ:** Экономия дискового пространства и оперативной памяти за счёт совместного использования страниц кода (`.text`) несколькими процессами, а также возможность обновлять библиотеки (патчи безопасности, багфиксы) без пересборки зависимых клиентских исполняемых файлов.
+
+     **Пример:**
+
+     ```
+     # Обновление /usr/lib/libssl.so автоматически применяется ко всем запущенным в будущем программам.
+
+     ```
+
+     **Источник:** [Ulrich Drepper: How To Write Shared Libraries](https://www.akkadia.org/drepper/dsohowto.pdf?utm_source=gemini)
+
 156. Какие минусы у динамической линковки?
+
+     **Ответ:** Риск несовместимости версий библиотек (DLL Hell / ABI mismatch), увеличение времени старта процесса из-за работы runtime loader, накладные расходы на вызовы функций через таблицы GOT/PLT (indirection overhead), а также зависимость от окружения целевой машины.
+
+     **Пример:**
+
+     ```
+     # Ошибка при отсутствии библиотеки на целевой машине:
+     # ./app: error while loading shared libraries: libcustom.so: cannot open shared object file
+
+     ```
+
+     **Источник:** [Apple Developer: Dynamic Library Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/?utm_source=gemini)
+
 157. Что такое runtime loader?
+
+     **Ответ:** Runtime loader (динамический загрузчик/линкер: `ld.so` в Linux, `dyld` в macOS, часть подсистемы ядра в Windows) — это системная программа, которая при запуске процесса читает метаданные бинарника (секции `.dynamic`), находит нужные разделяемые библиотеки, отображает их в виртуальную память и разрешает адреса символов.
+
+     **Пример:**
+
+     ```
+     # Явный запуск программы через системный runtime loader в Linux:
+     /lib64/ld-linux-x86-64.so.2 ./my_program
+
+     ```
+
+     **Источник:** [Linux man-pages: ld-linux.so(8)](https://man7.org/linux/man-pages/man8/ld-linux.so.8.html?utm_source=gemini)
+
 158. Как программа находит динамические библиотеки при запуске?
+
+     **Ответ:** Загрузчик ищет библиотеки в строго определенном порядке: 1) пути, прошитые в самом бинарнике (`DT_RPATH`, затем `DT_RUNPATH`); 2) переменные окружения (`LD_LIBRARY_PATH` в Linux, `PATH` в Windows); 3) системный кэш конфигурации (например, `/etc/ld.so.cache`); 4) системные пути по умолчанию (`/lib64`, `/usr/lib64`).
+
+     **Пример:**
+
+     ```
+     # Добавление RPATH прямо в ELF-бинарник при сборке:
+     g++ main.o -Wl,-rpath,'$ORIGIN/libs' -L./libs -lmylib -o app
+
+     ```
+
+     **Источник:** [Debian Wiki: RpathIssue](https://wiki.debian.org/RpathIssue?utm_source=gemini)
+
 159. Почему проблема “не найдена DLL/so” относится уже к этапу запуска, а не компиляции?
+
+     **Ответ:** Компилятор и статический линкер завершают свою работу успешно, если им предоставлен интерфейс и библиотека импорта (заглушка со списком символов). Однако само тело динамической библиотеки физически подключается в память только загрузчиком ОС в момент вызова `execve()`.
+
+     **Пример:**
+
+     ```
+     # Сборка прошла без ошибок:
+     g++ main.cpp -lfoo -o app
+     # Но при выполнении:
+     ./app # ./app: error while loading shared libraries: libfoo.so: No such file or directory
+
+     ```
+
+     **Источник:** [Microsoft Docs: Dynamic-Link Library Search Order](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order?utm_source=gemini)
+
 160. Что такое экспорт символов из библиотеки?
+
+     **Ответ:** Экспорт символов — это явное помещение идентификаторов функций, классов или переменных в публичную таблицу динамических символов (`.dynsym` в ELF или Export Table в PE). Только экспортированные символы могут быть вызваны внешними исполняемыми файлами или модулями.
+
+     **Пример:**
+
+     ```
+     #if defined(_MSC_VER)
+         #define API_EXPORT __declspec(dllexport)
+     #else
+         #define API_EXPORT __attribute__((visibility("default")))
+     #endif
+
+     API_EXPORT void calculate();
+
+     ```
+
+     **Источник:** [Microsoft Docs: dllexport, dllimport](https://learn.microsoft.com/en-us/cpp/cpp/dllexport-dllimport?utm_source=gemini)
+
 161. Почему не все символы библиотеки должны быть публичными?
+
+     **Ответ:** Ограничение экспорта уменьшает размер таблицы символов библиотеки, ускоряет загрузку программы динамическим загрузчиком, позволяет компилятору агрессивнее оптимизировать внутренние функции (inlining) и защищает архитектуру от использования приватных деталей реализации сторонним кодом.
+
+     **Пример:**
+
+     ```
+     // Внутренняя функция не должна быть видна наружу:
+     __attribute__((visibility("hidden"))) void internal_crypto_helper() {}
+
+     ```
+
+     **Источник:** [GCC Wiki: Visibility](https://gcc.gnu.org/wiki/Visibility?utm_source=gemini)
+
 162. Что такое visibility символов?
+
+     **Ответ:** Visibility (видимость) символа — это атрибут в формате ELF, определяющий, как символ связывается между модулями. Основные уровни: `default` (экспортируется наружу, доступен другим бинарникам) и `hidden` (не попадает в динамическую таблицу символов, используется строго внутри текущей библиотеки).
+
+     **Пример:**
+
+     ```
+     # Сборка библиотеки с сокрытием всех символов по умолчанию:
+     g++ -fvisibility=hidden -shared mylib.cpp -o libmylib.so
+
+     ```
+
+     **Источник:** [GCC Online Docs: Code Gen Options (-fvisibility)](https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html?utm_source=gemini#index-fvisibility)
+
 163. Почему контроль visibility важен для библиотек?
+
+     **Ответ:** Он предотвращает случайные конфликты одинаковых внутренних имен между разными библиотеками (symbol collision), ускоряет время линковки и загрузки, а также гарантирует сохранение стабильного бинарного интерфейса (ABI), скрывая приватные структуры данных.
+
+     **Пример:**
+
+     ```
+     # Без скрытия два плагина с функцией helper() могут вызвать конфликт:
+     # plugin_a: helper()
+     # plugin_b: helper() -> может вызваться реализация из plugin_a!
+
+     ```
+
+     **Источник:** [Ulrich Drepper: How To Write Shared Libraries](https://www.akkadia.org/drepper/dsohowto.pdf?utm_source=gemini)
+
 164. Что такое header-only библиотека?
+
+     **Ответ:** Header-only библиотека — это библиотека, состоящая исключительно из заголовочных файлов (`.h` / `.hpp`), содержащих полные определения всех классов, `inline`-функций и шаблонов. Она не требует предварительной сборки в бинарные файлы (`.a`, `.so`).
+
+     **Пример:**
+
+     ```
+     // Использование nlohmann/json:
+     #include <nlohmann/json.hpp>
+     // Никаких дополнительных флагов линковки не требуется: g++ main.cpp
+
+     ```
+
+     **Источник:** [Boost Community: Header-only Libraries](https://www.boost.org/doc/libs/release/more/getting_started/?utm_source=gemini)
+
 165. Какие плюсы у header-only библиотек?
+
+     **Ответ:** Тривиальная интеграция в проект (достаточно просто добавить путь к папке заголовков через `-I`), отсутствие проблем с несовместимостью ABI компиляторов и флагов линковки, а также возможность глубоких межпроцедурных оптимизаций и инлайнинга компилятором.
+
+     **Пример:**
+
+     ```
+     # В CMake интеграция сводится к:
+     target_include_directories(my_app PRIVATE path/to/header_only_lib)
+
+     ```
+
+     **Источник:** [C++ Core Guidelines: Header-only libraries](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini)
+
 166. Какие минусы у header-only библиотек?
+
+     **Ответ:** Драматическое увеличение времени компиляции (код парсится и оптимизируется заново в каждом `.cpp` файле), раздувание размера объектных файлов и потребления RAM компилятором, а также то, что изменение любой строчки в библиотеке провоцирует пересборку всего зависимого проекта.
+
+     **Пример:**
+
+     ```
+     # Включение тяжелой библиотеки во все файлы проекта может увеличить сборку с 10 секунд до 5 минут.
+
+     ```
+
+     **Источник:** [Games from Within: Physical Structure and C++](https://gamesfromwithin.com/physical-structure-and-c-part-2?utm_source=gemini)
+
 167. Почему шаблоны часто реализуют прямо в заголовках?
+
+     **Ответ:** Компилятор C++ инстанциирует шаблоны по требованию. Чтобы сгенерировать конкретный машинный код для заданного типа аргумента (например, `MyTemplate<int>`), компилятору в текущей единице трансляции необходимо видеть полное определение шаблона, а не только его объявление.
+
+     **Пример:**
+
+     ```
+     // template.h
+     template <typename T>
+     T add(T a, T b) { return a + b; } // Тело доступно для генерации кода
+
+     ```
+
+     **Источник:** [cppreference: Function templates](https://en.cppreference.com/w/cpp/language/function_template?utm_source=gemini)
+
 168. Что такое explicit instantiation шаблона?
+
+     **Ответ:** Explicit instantiation (явное инстанцирование) — это директива компилятору принудительно сгенерировать машинный код для конкретных шаблонных параметров в строго определённой единице трансляции, либо запретить повторное инстанцирование в текущем файле (`extern template`).
+
+     **Пример:**
+
+     ```
+     // Array.cpp - генерирует тело для int:
+     template class Array<int>;
+
+     // Array.h - запрещает дублирование компиляции в других файлах:
+     extern template class Array<int>;
+
+     ```
+
+     **Источник:** [cppreference: Explicit template instantiation](https://en.cppreference.com/w/cpp/language/class_template?utm_source=gemini#Explicit_instantiation)
+
 169. Когда explicit instantiation помогает сократить время сборки?
+
+     **Ответ:** Когда тяжелый шаблон используется с фиксированным ограниченным набором типов во множестве файлов проекта. С помощью `extern template` шаблон компилируется ровно один раз в одном объектном файле, предотвращая дублирование тяжелой работы оптимизатора в других `.cpp`.
+
+     **Пример:**
+
+     ```
+     // template_heavy.h
+     extern template class Matrix<double>; // Не инстанцировать в каждом включившем файле
+
+     ```
+
+     **Источник:** [ISO C++ Standard: Explicit instantiation (§ 13.9.3 \[temp.explicit\])](https://eel.is/c++draft/temp.explicit?utm_source=gemini)
+
 170. Что такое unity build?
+
+     **Ответ:** Unity build (Jumbo build) — это техника ускорения сборки, при которой несколько десятков исходных `.cpp` файлов проекта программно объединяются (через `#include`) в один большой файл и передаются компилятору как единая огромная единица трансляции.
+
+     **Пример:**
+
+     ```
+     // unity_all.cpp
+     #include "file1.cpp"
+     #include "file2.cpp"
+     #include "file3.cpp"
+
+     ```
+
+     **Источник:** [CMake Docs: CMAKE_UNITY_BUILD](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html?utm_source=gemini)
+
 171. Какие плюсы даёт unity build?
+
+     **Ответ:** Колоссальное ускорение полной сборки (за счёт того, что общие заголовки парсятся один раз вместо сотен повторений), снижение накладных расходов на запуск процессов компилятора и возможность сквозных оптимизаций между объединяемыми файлами.
+
+     **Пример:**
+
+     ```
+     # В CMake включается одной строкой:
+     set_target_properties(my_target PROPERTIES UNITY_BUILD ON)
+
+     ```
+
+     **Источник:** [The Chromium Projects: Jumbo Builds](https://chromium.googlesource.com/chromium/src/+/master/docs/jumbo.md?utm_source=gemini)
+
 172. Какие минусы и риски есть у unity build?
+
+     **Ответ:** Риск коллизии внутренних имен (статические переменные или макросы с одинаковыми именами в разных `.cpp` начинают конфликтовать), замедление инкрементальной сборки (изменение одной строчки ведет к пересборке всего unity-пакета) и маскировка пропущенных `#include`.
+
+     **Пример:**
+
+     ```
+     // file1.cpp: #define BUFFER 1024
+     // file2.cpp: #define BUFFER 2048 -> Ошибка: 'BUFFER' macro redefined при Unity-сборке
+
+     ```
+
+     **Источник:** [C++ Team Blog: Support for Unity (Jumbo) Files in Visual Studio](https://devblogs.microsoft.com/cppblog/support-for-unity-jumbo-files-in-visual-studio/?utm_source=gemini)
+
 173. Что такое dependency scanning?
+
+     **Ответ:** Dependency scanning — это процедура предварительного анализа исходных файлов сборочной системой или препроцессором компилятора (`gcc -M`) для построения точного списка всех заголовочных файлов, от которых прямо или косвенно зависит компилируемый `.cpp`.
+
+     **Пример:**
+
+     ```
+     # Генерация списка зависимостей в формате Makefile:
+     g++ -M -MP main.cpp
+     # Вывод: main.o: main.cpp header1.h header2.h ...
+
+     ```
+
+     **Источник:** [GCC Online Docs: Preprocessor Options (-M)](https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html?utm_source=gemini#index-M)
+
 174. Почему сборочная система отслеживает зависимости между файлами?
+
+     **Ответ:** Чтобы обеспечить корректность инкрементальной сборки. Если разработчик модифицирует заголовочный файл `types.h`, сборочная система сверяет граф зависимостей и пересобирает исключительно те `.cpp` файлы, которые этот заголовок используют, сохраняя остальные объектники нетронутыми.
+
+     **Пример:**
+
+     ```
+     [types.h] (изменен) -> система видит связь и компилирует: g++ -c user.cpp
+
+     ```
+
+     **Источник:** [GNU Make Manual: Prereqs and Dependencies](https://www.gnu.org/software/make/manual/make.html?utm_source=gemini#Prerequisite-Types)
+
 175. Что такое Makefile?
+
+     **Ответ:** Makefile — это файл конфигурации сборки, читаемый утилитой `make`. Он содержит декларативный набор правил: целей (targets), их зависимостей (prerequisites) и команд оболочки (recipes), которые необходимо выполнить для создания целевого файла.
+
+     **Пример:**
+
+     ```makefile
+     app: main.o utils.o
+     	g++ main.o utils.o -o app
+
+     main.o: main.cpp
+     	g++ -c main.cpp
+     ```
+
+     **Источник:** [GNU Make Reference Manual](https://www.gnu.org/software/make/manual/?utm_source=gemini)
+
 176. Что такое CMake?
+
+     **Ответ:** CMake — это кроссплатформенный метагенератор сборочных файлов. Он не компилирует код напрямую, а читает конфигурационные файлы `CMakeLists.txt` и генерирует нативные скрипты сборки под конкретную систему: Makefiles, Ninja-файлы, проекты Visual Studio или Xcode.
+
+     **Пример:**
+
+     ```cmake
+     cmake_minimum_required(VERSION 3.20)
+     project(MyApp)
+     add_executable(MyApp main.cpp)
+     ```
+
+     **Источник:** [Kitware: CMake Documentation](https://cmake.org/documentation/?utm_source=gemini)
+
 177. Для чего нужны системы сборки?
+
+     **Ответ:** Они автоматизируют процесс превращения исходного кода в бинарные артефакты: оркеструют запуск компиляторов и линкеров в параллельном режиме, вычисляют минимально необходимый граф инкрементальной сборки, находят внешние библиотеки и управляют конфигурациями (Debug/Release).
+
+     **Пример:**
+
+     ```
+     # Запуск параллельной сборки на всех ядрах процессора:
+     cmake --build build --parallel
+
+     ```
+
+     **Источник:** [Modern CMake Guidelines](https://cliutils.gitlab.io/modern-cmake/?utm_source=gemini)
+
 178. Чем сборочная система отличается от компилятора?
+
+     **Ответ:** Компилятор обрабатывает единичные файлы (транслирует `.cpp` в `.o` или `.exe`). Сборочная система управляет компилятором на уровне всего проекта: определяет порядок вызова, передает правильные флаги, следит за временными метками тысяч файлов и запускает параллельные процессы.
+
+     **Пример:**
+
+     ```
+     # Компилятор: g++ -c main.cpp (знает только о main.cpp)
+     # Build system: Ninja (знает граф всего проекта из 5000 файлов)
+
+     ```
+
+     **Источник:** [The Architecture of Open Source Applications: CMake](https://www.aosabook.org/en/cmake.html?utm_source=gemini)
+
 179. Что такое target в сборочной системе?
+
+     **Ответ:** Target (цель) — это основной логический строительный блок сборочной системы, представляющий собой конечный артефакт (исполняемый бинарник, библиотека) или абстрактное действие (запуск тестов), имеющий собственные исходники, зависимости и флаги сборки.
+
+     **Пример:**
+
+     ```cmake
+     add_library(EngineCore STATIC engine.cpp) # EngineCore — это target
+     ```
+
+     **Источник:** [CMake Docs: Targets](https://cmake.org/cmake/help/latest/manual/cmake-buildsystem.7.html?utm_source=gemini#targets)
+
 180. Что такое executable target?
+
+     **Ответ:** Executable target — это цель сборочной системы, результатом компиляции и компоновки которой является полноценный запускаемый файл с точкой входа (`main`), предназначенный для выполнения операционной системой.
+
+     **Пример:**
+
+     ```cmake
+     add_executable(GameClient main.cpp player.cpp)
+     ```
+
+     **Источник:** [CMake Docs: add_executable](https://cmake.org/cmake/help/latest/command/add_executable.html?utm_source=gemini)
+
 181. Что такое library target?
+
+     **Ответ:** Library target — это цель сборочной системы, компилирующая набор исходников в статический архив (`STATIC`) или разделяемую библиотеку (`SHARED`), предназначенные для связывания с другими таргетами проекта.
+
+     **Пример:**
+
+     ```cmake
+     add_library(NetworkLib SHARED socket.cpp packet.cpp)
+     ```
+
+     **Источник:** [CMake Docs: add_library](https://cmake.org/cmake/help/latest/command/add_library.html?utm_source=gemini)
+
 182. Что такое include directories в CMake или другой системе сборки?
+
+     **Ответ:** Это пути в файловой системе, которые система сборки транслирует во флаги компилятора `-I` (или `/I` в MSVC), указывая компилятору директории, в которых следует искать заголовочные файлы при обработке директив `#include`.
+
+     **Пример:**
+
+     ```cmake
+     target_include_directories(MyApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+     ```
+
+     **Источник:** [CMake Docs: target_include_directories](https://cmake.org/cmake/help/latest/command/target_include_directories.html?utm_source=gemini)
+
 183. Что такое compile definitions?
+
+     **Ответ:** Compile definitions — это препроцессорные макросы, передаваемые компилятору через флаги сборочной системы (например, `-DDEBUG=1`), которые становятся глобально доступными в исходном коде без необходимости объявлять их через `#define`.
+
+     **Пример:**
+
+     ```cmake
+     target_compile_definitions(MyApp PRIVATE USE_VULKAN=1 ENABLE_ASSERTS)
+     ```
+
+     **Источник:** [CMake Docs: target_compile_definitions](https://cmake.org/cmake/help/latest/command/target_compile_definitions.html?utm_source=gemini)
+
 184. Что такое compile options?
+
+     **Ответ:** Compile options — это параметры и ключи командной строки, которые передаются непосредственно компилятору при сборке конкретной цели (например, уровни оптимизаций, флаги стандартов или включения предупреждений).
+
+     **Пример:**
+
+     ```cmake
+     target_compile_options(MyApp PRIVATE -Wall -Wextra -Wpedantic)
+     ```
+
+     **Источник:** [CMake Docs: target_compile_options](https://cmake.org/cmake/help/latest/command/target_compile_options.html?utm_source=gemini)
+
 185. Чем private/public/interface зависимости отличаются в современных системах сборки?
+
+     **Ответ:** `PRIVATE` означает, что зависимость (инклуды, библиотеки, флаги) нужна только самому таргету для сборки; `INTERFACE` означает, что зависимость нужна только тем потребителям, которые линкуются с данным таргетом; `PUBLIC` объединяет оба сценария: зависимость нужна и таргету, и всем его потребителям.
+
+     **Пример:**
+
+     ```cmake
+     target_link_libraries(Renderer
+         PUBLIC   Math3D      # Нужно и рендереру, и тем, кто вызывает рендерер
+         PRIVATE  VulkanSDK   # Детали реализации рендерера, наружу не торчат
+     )
+     ```
+
+     **Источник:** [CMake Docs: Transitive Usage Requirements](https://cmake.org/cmake/help/latest/manual/cmake-buildsystem.7.html?utm_source=gemini#transitive-usage-requirements)
+
 186. Почему правильное описание зависимостей важно для масштабируемости проекта?
+
+     **Ответ:** Точное разграничение зависимостей защищает от «транзитивного загрязнения»: потребители таргета не получают лишних путей инклудов и флагов компиляции. Это минимизирует объём парсинга, разрывает лишние связи в графе и предотвращает массовые пересборки при правках внутренних файлов библиотек.
+
+     **Пример:**
+
+     ```
+     Если сделать зависимость PRIVATE вместо PUBLIC, изменение внутренней библиотеки не сломает клиентов.
+
+     ```
+
+     **Источник:** [Professional CMake (Craig Scott)](https://crascit.com/professional-cmake/?utm_source=gemini)
+
 187. Что такое генерация build files?
+
+     **Ответ:** Это шаг работы мета-систем сборки (CMake, Meson), на котором высокоуровневое декларативное описание проекта транслируется в низкоуровневые императивные файлы (типа `build.ninja` или `Makefile`), специфичные для выбранной платформы и компилятора.
+
+     **Пример:**
+
+     ```
+     # Генерация файлов сборки Ninja:
+     cmake -B build -G Ninja
+
+     ```
+
+     **Источник:** [Kitware: CMake Generation Step](https://cmake.org/cmake/help/latest/manual/cmake.1.html?utm_source=gemini)
+
 188. Чем generator вроде CMake отличается от непосредственного build tool вроде Make/Ninja?
+
+     **Ответ:** Генератор (CMake) абстрагирует операционную систему и конкретные утилиты, позволяя писать конфигурацию один раз. Build tool (Make, Ninja) ничего не знает о C++ на уровне концепций — он просто исполняет конкретные графы команд операционной системы для обновления файлов по временным меткам.
+
+     **Пример:**
+
+     ```
+     [CMakeLists.txt] -> CMake (генератор) -> [build.ninja] -> Ninja (build tool) -> [app.exe]
+
+     ```
+
+     **Источник:** [Modern CMake Architecture](https://cliutils.gitlab.io/modern-cmake/?utm_source=gemini)
+
 189. Что такое Ninja?
+
+     **Ответ:** Ninja — это компактная и максимально легковесная система сборки, спроектированная инженерами Google для максимальной скорости инкрементальной сборки огромных проектов (исходно для Chromium). Её входные файлы не пишутся людьми вручную, а генерируются CMake или GN.
+
+     **Пример:**
+
+     ```
+     # Сборка проекта через Ninja:
+     ninja -C build
+
+     ```
+
+     **Источник:** [The Ninja Build System](https://ninja-build.org/?utm_source=gemini)
+
 190. Почему Ninja часто быстрее для инкрементальной сборки?
+
+     **Ответ:** Ninja предельно упрощена: в ней отсутствуют сложные условия, функции или циклы (синтаксический анализ минимален). Она читает плоский граф сборки за миллисекунды, мгновенно проверяет timestamps файлов с помощью системных вызовов и полностью параллелит задачи без лишних блокировок.
+
+     **Пример:**
+
+     ```
+     # Проверка «не нужно ли что-то пересобрать» в Make может занимать 10 сек, а в Ninja — 0.05 сек.
+
+     ```
+
+     **Источник:** [Ninja Design: Comparison with Make](https://ninja-build.org/manual.html?utm_source=gemini#_comparison_to_make)
+
 191. Что такое cross-compilation?
+
+     **Ответ:** Cross-compilation (кросс-компиляция) — это процесс сборки исполняемого кода или библиотек на одной вычислительной системе (host, например x86_64 Linux), предназначенных для запуска на совершенно другой платформе (target, например ARMv8 Android или Embedded RTOS).
+
+     **Пример:**
+
+     ```
+     # Компиляция под ARM на x86_64 хосте:
+     aarch64-linux-gnu-g++ main.cpp -o app_arm
+
+     ```
+
+     **Источник:** [Debian Wiki: CrossCompiling](https://wiki.debian.org/CrossCompiling?utm_source=gemini)
+
 192. Что значит собирать программу под другую платформу?
+
+     **Ответ:** Это значит генерировать машинные инструкции другой архитектуры набора команд (ISA, например RISC-V вместо x86), использовать системные вызовы и структуры данных целевой операционной системы, а также компоновать код со стандартными библиотеками, собранными под эту целевую систему.
+
+     **Пример:**
+
+     ```
+     # Сборка из Linux для Windows с помощью MinGW:
+     x86_64-w64-mingw32-g++ main.cpp -o app.exe
+
+     ```
+
+     **Источник:** [MinGW-w64 Project](https://www.mingw-w64.org/?utm_source=gemini)
+
 193. Какие сложности есть у cross-compilation?
+
+     **Ответ:** Невозможность запуска промежуточных скомпилированных утилит для кодогенерации на хосте; необходимость наличия полного дерева системных библиотек целевой ОС (sysroot); различия в порядке байт (endianness), размерах базовых типов и ABI; сложности с запуском тестов.
+
+     **Пример:**
+
+     ```
+     # Ошибка при попытке запустить сгенерированный утилитный бинарник на хосте:
+     # ./code_generator: cannot execute binary file: Exec format error
+
+     ```
+
+     **Источник:** [LLVM Cross-compilation Guide](https://llvm.org/docs/HowToCrossCompileLLVM.html?utm_source=gemini)
+
 194. Что такое toolchain?
+
+     **Ответ:** Toolchain (инструментальная цепочка) — это связанный набор программных инструментов разработки, работающих согласованно для сборки ПО: препроцессор, компилятор, ассемблер, линкер, стандартная библиотека C/C++ и утилиты работы с бинарниками (binutils).
+
+     **Пример:**
+
+     ```
+     # Toolchain GCC: cpp -> cc1plus -> as -> collect2 (ld)
+
+     ```
+
+     **Источник:** [GCC Online Docs: Toolchains](https://gcc.gnu.org/onlinedocs/?utm_source=gemini)
+
 195. Что входит в toolchain для C++?
+
+     **Ответ:** 1) Компилятор C++ (`g++`, `clang++`); 2) Ассемблер (`as`); 3) Компоновщик (`ld`, `lld`, `gold`); 4) Архиватор статических библиотек (`ar`); 5) Заголовочные файлы и бинарники стандартной библиотеки (`libstdc++`/`libc++`); 6) Набор binutils (`objdump`, `nm`, `strip`, `readelf`).
+
+     **Пример:**
+
+     ```
+     # Просмотр состава установленного кросс-тулчейна:
+     ls /usr/bin/aarch64-linux-gnu-*
+
+     ```
+
+     **Источник:** [GNU Binutils Project](https://www.gnu.org/software/binutils/?utm_source=gemini)
+
 196. Что такое компилятор, линкер, архиватор как части toolchain?
+
+     **Ответ:** Компилятор преобразует текст C++ в машинные инструкции объектного файла; архиватор (`ar`) упаковывает группу `.o` файлов в индексированный архив статической библиотеки (`.a`); линкер (`ld`) связывает разрозненные объектные файлы и библиотеки в единый монолитный бинарник с разрешением адресов.
+
+     **Пример:**
+
+     ```
+     # Цепочка:
+     g++ -c a.cpp b.cpp          # Компилятор -> a.o, b.o
+     ar rcs libtools.a a.o b.o   # Архиватор -> libtools.a
+     g++ main.o -L. -ltools -o app # Линкер -> app
+
+     ```
+
+     **Источник:** [CSAPP: Linking and Toolchain Stages](https://csapp.cs.cmu.edu/?utm_source=gemini)
+
 197. Что такое sysroot?
+
+     **Ответ:** Sysroot (системный корень) — это изолированная директория на хост-машине, имитирующая корневую файловую систему целевой ОС (`/usr/include`, `/lib`, `/usr/lib`), в которой находятся необходимые для компиляции и линковки заголовочные файлы и динамические библиотеки целевой платформы.
+
+     **Пример:**
+
+     ```
+     # Сборка с указанием целевого системного корня:
+     clang++ --target=aarch64-linux-gnu --sysroot=/opt/rpi-sysroot main.cpp
+
+     ```
+
+     **Источник:** [Clang Docs: Sysroot option](https://clang.llvm.org/docs/ClangCommandLineReference.html?utm_source=gemini#cmdoption-clang-sysroot)
+
 198. Почему системные заголовки и библиотеки цели важны при cross-compilation?
+
+     **Ответ:** Заголовки хоста содержат объявления и макросы под архитектуру текущего ПК, а библиотеки хоста скомпилированы под его процессор. Попытка линковки с ними приведет либо к генерации несовместимых системных вызовов, либо к фатальной ошибке линкера о несовпадении архитектур.
+
+     **Пример:**
+
+     ```
+     # Ошибка линкера при использовании библиотеки хоста:
+     # aarch64-linux-gnu-ld: main.o: Relocations in generic ELF (EM: 62) - wrong architecture
+
+     ```
+
+     **Источник:** [Debian Cross-Toolchains](https://wiki.debian.org/ToolChain/CrossPorters?utm_source=gemini)
+
 199. Что такое target triple?
+
+     **Ответ:** Target triple — это каноническая строка формата `архитектура-поставщик-операционная_система-окружение` (например, `x86_64-pc-linux-gnu` или `armv7-unknown-linux-gnueabihf`), однозначно идентифицирующая целевую аппаратную и программную платформу для компилятора.
+
+     **Пример:**
+
+     ```
+     # Вызов Clang с явным указанием target triple:
+     clang++ -target x86_64-w64-mingw32 main.cpp
+
+     ```
+
+     **Источник:** [Clang Docs: Target Triple](https://clang.llvm.org/docs/CrossCompilation.html?utm_source=gemini#target-triple)
+
 200. Почему архитектура, ОС и ABI влияют на процесс сборки?
+
+     **Ответ:** Архитектура задает набор инструкций и регистров; ОС определяет формат исполняемого файла (ELF, PE, Mach-O) и API системных вызовов; ABI определяет порядок передачи аргументов через стек и регистры, правила манглинга и выравнивание типов в памяти. Их расхождение делает выполнение бинарника невозможным.
+
+     **Пример:**
+
+     ```
+     // Порядок байт (Endianness):
+     // Big-Endian сеть vs Little-Endian память процессора требует адаптации бинарных структур.
+
+     ```
+
+     **Источник:** [System V ABI Specification](https://refspecs.linuxfoundation.org/elf/gabi4+/contents.html?utm_source=gemini)
 
 ## Сложный уровень
 
+
 201. Что такое dependency hell в C++-проектах?
+
+     **Ответ:** Dependency hell — это ситуация, при которой проект зависит от двух независимых библиотек (A и B), каждая из которых в свою очередь требует разные, взаимно несовместимые версии третьей библиотеки C (или стандартной библиотеки с разным ABI), что приводит к невозможности их совместной сборки или линковки.
+
+     **Пример:**
+
+     ```
+           [Мой проект]
+           /          \
+        [LibA]       [LibB]
+          |            |
+      [LibC v1.0]  [LibC v2.0]  -> Конфликт символов при линковке (duplicate symbol / ABI clash)!
+
+     ```
+
+     **Источник:** [Modern C++ and Package Managers (Conan Docs)](https://docs.conan.io/2/knowledge/guidelines.html?utm_source=gemini)
+
 202. Почему неправильная структура заголовков резко ухудшает масштабируемость сборки?
+
+     **Ответ:** Из-за транзитивных включений компилятор вынужден многократно парсить избыточный код. Это приводит к комбинаторному взрыву времени трансляции (время сборки растёт квадратично от числа зависимостей), а любое изменение приватного члена класса вызывает лавинообразную перекомпиляцию десятков файлов.
+
+     **Пример:**
+
+     ```
+     // Включение <windows.h> в базовый header проекта может увеличить объем
+     // препроцессинга каждого .cpp файла на 1.5 миллиона строк!
+
+     ```
+
+     **Источник:** [Large-Scale C++ Software Design (John Lakos)](https://www.informit.com/store/large-scale-c-plus-plus-software-design-9780201633627?utm_source=gemini)
+
 203. Что такое pImpl-идиома и как она помогает уменьшать зависимости при сборке?
+
+     **Ответ:** Идиома pImpl (Pointer to Implementation) переносит приватные поля данных и приватные методы класса из заголовочного файла в структуру реализации, описанную в `.cpp`. В заголовке остается лишь предварительное объявление структуры и указатель (`std::unique_ptr<Impl>`), что полностью скрывает сторонние `#include`.
+
+     **Пример:**
+
+     ```cpp
+     // Window.h
+     class Window {
+     public:
+         Window();
+         ~Window();
+     private:
+         struct Impl; // Forward declaration
+         std::unique_ptr<Impl> pImpl;
+     };
+     ```
+
+     **Источник:** [cppreference: PIMPL idiom](https://en.cppreference.com/w/cpp/language/pimpl?utm_source=gemini)
+
 204. Почему pImpl может ускорять пересборку больших проектов?
+
+     **Ответ:** Изменение внутренних структур данных или добавление приватных полей в `Window::Impl` требует перекомпиляции исключительно одного файла `Window.cpp`. Все остальные файлы проекта, подключающие `Window.h`, остаются незатронутыми и системой сборки не пересобираются.
+
+     **Пример:**
+
+     ```
+     // Изменение типа приватного поля в Impl не меняет заголовок Window.h.
+     // Ninja пересоберет ровно 1 файл: Window.cpp -> Window.o.
+
+     ```
+
+     **Источник:** [Herb Sutter: Pimpl For Compile-Time Encapsulation](https://herbsutter.com/gotw/_100/?utm_source=gemini)
+
 205. Что такое модульность на уровне физической структуры проекта?
+
+     **Ответ:** Это организация кодовой базы в виде слабо связанных физических компонентов (библиотек, подпроектов), где каждый компонент имеет четко очерченный публичный API-интерфейс и скрытую реализацию, исключая циклические физические связи на уровне каталогов и файлов.
+
+     **Пример:**
+
+     ```
+     engine/
+       ├── include/core/public_api.h   (Интерфейс)
+       └── src/internal_impl.cpp       (Скрытая реализация)
+
+     ```
+
+     **Источник:** [John Lakos: Large-Scale C++ Volume I](https://www.informit.com/store/large-scale-c-plus-plus-volume-i-process-and-architecture-9780201717068?utm_source=gemini)
+
 206. Чем физическая зависимость файлов отличается от логической зависимости типов?
+
+     **Ответ:** Логическая зависимость означает, что концепт `A` оперирует концептом `B` (например, вызывает метод). Физическая зависимость возникает, когда файл `A.h` содержит директиву `#include "B.h"`, заставляя сборочную систему пересобирать `A` при любой модификации файла `B.h`, даже если логически интерфейс `B` не поменялся.
+
+     **Пример:**
+
+     ```
+     // Логическая зависимость есть (Car знает о Engine),
+     // но физической зависимости в Car.h нет, если используется forward declaration: class Engine;
+
+     ```
+
+     **Источник:** [Physical Code Architecture (Games from Within)](https://gamesfromwithin.com/physical-structure-and-c-part-1?utm_source=gemini)
+
 207. Что такое transitive compile cost?
+
+     **Ответ:** Это совокупная вычислительная стоимость (время CPU и память), которую проект платит за то, что заголовок `A.h` транзитивно тянет за собой заголовок `B.h`. Каждый файл, подключивший `A.h`, неявно парсит всё поддерево `B.h`, даже если сущности из `B.h` в нем не используются.
+
+     **Пример:**
+
+     ```
+     # Измерение влияния заголовка через флаг Clang:
+     clang++ -ftime-trace main.cpp # Показывает график времени парсинга всех транзитивных заголовков
+
+     ```
+
+     **Источник:** [Clang Docs: Time Trace feature](https://aras-p.info/blog/2019/01/16/time-trace-timeline-flame-chart-profiler-for-Clang/?utm_source=gemini)
+
 208. Почему “удобный include сейчас” может стать дорогим позже?
+
+     **Ответ:** Добавление удобного инклуда (например, универсального `Common.h` со всеми утилитами) быстро распространяется по проекту. С ростом кодовой базы это приводит к огромным деревьям зависимостей, замедлению компиляции в десятки раз и невозможности распутать архитектуру без тотального рефакторинга.
+
+     **Пример:**
+
+     ```
+     // Включили "Common.h" в 500 файлов. Теперь изменение одной утилиты заставляет пересобирать весь проект.
+
+     ```
+
+     **Источник:** [C++ Core Guidelines: SF.1 Keep declarations in header files](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#sf1-keep-declarations-in-header-files)
+
 209. Что такое самодостаточный заголовок и почему это важное правило?
+
+     **Ответ:** Это заголовочный файл, содержащий внутри себя все директивы `#include`, необходимые для его компиляции в изоляции. Это предотвращает скрытые зависимости от порядка включения файлов пользователями и гарантирует стабильность интерфейса.
+
+     **Пример:**
+
+     ```cpp
+     // MathVector.h
+     #pragma once
+     #include <cstddef> // Без него size_t ниже не скомпилируется сам по себе
+     void resize_vector(size_t new_size);
+     ```
+
+     **Источник:** [Google C++ Style Guide: Self-contained Headers](https://google.github.io/styleguide/cppguide.html?utm_source=gemini#Self_contained_Headers)
+
 210. Почему заголовок не должен полагаться на то, что кто-то до него уже что-то подключил?
+
+     **Ответ:** Если заголовок несамодостаточен, перестановка строк `#include` в клиентском коде приведет к неожиданной ошибке компиляции «тип не определен». Заголовок становится хрупким и непригодным для повторного использования в других частях системы.
+
+     **Пример:**
+
+     ```
+     // Если my_header.h требует std::string, но сам ее не включает:
+     #include "my_header.h" // Ошибка: unknown type 'string'
+     #include <string>
+
+     ```
+
+     **Источник:** [C++ Core Guidelines: SF.11 Make header files self-contained](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#sf11-make-header-files-self-contained)
+
 211. Что такое include-what-you-use принцип?
+
+     **Ответ:** Принцип IWYU гласит: каждый файл исходного кода (`.h` или `.cpp`) обязан явно включать именно те заголовки, символы и типы которых он непосредственно использует в своем тексте, и не должен полагаться на транзитивные включения из других заголовков.
+
+     **Пример:**
+
+     ```cpp
+     // main.cpp использует std::cout, значит ОБЯЗАН явно написать:
+     #include <iostream>
+     // Даже если <iostream> уже подключен где-то внутри "Framework.h"
+     ```
+
+     **Источник:** [Include What You Use Project](https://include-what-you-use.org/?utm_source=gemini)
+
 212. Почему include-what-you-use улучшает качество сборки?
+
+     **Ответ:** Он защищает код от поломок при рефакторинге сторонних заголовков, делает граф зависимостей точным и честным, а также позволяет безопасно удалять ненужные устаревшие директивы `#include`, ускоряя сборку.
+
+     **Пример:**
+
+     ```
+     # Автоматический аудит зависимостей утилитой IWYU:
+     include-what-you-use main.cpp
+
+     ```
+
+     **Источник:** [IWYU Documentation: Why IWYU](https://github.com/include-what-you-use/include-what-you-use/blob/master/docs/WhyIWYU.md?utm_source=gemini)
+
 213. Когда forward declaration лучше `#include`, а когда хуже?
+
+     **Ответ:** Лучше: в заголовочных файлах для указателей, ссылок и сигнатур функций — это сокращает размер трансляции. Хуже: когда тип активно используется в шаблонах (например, `std::unique_ptr` требует полного типа для деструктора), а также если класс переименовывается или превращается в `using alias` (сломает чужие forward declarations).
+
+     **Пример:**
+
+     ```cpp
+     // Ошибка с std::unique_ptr и incomplete type:
+     class Incomplete;
+     struct Holder {
+         std::unique_ptr<Incomplete> ptr; // Ошибка в месте вызова деструктора Holder!
+     };
+     ```
+
+     **Источник:** [Effective Modern C++ (Scott Meyers, Item 22)](https://www.oreilly.com/library/view/effective-modern-c/9781491903988/?utm_source=gemini)
+
 214. Почему чрезмерный forward declaration тоже может ухудшать читаемость?
+
+     **Ответ:** Ручные опережающие объявления дублируют метаданные типов. Если класс переносится в другое пространство имен или меняет параметры шаблона по умолчанию, приходится вручную обновлять десятки forward declarations по всему проекту вместо единой точки правки.
+
+     **Пример:**
+
+     ```
+     // Если в библиотеке изменили: template<typename T, typename Alloc = ...> class Vector;
+     // Ручной "template<typename T> class Vector;" поломает компиляцию.
+
+     ```
+
+     **Источник:** [Google C++ Style Guide: Forward Declarations Considerations](https://google.github.io/styleguide/cppguide.html?utm_source=gemini#Forward_Declarations)
+
 215. Что такое deterministic build?
+
+     **Ответ:** Детерминированная сборка — это процесс сборки, при котором подача на вход компилятора абсолютно идентичного набора исходных файлов, флагов и зависимостей гарантированно порождает побитово идентичный исполняемый файл или библиотеку.
+
+     **Пример:**
+
+     ```
+     # Проверка детерминизма двух независимых сборок:
+     sha256sum build1/app.exe build2/app.exe
+     # Хеши должны полностью совпадать
+
+     ```
+
+     **Источник:** [Reproducible Builds Project](https://reproducible-builds.org/?utm_source=gemini)
+
 216. Почему воспроизводимая сборка важна для CI/CD и релизов?
+
+     **Ответ:** Она исключает внедрение вредоносных закладок на этапе компиляции (supply chain attacks), позволяет надежно проверять целостность бинарников независимыми валидаторами, гарантирует корректность работы распределенных кэшей сборки (ccache) и облегчает расследование багов в продакшене.
+
+     **Пример:**
+
+     ```
+     # Если сборка недетерминирована, распределенный кэш (ccache/sccache) не будет находить попадания (cache misses).
+
+     ```
+
+     **Источник:** [Reproducible Builds: Why does it matter?](https://reproducible-builds.org/docs/buy-in/?utm_source=gemini)
+
 217. Что такое reproducible build?
+
+     **Ответ:** Синоним термина deterministic build — методология разработки, при которой любой разработчик или сторонний аудитор может взять исходный код с зафиксированными версиями инструментов и воспроизвести готовый бинарник байт-в-байт.
+
+     **Пример:**
+
+     ```
+     # Проверка проекта утилитой diffoscope:
+     diffoscope build_a/bin build_b/bin
+
+     ```
+
+     **Источник:** [Reproducible Builds: Definition](https://reproducible-builds.org/docs/definition/?utm_source=gemini)
+
 218. Почему дата, время, пути и окружение могут нарушать воспроизводимость сборки?
-219. Что такое compile_commands.json?
+
+     **Ответ:** Макросы `__DATE__` и `__TIME__` вшивают время текущей компиляции; макрос `__FILE__` и символы отладки сохраняют абсолютные пути к исходникам на диске конкретного разработчика (`/home/user/...`); порядок обхода файлов файловой системой может менять порядок линковки объектников.
+
+     **Пример:**
+
+     ```
+     # Флаг компилятора для маппинга путей к стабильному виду:
+     g++ -ffile-prefix-map=/home/builder/project=. main.cpp
+
+     ```
+
+     **Источник:** [GCC Online Docs: Options for Debugging (-ffile-prefix-map)](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html?utm_source=gemini#index-ffile-prefix-map)
+
+219. Что такое `compile_commands.json`?
+
+     **Ответ:** `compile_commands.json` (JSON Compilation Database) — это стандартизированный файл, содержащий точный список команд компиляции для каждого файла проекта (рабочая директория, флаги, пути поиска включений, макроопределения).
+
+     **Пример:**
+
+     ```json
+     [
+       {
+         "directory": "/home/user/project/build",
+         "command": "/usr/bin/c++ -I../include -O2 -c ../src/main.cpp",
+         "file": "../src/main.cpp"
+       }
+     ]
+     ```
+
+     **Источник:** [Clang Docs: JSON Compilation Database Format Specification](https://clang.llvm.org/docs/JSONCompilationDatabase.html?utm_source=gemini)
+
 220. Для чего он нужен инструментам анализа?
+
+     **Ответ:** Языковые серверы (Clangd), статические анализаторы (Clang-Tidy) и IDE используют его, чтобы видеть код ровно так, как его видит компилятор при реальной сборке (с теми же флагами и заголовками), обеспечивая точную навигацию по коду и обнаружение ошибок без догадок.
+
+     **Пример:**
+
+     ```
+     # Генерация файла в CMake:
+     cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+     ```
+
+     **Источник:** [Clangd Documentation: Getting started](https://clangd.llvm.org/installation#compile_commandsjson?utm_source=gemini)
+
 221. Что такое статический анализатор и как он связан с этапом сборки?
+
+     **Ответ:** Статический анализатор (Clang-Tidy, Cppcheck, SonarQube) — это инструмент, который парсит исходный код и находит баги, утечки ресурсов и нарушения кодстайла без запуска программы. Он тесно интегрируется в конвейер сборки, перехватывая единицы трансляции с полным набором флагов компиляции.
+
+     **Пример:**
+
+     ```cmake
+     # Интеграция clang-tidy прямо в процесс сборки CMake:
+     set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=-*,modernize-*,bugprone-*")
+     ```
+
+     **Источник:** [Clang-Tidy Documentation](https://clang.llvm.org/extra/clang-tidy/?utm_source=gemini)
+
 222. Что такое санитайзеры и почему они обычно настраиваются через флаги сборки?
+
+     **Ответ:** Санитайзеры (ASan, TSan, UBSan) — это динамические инструменты инструментирования кода. Они требуют флагов компилятора (например, `-fsanitize=address`), потому что компилятор обязан внедрить в генерируемый машинный код проверки вокруг каждого обращения к памяти, а линкер — подключить специальный рантайм мониторинга.
+
+     **Пример:**
+
+     ```
+     # Сборка с санитайзером памяти:
+     g++ -fsanitize=address -g main.cpp -o app_asan
+
+     ```
+
+     **Источник:** [Google Sanitizers Repository](https://github.com/google/sanitizers?utm_source=gemini)
+
 223. Что такое ASan?
+
+     **Ответ:** ASan (AddressSanitizer) — это инструмент обнаружения ошибок работы с памятью: выхода за границы массивов на стеке и в куче (buffer overflow), использования освобожденной памяти (use-after-free), двойного освобождения (double free) и утечек памяти.
+
+     **Пример:**
+
+     ```cpp
+     int main() {
+         int* arr = new int[5];
+         delete[] arr;
+         return arr[0]; // ASan мгновенно остановит процесс: Heap-use-after-free
+     }
+     ```
+
+     **Источник:** [Clang Docs: AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html?utm_source=gemini)
+
 224. Что такое UBSan?
+
+     **Ответ:** UBSan (UndefinedBehaviorSanitizer) — это детектор неопределенного поведения во время выполнения программы: выявляет знаковое целочисленное переполнение, сдвиги на недопустимое число бит, разыменование нулевых указателей и нарушение правил выравнивания.
+
+     **Пример:**
+
+     ```
+     # Компиляция с UBSan:
+     g++ -fsanitize=undefined main.cpp -o app_ubsan
+
+     ```
+
+     **Источник:** [Clang Docs: UndefinedBehaviorSanitizer](https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html?utm_source=gemini)
+
 225. Что такое TSan?
+
+     **Ответ:** TSan (ThreadSanitizer) — это инструмент обнаружения состояний гонки по данным (data races) в многопоточных программах. Он отслеживает одновременный несинхронизированный доступ разных потоков к одним и тем же ячейкам памяти, если хотя бы один из них выполняет запись.
+
+     **Пример:**
+
+     ```
+     # Компиляция с TSan:
+     g++ -fsanitize=thread -g main.cpp -o app_tsan
+
+     ```
+
+     **Источник:** [Clang Docs: ThreadSanitizer](https://clang.llvm.org/docs/ThreadSanitizer.html?utm_source=gemini)
+
 226. Почему разные конфигурации сборки используют разные наборы флагов?
+
+     **Ответ:** Флаги решают взаимоисключающие инженерные задачи: сборка с санитайзерами замедляет программу в 2–3 раза и раздувает память; Release-оптимизации разрушают соответствие строк кода машинным инструкциям и удаляют проверки; Debug-режим компилируется быстрее, но непригоден для замеров производительности.
+
+     **Пример:**
+
+     ```
+     Debug:   -O0 -g
+     Release: -O3 -DNDEBUG
+     ASan:    -O1 -g -fsanitize=address -fno-omit-frame-pointer
+
+     ```
+
+     **Источник:** [CMake Docs: CMAKE_CXX_FLAGS_DEBUG / RELEASE](https://cmake.org/cmake/help/latest/variable/CMAKE_CXX_FLAGS_DEBUG.html?utm_source=gemini)
+
 227. Что такое LTO — Link Time Optimization?
+
+     **Ответ:** LTO (Link Time Optimization, межпроцедурная оптимизация) — это механизм, при котором компилятор на этапе сборки генерирует в объектные файлы не готовый ассемблер, а свое промежуточное представление (IR), передавая его линкеру для сквозного глобального анализа и оптимизации программы целиком.
+
+     **Пример:**
+
+     ```
+     # Включение LTO в GCC/Clang:
+     g++ -flto -O3 main.cpp utils.cpp -o app
+
+     ```
+
+     **Источник:** [GCC Wiki: Link Time Optimization](https://gcc.gnu.org/wiki/LinkTimeOptimization?utm_source=gemini)
+
 228. На каком этапе работает LTO?
+
+     **Ответ:** LTO работает на этапе компоновки (linking). Линкер активирует плагин компилятора, объединяет промежуточные представления всех входных объектных модулей в единый граф и запускает сквозные проходы оптимизации перед финальной генерацией машинного кода.
+
+     **Пример:**
+
+     ```
+     main.o (IR) + utils.o (IR) -> [LTO Линкер: инлайнинг между .o] -> app (ELF/PE)
+
+     ```
+
+     **Источник:** [LLVM Docs: Link Time Optimization Design](https://llvm.org/docs/LinkTimeOptimization.html?utm_source=gemini)
+
 229. Почему LTO размывает границу между компиляцией и линковкой?
+
+     **Ответ:** Традиционно компилятор не видит соседние единицы трансляции, а линкер оперирует лишь готовыми «черными ящиками» машинных инструкций. При LTO реальная компиляция и кодогенерация (оптимизации, инлайнинг) откладываются и производятся самим линкером в глобальном скоупе.
+
+     **Пример:**
+
+     ```
+     // Функция из utils.cpp может быть заинлайнена внутрь main.cpp линкером при LTO!
+
+     ```
+
+     **Источник:** [Honza Hubicka's Blog: Link Time Optimization](https://hubicka.blogspot.com/2014/04/linktime-optimization-in-gcc-1-brief.html?utm_source=gemini)
+
 230. Какие плюсы даёт LTO?
+
+     **Ответ:** Позволяет инлайнить вызовы функций между разными `.cpp` файлами, выполнять глобальный анализ указателей, девиртуализировать вызовы методов классов и удалять неиспользуемые функции и поля структур во всей программе, увеличивая скорость работы на 5–20% и уменьшая размер бинарника.
+
+     **Пример:**
+
+     ```cmake
+     # Включение LTO в CMake для таргеты:
+     set_target_properties(my_target PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
+     ```
+
+     **Источник:** [CMake Docs: INTERPROCEDURAL_OPTIMIZATION](https://cmake.org/cmake/help/latest/prop_tgt/INTERPROCEDURAL_OPTIMIZATION.html?utm_source=gemini)
+
 231. Какие минусы у LTO?
+
+     **Ответ:** Огромные затраты оперативной памяти и времени на этапе финальной линковки (может требовать десятков гигабайт RAM), существенное замедление инкрементальной сборки и усложнение сопоставления ассемблера с исходным кодом при отладке.
+
+     **Пример:**
+
+     ```
+     # Линковка Chromium или LLVM с LTO может занимать более получаса на мощных серверах.
+
+     ```
+
+     **Источник:** [LLVM ThinLTO: Scalable and Incremental LTO](https://clang.llvm.org/docs/ThinLTO.html?utm_source=gemini)
+
 232. Что такое PGO — Profile Guided Optimization?
+
+     **Ответ:** PGO — это методика оптимизации, при которой компилятор собирает специальную инструментированную версию программы, затем она прогоняется на реальных сценариях нагрузки для сбора профиля (частота ветвлений, горячие циклы), после чего бинарник компилируется заново с учетом этих данных.
+
+     **Пример:**
+
+     ```
+     # Шаг 1: Сборка с генерацией профиля
+     g++ -fprofile-generate -O3 main.cpp -o app_instrumented
+     # Шаг 2: Прогон рабочей нагрузки -> создается файл с профилем (.gcda)
+     ./app_instrumented
+     # Шаг 3: Финальная сборка на основе профиля
+     g++ -fprofile-use -O3 main.cpp -o app_optimized
+
+     ```
+
+     **Источник:** [GCC Online Docs: Options That Control Optimization (-fprofile-generate)](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html?utm_source=gemini#index-fprofile-generate)
+
 233. Как PGO использует данные выполнения для оптимизации сборки?
+
+     **Ответ:** Компилятор размещает наиболее вероятные ветки условий `if/else` линейно подряд в памяти (улучшая работу кэша инструкций и предсказателя переходов процессора), инлайнит строго горячие функции и выносит редкие пути (например, обработку ошибок) в дальние холодные секции памяти.
+
+     **Пример:**
+
+     ```
+     // Если в 99.9% случаев условие false, компилятор при PGO вынесет тело if в холодную секцию .text:
+     if (rare_error_condition) {
+         handle_error();
+     }
+
+     ```
+
+     **Источник:** [Microsoft Docs: Profile-Guided Optimizations](https://learn.microsoft.com/en-us/cpp/build/profile-guided-optimizations?utm_source=gemini)
+
 234. Почему PGO относится и к сборке, и к производительности?
+
+     **Ответ:** К производительности оно относится потому, что дает максимальный выигрыш в скорости исполнения (до 15–30%), а к сборке — потому, что кардинально меняет CI/CD пайплайн, требуя двухэтапного цикла компиляции с обязательным шагом выполнения программы между ними.
+
+     **Пример:**
+
+     ```
+     [Исходники] -> Сборка 1 -> [Бинарник с инструментацией] -> Запуск нагрузки -> [Профиль]
+                                                                                        ↓
+     [Финальный бинарник] <----------------------- Сборка 2 <---------------------------
+
+     ```
+
+     **Источник:** [Clang Docs: Profile Guided Optimization](https://clang.llvm.org/docs/UsersManual.html?utm_source=gemini#profile-guided-optimization)
+
 235. Что такое debug symbols stripping?
+
+     **Ответ:** Debug symbols stripping (удаление отладочных символов) — это процесс очистки итогового бинарного файла от таблиц соответствия адресов строкам исходников (DWARF/PDB) и неэкспортируемых локальных символов с помощью системной утилиты `strip`.
+
+     **Пример:**
+
+     ```
+     # Удаление отладочной информации:
+     strip --strip-debug my_program
+
+     ```
+
+     **Источник:** [GNU Binutils: strip manual](https://sourceware.org/binutils/docs/binutils/strip.html?utm_source=gemini)
+
 236. Зачем удаляют символы из релизного бинарника?
+
+     **Ответ:** Это уменьшает физический размер файла на диске в несколько раз (иногда на 80–90%), ускоряет загрузку программы с диска, экономит интернет-трафик при распространении дистрибутива и затрудняет обратную инженерию (реверс-инжиниринг) кода.
+
+     **Пример:**
+
+     ```
+     # До стриппинга:   app = 45 МБ
+     # После стриппинга: app = 4.2 МБ
+
+     ```
+
+     **Источник:** [Linux man-pages: strip(1)](https://man7.org/linux/man-pages/man1/strip.1.html?utm_source=gemini)
+
 237. Что такое separate debug info?
+
+     **Ответ:** Separate debug info (раздельные отладочные символы) — это технология, при которой отладочные секции выносятся из исполняемого файла в отдельный внешний файл (`.debug`, `.dSYM` или `.pdb`), связываемый с бинарником с помощью специального отпечатка сборки (Build ID).
+
+     **Пример:**
+
+     ```
+     # Извлечение символов в отдельный файл:
+     objcopy --only-keep-debug app app.debug
+     strip --strip-debug app
+     objcopy --add-gnu-debuglink=app.debug app
+
+     ```
+
+     **Источник:** [GDB Documentation: Separate Debug Files](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Separate-Debug-Files.html?utm_source=gemini)
+
 238. Почему бинарник и отладочная информация могут храниться отдельно?
+
+     **Ответ:** Пользователь получает легковесный бинарник без лишнего веса, а разработчики и CI/CD серверы хранят внешние файлы отладки на Symbol Server. При получении краш-дампа от клиента отладчик автоматически подтягивает файл символов по его Build ID и восстанавливает читаемый стек вызовов.
+
+     **Пример:**
+
+     ```
+     # В Windows: исполняемый файл app.exe отдается пользователю, а app.pdb остается на сервере.
+
+     ```
+
+     **Источник:** [Microsoft Docs: Symbol files (PDBs)](https://learn.microsoft.com/en-us/visualstudio/debugger/specify-symbol-dot-pdb-and-source-files-in-the-visual-studio-debugger?utm_source=gemini)
+
 239. Что такое map file линковщика?
+
+     **Ответ:** Map file (карта компоновки) — это генерируемый линкером текстовый отчет, подробно описывающий внутреннюю организацию собранного бинарника: точные адреса загрузки всех секций, их размеры, а также в каких секциях и из каких объектных файлов расположен каждый конкретный символ.
+
+     **Пример:**
+
+     ```
+     # Заказ map-файла у GNU ld:
+     g++ -Wl,-Map=output.map main.o utils.o -o output
+
+     ```
+
+     **Источник:** [GNU ld: -Map option](https://sourceware.org/binutils/docs/ld/Options.html?utm_source=gemini#index-_002dMap_003d_002a)
+
 240. Для чего он бывает полезен?
+
+     **Ответ:** Для низкоуровневой диагностики: выяснения причин раздувания бинарника (какая функция или массив заняли больше всего места), отладки переполнения памяти во встроенных системах (embedded ROM/RAM), а также поиска нежелательных включений мертвых символов.
+
+     **Пример:**
+
+     ```
+     # Фрагмент output.map:
+     # .text.calculate  0x0000000000401140   0x3a utils.o
+     #                  0x0000000000401140   calculate(int)
+
+     ```
+
+     **Источник:** [Embedded Artistry: Demystifying the Linker Map File](https://embeddedartistry.com/blog/2019/04/08/demystifying-the-map-file/?utm_source=gemini)
+
 241. Что такое weak symbol?
+
+     **Ответ:** Weak symbol (слабый символ) — это символ в таблице объектного файла, помеченный специальной директивой или сгенерированный для `inline`/шаблонов, определение которого линкер может переопределить другим символом с таким же именем без выдачи ошибки компиляции.
+
+     **Пример:**
+
+     ```cpp
+     // Объявление слабого символа в GCC:
+     __attribute__((weak)) void default_handler() {
+         // Дефолтная реализация
+     }
+     ```
+
+     **Источник:** [Oracle Solaris Linker and Libraries Guide: Weak Symbols](https://docs.oracle.com/cd/E19683-01/817-1984/chapter2-4/index.html?utm_source=gemini)
+
 242. Что такое strong symbol?
+
+     **Ответ:** Strong symbol (сильный символ) — это стандартный символ функции или инициализированной глобальной переменной с внешней компоновкой по умолчанию. Наличие двух сильных символов с одинаковым именем в разных объектных файлах гарантированно вызывает ошибку множественного определения (`multiple definition`).
+
+     **Пример:**
+
+     ```cpp
+     int global_flag = 1; // Сильный символ
+     void standard_function() {} // Сильный символ
+     ```
+
+     **Источник:** [CSAPP: Global Symbols and Strong/Weak Rules](https://csapp.cs.cmu.edu/?utm_source=gemini)
+
 243. Как линкер разрешает конфликты символов?
+
+     **Ответ:** Правила разрешения компоновщика: 1) Несколько сильных символов с одним именем недопустимы (ошибка линковки); 2) При наличии одного сильного и нескольких слабых символов выбирается сильный; 3) При наличии нескольких слабых символов линкер произвольно оставляет первый попавшийся, игнорируя остальные.
+
+     **Пример:**
+
+     ```
+     // Библиотека объявила weak hook(), а вы в main.cpp написали strong hook():
+     // Линкер выберет вашу реализацию и подставит ее на место всех вызовов.
+
+     ```
+
+     **Источник:** [Eli Bendersky: Strong and weak symbols](https://eli.thegreenplace.net/2012/12/17/dumping-a-c-objects-memory-layout-with-clang?utm_source=gemini)
+
 244. Что такое startup code программы?
+
+     **Ответ:** Startup code (стартовый код, например `crt0.o` / `crt1.o` — C Runtime Zero) — это небольшой низкоуровневый ассемблерный блок, управление на который передается загрузчиком операционной системы при создании процесса. Он выполняет первичную инициализацию рантайма перед вызовом функции `main()`.
+
+     **Пример:**
+
+     ```
+     Точка входа ELF-файла: _start (в crt1.o) -> инициализация C-runtime -> вызов main()
+
+     ```
+
+     **Источник:** [OSDev Wiki: Creating a C Runtime Library](https://wiki.osdev.org/Creating_a_C_Library?utm_source=gemini)
+
 245. Что происходит до входа в `main()`?
+
+     **Ответ:** До вызова `main()`: 1) ОС настраивает виртуальную память, стек и переменные окружения; 2) Загрузчик разрешает динамические зависимости; 3) Startup-код инициализирует подсистему потоков и кучу (malloc); 4) Вызываются конструкторы глобальных и статических объектов C++ в секциях `.init_array` / `.ctors`.
+
+     **Пример:**
+
+     ```cpp
+     struct BeforeMain {
+         BeforeMain() { std::cout << "I run before main!\n"; }
+     };
+     BeforeMain g_obj; // Конструктор сработает до входа в main()
+     ```
+
+     **Источник:** [cppreference: Initialization of non-local variables](https://en.cppreference.com/w/cpp/language/initialization?utm_source=gemini#Non-local_variables)
+
 246. Что происходит после выхода из `main()`?
+
+     **Ответ:** После завершения `main()` (или вызова `exit()`): 1) В порядке, обратном конструированию, вызываются деструкторы глобальных и статических объектов (зарегистрированные через `__cxa_atexit`); 2) Выполняются функции, переданные в `std::atexit()`; 3) Закрываются и сбрасываются стандартные буферы потоков ввода-вывода; 4) Вызывается системный вызов завершения процесса (`sys_exit`).
+
+     **Пример:**
+
+     ```cpp
+     void on_exit_handler() { std::cout << "Clean up!\n"; }
+     // Регистрация в main:
+     std::atexit(on_exit_handler); // Вызовется после выхода из main
+     ```
+
+     **Источник:** [cppreference: std::exit](https://en.cppreference.com/w/cpp/utility/program/exit?utm_source=gemini)
+
 247. Почему глобальная инициализация относится к теме сборки и линковки?
+
+     **Ответ:** Компилятор и линкер помещают указатели на функции инициализации глобальных объектов в специальные секции бинарного файла (`.init_array` в ELF или `.CRT$XCU` в PE). Именно компоновщик собирает эти указатели из всех объектных файлов в единый непрерывный массив, по которому в рантайме проходит цикл startup-кода.
+
+     **Пример:**
+
+     ```
+     # Просмотр массива глобальных инициализаторов:
+     readelf -S app | grep init_array
+
+     ```
+
+     **Источник:** [System V ABI: Initialization and Termination Functions](https://refspecs.linuxfoundation.org/elf/gabi4+/ch5.init.html?utm_source=gemini)
+
 248. Что такое static initialization order fiasco?
+
+     **Ответ:** Это фундаментальная проблема C++, заключающаяся в том, что порядок вызова конструкторов глобальных (статических) объектов, расположенных в **разных** единицах трансляции, стандартом языка не определен. Если глобальный объект `A` из файла `a.cpp` в своем конструкторе обращается к глобальному объекту `B` из файла `b.cpp`, объект `B` может оказаться еще не инициализированным.
+
+     **Пример:**
+
+     ```cpp
+     // a.cpp
+     extern int count;
+     int val = count + 1; // Если count еще не сконструирован, тут будет мусор или 0!
+
+     // b.cpp
+     int count = 42;
+     ```
+
+     **Источник:** [ISO C++ FAQ: Static initialization order fiasco](https://isocpp.org/wiki/faq/ctors#static-init-order?utm_source=gemini)
+
 249. Почему глобальные объекты из разных единиц трансляции могут инициализироваться в опасном порядке?
+
+     **Ответ:** Стандарт C++ гарантирует порядок инициализации только внутри одной единицы трансляции (сверху вниз). Между разными `.cpp` порядок отдается на откуп линкеру: он обычно зависит от случайных факторов — порядка передачи файлов в строке компоновщика или работы параллельной сборки.
+
+     **Пример:**
+
+     ```
+     # Порядок может зависеть от того, что передали первым:
+     g++ a.o b.o -o app # Инициализируется сначала A, потом B
+     g++ b.o a.o -o app # Инициализируется сначала B, потом A
+
+     ```
+
+     **Источник:** [cppreference: Initialization (Order of initialization)](https://en.cppreference.com/w/cpp/language/initialization?utm_source=gemini#Non-local_variables)
+
 250. Как локальные `static`-объекты помогают обходить эту проблему?
+
+     **Ответ:** С помощью идиомы Мейерса (Meyers' Singleton). Локальный статический объект внутри функции создается строго по требованию (lazy) в момент первого прохода управления через его объявление. Стандарт C++11 также гарантирует потокобезопасность такой инициализации (Magic Statics).
+
+     **Пример:**
+
+     ```cpp
+     Database& get_database() {
+         static Database db; // Гарантированно создается в момент ПЕРВОГО вызова функции
+         return db;
+     }
+     ```
+
+     **Источник:** [Effective C++ (Scott Meyers, Item 4)](https://www.aristeia.com/books.html?utm_source=gemini)
+
 251. Что такое modules в C++ и как они меняют тему препроцессора и сборки?
+
+     **Ответ:** Модули (введенные в C++20) — это компонентная замена механизму включения заголовочных файлов `#include`. Модули транслируются один раз в бинарный интерфейс (BMI — Built Module Interface), семантически изолированы от макросов, не допускают утечек внутренних определений наружу и не требуют заголовочных файлов.
+
+     **Пример:**
+
+     ```cpp
+     // math.ixx
+     export module math;
+     export int add(int a, int b) { return a + b; }
+
+     // main.cpp
+     import math;
+     int main() { return add(2, 3); }
+     ```
+
+     **Источник:** [cppreference: Modules](https://en.cppreference.com/w/cpp/language/modules?utm_source=gemini)
+
 252. Чем modules отличаются от `#include`?
+
+     **Ответ:** Директива `#include` производит примитивную текстовую вставку содержимого файла со всеми его макросами, требуя повторного парсинга в каждом `.cpp`. Модуль импортируется как уже разобранное синтаксическое AST-дерево: макросы из модуля не просачиваются в клиентский код, а макросы клиента не могут сломать внутренности модуля.
+
+     **Пример:**
+
+     ```cpp
+     #define add(a, b) (0) // Сломает #include "math.h"
+     import math;          // Модулю плевать на макрос 'add', он скомпилирован изолированно
+     ```
+
+     **Источник:** [C++ Core Guidelines: Modules](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#mod-modules)
+
 253. Почему modules могут ускорять сборку и уменьшать зависимости?
+
+     **Ответ:** Компилятор парсит интерфейс модуля один раз и сохраняет его в компактный бинарный вид (BMI). При импорте модуля клиентские файлы загружают готовые структуры данных напрямую в память, минуя сотни тысяч строк препроцессинга и повторный лексический разбор тяжелых заголовочных файлов.
+
+     **Пример:**
+
+     ```
+     // import std; в C++23 компилируется в десятки раз быстрее, чем #include <iostream>, <vector> и т.д.
+
+     ```
+
+     **Источник:** [WG21 Paper P1103R3: Merging Modules](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1103r3.pdf?utm_source=gemini)
+
 254. Почему modules не равны просто “новому способу подключать заголовки”?
+
+     **Ответ:** Модули фундаментально меняют семантику языка: они вводят понятие «видимости» без «доступности» (reachability vs visibility), предотвращают коллизии макросов, позволяют экспортировать сущности без заголовков, но при этом требуют от сборочных систем строгой топологической сортировки графа сборки до начала компиляции.
+
+     **Пример:**
+
+     ```
+     Модули нельзя скомпилировать строго параллельно "вслепую":
+     Если B импортирует A, то компилятор обязан скомпилировать модуль A до модуля B.
+
+     ```
+
+     **Источник:** [Kitware: C++20 Modules in CMake with Scheduled Builds](https://www.kitware.com/cpp-20-modules-in-cmake-with-scheduled-builds/?utm_source=gemini)
+
 255. Что такое interface unit модуля?
+
+     **Ответ:** Module interface unit (единица интерфейса модуля) — это файл модуля, начинающийся с объявления `export module ModuleName;`. Он определяет открытый контракт компонента и содержит объявления и определения сущностей, которые помечаются ключевым словом `export` для предоставления другим модулям.
+
+     **Пример:**
+
+     ```cpp
+     // logger.ixx
+     export module Logger;
+     export void log_info(const char* msg); // Экспортируемый публичный API
+     ```
+
+     **Источник:** [cppreference: Module interface unit](https://en.cppreference.com/w/cpp/language/modules?utm_source=gemini#Module_interface_unit)
+
 256. Что такое implementation unit модуля?
+
+     **Ответ:** Module implementation unit (единица реализации модуля) — это файл модуля с объявлением `module ModuleName;` (без `export`). Он содержит тела функций и приватные детали реализации. Изменения внутри implementation unit не меняют бинарный интерфейс модуля (BMI) и не требуют перекомпиляции клиентов, использующих этот модуль.
+
+     **Пример:**
+
+     ```cpp
+     // logger.cpp
+     module Logger; // Реализация модуля Logger
+     void log_info(const char* msg) {
+         // Реализация скрыта от клиентов
+     }
+     ```
+
+     **Источник:** [cppreference: Module implementation unit](https://en.cppreference.com/w/cpp/language/modules?utm_source=gemini#Module_implementation_unit)
+
 257. Как modules меняют ODR и видимость сущностей?
+
+     **Ответ:** Сущности, объявленные внутри модуля без спецификатора `export`, получают модуль-компоновку (module linkage): они видны всем единицам одного модуля, но абсолютно невидимы вне его. Это исключает случайные нарушения ODR между неэкспортированными функциями с одинаковыми именами в разных модулях.
+
+     **Пример:**
+
+     ```cpp
+     // ModuleA.ixx: void helper() {} (без export)
+     // ModuleB.ixx: void helper() {} (без export)
+     // Обе функции сосуществуют в одном бинарнике без конфликта ODR!
+     ```
+
+     **Источник:** [ISO C++ Standard: Module linkage (§ 6.6 \[basic.link\])](https://eel.is/c++draft/basic.link?utm_source=gemini)
+
 258. Почему переход с заголовков на modules в существующем проекте может быть сложным?
+
+     **Ответ:** Сложности вызваны: 1) необходимостью строгой поддержки со стороны сборочной системы (сканирование динамических зависимостей модулей на лету); 2) плохой совместимостью с легаси-макросами в сторонних C-библиотеках; 3) неполной зрелостью экосистемных инструментов (IDE, индексаторы, линтеры).
+
+     **Пример:**
+
+     ```
+     // Если старый заголовок ожидал макрос конфигурации перед своим вызовом:
+     #define USE_SSL
+     #include "network.h" // Работает
+     // С модулями так сделать нельзя: import network; изолирован от внешних define!
+
+     ```
+
+     **Источник:** [Bryce Adelstein Lelbach: The C++20 Modules Journey](https://www.youtube.com/watch?v=yPfPndY3b_E?utm_source=gemini)
+
 259. Какие типичные ошибки разработчики делают в теме препроцессора и сборки?
+
+     **Ответ:** 1) Помещение определений не-`inline` переменных или функций в заголовки (ошибки `multiple definition`); 2) Отсутствие include guards; 3) Написание небезопасных макросов без скобок или с побочными эффектами; 4) Циклические включения заголовков; 5) Зависимость от случайных транзитивных инклудов; 6) Нарушение ODR из-за разных флагов компиляции между `.cpp`.
+
+     **Пример:**
+
+     ```cpp
+     // Ошибка: в header.h написано
+     int global_seed = 42; // Вызовет multiple definition error при линковке
+     ```
+
+     **Источник:** [SEI CERT C++ Coding Standard](https://wiki.sei.cmu.edu/confluence/display/cplusplus/CERT+C%2B%2B+Coding+Standard?utm_source=gemini)
+
 260. Какие основные практические принципы по теме `Препроцессор_и_сборка` ты бы сформулировал для современного C++?
+
+     **Ответ:** 1) Минимизировать препроцессор: заменять `#define` на `constexpr`, `inline`, `const` и шаблоны; 2) Делать заголовки самодостаточными; 3) Использовать forward declarations и pImpl для разрыва физических зависимостей; 4) Соблюдать принцип IWYU; 5) Четко разделять интерфейс и реализацию таргетов (`PUBLIC`/`PRIVATE` в CMake); 6) Включать санитайзеры в CI/CD; 7) Готовить архитектуру к переходу на C++20 Modules.
+
+     **Пример:**
+
+     ```cpp
+     // Вместо препроцессора:
+     #define BUFFER_SIZE 256
+     // Современный C++:
+     inline constexpr std::size_t buffer_size = 256;
+     ```
+
+     **Источник:** [C++ Core Guidelines: Source Files and Architecture](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#sf-source-files)
 
 [<- Prev](./13_low_level.md) [Next ->](./15_performance.md) [Main](README.md)
