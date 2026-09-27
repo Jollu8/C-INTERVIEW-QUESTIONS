@@ -1,6 +1,8 @@
 ## Operating Systems — Questions (C/C++ oriented)
 
+
 ### OS Architecture
+
 
 1. Что такое монолитное ядро?
 
@@ -17,7 +19,7 @@
    [ Аппаратное обеспечение (Hardware) ]
    ```
 
-   **Источник:** [Silberschatz, Galvin, Gagne: Operating System Concepts (Monolithic Systems)](https://www.os-book.com/?utm_source=gemini)
+   **Источник:** [Silberschatz, Galvin, Gagne: Operating System Concepts (Monolithic Systems)](https://www.os-book.com/)
 
 2. Чем микроядро отличается от монолитного?
 
@@ -30,7 +32,7 @@
    // App -> IPC -> File System Server (User Space) -> IPC -> Disk Driver (User Space)
    ```
 
-   **Источник:** [Tanenbaum, A. S.: Modern Operating Systems (Microkernels)](https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003295?utm_source=gemini)
+   **Источник:** [Tanenbaum, A. S.: Modern Operating Systems (Microkernels)](https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003295)
 
 3. Преимущества и недостатки микроядра?
 
@@ -44,7 +46,7 @@
    # Микроядро: IPC + 2 переключения контекста User->Kernel->User (сотни тактов)
    ```
 
-   **Источник:** [Härtig et al.: The Performance of Micro-Kernel-Based Systems (SOSP)](https://dl.acm.org/doi/10.1145/268998.266660?utm_source=gemini)
+   **Источник:** [Härtig et al.: The Performance of Micro-Kernel-Based Systems (SOSP)](https://dl.acm.org/doi/10.1145/268998.266660)
 
 4. Где выполняется драйвер в монолитной архитектуре?
 
@@ -63,7 +65,7 @@
    }
    ```
 
-   **Источник:** [Linux Device Drivers, 3rd Edition (Corbet, Rubini, Kroah-Hartman)](https://lwn.net/Kernel/LDD3/?utm_source=gemini)
+   **Источник:** [Linux Device Drivers, 3rd Edition (Corbet, Rubini, Kroah-Hartman)](https://lwn.net/Kernel/LDD3/)
 
 5. Что такое kernel space и user space?
 
@@ -77,7 +79,7 @@
    0xFFFF800000000000 - 0xFFFFFFFFFFFFFFFF : Kernel Space (128 ТБ)
    ```
 
-   **Источник:** [Linux Kernel Documentation: Virtual Memory Layout on x86_64](https://www.kernel.org/doc/html/latest/arch/x86/x86_64/mm.html?utm_source=gemini)
+   **Источник:** [Linux Kernel Documentation: Virtual Memory Layout on x86_64](https://www.kernel.org/doc/html/latest/arch/x86/x86_64/mm.html)
 
 6. Как происходит переход между ними?
 
@@ -92,7 +94,7 @@
    syscall             ; Аппаратный переход в Ring 0
    ```
 
-   **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Syscall instruction)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html?utm_source=gemini)
+   **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Syscall instruction)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
 
 7. Что такое syscall interface?
 
@@ -108,7 +110,7 @@
    long bytes = syscall(SYS_write, 1, "Hello\n", 6);
    ```
 
-   **Источник:** [Linux man-pages: syscalls(2)](https://man7.org/linux/man-pages/man2/syscalls.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: syscalls(2)](https://man7.org/linux/man-pages/man2/syscalls.2.html)
 
 8. Почему ядро изолировано от user space?
 
@@ -121,7 +123,7 @@
    *kernel_addr = 42; // Аппаратная защита MMU немедленно выбросит SIGSEGV
    ```
 
-   **Источник:** [Saltzer & Schroeder: The Protection of Information in Computer Systems](https://www.cs.virginia.edu/~evans/greatpapers/saltzer.pdf?utm_source=gemini)
+   **Источник:** [Saltzer & Schroeder: The Protection of Information in Computer Systems](https://www.cs.virginia.edu/~evans/greatpapers/saltzer.pdf)
 
 9. Что такое interrupt?
 
@@ -134,1574 +136,3187 @@
    // CPU остановил юзерский код -> вызвал зарегистрированный обработчик IRQ в ядре
    ```
 
-   **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Interrupts and Exceptions)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/?utm_source=gemini)
+   **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Interrupts and Exceptions)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/)
 
 10. Разница между interrupt и exception?
 
-    **Ответ:** Interrupt (прерывание) асинхронен и генерируется внешним аппаратным обеспечением независимо от текущей исполняемой инструкции процессора (таймер, диск). Exception (исключение) синхронно и генерируется самим вычислительным ядром процессора при попытке выполнить ошибочную или требующую вмешательства инструкцию (деление на ноль, Page Fault, переполнение).
+   **Ответ:** Interrupt (прерывание) асинхронен и генерируется внешним аппаратным обеспечением независимо от текущей исполняемой инструкции процессора (таймер, диск). Exception (исключение) синхронно и генерируется самим вычислительным ядром процессора при попытке выполнить ошибочную или требующую вмешательства инструкцию (деление на ноль, Page Fault, переполнение).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Interrupt: пришел пакет с сетевой карты (асинхронно внешнему коду)
-    # Exception: выполнение `int x = 10 / 0;` (синхронно, ошибка ядра процессора)
-    ```
+   ```
+   # Interrupt: пришел пакет с сетевой карты (асинхронно внешнему коду)
+   # Exception: выполнение `int x = 10 / 0;` (синхронно, ошибка ядра процессора)
+   ```
 
-    **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Interrupt and Exception Handling)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html?utm_source=gemini)
+   **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Interrupt and Exception Handling)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
 
 11. Что такое context switch?
 
-    **Ответ:** Context switch (переключение контекста) — процедура ядра операционной системы, при которой выполнение процессора переключается с одного процесса/потока на другой: сохраняется текущее вычислительное состояние (регистры, счетчик команд, стек) снимаемой задачи и восстанавливается сохраненное состояние запускаемой задачи.
+   **Ответ:** Context switch (переключение контекста) — процедура ядра операционной системы, при которой выполнение процессора переключается с одного процесса/потока на другой: сохраняется текущее вычислительное состояние (регистры, счетчик команд, стек) снимаемой задачи и восстанавливается сохраненное состояние запускаемой задачи.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Мониторинг частоты переключений контекста в системе:
-    vmstat 1
-    # Колонка 'cs' (context switches per second)
-    ```
+   ```
+   # Мониторинг частоты переключений контекста в системе:
+   vmstat 1
+   # Колонка 'cs' (context switches per second)
+   ```
 
-    **Источник:** [Linux man-pages: sched(7)](https://man7.org/linux/man-pages/man7/sched.7.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: sched(7)](https://man7.org/linux/man-pages/man7/sched.7.html)
 
 12. Какие данные сохраняются при context switch?
 
-    **Ответ:** При переключении потока сохраняются: регистры общего назначения (GPR), регистр флагов (EFLAGS), программный счетчик (PC/RIP), указатель вершины стека (SP/RSP) и состояние векторных FPU/SSE/AVX регистров. При переключении процесса дополнительно сменяется таблица виртуальной памяти (базовый адрес каталога страниц в регистре CR3) и метаданные безопасности.
+   **Ответ:** При переключении потока сохраняются: регистры общего назначения (GPR), регистр флагов (EFLAGS), программный счетчик (PC/RIP), указатель вершины стека (SP/RSP) и состояние векторных FPU/SSE/AVX регистров. При переключении процесса дополнительно сменяется таблица виртуальной памяти (базовый адрес каталога страниц в регистре CR3) и метаданные безопасности.
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    // Структура сохранения регистров процессора в ядре Linux (struct thread_struct)
-    struct inactive_task_frame {
-        unsigned long bp;
-        unsigned long rbx;
-        unsigned long r12;
-        unsigned long r13;
-        unsigned long r14;
-        unsigned long r15;
-        unsigned long flags;
-        unsigned long ret_addr;
-    };
-    ```
+   ```c
+   // Структура сохранения регистров процессора в ядре Linux (struct thread_struct)
+   struct inactive_task_frame {
+       unsigned long bp;
+       unsigned long rbx;
+       unsigned long r12;
+       unsigned long r13;
+       unsigned long r14;
+       unsigned long r15;
+       unsigned long flags;
+       unsigned long ret_addr;
+   };
+   ```
 
-    **Источник:** [Robert Love: Linux Kernel Development (Process Scheduling)](https://en.wikipedia.org/wiki/Linux_Kernel_Development?utm_source=gemini)
+   **Источник:** [Robert Love: Linux Kernel Development (Process Scheduling)](https://en.wikipedia.org/wiki/Linux_Kernel_Development)
 
 13. Что такое privilege levels?
 
-    **Ответ:** Privilege levels (уровни привилегий) — аппаратные кольца защиты архитектуры процессора, определяющие права выполняемого кода на исполнение привилегированных инструкций (например, `hlt`, `cli`, управление регистром `cr3`) и доступ к страницам памяти, помеченным как супервизорские.
+   **Ответ:** Privilege levels (уровни привилегий) — аппаратные кольца защиты архитектуры процессора, определяющие права выполняемого кода на исполнение привилегированных инструкций (например, `hlt`, `cli`, управление регистром `cr3`) и доступ к страницам памяти, помеченным как супервизорские.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Архитектура x86 поддерживает 4 уровня (колец):
-    Ring 0: Ядро ОС (полный доступ)
-    Ring 1, 2: Традиционно для драйверов (сейчас почти не используются)
-    Ring 3: Пользовательские приложения (ограниченный доступ)
-    ```
+   ```
+   Архитектура x86 поддерживает 4 уровня (колец):
+   Ring 0: Ядро ОС (полный доступ)
+   Ring 1, 2: Традиционно для драйверов (сейчас почти не используются)
+   Ring 3: Пользовательские приложения (ограниченный доступ)
+   ```
 
-    **Источник:** [OSDev Wiki: Privilege Rings](https://wiki.osdev.org/Security#Privilege_Levels?utm_source=gemini)
+   **Источник:** [OSDev Wiki: Privilege Rings](https://wiki.osdev.org/Security#Privilege_Levels?utm_source=gemini)
 
 14. Ring 0 vs Ring 3?
 
-    **Ответ:** Ring 0 (Supervisor Mode) — режим максимальных привилегий: прямой доступ ко всей аппаратуре, портам ввода-вывода и таблицам трансляции виртуальных адресов. Ring 3 (User Mode) — непривилегированный режим изоляции: запрещены аппаратные инструкции ввода-вывода, адресация ограничена пределами виртуального адресного пространства процесса, а доступ к железу возможен только через системные вызовы ядра.
+   **Ответ:** Ring 0 (Supervisor Mode) — режим максимальных привилегий: прямой доступ ко всей аппаратуре, портам ввода-вывода и таблицам трансляции виртуальных адресов. Ring 3 (User Mode) — непривилегированный режим изоляции: запрещены аппаратные инструкции ввода-вывода, адресация ограничена пределами виртуального адресного пространства процесса, а доступ к железу возможен только через системные вызовы ядра.
 
-    **Пример:**
+   **Пример:**
 
-    ```assembly
-    ; Попытка выполнить инструкцию отключения прерываний в Ring 3:
-    cli ; Приведет к немедленному аппаратному прерыванию General Protection Fault (#GP)
-    ```
+   ```assembly
+   ; Попытка выполнить инструкцию отключения прерываний в Ring 3:
+   cli ; Приведет к немедленному аппаратному прерыванию General Protection Fault (#GP)
+   ```
 
-    **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Volume 3A, Chapter 5)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html?utm_source=gemini)
+   **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Volume 3A, Chapter 5)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
 
 15. Как работает trap?
 
-    **Ответ:** Trap (ловушка) — это синхронное программное исключение, генерируемое процессором после выполнения определенной команды (или явно вызванное инструкцией `sysenter`/`syscall`/`int`). В отличие от fault, адрес возврата ловушки указывает на *следующую* инструкцию, что позволяет использовать trap для отладочных точек останова (breakpoint) и штатной реализации системных вызовов.
+   **Ответ:** Trap (ловушка) — это синхронное программное исключение, генерируемое процессором после выполнения определенной команды (или явно вызванное инструкцией `sysenter`/`syscall`/`int`). В отличие от fault, адрес возврата ловушки указывает на *следующую* инструкцию, что позволяет использовать trap для отладочных точек останова (breakpoint) и штатной реализации системных вызовов.
 
-    **Пример:**
+   **Пример:**
 
-    ```assembly
-    ; Программная ловушка для отладчика GDB (инструкция breakpoint):
-    int 3 ; Процессор сохраняет состояние и передает управление в ядро ОС
-    ```
+   ```assembly
+   ; Программная ловушка для отладчика GDB (инструкция breakpoint):
+   int 3 ; Процессор сохраняет состояние и передает управление в ядро ОС
+   ```
 
-    **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Traps)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/?utm_source=gemini)
+   **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Traps)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/)
 
 16. Что такое bootloader?
 
-    **Ответ:** Bootloader (начальный загрузчик: GRUB, systemd-boot, U-Boot) — это компактная низкоуровневая программа, загружаемая прошивкой материнской платы (BIOS/UEFI) с загрузочного сектора накопителя; она настраивает базовое аппаратное окружение, переводит процессор в защищенный/длинный режим, загружает образ ядра ОС и initramfs в оперативную память и передает управление на точку входа ядра.
+   **Ответ:** Bootloader (начальный загрузчик: GRUB, systemd-boot, U-Boot) — это компактная низкоуровневая программа, загружаемая прошивкой материнской платы (BIOS/UEFI) с загрузочного сектора накопителя; она настраивает базовое аппаратное окружение, переводит процессор в защищенный/длинный режим, загружает образ ядра ОС и initramfs в оперативную память и передает управление на точку входа ядра.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Конфигурационный файл GRUB2 (/boot/grub/grub.cfg):
-    linux /vmlinuz-linux root=UUID=... rw quiet
-    initrd /initramfs-linux.img
-    ```
+   ```
+   // Конфигурационный файл GRUB2 (/boot/grub/grub.cfg):
+   linux /vmlinuz-linux root=UUID=... rw quiet
+   initrd /initramfs-linux.img
+   ```
 
-    **Источник:** [GNU GRUB Manual](https://www.gnu.org/software/grub/manual/grub/grub.html?utm_source=gemini)
+   **Источник:** [GNU GRUB Manual](https://www.gnu.org/software/grub/manual/grub/grub.html)
 
 17. Как ОС загружается?
 
-    **Ответ:** 1) Подача питания -> включение схемы сброса CPU; 2) Запуск прошивки UEFI/BIOS (POST-тестирование оборудования); 3) UEFI считывает bootloader с EFI-раздела (ESP); 4) Загрузчик загружает ядро ОС и initramfs в память, передавая управление точке входа `startup_64`; 5) Ядро распаковывается, настраивает контроллеры памяти (MMU), прерывания (IDT), ACPI и монтирует виртуальный rootfs; 6) Запуск первого пространства пользователя: процесс `init` (PID 1).
+   **Ответ:** 1) Подача питания -> включение схемы сброса CPU; 2) Запуск прошивки UEFI/BIOS (POST-тестирование оборудования); 3) UEFI считывает bootloader с EFI-раздела (ESP); 4) Загрузчик загружает ядро ОС и initramfs в память, передавая управление точке входа `startup_64`; 5) Ядро распаковывается, настраивает контроллеры памяти (MMU), прерывания (IDT), ACPI и монтирует виртуальный rootfs; 6) Запуск первого пространства пользователя: процесс `init` (PID 1).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    BIOS/UEFI -> Bootloader (GRUB) -> Linux Kernel (vmlinuz) -> PID 1 (systemd) -> Login Shell
-    ```
+   ```
+   BIOS/UEFI -> Bootloader (GRUB) -> Linux Kernel (vmlinuz) -> PID 1 (systemd) -> Login Shell
+   ```
 
-    **Источник:** [Linux Kernel Documentation: x86 Boot Protocol](https://www.kernel.org/doc/html/latest/arch/x86/boot.html?utm_source=gemini)
+   **Источник:** [Linux Kernel Documentation: x86 Boot Protocol](https://www.kernel.org/doc/html/latest/arch/x86/boot.html)
 
 18. Что делает init/systemd?
 
-    **Ответ:** Init/systemd — это процесс с PID 1, прямой или косвенный предок всех остальных пользовательских процессов в ОС. Он монтирует реальные файловые системы, запускает и супервизирует фоновые демоны (системные сервисы), настраивает сеть, слушает шину межпроцессных событий D-Bus и утилизирует процессы-сироты («усыновляет» и вызывает для них `wait()`).
+   **Ответ:** Init/systemd — это процесс с PID 1, прямой или косвенный предок всех остальных пользовательских процессов в ОС. Он монтирует реальные файловые системы, запускает и супервизирует фоновые демоны (системные сервисы), настраивает сеть, слушает шину межпроцессных событий D-Bus и утилизирует процессы-сироты («усыновляет» и вызывает для них `wait()`).
 
-    **Пример:**
+   **Пример:**
 
-    ```bash
-    # Просмотр дерева процессов от PID 1:
-    pstree -p 1
-    ```
+   ```bash
+   # Просмотр дерева процессов от PID 1:
+   pstree -p 1
+   ```
 
-    **Источник:** [systemd System and Service Manager](https://systemd.io/?utm_source=gemini)
+   **Источник:** [systemd System and Service Manager](https://systemd.io/)
 
 19. Что такое kernel module?
 
-    **Ответ:** Kernel Module (LKM — Loadable Kernel Module) — это объектный бинарный файл (обычно с расширением `.ko`), содержащий скомпилированный код, который может быть динамически загружен в работающее адресное пространство ядра ОС или выгружен из него без необходимости перезагрузки компьютера.
+   **Ответ:** Kernel Module (LKM — Loadable Kernel Module) — это объектный бинарный файл (обычно с расширением `.ko`), содержащий скомпилированный код, который может быть динамически загружен в работающее адресное пространство ядра ОС или выгружен из него без необходимости перезагрузки компьютера.
 
-    **Пример:**
+   **Пример:**
 
-    ```bash
-    # Загрузка модуля ядра в Linux:
-    sudo insmod my_driver.ko
-    # Просмотр списка загруженных модулей:
-    lsmod
-    ```
+   ```bash
+   # Загрузка модуля ядра в Linux:
+   sudo insmod my_driver.ko
+   # Просмотр списка загруженных модулей:
+   lsmod
+   ```
 
-    **Источник:** [The Linux Kernel Module Programming Guide](https://sysprog21.github.io/lkmpg/?utm_source=gemini)
+   **Источник:** [The Linux Kernel Module Programming Guide](https://sysprog21.github.io/lkmpg/)
 
 20. Когда используют loadable modules?
 
-    **Ответ:** Их используют для поддержки драйверов специфического оборудования (видеокарт, USB-контроллеров), подключения редких сетевых протоколов и файловых систем (ZFS, NTFS), а также для работы отладочных инструментов и систем безопасности (сетевой экран Netfilter/iptables), чтобы не раздувать базовый статичный монолитный образ ядра.
+   **Ответ:** Их используют для поддержки драйверов специфического оборудования (видеокарт, USB-контроллеров), подключения редких сетевых протоколов и файловых систем (ZFS, NTFS), а также для работы отладочных инструментов и систем безопасности (сетевой экран Netfilter/iptables), чтобы не раздувать базовый статичный монолитный образ ядра.
 
-    **Пример:**
+   **Пример:**
 
-    ```bash
-    # Автоматическая загрузка драйвера Wi-Fi при подключении адаптера:
-    modprobe iwlwifi
-    ```
+   ```bash
+   # Автоматическая загрузка драйвера Wi-Fi при подключении адаптера:
+   modprobe iwlwifi
+   ```
 
-    **Источник:** [Linux man-pages: modprobe(8)](https://man7.org/linux/man-pages/man8/modprobe.8.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: modprobe(8)](https://man7.org/linux/man-pages/man8/modprobe.8.html)
 
-    ---
+   ---
 
 ### Processes vs Threads
 
+
 21. Что такое процесс?
 
-    **Ответ:** Процесс — это изолированный экземпляр выполняющейся компьютерной программы, которому операционная система выделяет независимый набор ресурсов: изолированное виртуальное адресное пространство, стек, сегменты кода и данных, дескрипторы открытых файлов, переменные окружения и права доступа.
+   **Ответ:** Процесс — это изолированный экземпляр выполняющейся компьютерной программы, которому операционная система выделяет независимый набор ресурсов: изолированное виртуальное адресное пространство, стек, сегменты кода и данных, дескрипторы открытых файлов, переменные окружения и права доступа.
 
-    **Пример:**
+   **Пример:**
 
-    ```bash
-    # Просмотр параметров запущенного процесса:
-    ls -l /proc/$$/
-    # Содержит: cmdline, fd, maps (карта памяти), status
-    ```
+   ```bash
+   # Просмотр параметров запущенного процесса:
+   ls -l /proc/$$/
+   # Содержит: cmdline, fd, maps (карта памяти), status
+   ```
 
-    **Источник:** [Silberschatz, Galvin: Operating System Concepts (Processes)](https://www.os-book.com/?utm_source=gemini)
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (Processes)](https://www.os-book.com/)
 
 22. Что такое поток?
 
-    **Ответ:** Поток (Thread / поток выполнения) — наименьшая запланированная единица работы процессора внутри процесса. Поток обладает собственным программным счетчиком (PC), регистрами и стеком выполнения, но делит адресное пространство, кучу и дескрипторы файлов со всеми остальными потоками своего процесса.
+   **Ответ:** Поток (Thread / поток выполнения) — наименьшая запланированная единица работы процессора внутри процесса. Поток обладает собственным программным счетчиком (PC), регистрами и стеком выполнения, но делит адресное пространство, кучу и дескрипторы файлов со всеми остальными потоками своего процесса.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    #include <thread>
-    void task() { /* Свой стек, свои регистры, но общая память процесса */ }
-    std::thread t(task);
-    t.join();
-    ```
+   ```cpp
+   #include <thread>
+   void task() { /* Свой стек, свои регистры, но общая память процесса */ }
+   std::thread t(task);
+   t.join();
+   ```
 
-    **Источник:** [ISO C++ Standard: Threads (§ 32.4 \[thread.thread.class\])](https://eel.is/c++draft/thread.thread.class?utm_source=gemini)
+   **Источник:** [ISO C++ Standard: Threads (§ 32.4 \[thread.thread.class\])](https://eel.is/c++draft/thread.thread.class)
 
 23. Основное отличие процесса от потока?
 
-    **Ответ:** Главное отличие — в изоляции адресного пространства. Процессы изолированы друг от друга аппаратной защитой MMU (один процесс не может прочитать память другого без средств IPC). Потоки одного процесса живут в едином общем адресном пространстве и могут напрямую читать и модифицировать одни и те же указатели и структуры в памяти.
+   **Ответ:** Главное отличие — в изоляции адресного пространства. Процессы изолированы друг от друга аппаратной защитой MMU (один процесс не может прочитать память другого без средств IPC). Потоки одного процесса живут в едином общем адресном пространстве и могут напрямую читать и модифицировать одни и те же указатели и структуры в памяти.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Процессы: [Process A (RAM A)] <--- IPC (shm/socket) ---> [Process B (RAM B)]
-    Потоки:   [Process A [Thread 1 (Stack)] + [Thread 2 (Stack)] -> Common Heap/Data]
-    ```
+   ```
+   Процессы: [Process A (RAM A)] <--- IPC (shm/socket) ---> [Process B (RAM B)]
+   Потоки:   [Process A [Thread 1 (Stack)] + [Thread 2 (Stack)] -> Common Heap/Data]
+   ```
 
-    **Источник:** [Tanenbaum, A. S.: Modern Operating Systems](https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003295?utm_source=gemini)
+   **Источник:** [Tanenbaum, A. S.: Modern Operating Systems](https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003295)
 
 24. Что делится между потоками?
 
-    **Ответ:** Между потоками одного процесса делятся: виртуальное адресное пространство, динамическая память (heap), глобальные и статические переменные, дескрипторы открытых файлов и сетевых сокетов, текущая рабочая директория (cwd), обработчики сигналов (signal handlers) и пользовательские идентификаторы (UID/GID).
+   **Ответ:** Между потоками одного процесса делятся: виртуальное адресное пространство, динамическая память (heap), глобальные и статические переменные, дескрипторы открытых файлов и сетевых сокетов, текущая рабочая директория (cwd), обработчики сигналов (signal handlers) и пользовательские идентификаторы (UID/GID).
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    int shared_global = 100; // Доступна для одновременного изменения всеми потоками
-    ```
+   ```c
+   int shared_global = 100; // Доступна для одновременного изменения всеми потоками
+   ```
 
-    **Источник:** [POSIX standard: IEEE Std 1003.1 (Threads concepts)](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html?utm_source=gemini)
+   **Источник:** [POSIX standard: IEEE Std 1003.1 (Threads concepts)](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html)
 
 25. Что НЕ делится между потоками?
 
-    **Ответ:** У каждого потока строго индивидуальны: идентификатор потока (TID), контекст регистров процессора (включая указатель команд PC и указатель стека SP), собственный стек вызовов для локальных переменных функций, битовая маска блокировки сигналов (signal mask), значение `errno`, параметры планирования (приоритет) и данные Thread-Local Storage (TLS).
+   **Ответ:** У каждого потока строго индивидуальны: идентификатор потока (TID), контекст регистров процессора (включая указатель команд PC и указатель стека SP), собственный стек вызовов для локальных переменных функций, битовая маска блокировки сигналов (signal mask), значение `errno`, параметры планирования (приоритет) и данные Thread-Local Storage (TLS).
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    // Переменная errno индивидуальна для каждого потока:
-    #include <errno.h> // разворачивается в (*__errno_location())
-    ```
+   ```c
+   // Переменная errno индивидуальна для каждого потока:
+   #include <errno.h> // разворачивается в (*__errno_location())
+   ```
 
-    **Источник:** [Linux man-pages: pthreads(7)](https://man7.org/linux/man-pages/man7/pthreads.7.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: pthreads(7)](https://man7.org/linux/man-pages/man7/pthreads.7.html)
 
 26. Что такое PCB (Process Control Block)?
 
-    **Ответ:** PCB (дескриптор процесса, в Linux — `struct task_struct`) — фундаментальная структура данных ядра операционной системы, хранящая полную информацию о процессе: PID, состояние (running, sleeping, zombie), права доступа, указатель на таблицы страниц памяти (`mm_struct`), таблицу открытых файлов (`files_struct`), приоритет и статистику планировщика.
+   **Ответ:** PCB (дескриптор процесса, в Linux — `struct task_struct`) — фундаментальная структура данных ядра операционной системы, хранящая полную информацию о процессе: PID, состояние (running, sleeping, zombie), права доступа, указатель на таблицы страниц памяти (`mm_struct`), таблицу открытых файлов (`files_struct`), приоритет и статистику планировщика.
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    // Концептуальное представление ядра Linux:
-    struct task_struct {
-        pid_t pid;
-        long state;
-        struct mm_struct *mm;       // Адресное пространство
-        struct files_struct *files; // Файловые дескрипторы
-        // ...
-    };
-    ```
+   ```c
+   // Концептуальное представление ядра Linux:
+   struct task_struct {
+       pid_t pid;
+       long state;
+       struct mm_struct *mm;       // Адресное пространство
+       struct files_struct *files; // Файловые дескрипторы
+       // ...
+   };
+   ```
 
-    **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Processes)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/?utm_source=gemini)
+   **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Processes)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/)
 
 27. Что такое TCB?
 
-    **Ответ:** TCB (Thread Control Block) — служебная структура данных ядра, хранящая состояние конкретного потока: TID (Thread ID), сохраненные регистры процессора, указатель на индивидуальный стек ядра, приоритет и указатель на родительский PCB процесса, которому принадлежит данный поток. (В Linux один и тот же `struct task_struct` служит и PCB, и TCB).
+   **Ответ:** TCB (Thread Control Block) — служебная структура данных ядра, хранящая состояние конкретного потока: TID (Thread ID), сохраненные регистры процессора, указатель на индивидуальный стек ядра, приоритет и указатель на родительский PCB процесса, которому принадлежит данный поток. (В Linux один и тот же `struct task_struct` служит и PCB, и TCB).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Связка в ядре:
-    [ PCB Процесса ] <---> [ TCB Потока 1 ], [ TCB Потока 2 ]
-    ```
+   ```
+   // Связка в ядре:
+   [ PCB Процесса ] <---> [ TCB Потока 1 ], [ TCB Потока 2 ]
+   ```
 
-    **Источник:** [Silberschatz, Galvin: Operating System Concepts (Thread Structures)](https://www.os-book.com/?utm_source=gemini)
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (Thread Structures)](https://www.os-book.com/)
 
-    28. Что такое `fork()`?
+   28. Что такое `fork()`?
 
-    **Ответ:** `fork()` — системный вызов POSIX, создающий новый дочерний процесс, который является практически точной копией вызывающего родительского процесса. `fork()` вызывается один раз, но возвращает управление дважды: дочернему процессу возвращается 0, а родительскому процессу — PID созданного дочернего процесса.
+   **Ответ:** `fork()` — системный вызов POSIX, создающий новый дочерний процесс, который является практически точной копией вызывающего родительского процесса. `fork()` вызывается один раз, но возвращает управление дважды: дочернему процессу возвращается 0, а родительскому процессу — PID созданного дочернего процесса.
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    #include <unistd.h>
-    #include <stdio.h>
+   ```c
+   #include <unistd.h>
+   #include <stdio.h>
 
-    int main() {
-        pid_t pid = fork();
-        if (pid == 0) {
-            printf("I am child!\n");
-        } else if (pid > 0) {
-            printf("I am parent, child PID = %d\n", pid);
-        }
-    }
-    ```
+   int main() {
+       pid_t pid = fork();
+       if (pid == 0) {
+           printf("I am child!\n");
+       } else if (pid > 0) {
+           printf("I am parent, child PID = %d\n", pid);
+       }
+   }
+   ```
 
-    **Источник:** [Linux man-pages: fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html)
 
-    29. Как `fork()` работает внутри?
+   29. Как `fork()` работает внутри?
 
-    **Ответ:** Ядро выделяет новый `task_struct`, назначает уникальный PID, дублирует дескрипторы файлов родителя (увеличивая счетчики ссылок открытых файлов) и копирует таблицы страниц виртуальной памяти (Page Tables). Сами физические страницы памяти не копируются, а помечаются как Read-Only для работы механизма Copy-On-Write (COW).
+   **Ответ:** Ядро выделяет новый `task_struct`, назначает уникальный PID, дублирует дескрипторы файлов родителя (увеличивая счетчики ссылок открытых файлов) и копирует таблицы страниц виртуальной памяти (Page Tables). Сами физические страницы памяти не копируются, а помечаются как Read-Only для работы механизма Copy-On-Write (COW).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Родитель (Page Table) \
-                            ---> [ Физическая страница памяти (Read-Only) ]
-    Потомок (Page Table)  /
-    ```
+   ```
+   Родитель (Page Table) \
+                           ---> [ Физическая страница памяти (Read-Only) ]
+   Потомок (Page Table)  /
+   ```
 
-    **Источник:** [Maurice J. Bach: The Design of the UNIX Operating System](https://en.wikipedia.org/wiki/The_Design_of_the_UNIX_Operating_System?utm_source=gemini)
+   **Источник:** [Maurice J. Bach: The Design of the UNIX Operating System](https://en.wikipedia.org/wiki/The_Design_of_the_UNIX_Operating_System)
 
-    30. Что копируется при `fork()`?
+   30. Что копируется при `fork()`?
 
-    **Ответ:** Логически копируется всё состояние процесса. Физически копируются: PCB (создается новый дескриптор), таблицы страниц виртуальной памяти, открытые файловые дескрипторы (структуры `file` становятся общими), переменные окружения и стек. Реальная физическая память страниц данных процесса откладывается до момента записи (COW).
+   **Ответ:** Логически копируется всё состояние процесса. Физически копируются: PCB (создается новый дескриптор), таблицы страниц виртуальной памяти, открытые файловые дескрипторы (структуры `file` становятся общими), переменные окружения и стек. Реальная физическая память страниц данных процесса откладывается до момента записи (COW).
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    // Дескрипторы файлов копируются:
-    int fd = open("test.txt", O_WRONLY);
-    fork();
-    // Теперь и родитель, и потомок пишут в одну позицию файла (общий struct file)
-    ```
+   ```c
+   // Дескрипторы файлов копируются:
+   int fd = open("test.txt", O_WRONLY);
+   fork();
+   // Теперь и родитель, и потомок пишут в одну позицию файла (общий struct file)
+   ```
 
-    **Источник:** [Linux man-pages: fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html)
 
 31. Что такое copy-on-write?
 
-    **Ответ:** Copy-On-Write (COW, копирование при записи) — оптимизационный механизм виртуальной памяти: при создании копии процесса страницы памяти родителя и потомка разделяются совместно с правами только для чтения (Read-Only). Дублирование физической страницы происходит только тогда, когда один из процессов пытается выполнить в нее запись, провоцируя Page Fault.
+   **Ответ:** Copy-On-Write (COW, копирование при записи) — оптимизационный механизм виртуальной памяти: при создании копии процесса страницы памяти родителя и потомка разделяются совместно с правами только для чтения (Read-Only). Дублирование физической страницы происходит только тогда, когда один из процессов пытается выполнить в нее запись, провоцируя Page Fault.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Процесс пытается записать:
-    [Запись в COW-страницу] -> [Аппаратный Page Fault] -> [Ядро выделяет новый фрейм 4 КБ] -> [Копирует данные] -> [Повторяет инструкцию записи]
-    ```
+   ```
+   Процесс пытается записать:
+   [Запись в COW-страницу] -> [Аппаратный Page Fault] -> [Ядро выделяет новый фрейм 4 КБ] -> [Копирует данные] -> [Повторяет инструкцию записи]
+   ```
 
-    **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Memory Management: COW)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/?utm_source=gemini)
+   **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (Memory Management: COW)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/)
 
-    32. Что делает `exec()`?
+   32. Что делает `exec()`?
 
-    **Ответ:** Семейство системных вызовов `exec()` (`execve`, `execl` и др.) полностью заменяет текущий образ процесса (код, стек, кучу, данные) на новую исполняемую программу из указанного бинарного файла ELF. При этом PID процесса, дескрипторы файлов (если не выставлен флаг `O_CLOEXEC`) и открытые ресурсы сохраняются.
+   **Ответ:** Семейство системных вызовов `exec()` (`execve`, `execl` и др.) полностью заменяет текущий образ процесса (код, стек, кучу, данные) на новую исполняемую программу из указанного бинарного файла ELF. При этом PID процесса, дескрипторы файлов (если не выставлен флаг `O_CLOEXEC`) и открытые ресурсы сохраняются.
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    #include <unistd.h>
-    // Замена текущего процесса на выполнение команды /bin/ls:
-    char *args[] = {"ls", "-l", NULL};
-    execv("/bin/ls", args);
-    // Сюда управление никогда не вернется при успешном вызове
-    ```
+   ```c
+   #include <unistd.h>
+   // Замена текущего процесса на выполнение команды /bin/ls:
+   char *args[] = {"ls", "-l", NULL};
+   execv("/bin/ls", args);
+   // Сюда управление никогда не вернется при успешном вызове
+   ```
 
-    **Источник:** [Linux man-pages: execve(2)](https://man7.org/linux/man-pages/man2/execve.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: execve(2)](https://man7.org/linux/man-pages/man2/execve.2.html)
 
-    33. Разница `fork()` vs `exec()`?
+   33. Разница `fork()` vs `exec()`?
 
-    **Ответ:** `fork()` создает совершенно новый дочерний процесс, являющийся точной копией текущего (появляется новый PID, программа продолжает выполняться с той же точки). `exec()` не создает нового процесса, а уничтожает текущую программу внутри существующего процесса и загружает на ее место новую с нуля (PID остается прежним).
+   **Ответ:** `fork()` создает совершенно новый дочерний процесс, являющийся точной копией текущего (появляется новый PID, программа продолжает выполняться с той же точки). `exec()` не создает нового процесса, а уничтожает текущую программу внутри существующего процесса и загружает на ее место новую с нуля (PID остается прежним).
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    // Классический паттерн терминала (Shell):
-    if (fork() == 0) {
-        execvp(cmd, args); // Потомок заменяет себя новой программой
-    }
-    wait(NULL);            // Родитель ждет завершения
-    ```
+   ```c
+   // Классический паттерн терминала (Shell):
+   if (fork() == 0) {
+       execvp(cmd, args); // Потомок заменяет себя новой программой
+   }
+   wait(NULL);            // Родитель ждет завершения
+   ```
 
-    **Источник:** [W. Richard Stevens: Advanced Programming in the UNIX Environment](https://www.pearson.com/en-us/subject-catalog/p/advanced-programming-in-the-unix-environment/P200000003301?utm_source=gemini)
+   **Источник:** [W. Richard Stevens: Advanced Programming in the UNIX Environment](https://www.pearson.com/en-us/subject-catalog/p/advanced-programming-in-the-unix-environment/P200000003301)
 
-    34. Что такое `wait()`?
+   34. Что такое `wait()`?
 
-    **Ответ:** Системный вызов `wait()` (или `waitpid()`) блокирует вызывающий родительский процесс до тех пор, пока один из его дочерних процессов не завершит выполнение, не будет убит сигналом или остановлен, возвращая код завершения потомка и освобождая его остаточную запись из таблицы процессов ядра.
+   **Ответ:** Системный вызов `wait()` (или `waitpid()`) блокирует вызывающий родительский процесс до тех пор, пока один из его дочерних процессов не завершит выполнение, не будет убит сигналом или остановлен, возвращая код завершения потомка и освобождая его остаточную запись из таблицы процессов ядра.
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    #include <sys/wait.h>
-    int status;
-    pid_t child_pid = wait(&status);
-    if (WIFEXITED(status)) {
-        printf("Child exited with code %d\n", WEXITSTATUS(status));
-    }
-    ```
+   ```c
+   #include <sys/wait.h>
+   int status;
+   pid_t child_pid = wait(&status);
+   if (WIFEXITED(status)) {
+       printf("Child exited with code %d\n", WEXITSTATUS(status));
+   }
+   ```
 
-    **Источник:** [Linux man-pages: wait(2)](https://man7.org/linux/man-pages/man2/wait.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: wait(2)](https://man7.org/linux/man-pages/man2/wait.2.html)
 
 35. Что такое zombie процесс?
 
-    **Ответ:** Zombie-процесс (состояние `Z` / defunct) — это завершившийся дочерний процесс, который уже освободил все свои ресурсы (память, файловые дескрипторы), но его запись (PID, код выхода) всё еще хранится в таблице процессов ядра, потому что родительский процесс еще не прочитал код его завершения через вызов `wait()`.
+   **Ответ:** Zombie-процесс (состояние `Z` / defunct) — это завершившийся дочерний процесс, который уже освободил все свои ресурсы (память, файловые дескрипторы), но его запись (PID, код выхода) всё еще хранится в таблице процессов ядра, потому что родительский процесс еще не прочитал код его завершения через вызов `wait()`.
 
-    **Пример:**
+   **Пример:**
 
-    ```bash
-    # Отображение zombie-процессов в выводе ps:
-    ps aux | grep 'Z'
-    # user 12345 0.0 0.0 0 0 ? Z 12:00 0:00 [app] <defunct>
-    ```
+   ```bash
+   # Отображение zombie-процессов в выводе ps:
+   ps aux | grep 'Z'
+   # user 12345 0.0 0.0 0 0 ? Z 12:00 0:00 [app] <defunct>
+   ```
 
-    **Источник:** [Linux man-pages: wait(2) (Notes: Zombie processes)](https://man7.org/linux/man-pages/man2/wait.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: wait(2) (Notes: Zombie processes)](https://man7.org/linux/man-pages/man2/wait.2.html)
 
 36. Что такое orphan процесс?
 
-    **Ответ:** Orphan (процесс-сирота) — это процесс, родитель которого завершил работу раньше него самого. Такие процессы не становятся зомби: они немедленно переусыновляются корневым системным процессом `init`/`systemd` (PID 1), который регулярно вызывает `wait()` для завершающихся усыновленных сирот.
+   **Ответ:** Orphan (процесс-сирота) — это процесс, родитель которого завершил работу раньше него самого. Такие процессы не становятся зомби: они немедленно переусыновляются корневым системным процессом `init`/`systemd` (PID 1), который регулярно вызывает `wait()` для завершающихся усыновленных сирот.
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    // Создание сироты:
-    if (fork() > 0) {
-        exit(0); // Родитель немедленно умирает, потомок становится сиротой
-    }
-    sleep(5); // Теперь getppid() вернет 1 (systemd)
-    ```
+   ```c
+   // Создание сироты:
+   if (fork() > 0) {
+       exit(0); // Родитель немедленно умирает, потомок становится сиротой
+   }
+   sleep(5); // Теперь getppid() вернет 1 (systemd)
+   ```
 
-    **Источник:** [Advanced Programming in the UNIX Environment (Process Relationships)](https://www.pearson.com/en-us/subject-catalog/p/advanced-programming-in-the-unix-environment/P200000003301?utm_source=gemini)
+   **Источник:** [Advanced Programming in the UNIX Environment (Process Relationships)](https://www.pearson.com/en-us/subject-catalog/p/advanced-programming-in-the-unix-environment/P200000003301)
 
 37. Как избежать zombie?
 
-    **Ответ:** 1) Регулярно вызывать `wait()` / `waitpid()` в родительском процессе; 2) Установить обработчик сигнала `SIGCHLD`, вызывающий `waitpid(-1, &status, WNOHANG)` в цикле; 3) Игнорировать сигнал завершения детей: `signal(SIGCHLD, SIG_IGN)` — ядро автоматически сразу удалит завершившегося потомка без перевода в зомби; 4) Паттерн двойного форка (double fork).
+   **Ответ:** 1) Регулярно вызывать `wait()` / `waitpid()` в родительском процессе; 2) Установить обработчик сигнала `SIGCHLD`, вызывающий `waitpid(-1, &status, WNOHANG)` в цикле; 3) Игнорировать сигнал завершения детей: `signal(SIGCHLD, SIG_IGN)` — ядро автоматически сразу удалит завершившегося потомка без перевода в зомби; 4) Паттерн двойного форка (double fork).
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    #include <signal.h>
-    // Автоматическая утилизация зомби ядром Linux:
-    signal(SIGCHLD, SIG_IGN);
-    ```
+   ```c
+   #include <signal.h>
+   // Автоматическая утилизация зомби ядром Linux:
+   signal(SIGCHLD, SIG_IGN);
+   ```
 
-    **Источник:** [POSIX standard: SIGCHLD handling](https://pubs.opengroup.org/onlinepubs/9699919799/functions/sigaction.html?utm_source=gemini)
+   **Источник:** [POSIX standard: SIGCHLD handling](https://pubs.opengroup.org/onlinepubs/9699919799/functions/sigaction.html)
 
 38. Что такое pthread?
 
-    **Ответ:** POSIX Threads (pthreads) — стандартизированный интерфейс C-библиотеки для создания и синхронизации потоков на уровне операционных систем POSIX (Linux, macOS, BSD). Включает в себя функции управления потоками (`pthread_create`), мьютексами (`pthread_mutex_t`) и условными переменными (`pthread_cond_t`).
+   **Ответ:** POSIX Threads (pthreads) — стандартизированный интерфейс C-библиотеки для создания и синхронизации потоков на уровне операционных систем POSIX (Linux, macOS, BSD). Включает в себя функции управления потоками (`pthread_create`), мьютексами (`pthread_mutex_t`) и условными переменными (`pthread_cond_t`).
 
-    **Пример:**
+   **Пример:**
 
-    ```c
-    #include <pthread.h>
-    void* worker(void* arg) { return NULL; }
+   ```c
+   #include <pthread.h>
+   void* worker(void* arg) { return NULL; }
 
-    pthread_t thread;
-    pthread_create(&thread, NULL, worker, NULL);
-    pthread_join(thread, NULL);
-    ```
+   pthread_t thread;
+   pthread_create(&thread, NULL, worker, NULL);
+   pthread_join(thread, NULL);
+   ```
 
-    **Источник:** [Linux man-pages: pthreads(7)](https://man7.org/linux/man-pages/man7/pthreads.7.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: pthreads(7)](https://man7.org/linux/man-pages/man7/pthreads.7.html)
 
 39. Как создать поток в C++ (std::thread)?
 
-    **Ответ:** Поток создается инстанцированием объекта `std::thread` (из заголовка `<thread>`), которому передается исполняемый объект (лямбда, функция, функтор) и аргументы. Поток начинает исполнение немедленно в момент создания конструктора.
+   **Ответ:** Поток создается инстанцированием объекта `std::thread` (из заголовка `<thread>`), которому передается исполняемый объект (лямбда, функция, функтор) и аргументы. Поток начинает исполнение немедленно в момент создания конструктора.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    #include <thread>
-    #include <iostream>
+   ```cpp
+   #include <thread>
+   #include <iostream>
 
-    void print_sum(int a, int b) {
-        std::cout << a + b << '\n';
-    }
+   void print_sum(int a, int b) {
+       std::cout << a + b << '\n';
+   }
 
-    int main() {
-        std::thread t(print_sum, 5, 7);
-        t.join();
-    }
-    ```
+   int main() {
+       std::thread t(print_sum, 5, 7);
+       t.join();
+   }
+   ```
 
-    **Источник:** [cppreference: std::thread](https://en.cppreference.com/w/cpp/thread/thread?utm_source=gemini)
+   **Источник:** [cppreference: std::thread](https://en.cppreference.com/w/cpp/thread/thread)
 
-    40. `join` vs `detach`?
+   40. `join` vs `detach`?
 
-    **Ответ:** `join()` блокирует текущий поток до тех пор, пока целевой поток не завершит исполнение, очищая все его системные ресурсы. `detach()` отделяет поток от объекта `std::thread`, позволяя ему исполняться независимо в фоновом режиме; ресурсы detached-потока освобождаются ОС самостоятельно после его завершения.
+   **Ответ:** `join()` блокирует текущий поток до тех пор, пока целевой поток не завершит исполнение, очищая все его системные ресурсы. `detach()` отделяет поток от объекта `std::thread`, позволяя ему исполняться независимо в фоновом режиме; ресурсы detached-потока освобождаются ОС самостоятельно после его завершения.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    std::thread t1(worker);
-    t1.join(); // Ждем завершения
+   ```cpp
+   std::thread t1(worker);
+   t1.join(); // Ждем завершения
 
-    std::thread t2(background_task);
-    t2.detach(); // Отпустили, t2 больше не joinable
-    ```
+   std::thread t2(background_task);
+   t2.detach(); // Отпустили, t2 больше не joinable
+   ```
 
-    **Источник:** [Anthony Williams: C++ Concurrency in Action (Joining and Detaching)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition?utm_source=gemini)
+   **Источник:** [Anthony Williams: C++ Concurrency in Action (Joining and Detaching)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
 
 41. Что будет если не join поток?
 
-    **Ответ:** Если объект `std::thread` уничтожается (вызывается его деструктор при выходе из скоупа), но при этом поток всё еще находится в состоянии `joinable()` (для него не вызван ни `join()`, ни `detach()`), рантайм C++ немедленно аварийно завершает работу всей программы вызовом `std::terminate()`.
+   **Ответ:** Если объект `std::thread` уничтожается (вызывается его деструктор при выходе из скоупа), но при этом поток всё еще находится в состоянии `joinable()` (для него не вызван ни `join()`, ни `detach()`), рантайм C++ немедленно аварийно завершает работу всей программы вызовом `std::terminate()`.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    void bad() {
-        std::thread t([](){});
-        // Забыли t.join(); при выходе из функции -> std::terminate()!
-    }
-    ```
+   ```cpp
+   void bad() {
+       std::thread t([](){});
+       // Забыли t.join(); при выходе из функции -> std::terminate()!
+   }
+   ```
 
-    **Источник:** [cppreference: std::thread::~thread](https://en.cppreference.com/w/cpp/thread/thread/~thread?utm_source=gemini)
+   **Источник:** [cppreference: std::thread::~thread](https://en.cppreference.com/w/cpp/thread/thread/~thread)
 
 42. Что такое race condition?
 
-    **Ответ:** Race condition (состояние гонки) — архитектурная ошибка многопоточного приложения, при которой корректность программы зависит от неконтролируемого относительного порядка или таймингов выполнения операций разными потоками (например, паттерн проверки с последующим действием: Check-Then-Act).
+   **Ответ:** Race condition (состояние гонки) — архитектурная ошибка многопоточного приложения, при которой корректность программы зависит от неконтролируемого относительного порядка или таймингов выполнения операций разными потоками (например, паттерн проверки с последующим действием: Check-Then-Act).
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    // Check-then-act гонка:
-    if (!queue.empty()) {
-        // Другой поток успел сделать queue.pop() здесь!
-        auto item = queue.front(); // Ошибка в рантайме
-    }
-    ```
+   ```cpp
+   // Check-then-act гонка:
+   if (!queue.empty()) {
+       // Другой поток успел сделать queue.pop() здесь!
+       auto item = queue.front(); // Ошибка в рантайме
+   }
+   ```
 
-    **Источник:** [C++ Core Guidelines: CP.2: Avoid data races](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#cp2-avoid-data-races)
+   **Источник:** [C++ Core Guidelines: CP.2: Avoid data races](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#cp2-avoid-data-races)
 
 43. Что такое thread-safe код?
 
-    **Ответ:** Потокобезопасный (thread-safe) код — это программный модуль, класс или функция, которые гарантируют корректную работу, соблюдение всех инвариантов и отсутствие состояний гонки (Data Races) при одновременном обращении из нескольких параллельных потоков без необходимости внешней синхронизации.
+   **Ответ:** Потокобезопасный (thread-safe) код — это программный модуль, класс или функция, которые гарантируют корректную работу, соблюдение всех инвариантов и отсутствие состояний гонки (Data Races) при одновременном обращении из нескольких параллельных потоков без необходимости внешней синхронизации.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    // Thread-safe счетчик на базе атомика:
-    class ThreadSafeCounter {
-        std::atomic<int> count{0};
-    public:
-        void increment() { count.fetch_add(1, std::memory_order_relaxed); }
-        int get() const { return count.load(std::memory_order_relaxed); }
-    };
-    ```
+   ```cpp
+   // Thread-safe счетчик на базе атомика:
+   class ThreadSafeCounter {
+       std::atomic<int> count{0};
+   public:
+       void increment() { count.fetch_add(1, std::memory_order_relaxed); }
+       int get() const { return count.load(std::memory_order_relaxed); }
+   };
+   ```
 
-    **Источник:** [Java Concurrency in Practice (Goetz et al. - Thread Safety)](https://jcip.net/?utm_source=gemini)
+   **Источник:** [Java Concurrency in Practice (Goetz et al. - Thread Safety)](https://jcip.net/)
 
 44. Когда использовать процессы вместо потоков?
 
-    **Ответ:** Процессы выбирают, когда необходима: 1) максимальная изоляция сбоев (падение рабочего процесса не убивает основной сервер, например как в браузерах Chrome или Nginx); 2) изоляция безопасности (песочницы / sandboxing с разграничением привилегий); 3) распределенные вычисления на разных машинах кластера; 4) работа со сторонними нестабильными C-библиотеками с утечками памяти.
+   **Ответ:** Процессы выбирают, когда необходима: 1) максимальная изоляция сбоев (падение рабочего процесса не убивает основной сервер, например как в браузерах Chrome или Nginx); 2) изоляция безопасности (песочницы / sandboxing с разграничением привилегий); 3) распределенные вычисления на разных машинах кластера; 4) работа со сторонними нестабильными C-библиотеками с утечками памяти.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Архитектура Chromium:
-    [Browser Process] <--- IPC ---> [Isolated Tab Renderer Process 1]
-                                   [Isolated Tab Renderer Process 2]
-    ```
+   ```
+   Архитектура Chromium:
+   [Browser Process] <--- IPC ---> [Isolated Tab Renderer Process 1]
+                                  [Isolated Tab Renderer Process 2]
+   ```
 
-    **Источник:** [The Chromium Projects: Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture/?utm_source=gemini)
+   **Источник:** [The Chromium Projects: Multi-process Architecture](https://www.chromium.org/developers/design-documents/multi-process-architecture/)
 
 45. Что дешевле: thread или process?
 
-    **Ответ:** Поток (thread) значительно дешевле. Создание процесса требует аллокации нового дескриптора PCB, дублирования таблиц страниц памяти (COW) и инициализации окружения. При переключении потоков одного процесса не сбрасывается кэш TLB (так как таблица CR3 не меняется), тогда как переключение процессов требует смены корневых таблиц памяти и глубокой очистки кэшей.
+   **Ответ:** Поток (thread) значительно дешевле. Создание процесса требует аллокации нового дескриптора PCB, дублирования таблиц страниц памяти (COW) и инициализации окружения. При переключении потоков одного процесса не сбрасывается кэш TLB (так как таблица CR3 не меняется), тогда как переключение процессов требует смены корневых таблиц памяти и глубокой очистки кэшей.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Создание pthread в Linux: ~10-20 микросекунд.
-    Создание fork() процесса в Linux: ~100-500 микросекунд.
-    ```
+   ```
+   Создание pthread в Linux: ~10-20 микросекунд.
+   Создание fork() процесса в Linux: ~100-500 микросекунд.
+   ```
 
-    **Источник:** [Eli Bendersky: Measuring context switching and process creation overhead](https://eli.thegreenplace.net/2018/measuring-context-switching-and-memory-overheads-for-linux-processes/?utm_source=gemini)
+   **Источник:** [Eli Bendersky: Measuring context switching and process creation overhead](https://eli.thegreenplace.net/2018/measuring-context-switching-and-memory-overheads-for-linux-processes/)
 
 46. Что такое thread pool?
 
-    **Ответ:** Thread Pool (пул потоков) — шаблон проектирования, предварительно создающий фиксированное количество долгоживущих рабочих потоков (workers) и очередь задач. Задачи помещаются в очередь, а свободные потоки забирают их на исполнение, устраняя тяжелые накладные расходы на постоянное создание и уничтожение потоков ОС.
+   **Ответ:** Thread Pool (пул потоков) — шаблон проектирования, предварительно создающий фиксированное количество долгоживущих рабочих потоков (workers) и очередь задач. Задачи помещаются в очередь, а свободные потоки забирают их на исполнение, устраняя тяжелые накладные расходы на постоянное создание и уничтожение потоков ОС.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    // Концепция пула:
-    ThreadPool pool(4); // 4 постоянных потока
-    pool.enqueue([]{ do_work_1(); });
-    pool.enqueue([]{ do_work_2(); });
-    ```
+   ```cpp
+   // Концепция пула:
+   ThreadPool pool(4); // 4 постоянных потока
+   pool.enqueue([]{ do_work_1(); });
+   pool.enqueue([]{ do_work_2(); });
+   ```
 
-    **Источник:** [Ousterhout, J.: A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php?utm_source=gemini)
+   **Источник:** [Ousterhout, J.: A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php)
 
 47. Что такое TLS (thread-local storage)?
 
-    **Ответ:** Thread-Local Storage (TLS) — модель размещения статических данных, при которой каждая переменная, помеченная как `thread_local`, имеет отдельный физический экземпляр для каждого потока выполнения программы. Доступ к ней не требует мьютексов и атомиков, так как память изолирована.
+   **Ответ:** Thread-Local Storage (TLS) — модель размещения статических данных, при которой каждая переменная, помеченная как `thread_local`, имеет отдельный физический экземпляр для каждого потока выполнения программы. Доступ к ней не требует мьютексов и атомиков, так как память изолирована.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    // У каждого потока будет СВОЙ персональный счетчик:
-    thread_local int thread_specific_id = 0;
+   ```cpp
+   // У каждого потока будет СВОЙ персональный счетчик:
+   thread_local int thread_specific_id = 0;
 
-    void work() {
-        thread_specific_id++;
-    }
-    ```
+   void work() {
+       thread_specific_id++;
+   }
+   ```
 
-    **Источник:** [cppreference: Storage duration (thread_local)](https://en.cppreference.com/w/cpp/language/storage_duration?utm_source=gemini#Storage_duration)
+   **Источник:** [cppreference: Storage duration (thread_local)](https://en.cppreference.com/w/cpp/language/storage_duration#Storage_duration)
 
-    48. Как работает `std::this_thread::sleep_for`?
+   48. Как работает `std::this_thread::sleep_for`?
 
-    **Ответ:** Функция переводит текущий поток из состояния выполнения (`Running`) в состояние ожидания (`Blocked`/`Sleeping`), делая системный вызов ядра ОС (например, `clock_nanosleep` в Linux). Ядро заносит поток в очередь таймера и переключает CPU на другие полезные задачи; по истечении времени таймер генерирует прерывание, и ядро возвращает поток в состояние `Runnable`.
+   **Ответ:** Функция переводит текущий поток из состояния выполнения (`Running`) в состояние ожидания (`Blocked`/`Sleeping`), делая системный вызов ядра ОС (например, `clock_nanosleep` в Linux). Ядро заносит поток в очередь таймера и переключает CPU на другие полезные задачи; по истечении времени таймер генерирует прерывание, и ядро возвращает поток в состояние `Runnable`.
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    #include <thread>
-    #include <chrono>
+   ```cpp
+   #include <thread>
+   #include <chrono>
 
-    // Поток усыпляется и освобождает ядро CPU для других задач:
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    ```
+   // Поток усыпляется и освобождает ядро CPU для других задач:
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+   ```
 
-    **Источник:** [Linux man-pages: clock_nanosleep(2)](https://man7.org/linux/man-pages/man2/clock_nanosleep.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: clock_nanosleep(2)](https://man7.org/linux/man-pages/man2/clock_nanosleep.2.html)
 
 49. Что такое concurrency vs parallelism?
 
-    **Ответ:** Concurrency (конкурентность) — способность программы быть структурированной в виде независимых задач, которые могут исполняться вперемешку во времени (даже на одном ядре процессора путем деления времени). Parallelism (параллелизм) — физически одновременное выполнение нескольких инструкций на нескольких физических ядрах CPU в один момент времени.
+   **Ответ:** Concurrency (конкурентность) — способность программы быть структурированной в виде независимых задач, которые могут исполняться вперемешку во времени (даже на одном ядре процессора путем деления времени). Parallelism (параллелизм) — физически одновременное выполнение нескольких инструкций на нескольких физических ядрах CPU в один момент времени.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Concurrency: Жонглер жонглирует 3 шариками одной рукой (задачи сменяются, рука одна).
-    Parallelism: 2 жонглера бросают шарики одновременно (два ядра работают параллельно).
-    ```
+   ```
+   Concurrency: Жонглер жонглирует 3 шариками одной рукой (задачи сменяются, рука одна).
+   Parallelism: 2 жонглера бросают шарики одновременно (два ядра работают параллельно).
+   ```
 
-    **Источник:** [Rob Pike: Concurrency is not Parallelism (Waza Talk)](https://go.dev/blog/waza-talk?utm_source=gemini)
+   **Источник:** [Rob Pike: Concurrency is not Parallelism (Waza Talk)](https://go.dev/blog/waza-talk)
 
 50. Какие проблемы многопоточности?
 
-    **Ответ:** 1) Гонки данных (Data Races) и неопределенное поведение; 2) Взаимные блокировки (Deadlocks) и Livelocks; 3) Ложное разделение данных в кэш-линиях (False Sharing); 4) Потери производительности из-за contention на блокировках; 5) Недетерминированность выполнения и исключительная сложность воспроизведения багов (Heisenbugs).
+   **Ответ:** 1) Гонки данных (Data Races) и неопределенное поведение; 2) Взаимные блокировки (Deadlocks) и Livelocks; 3) Ложное разделение данных в кэш-линиях (False Sharing); 4) Потери производительности из-за contention на блокировках; 5) Недетерминированность выполнения и исключительная сложность воспроизведения багов (Heisenbugs).
 
-    **Пример:**
+   **Пример:**
 
-    ```cpp
-    // Классический False Sharing: два потока замедляют друг друга,
-    // модифицируя соседние байты внутри одной 64-байтной кэш-линии
-    struct Data {
-        alignas(64) std::atomic<int> thread1_val;
-        alignas(64) std::atomic<int> thread2_val; // Разнесены для защиты
-    };
-    ```
+   ```cpp
+   // Классический False Sharing: два потока замедляют друг друга,
+   // модифицируя соседние байты внутри одной 64-байтной кэш-линии
+   struct Data {
+       alignas(64) std::atomic<int> thread1_val;
+       alignas(64) std::atomic<int> thread2_val; // Разнесены для защиты
+   };
+   ```
 
-    **Источник:** [Herb Sutter: Eliminate False Sharing (Dr. Dobb's Journal)](https://www.drdobbs.com/parallel/eliminate-false-sharing/217500206?utm_source=gemini)
+   **Источник:** [Herb Sutter: Eliminate False Sharing (Dr. Dobb's Journal)](https://www.drdobbs.com/parallel/eliminate-false-sharing/217500206)
 
-    ---
+   ---
 
 ### Scheduling Algorithms
 
+
 51. Что делает scheduler?
 
-    **Ответ:** Scheduler (планировщик процессов/потоков) — это компонент ядра операционной системы, который решает, какой из готовых к выполнению потоков (в состоянии `Runnable`) должен занять доступное вычислительное ядро процессора (CPU), когда и на какой промежуток времени, оптимизируя утилизацию CPU, задержку отклика и пропускную способность.
+   **Ответ:** Scheduler (планировщик процессов/потоков) — это компонент ядра операционной системы, который решает, какой из готовых к выполнению потоков (в состоянии `Runnable`) должен занять доступное вычислительное ядро процессора (CPU), когда и на какой промежуток времени, оптимизируя утилизацию CPU, задержку отклика и пропускную способность.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Изменение политики и приоритета планировщика через POSIX API:
-    #include <sched.h>
-    struct sched_param param;
-    param.sched_priority = 10;
-    sched_setscheduler(0, SCHED_RR, &param);
+   ```
+   // Изменение политики и приоритета планировщика через POSIX API:
+   #include <sched.h>
+   struct sched_param param;
+   param.sched_priority = 10;
+   sched_setscheduler(0, SCHED_RR, &param);
 
 
-    ```
+   ```
 
-    **Источник:** [Linux man-pages: sched(7)](https://man7.org/linux/man-pages/man7/sched.7.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: sched(7)](https://man7.org/linux/man-pages/man7/sched.7.html)
 
 52. Что такое preemptive scheduling?
 
-    **Ответ:** Preemptive scheduling (вытесняющая многозадачность) — стратегия планирования, при которой операционная система имеет право принудительно прервать выполнение текущего потока по аппаратному прерыванию таймера или при появлении более приоритетной задачи, переключив контекст процессора на другой поток без согласия текущего.
+   **Ответ:** Preemptive scheduling (вытесняющая многозадачность) — стратегия планирования, при которой операционная система имеет право принудительно прервать выполнение текущего потока по аппаратному прерыванию таймера или при появлении более приоритетной задачи, переключив контекст процессора на другой поток без согласия текущего.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    [Поток 1 работает] -> [Аппаратный тик таймера] -> [Ядро вытесняет Поток 1] -> [Поток 2 получает CPU]
+   ```
+   [Поток 1 работает] -> [Аппаратный тик таймера] -> [Ядро вытесняет Поток 1] -> [Поток 2 получает CPU]
 
 
-    ```
+   ```
 
-    **Источник:** [Silberschatz, Galvin: Operating System Concepts (Preemptive Scheduling)](https://www.os-book.com/?utm_source=gemini)
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (Preemptive Scheduling)](https://www.os-book.com/)
 
 53. Что такое non-preemptive?
 
-    **Ответ:** Non-preemptive (кооперативная многозадачность) — схема планирования, при которой поток, единожды получив процессор, удерживает его до тех пор, пока добровольно не освободит CPU (вызов `yield()`, завершение работы или блокировка на операциях ввода-вывода). Сбойный поток с бесконечным циклом в такой системе может заблокировать всю ОС.
+   **Ответ:** Non-preemptive (кооперативная многозадачность) — схема планирования, при которой поток, единожды получив процессор, удерживает его до тех пор, пока добровольно не освободит CPU (вызов `yield()`, завершение работы или блокировка на операциях ввода-вывода). Сбойный поток с бесконечным циклом в такой системе может заблокировать всю ОС.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Кооперативная уступка процессора:
-    #include <sched.h>
-    sched_yield(); // Поток сам просит ядро переключиться на другого
+   ```
+   // Кооперативная уступка процессора:
+   #include <sched.h>
+   sched_yield(); // Поток сам просит ядро переключиться на другого
 
 
-    ```
+   ```
 
-    **Источник:** [Tanenbaum, A. S.: Modern Operating Systems (Cooperative Multitasking)](https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003295?utm_source=gemini)
+   **Источник:** [Tanenbaum, A. S.: Modern Operating Systems (Cooperative Multitasking)](https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003295)
 
 54. Round-robin алгоритм?
 
-    **Ответ:** Round-Robin (RR, карусельный алгоритм) — классический вытесняющий алгоритм планирования с разделением времени: всем процессам назначается одинаковый фиксированный квант времени процессора (time slice). Процессы организованы в очередь FIFO; по исчерпании кванта процесс перемещается в конец очереди, а процессор отдается следующему.
+   **Ответ:** Round-Robin (RR, карусельный алгоритм) — классический вытесняющий алгоритм планирования с разделением времени: всем процессам назначается одинаковый фиксированный квант времени процессора (time slice). Процессы организованы в очередь FIFO; по исчерпании кванта процесс перемещается в конец очереди, а процессор отдается следующему.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Очередь: [P1, P2, P3] (квант 10 мс)
-    P1 (10 мс) -> P2 (10 мс) -> P3 (10 мс) -> P1 (10 мс) ...
+   ```
+   Очередь: [P1, P2, P3] (квант 10 мс)
+   P1 (10 мс) -> P2 (10 мс) -> P3 (10 мс) -> P1 (10 мс) ...
 
 
-    ```
+   ```
 
-    **Источник:** [Silberschatz, Galvin: Operating System Concepts (Round-Robin Scheduling)](https://www.os-book.com/?utm_source=gemini)
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (Round-Robin Scheduling)](https://www.os-book.com/)
 
 55. Что такое time slice?
 
-    **Ответ:** Time slice (квант времени / scheduling quantum) — непрерывный промежуток процессорного времени (обычно от 1 до 100 мс), выделяемый планировщиком потоку для непрерывного выполнения на ядре до того, как сработает планировщик и пересмотрит распределение CPU.
+   **Ответ:** Time slice (квант времени / scheduling quantum) — непрерывный промежуток процессорного времени (обычно от 1 до 100 мс), выделяемый планировщиком потоку для непрерывного выполнения на ядре до того, как сработает планировщик и пересмотрит распределение CPU.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Просмотр базового кванта планировщика Linux CFS:
-    sysctl kernel.sched_latency_ns
-    # kernel.sched_latency_ns = 6000000 (6 миллисекунд)
+   ```
+   # Просмотр базового кванта планировщика Linux CFS:
+   sysctl kernel.sched_latency_ns
+   # kernel.sched_latency_ns = 6000000 (6 миллисекунд)
 
 
-    ```
+   ```
 
-    **Источник:** [Linux Kernel Documentation: CFS Scheduler](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html?utm_source=gemini)
+   **Источник:** [Linux Kernel Documentation: CFS Scheduler](https://www.kernel.org/doc/html/latest/scheduler/sched-design-CFS.html)
 
 56. Что такое priority scheduling?
 
-    **Ответ:** Priority scheduling (планирование по приоритетам) — алгоритм, назначающий каждому процессу числовой приоритет. Планировщик всегда выбирает для исполнения готовый процесс с наивысшим приоритетом. Приоритеты могут быть статическими (задаются пользователем через `nice`) или динамическими (ядро повышает приоритет интерактивным I/O-bound процессам).
+   **Ответ:** Priority scheduling (планирование по приоритетам) — алгоритм, назначающий каждому процессу числовой приоритет. Планировщик всегда выбирает для исполнения готовый процесс с наивысшим приоритетом. Приоритеты могут быть статическими (задаются пользователем через `nice`) или динамическими (ядро повышает приоритет интерактивным I/O-bound процессам).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Запуск команды с повышенным приоритетом (nice от -20 до 19, меньше = приоритетнее):
-    nice -n -5 ./high_priority_service
+   ```
+   # Запуск команды с повышенным приоритетом (nice от -20 до 19, меньше = приоритетнее):
+   nice -n -5 ./high_priority_service
 
 
-    ```
+   ```
 
-    **Источник:** [Linux man-pages: nice(2)](https://man7.org/linux/man-pages/man2/nice.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: nice(2)](https://man7.org/linux/man-pages/man2/nice.2.html)
 
 57. starvation — что это?
 
-    **Ответ:** Starvation (голодание) — ситуация, при которой поток, готовый к исполнению, бесконечно долго или недопустимо долго не получает процессорное время, потому что планировщик постоянно отдает предпочтение другим потокам с более высоким приоритетом.
+   **Ответ:** Starvation (голодание) — ситуация, при которой поток, готовый к исполнению, бесконечно долго или недопустимо долго не получает процессорное время, потому что планировщик постоянно отдает предпочтение другим потокам с более высоким приоритетом.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Поток с приоритетом Low никогда не получает CPU,
-    потому что непрерывно поступают задачи с приоритетом High.
+   ```
+   Поток с приоритетом Low никогда не получает CPU,
+   потому что непрерывно поступают задачи с приоритетом High.
 
 
-    ```
+   ```
 
-    **Источник:** [The Art of Multiprocessor Programming (Herlihy & Shavit)](https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-397337-5?utm_source=gemini)
+   **Источник:** [The Art of Multiprocessor Programming (Herlihy & Shavit)](https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-397337-5)
 
 58. Как избежать starvation?
 
-    **Ответ:** Основной механизм — старение (Aging): техника, при которой ядро постепенно увеличивает динамический приоритет процесса по мере того, как он ожидает в очереди `runqueue`. Рано или поздно приоритет голодающего процесса сравнивается с наивысшим, и он получает процессор. Также применяются справедливые планировщики (CFS/EEVDF).
+   **Ответ:** Основной механизм — старение (Aging): техника, при которой ядро постепенно увеличивает динамический приоритет процесса по мере того, как он ожидает в очереди `runqueue`. Рано или поздно приоритет голодающего процесса сравнивается с наивысшим, и он получает процессор. Также применяются справедливые планировщики (CFS/EEVDF).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Dynamic_Priority = Base_Priority + Time_In_Wait_Queue
+   ```
+   Dynamic_Priority = Base_Priority + Time_In_Wait_Queue
 
 
-    ```
+   ```
 
-    **Источник:** [Silberschatz, Galvin: Operating System Concepts (Aging Technique)](https://www.os-book.com/?utm_source=gemini)
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (Aging Technique)](https://www.os-book.com/)
 
 59. Что такое fair scheduling?
 
-    **Ответ:** Fair scheduling (справедливое планирование, например CFS — Completely Fair Scheduler) — концепция, стремящаяся предоставить каждому процессу строго равную долю процессорного времени (пропорционально его весу). В CFS ядро отслеживает виртуальное время выполнения (`vruntime`): планировщик всегда отдает CPU процессу с наименьшим `vruntime`, используя красно-черное дерево.
+   **Ответ:** Fair scheduling (справедливое планирование, например CFS — Completely Fair Scheduler) — концепция, стремящаяся предоставить каждому процессу строго равную долю процессорного времени (пропорционально его весу). В CFS ядро отслеживает виртуальное время выполнения (`vruntime`): планировщик всегда отдает CPU процессу с наименьшим `vruntime`, используя красно-черное дерево.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Дерево CFS:
-    // Самый "обделенный" процесс лежит в крайнем левом узле rbtree:
-    struct task_struct *leftmost = rb_entry(rb_first_cached(&cfs_rq->tasks_timeline), ...);
+   ```
+   // Дерево CFS:
+   // Самый "обделенный" процесс лежит в крайнем левом узле rbtree:
+   struct task_struct *leftmost = rb_entry(rb_first_cached(&cfs_rq->tasks_timeline), ...);
 
 
-    ```
+   ```
 
-    **Источник:** [Robert Love: Linux Kernel Development (The Completely Fair Scheduler)](https://en.wikipedia.org/wiki/Linux_Kernel_Development?utm_source=gemini)
+   **Источник:** [Robert Love: Linux Kernel Development (The Completely Fair Scheduler)](https://en.wikipedia.org/wiki/Linux_Kernel_Development)
 
 60. Что такое load balancing?
 
-    **Ответ:** Load balancing (балансировка нагрузки) — механизм ядра на многопроцессорных (SMP) системах, распределяющий потоки между очередями исполнения (`runqueues`) разных ядер CPU, чтобы исключить ситуацию, когда одно ядро перегружено очередью задач, а соседние ядра простаивают.
+   **Ответ:** Load balancing (балансировка нагрузки) — механизм ядра на многопроцессорных (SMP) системах, распределяющий потоки между очередями исполнения (`runqueues`) разных ядер CPU, чтобы исключить ситуацию, когда одно ядро перегружено очередью задач, а соседние ядра простаивают.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Мониторинг равномерности распределения нагрузки по ядрам CPU:
-    mpstat -P ALL 1
+   ```
+   # Мониторинг равномерности распределения нагрузки по ядрам CPU:
+   mpstat -P ALL 1
 
 
-    ```
+   ```
 
-    **Источник:** [Linux Kernel Documentation: Scheduler Domains](https://www.kernel.org/doc/html/latest/scheduler/sched-domains.html?utm_source=gemini)
+   **Источник:** [Linux Kernel Documentation: Scheduler Domains](https://www.kernel.org/doc/html/latest/scheduler/sched-domains.html)
 
 61. Что такое CPU affinity?
 
-    **Ответ:** CPU affinity (привязка к процессору) — конфигурация планировщика, связывающая выполнение конкретного процесса или потока со строго определенным набором физических или логических ядер процессора, запрещая планировщику мигрировать этот поток на другие ядра.
+   **Ответ:** CPU affinity (привязка к процессору) — конфигурация планировщика, связывающая выполнение конкретного процесса или потока со строго определенным набором физических или логических ядер процессора, запрещая планировщику мигрировать этот поток на другие ядра.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Привязка запущенного процесса с PID 1234 к ядрам 0 и 1:
-    taskset -cp 0,1 1234
+   ```
+   # Привязка запущенного процесса с PID 1234 к ядрам 0 и 1:
+   taskset -cp 0,1 1234
 
 
-    ```
+   ```
 
-    **Источник:** [Linux man-pages: sched_setaffinity(2)](https://man7.org/linux/man-pages/man2/sched_setaffinity.2.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: sched_setaffinity(2)](https://man7.org/linux/man-pages/man2/sched_setaffinity.2.html)
 
 62. Что такое real-time scheduling?
 
-    **Ответ:** Real-time scheduling (планирование реального времени) — детерминированный режим планировщика (POSIX политики `SCHED_FIFO`, `SCHED_RR`, `SCHED_DEADLINE`), гарантирующий, что жесткие временные рамки (deadlines) выполнения задач будут строго соблюдены: real-time поток немедленно вытесняет любые обычные процессы.
+   **Ответ:** Real-time scheduling (планирование реального времени) — детерминированный режим планировщика (POSIX политики `SCHED_FIFO`, `SCHED_RR`, `SCHED_DEADLINE`), гарантирующий, что жесткие временные рамки (deadlines) выполнения задач будут строго соблюдены: real-time поток немедленно вытесняет любые обычные процессы.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Запуск процесса с политикой жесткого реального времени SCHED_FIFO:
-    chrt -f 99 ./flight_controller
+   ```
+   # Запуск процесса с политикой жесткого реального времени SCHED_FIFO:
+   chrt -f 99 ./flight_controller
 
 
-    ```
+   ```
 
-    **Источник:** [Linux man-pages: sched(7) (Real-time policies)](https://man7.org/linux/man-pages/man7/sched.7.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: sched(7) (Real-time policies)](https://man7.org/linux/man-pages/man7/sched.7.html)
 
 63. Разница SJF и FIFO?
 
-    **Ответ:** FIFO (First-In, First-Out) выполняет процессы строго в порядке их поступления, независимо от длительности. SJF (Shortest Job First) выбирает процесс с минимальным временем выполнения CPU-burst, минимизируя среднее время ожидания, но страдая от невозможности точно знать длительность будущих задач и риска голодания длинных процессов.
+   **Ответ:** FIFO (First-In, First-Out) выполняет процессы строго в порядке их поступления, независимо от длительности. SJF (Shortest Job First) выбирает процесс с минимальным временем выполнения CPU-burst, минимизируя среднее время ожидания, но страдая от невозможности точно знать длительность будущих задач и риска голодания длинных процессов.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Задачи: A (100 с), B (1 с), C (1 с).
-    FIFO: A -> B -> C (B ждет 100 с, C ждет 101 с).
-    SJF:  B -> C -> A (B ждет 0 с, C ждет 1 с, A ждет 2 с).
+   ```
+   Задачи: A (100 с), B (1 с), C (1 с).
+   FIFO: A -> B -> C (B ждет 100 с, C ждет 101 с).
+   SJF:  B -> C -> A (B ждет 0 с, C ждет 1 с, A ждет 2 с).
 
 
-    ```
+   ```
 
-    **Источник:** [Silberschatz, Galvin: Operating System Concepts (SJF vs FCFS)](https://www.os-book.com/?utm_source=gemini)
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (SJF vs FCFS)](https://www.os-book.com/)
 
 64. Что такое throughput?
 
-    **Ответ:** Throughput (пропускная способность планировщика) — количество процессов или полезных вычислительных задач, полностью выполненных и завершенных операционной системой за единицу времени (например, 500 задач в секунду).
+   **Ответ:** Throughput (пропускная способность планировщика) — количество процессов или полезных вычислительных задач, полностью выполненных и завершенных операционной системой за единицу времени (например, 500 задач в секунду).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Throughput = Total_Completed_Processes / Total_Elapsed_Time
+   ```
+   Throughput = Total_Completed_Processes / Total_Elapsed_Time
 
 
-    ```
+   ```
 
-    **Источник:** [Brendan Gregg: Systems Performance (Throughput Metric)](https://www.brendangregg.com/methodology.html?utm_source=gemini)
+   **Источник:** [Brendan Gregg: Systems Performance (Throughput Metric)](https://www.brendangregg.com/methodology.html)
 
 65. Что такое latency?
 
-    **Ответ:** Latency (задержка планировщика / scheduling latency) — время от момента, когда поток перешел в состояние готовности (`Runnable` / проснулся по I/O или прерыванию), до момента, когда он фактически получил процессорное ядро и начал выполнение инструкций.
+   **Ответ:** Latency (задержка планировщика / scheduling latency) — время от момента, когда поток перешел в состояние готовности (`Runnable` / проснулся по I/O или прерыванию), до момента, когда он фактически получил процессорное ядро и начал выполнение инструкций.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Измерение задержки планировщика в Linux через perf sched:
-    perf sched record -- ./my_app
-    perf sched latency
+   ```
+   # Измерение задержки планировщика в Linux через perf sched:
+   perf sched record -- ./my_app
+   perf sched latency
 
 
-    ```
+   ```
 
-    **Источник:** [Linux man-pages: perf-sched(1)](https://man7.org/linux/man-pages/man1/perf-sched.1.html?utm_source=gemini)
+   **Источник:** [Linux man-pages: perf-sched(1)](https://man7.org/linux/man-pages/man1/perf-sched.1.html)
 
 66. Что такое context switching overhead?
 
-    **Ответ:** Это суммарные вычислительные затраты процессора, расходуемые не на полезную работу приложений, а на саму процедуру переключения задач: выполнение кода планировщика ядра, сохранение/восстановление регистров, сброс конвейера, перезагрузка таблиц виртуальной памяти и последующие промахи кэша CPU (L1/L2) из-за холодной памяти новой задачи.
+   **Ответ:** Это суммарные вычислительные затраты процессора, расходуемые не на полезную работу приложений, а на саму процедуру переключения задач: выполнение кода планировщика ядра, сохранение/восстановление регистров, сброс конвейера, перезагрузка таблиц виртуальной памяти и последующие промахи кэша CPU (L1/L2) из-за холодной памяти новой задачи.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Если квант равен 1 мс, а переключение занимает 0.1 мс,
-    // то 10% времени CPU теряется исключительно на overhead планировщика.
+   ```
+   // Если квант равен 1 мс, а переключение занимает 0.1 мс,
+   // то 10% времени CPU теряется исключительно на overhead планировщика.
 
 
-    ```
+   ```
 
-    **Источник:** [Eli Bendersky: Measuring context switching overhead](https://eli.thegreenplace.net/2018/measuring-context-switching-and-memory-overheads-for-linux-processes/?utm_source=gemini)
+   **Источник:** [Eli Bendersky: Measuring context switching overhead](https://eli.thegreenplace.net/2018/measuring-context-switching-and-memory-overheads-for-linux-processes/)
 
 67. Как влияет количество потоков на производительность?
 
-    **Ответ:** Увеличение числа потоков до количества физических ядер ускоряет выполнение за счет истинного параллелизма. При дальнейшем росте (oversubscription) производительность выходит на плато, а затем резко падает из-за лавинообразного роста context switches, конкуренции за блокировки (contention) и вытеснения рабочих данных из аппаратных кэшей процессора.
+   **Ответ:** Увеличение числа потоков до количества физических ядер ускоряет выполнение за счет истинного параллелизма. При дальнейшем росте (oversubscription) производительность выходит на плато, а затем резко падает из-за лавинообразного роста context switches, конкуренции за блокировки (contention) и вытеснения рабочих данных из аппаратных кэшей процессора.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    График производительности от потоков:
-    Speed |    /\
-          |   /  \____  (падение из-за contention и context switches)
-          |  /
-          +------------
-             Cores  Threads ->
+   ```
+   График производительности от потоков:
+   Speed |    /\
+         |   /  \____  (падение из-за contention и context switches)
+         |  /
+         +------------
+            Cores  Threads ->
 
 
-    ```
+   ```
 
-    **Источник:** [Anthony Williams: C++ Concurrency in Action (Choosing the number of threads)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition?utm_source=gemini)
+   **Источник:** [Anthony Williams: C++ Concurrency in Action (Choosing the number of threads)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
 
 68. Что такое NUMA?
 
-    **Ответ:** NUMA (Non-Uniform Memory Access) — многопроцессорная архитектура, в которой память физически распределена между сокетами: доступ процессора к памяти своей локальной ноды происходит в разы быстрее, чем к памяти, подключенной к соседнему сокету (через межпроцессорную шину QPI/UPI/Infinity Fabric).
+   **Ответ:** NUMA (Non-Uniform Memory Access) — многопроцессорная архитектура, в которой память физически распределена между сокетами: доступ процессора к памяти своей локальной ноды происходит в разы быстрее, чем к памяти, подключенной к соседнему сокету (через межпроцессорную шину QPI/UPI/Infinity Fabric).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    # Топология NUMA-узлов в системе:
-    numactl --hardware
-    # node 0 cpus: 0-7, node 0 size: 32 GB
-    # node 1 cpus: 8-15, node 1 size: 32 GB
+   ```
+   # Топология NUMA-узлов в системе:
+   numactl --hardware
+   # node 0 cpus: 0-7, node 0 size: 32 GB
+   # node 1 cpus: 8-15, node 1 size: 32 GB
 
 
-    ```
+   ```
 
-    **Источник:** [Linux Kernel Documentation: NUMA](https://www.kernel.org/doc/html/latest/vm/numa.html?utm_source=gemini)
+   **Источник:** [Linux Kernel Documentation: NUMA](https://www.kernel.org/doc/html/latest/vm/numa.html)
 
 69. Как scheduler работает с многопроцессорными системами?
 
-    **Ответ:** Современный планировщик строится по модели NUMA-aware / Per-CPU Runqueue: у каждого ядра есть своя локальная очередь задач, что устраняет блокировки общего планировщика. Планировщик старается удерживать поток на том же ядре и том же NUMA-узле для сохранения локальности кэша, прибегая к балансировке нагрузки (миграции) только при значительном перекосе очередей.
+   **Ответ:** Современный планировщик строится по модели NUMA-aware / Per-CPU Runqueue: у каждого ядра есть своя локальная очередь задач, что устраняет блокировки общего планировщика. Планировщик старается удерживать поток на том же ядре и том же NUMA-узле для сохранения локальности кэша, прибегая к балансировке нагрузки (миграции) только при значительном перекосе очередей.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Ядро Linux группирует планирование в sched_domain с иерархией:
-    // SMT (Hyperthreading) -> MC (Multi-Core) -> NUMA node
+   ```
+   // Ядро Linux группирует планирование в sched_domain с иерархией:
+   // SMT (Hyperthreading) -> MC (Multi-Core) -> NUMA node
 
 
-    ```
+   ```
 
-    **Источник:** [Linux Kernel Documentation: Scheduler Domains](https://www.kernel.org/doc/html/latest/scheduler/sched-domains.html?utm_source=gemini)
+   **Источник:** [Linux Kernel Documentation: Scheduler Domains](https://www.kernel.org/doc/html/latest/scheduler/sched-domains.html)
 
 70. Что такое run queue?
 
-    **Ответ:** Run queue (`runqueue`, `rq`) — фундаментальная внутренняя структура данных планировщика ядра, хранящая упорядоченный список всех потоков, находящихся в состоянии готовности к исполнению (`TASK_RUNNING`) и ожидающих предоставления процессорного ядра.
+   **Ответ:** Run queue (`runqueue`, `rq`) — фундаментальная внутренняя структура данных планировщика ядра, хранящая упорядоченный список всех потоков, находящихся в состоянии готовности к исполнению (`TASK_RUNNING`) и ожидающих предоставления процессорного ядра.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // В Linux у каждого CPU ядра есть своя независимая очередь:
-    DEFINE_PER_CPU(struct rq, runqueues);
+   ```
+   // В Linux у каждого CPU ядра есть своя независимая очередь:
+   DEFINE_PER_CPU(struct rq, runqueues);
 
 
-    ```
+   ```
 
-    **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (The Runqueue structure)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/?utm_source=gemini)
+   **Источник:** [Bovet, Cesati: Understanding the Linux Kernel (The Runqueue structure)](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/)
 
 ### Synchronization
 
+
 71. Что такое mutex?
 
-    **Ответ:** Mutex (Mutual Exclusion / взаимное исключение) — примитив синхронизации, гарантирующий, что только один поток может в данный момент времени владеть блокировкой и исполнять защищаемую критическую секцию кода, усыпляя остальные потоки через ядро ОС при попытке захвата.
+   **Ответ:** Mutex (Mutual Exclusion / взаимное исключение) — примитив синхронизации, гарантирующий, что только один поток может в данный момент времени владеть блокировкой и исполнять защищаемую критическую секцию кода, усыпляя остальные потоки через ядро ОС при попытке захвата.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    #include <mutex>
-    std::mutex mtx;
+   ```
+   #include <mutex>
+   std::mutex mtx;
 
-    void safe_increment(int& val) {
-        std::lock_guard<std::mutex> lock(mtx);
-        val++; // Безопасно под мьютексом
-    }
+   void safe_increment(int& val) {
+       std::lock_guard<std::mutex> lock(mtx);
+       val++; // Безопасно под мьютексом
+   }
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: std::mutex](https://en.cppreference.com/w/cpp/thread/mutex?utm_source=gemini)
+   **Источник:** [cppreference: std::mutex](https://en.cppreference.com/w/cpp/thread/mutex)
 
 72. Как работает mutex внутри?
 
-    **Ответ:** Современный мьютекс (например, `pthread_mutex` на базе Linux `futex`) работает гибридно в два этапа: 1) В User Space пытается атомарно захватить переменную состояния через CAS (`cmpxchg`). Если мьютекс свободен, захват происходит мгновенно без переключения в ядро; 2) Если занят, вызывается системный вызов `sys_futex(FUTEX_WAIT)`, и ядро усыпляет поток, переводя его в очередь ожидания.
+   **Ответ:** Современный мьютекс (например, `pthread_mutex` на базе Linux `futex`) работает гибридно в два этапа: 1) В User Space пытается атомарно захватить переменную состояния через CAS (`cmpxchg`). Если мьютекс свободен, захват происходит мгновенно без переключения в ядро; 2) Если занят, вызывается системный вызов `sys_futex(FUTEX_WAIT)`, и ядро усыпляет поток, переводя его в очередь ожидания.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Псевдокод Futex:
-    if (atomic_cas(&lock_word, 0, 1) == 0) return; // Успех в User Space!
-    syscall(SYS_futex, &lock_word, FUTEX_WAIT, 1, ...); // Сон в Kernel Space
+   ```
+   // Псевдокод Futex:
+   if (atomic_cas(&lock_word, 0, 1) == 0) return; // Успех в User Space!
+   syscall(SYS_futex, &lock_word, FUTEX_WAIT, 1, ...); // Сон в Kernel Space
 
 
-    ```
+   ```
 
-    **Источник:** [Ulrich Drepper: Futexes Are Tricky](https://dept-info.labri.fr/~denis/Enseignement/2008-IR/Articles/01-futex.pdf?utm_source=gemini)
+   **Источник:** [Ulrich Drepper: Futexes Are Tricky](https://dept-info.labri.fr/~denis/Enseignement/2008-IR/Articles/01-futex.pdf)
 
 73. Что такое semaphore?
 
-    **Ответ:** Semaphore (семафор) — примитив синхронизации, управляющий доступом к пулу разделяемых ресурсов с помощью внутреннего защищенного целочисленного счетчика. Операция `acquire()` (`wait`/`P`) уменьшает счетчик (блокируя поток, если он 0), а `release()` (`signal`/`V`) увеличивает счетчик, пробуждая ожидающий поток.
+   **Ответ:** Semaphore (семафор) — примитив синхронизации, управляющий доступом к пулу разделяемых ресурсов с помощью внутреннего защищенного целочисленного счетчика. Операция `acquire()` (`wait`/`P`) уменьшает счетчик (блокируя поток, если он 0), а `release()` (`signal`/`V`) увеличивает счетчик, пробуждая ожидающий поток.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    #include <semaphore>
-    // Ограничение одновременного доступа к ресурсу до 4 потоков:
-    std::counting_semaphore<4> sem(4);
+   ```
+   #include <semaphore>
+   // Ограничение одновременного доступа к ресурсу до 4 потоков:
+   std::counting_semaphore<4> sem(4);
 
-    void access_resource() {
-        sem.acquire();
-        // полезная работа
-        sem.release();
-    }
+   void access_resource() {
+       sem.acquire();
+       // полезная работа
+       sem.release();
+   }
 
 
-    ```
+   ```
 
-    **Источник:** [Dijkstra, E. W.: Over seinpalen (Semaphores)](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD00xx/EWD74.html?utm_source=gemini)
+   **Источник:** [Dijkstra, E. W.: Over seinpalen (Semaphores)](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD00xx/EWD74.html)
 
 74. Binary vs counting semaphore?
 
-    **Ответ:** Binary semaphore (бинарный семафор) имеет максимальное значение счетчика, равное 1 (может принимать только значения 0 и 1). Counting semaphore (счетный семафор) может иметь произвольное положительное максимальное значение $N$, регулируя доступ к группе однотипных ресурсов (например, пулу из 10 соединений с БД).
+   **Ответ:** Binary semaphore (бинарный семафор) имеет максимальное значение счетчика, равное 1 (может принимать только значения 0 и 1). Counting semaphore (счетный семафор) может иметь произвольное положительное максимальное значение $N$, регулируя доступ к группе однотипных ресурсов (например, пулу из 10 соединений с БД).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    std::binary_semaphore bin_sem(1);    // Значения: 0 или 1
-    std::counting_semaphore<10> count_sem(10); // Значения: от 0 до 10
+   ```
+   std::binary_semaphore bin_sem(1);    // Значения: 0 или 1
+   std::counting_semaphore<10> count_sem(10); // Значения: от 0 до 10
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: std::counting_semaphore](https://en.cppreference.com/w/cpp/thread/counting_semaphore?utm_source=gemini)
+   **Источник:** [cppreference: std::counting_semaphore](https://en.cppreference.com/w/cpp/thread/counting_semaphore)
 
 75. Что такое spinlock?
 
-    **Ответ:** Spinlock (спинлок) — примитив блокировки, при попытке захвата которого поток не засыпает через системный вызов ядра, а непрерывно опрашивает флаг блокировки в активном плотном цикле (busy-waiting), загружая ядро CPU на 100% в ожидании освобождения.
+   **Ответ:** Spinlock (спинлок) — примитив блокировки, при попытке захвата которого поток не засыпает через системный вызов ядра, а непрерывно опрашивает флаг блокировки в активном плотном цикле (busy-waiting), загружая ядро CPU на 100% в ожидании освобождения.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    #include <atomic>
-    class Spinlock {
-        std::atomic_flag flag = ATOMIC_FLAG_INIT;
-    public:
-        void lock() {
-            while (flag.test_and_set(std::memory_order_acquire)) {
-                #if defined(__x86_64__)
-                _mm_pause(); // Снижает энергопотребление и нагрузку на шину памяти
-                #endif
-            }
-        }
-        void unlock() { flag.clear(std::memory_order_release); }
-    };
+   ```
+   #include <atomic>
+   class Spinlock {
+       std::atomic_flag flag = ATOMIC_FLAG_INIT;
+   public:
+       void lock() {
+           while (flag.test_and_set(std::memory_order_acquire)) {
+               #if defined(__x86_64__)
+               _mm_pause(); // Снижает энергопотребление и нагрузку на шину памяти
+               #endif
+           }
+       }
+       void unlock() { flag.clear(std::memory_order_release); }
+   };
 
 
-    ```
+   ```
 
-    **Источник:** [Intel 64 and IA-32 Architectures Optimization Reference Manual (Spin-Wait Loop)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html?utm_source=gemini)
+   **Источник:** [Intel 64 and IA-32 Architectures Optimization Reference Manual (Spin-Wait Loop)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
 
 76. Когда использовать spinlock?
 
-    **Ответ:** Спинлоки оправданы исключительно тогда, когда: 1) критическая секция ультракороткая (смена нескольких указателей), и время удержания блокировки меньше времени двух переключений контекста ядра (\~2–5 мкс); 2) в коде ядра ОС внутри обработчиков аппаратных прерываний, где засыпать (вызывать `sleep`/`schedule`) категорически запрещено.
+   **Ответ:** Спинлоки оправданы исключительно тогда, когда: 1) критическая секция ультракороткая (смена нескольких указателей), и время удержания блокировки меньше времени двух переключений контекста ядра (\~2–5 мкс); 2) в коде ядра ОС внутри обработчиков аппаратных прерываний, где засыпать (вызывать `sleep`/`schedule`) категорически запрещено.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Внутри ISR драйвера Linux:
-    spin_lock_irqsave(&my_lock, flags);
-    // 2 инструкции чтения регистров
-    spin_unlock_irqrestore(&my_lock, flags);
+   ```
+   // Внутри ISR драйвера Linux:
+   spin_lock_irqsave(&my_lock, flags);
+   // 2 инструкции чтения регистров
+   spin_unlock_irqrestore(&my_lock, flags);
 
 
-    ```
+   ```
 
-    **Источник:** [Linux Kernel Documentation: Spinlocks](https://www.kernel.org/doc/Documentation/locking/spinlocks.txt?utm_source=gemini)
+   **Источник:** [Linux Kernel Documentation: Spinlocks](https://www.kernel.org/doc/Documentation/locking/spinlocks.txt)
 
 77. Что такое deadlock?
 
-    **Ответ:** Deadlock (взаимная блокировка) — ситуация в многопоточной системе, когда два или более потока взаимно заблокированы в ожидании освобождения ресурсов, удерживаемых друг другом, и ни один из них не может продолжить выполнение самостоятельно.
+   **Ответ:** Deadlock (взаимная блокировка) — ситуация в многопоточной системе, когда два или более потока взаимно заблокированы в ожидании освобождения ресурсов, удерживаемых друг другом, и ни один из них не может продолжить выполнение самостоятельно.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Поток 1 держит M1 и ждет M2.
-    // Поток 2 держит M2 и ждет M1.
+   ```
+   // Поток 1 держит M1 и ждет M2.
+   // Поток 2 держит M2 и ждет M1.
 
 
-    ```
+   ```
 
-    **Источник:** [Coffman, E. G.: System Deadlocks (1971)](https://dl.acm.org/doi/10.1145/356586.356588?utm_source=gemini)
+   **Источник:** [Coffman, E. G.: System Deadlocks (1971)](https://dl.acm.org/doi/10.1145/356586.356588)
 
 78. 4 условия deadlock?
 
-    **Ответ:** Deadlock возникает тогда и только тогда, когда одновременно выполняются 4 условия Коффмана:
+   **Ответ:** Deadlock возникает тогда и только тогда, когда одновременно выполняются 4 условия Коффмана:
 
-    1. **Mutual Exclusion** (взаимное исключение — ресурс неделим);
+      1. **Mutual Exclusion** (взаимное исключение — ресурс неделим);
 
-    2. **Hold and Wait** (удержание и ожидание — поток удерживает ресурс и запрашивает новый);
+      2. **Hold and Wait** (удержание и ожидание — поток удерживает ресурс и запрашивает новый);
 
-    3. **No Preemption** (невытесняемость — ресурс нельзя принудительно отобрать);
+      3. **No Preemption** (невытесняемость — ресурс нельзя принудительно отобрать);
 
-    4. **Circular Wait** (круговое ожидание — существует замкнутая цепочка ожидания $T_1 \to T_2 \to \dots \to T_1$).
+      4. **Circular Wait** (круговое ожидание — существует замкнутая цепочка ожидания $T_1 \to T_2 \to \dots \to T_1$).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    [Поток 1] --держит--> [Ресурс A] <--ждет-- [Поток 2]
-        |                                          ^
-        |--ждет---------> [Ресурс B] --держит------|
+   ```
+   [Поток 1] --держит--> [Ресурс A] <--ждет-- [Поток 2]
+       |                                          ^
+       |--ждет---------> [Ресурс B] --держит------|
 
 
-    ```
+   ```
 
-    **Источник:** [Edward G. Coffman: System Deadlocks (ACM Computing Surveys)](https://dl.acm.org/doi/10.1145/356586.356588?utm_source=gemini)
+   **Источник:** [Edward G. Coffman: System Deadlocks (ACM Computing Surveys)](https://dl.acm.org/doi/10.1145/356586.356588)
 
 79. Как предотвратить deadlock?
 
-    **Ответ:** Достаточно разрушить хотя бы одно из четырех условий Коффмана:
+   **Ответ:** Достаточно разрушить хотя бы одно из четырех условий Коффмана:
 
-    1. Разрушение Circular Wait: ввести единый глобальный порядок захвата мьютексов (lock hierarchy);
+      1. Разрушение Circular Wait: ввести единый глобальный порядок захвата мьютексов (lock hierarchy);
 
-    2. Использовать одновременный атомарный захват ресурсов (`std::scoped_lock` / `std::lock`);
+      2. Использовать одновременный атомарный захват ресурсов (`std::scoped_lock` / `std::lock`);
 
-    3. Использовать неблокирующие попытки захвата с откатом (`try_lock()` / таймауты);
+      3. Использовать неблокирующие попытки захвата с откатом (`try_lock()` / таймауты);
 
-    4. Избегать удержания нескольких замков одновременно.
+      4. Избегать удержания нескольких замков одновременно.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Исключает deadlock при любом порядке аргументов:
-    std::scoped_lock lock(account_a.mtx, account_b.mtx);
+   ```
+   // Исключает deadlock при любом порядке аргументов:
+   std::scoped_lock lock(account_a.mtx, account_b.mtx);
 
 
-    ```
+   ```
 
-    **Источник:** [C++ Core Guidelines: CP.25: Prefer std::scoped_lock for multi-mutex locking](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines?utm_source=gemini#cp25-prefer-stdscoped_lock-for-multi-mutex-locking)
+   **Источник:** [C++ Core Guidelines: CP.25: Prefer std::scoped_lock for multi-mutex locking](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#cp25-prefer-stdscoped_lock-for-multi-mutex-locking)
 
 80. Что такое livelock?
 
-    **Ответ:** Livelock (активная взаимная блокировка) — состояние, в котором потоки не спят на системных блокировках, а активно меняют свои состояния в ответ на действия друг друга (например, синхронно пытаются уступить ресурс через `try_lock` и откатываются), расходуя 100% CPU, но не продвигаясь вперед в решении полезной задачи.
+   **Ответ:** Livelock (активная взаимная блокировка) — состояние, в котором потоки не спят на системных блокировках, а активно меняют свои состояния в ответ на действия друг друга (например, синхронно пытаются уступить ресурс через `try_lock` и откатываются), расходуя 100% CPU, но не продвигаясь вперед в решении полезной задачи.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Два джентльмена бесконечно уступают друг другу дорогу в узком дверном проеме.
+   ```
+   // Два джентльмена бесконечно уступают друг другу дорогу в узком дверном проеме.
 
 
-    ```
+   ```
 
-    **Источник:** [Anthony Williams: C++ Concurrency in Action (Deadlock and Livelock)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition?utm_source=gemini)
+   **Источник:** [Anthony Williams: C++ Concurrency in Action (Deadlock and Livelock)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
 
 81. Что такое starvation?
 
-    **Ответ:** Starvation (голодание) — ситуация, когда один или несколько потоков длительное время или бесконечно не могут получить доступ к разделяемому ресурсу или мьютексу из-за несправедливой политики примитивов синхронизации, отдающих предпочтение другим конкурирующим потокам.
+   **Ответ:** Starvation (голодание) — ситуация, когда один или несколько потоков длительное время или бесконечно не могут получить доступ к разделяемому ресурсу или мьютексу из-за несправедливой политики примитивов синхронизации, отдающих предпочтение другим конкурирующим потокам.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Reader-Writer Lock с предпочтением читателей:
-    // непрерывный поток читателей полностью блокирует писателя от доступа к данным.
+   ```
+   // Reader-Writer Lock с предпочтением читателей:
+   // непрерывный поток читателей полностью блокирует писателя от доступа к данным.
 
 
-    ```
+   ```
 
-    **Источник:** [The Little Book of Semaphores (Readers-Writers Problem)](https://greenteapress.com/wp/semaphores/?utm_source=gemini)
+   **Источник:** [The Little Book of Semaphores (Readers-Writers Problem)](https://greenteapress.com/wp/semaphores/)
 
 82. Что такое critical section?
 
-    **Ответ:** Критическая секция — участок программного кода, в котором осуществляется доступ к разделяемым разделяемым изменяемым данным (shared mutable state), одновременный вход в который более чем одного потока приводит к гонке по данным (Data Race).
+   **Ответ:** Критическая секция — участок программного кода, в котором осуществляется доступ к разделяемым разделяемым изменяемым данным (shared mutable state), одновременный вход в который более чем одного потока приводит к гонке по данным (Data Race).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    mtx.lock();
-    // --- НАЧАЛО КРИТИЧЕСКОЙ СЕКЦИИ ---
-    balance += deposit;
-    // --- КОНЕЦ КРИТИЧЕСКОЙ СЕКЦИИ ---
-    mtx.unlock();
+   ```
+   mtx.lock();
+   // --- НАЧАЛО КРИТИЧЕСКОЙ СЕКЦИИ ---
+   balance += deposit;
+   // --- КОНЕЦ КРИТИЧЕСКОЙ СЕКЦИИ ---
+   mtx.unlock();
 
 
-    ```
+   ```
 
-    **Источник:** [Dijkstra, E. W.: Cooperating Sequential Processes](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD01xx/EWD123.html?utm_source=gemini)
+   **Источник:** [Dijkstra, E. W.: Cooperating Sequential Processes](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD01xx/EWD123.html)
 
 83. Что такое atomic операции?
 
-    **Ответ:** Атомарные операции — неделимые низкоуровневые машинные инструкции процессора над ячейками памяти. Для всех остальных потоков в системе такая операция наблюдается либо как еще не начавшаяся, либо как уже полностью завершенная; чтение промежуточного или наполовину записанного состояния аппаратно невозможно.
+   **Ответ:** Атомарные операции — неделимые низкоуровневые машинные инструкции процессора над ячейками памяти. Для всех остальных потоков в системе такая операция наблюдается либо как еще не начавшаяся, либо как уже полностью завершенная; чтение промежуточного или наполовину записанного состояния аппаратно невозможно.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    ; x86 инструкция атомарного сложения с блокировкой шины кэша:
-    lock add dword [rdi], 1
-
-
-    ```
-
-    **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Locked Atomic Operations)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html?utm_source=gemini)
-
-    84. `std::atomic` — как работает?
-
-    **Ответ:** Шаблон `std::atomic<T>` указывает компилятору отображать операции чтения, записи и RMW (Read-Modify-Write) напрямую в специальные атомарные машинные инструкции процессора (`LOCK CMPXCHG`, `LOCK XADD`), запрещая компилятору выносить чтения в регистры и переставлять инструкции памяти местами в обход барьеров.
-
-    **Пример:**
-
-    ```
-    #include <atomic>
-    std::atomic<int> counter{0};
-    counter.fetch_add(1); // Атомарная модификация без мьютекса
+   ```
+   ; x86 инструкция атомарного сложения с блокировкой шины кэша:
+   lock add dword [rdi], 1
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic?utm_source=gemini)
+   **Источник:** [Intel 64 and IA-32 Architectures Software Developer's Manual (Locked Atomic Operations)](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
+
+   84. `std::atomic` — как работает?
+
+   **Ответ:** Шаблон `std::atomic<T>` указывает компилятору отображать операции чтения, записи и RMW (Read-Modify-Write) напрямую в специальные атомарные машинные инструкции процессора (`LOCK CMPXCHG`, `LOCK XADD`), запрещая компилятору выносить чтения в регистры и переставлять инструкции памяти местами в обход барьеров.
+
+   **Пример:**
+
+   ```
+   #include <atomic>
+   std::atomic<int> counter{0};
+   counter.fetch_add(1); // Атомарная модификация без мьютекса
+
+
+   ```
+
+   **Источник:** [cppreference: std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic)
 
 85. memory order в C++?
 
-    **Ответ:** Memory Order (модель упорядочивания памяти) — набор спецификаторов стандартов C++11+, управляющих тем, как атомарные операции упорядочиваются относительно обычных чтений и записей памяти. Он определяет границы дозволенного для переупорядочивания инструкций компилятором и внеочередным исполнением (OoO) процессора.
+   **Ответ:** Memory Order (модель упорядочивания памяти) — набор спецификаторов стандартов C++11+, управляющих тем, как атомарные операции упорядочиваются относительно обычных чтений и записей памяти. Он определяет границы дозволенного для переупорядочивания инструкций компилятором и внеочередным исполнением (OoO) процессора.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Доступные режимы:
-    // relaxed, consume, acquire, release, acq_rel, seq_cst
+   ```
+   // Доступные режимы:
+   // relaxed, consume, acquire, release, acq_rel, seq_cst
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: std::memory_order](https://en.cppreference.com/w/cpp/atomic/memory_order?utm_source=gemini)
+   **Источник:** [cppreference: std::memory_order](https://en.cppreference.com/w/cpp/atomic/memory_order)
 
 86. acquire/release semantics?
 
-    **Ответ:** Это паттерн межпоточной публикации данных:
+   **Ответ:** Это паттерн межпоточной публикации данных:
 
-    * `release` (при записи в атомик) гарантирует, что никакие предшествующие чтения/записи не опустятся ниже этой точки;
+   * `release` (при записи в атомик) гарантирует, что никакие предшествующие чтения/записи не опустятся ниже этой точки;
 
-    * `acquire` (при чтении того же атомика) гарантирует, что никакие последующие чтения/записи не поднимутся выше этой точки. В паре они формируют отношение `happens-before`.
+   * `acquire` (при чтении того же атомика) гарантирует, что никакие последующие чтения/записи не поднимутся выше этой точки. В паре они формируют отношение `happens-before`.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Поток 1:
-    data = 42;
-    ready.store(true, std::memory_order_release);
+   ```
+   // Поток 1:
+   data = 42;
+   ready.store(true, std::memory_order_release);
 
-    // Поток 2:
-    if (ready.load(std::memory_order_acquire)) {
-        assert(data == 42); // Гарантированно увидит 42!
-    }
-
-
-    ```
-
-    **Источник:** [Jeff Preshing: Acquire and Release Semantics](https://preshing.com/20120913/acquire-and-release-semantics/?utm_source=gemini)
-
-    87. `seq_cst` — что это?
-
-    **Ответ:** `memory_order_seq_cst` (Sequentially Consistent) — строжайшая модель памяти по умолчанию: помимо свойств acquire-release, она гарантирует существование единого глобального абсолютного порядка выполнения всех `seq_cst` операций во всей программе, одинаково наблюдаемого всеми ядрами процессора.
-
-    **Пример:**
-
-    ```
-    std::atomic<bool> x{false}, y{false};
-    // Все операции без аргумента порядка используют seq_cst:
-    x.store(true);
+   // Поток 2:
+   if (ready.load(std::memory_order_acquire)) {
+       assert(data == 42); // Гарантированно увидит 42!
+   }
 
 
-    ```
+   ```
 
-    **Источник:** [Leslie Lamport: How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs](https://lamport.azurewebsites.net/pubs/multi.pdf?utm_source=gemini)
+   **Источник:** [Jeff Preshing: Acquire and Release Semantics](https://preshing.com/20120913/acquire-and-release-semantics/)
+
+   87. `seq_cst` — что это?
+
+   **Ответ:** `memory_order_seq_cst` (Sequentially Consistent) — строжайшая модель памяти по умолчанию: помимо свойств acquire-release, она гарантирует существование единого глобального абсолютного порядка выполнения всех `seq_cst` операций во всей программе, одинаково наблюдаемого всеми ядрами процессора.
+
+   **Пример:**
+
+   ```
+   std::atomic<bool> x{false}, y{false};
+   // Все операции без аргумента порядка используют seq_cst:
+   x.store(true);
+
+
+   ```
+
+   **Источник:** [Leslie Lamport: How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs](https://lamport.azurewebsites.net/pubs/multi.pdf)
 
 88. Что такое lock-free?
 
-    **Ответ:** Lock-free (свободный от блокировок) — класс многопоточных алгоритмов, который гарантирует на аппаратном уровне (через атомики и CAS), что хотя бы один поток в системе обязательно совершает полезный прогресс за конечное число шагов, даже если часть остальных потоков была приостановлена ядром ОС.
+   **Ответ:** Lock-free (свободный от блокировок) — класс многопоточных алгоритмов, который гарантирует на аппаратном уровне (через атомики и CAS), что хотя бы один поток в системе обязательно совершает полезный прогресс за конечное число шагов, даже если часть остальных потоков была приостановлена ядром ОС.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Lock-free вершина стека:
-    void push(Node* new_node) {
-        new_node->next = head.load();
-        while (!head.compare_exchange_weak(new_node->next, new_node));
-    }
+   ```
+   // Lock-free вершина стека:
+   void push(Node* new_node) {
+       new_node->next = head.load();
+       while (!head.compare_exchange_weak(new_node->next, new_node));
+   }
 
 
-    ```
+   ```
 
-    **Источник:** [Maurice Herlihy: Wait-Free Synchronization (ACM TOPLAS)](https://dl.acm.org/doi/10.1145/114005.102808?utm_source=gemini)
+   **Источник:** [Maurice Herlihy: Wait-Free Synchronization (ACM TOPLAS)](https://dl.acm.org/doi/10.1145/114005.102808)
 
 89. Что такое wait-free?
 
-    **Ответ:** Wait-free (свободный от ожидания) — сильнейшая форма неблокирующей синхронизации: каждый отдельный поток гарантированно завершает свою операцию за фиксированное конечное число шагов независимо от действий, конкуренции или задержек всех других потоков системы (без циклов перезапуска CAS).
+   **Ответ:** Wait-free (свободный от ожидания) — сильнейшая форма неблокирующей синхронизации: каждый отдельный поток гарантированно завершает свою операцию за фиксированное конечное число шагов независимо от действий, конкуренции или задержек всех других потоков системы (без циклов перезапуска CAS).
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Атомарное инкрементирование счетчика без цикла повторов является wait-free:
-    counter.fetch_add(1, std::memory_order_relaxed);
-
-
-    ```
-
-    **Источник:** [Herlihy & Shavit: The Art of Multiprocessor Programming](https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-397337-5?utm_source=gemini)
-
-    90. `condition_variable` — зачем?
-
-    **Ответ:** `std::condition_variable` необходима для организации энергоэффективного ожидания событий между потоками: она позволяет потоку освободить мьютекс и безопасно заснуть в ядре без расхода тактов CPU, пока другой поток не изменит разделяемое состояние и не разбудит его сигналом.
-
-    **Пример:**
-
-    ```
-    #include <condition_variable>
-    std::condition_variable cv;
-    std::mutex cv_m;
-    bool ready = false;
+   ```
+   // Атомарное инкрементирование счетчика без цикла повторов является wait-free:
+   counter.fetch_add(1, std::memory_order_relaxed);
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: std::condition_variable](https://en.cppreference.com/w/cpp/thread/condition_variable?utm_source=gemini)
+   **Источник:** [Herlihy & Shavit: The Art of Multiprocessor Programming](https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-397337-5)
 
-    91. Как работает `std::condition_variable`?
+   90. `condition_variable` — зачем?
 
-    **Ответ:** Метод `wait(unique_lock)` выполняет атомарную последовательность: 1) Освобождает переданный мьютекс; 2) Переводит текущий поток в очередь сна ядра ОС (системный вызов futex); 3) При получении `notify` ядро будит поток, и тот повторно захватывает мьютекс перед возвратом управления.
+   **Ответ:** `std::condition_variable` необходима для организации энергоэффективного ожидания событий между потоками: она позволяет потоку освободить мьютекс и безопасно заснуть в ядре без расхода тактов CPU, пока другой поток не изменит разделяемое состояние и не разбудит его сигналом.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    std::unique_lock<std::mutex> lk(cv_m);
-    // Проверяет предикат, при false отпускает lk и засыпает:
-    cv.wait(lk, []{ return ready; });
+   ```
+   #include <condition_variable>
+   std::condition_variable cv;
+   std::mutex cv_m;
+   bool ready = false;
 
 
-    ```
+   ```
 
-    **Источник:** [Anthony Williams: C++ Concurrency in Action (Waiting for a condition)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition?utm_source=gemini)
+   **Источник:** [cppreference: std::condition_variable](https://en.cppreference.com/w/cpp/thread/condition_variable)
+
+   91. Как работает `std::condition_variable`?
+
+   **Ответ:** Метод `wait(unique_lock)` выполняет атомарную последовательность: 1) Освобождает переданный мьютекс; 2) Переводит текущий поток в очередь сна ядра ОС (системный вызов futex); 3) При получении `notify` ядро будит поток, и тот повторно захватывает мьютекс перед возвратом управления.
+
+   **Пример:**
+
+   ```
+   std::unique_lock<std::mutex> lk(cv_m);
+   // Проверяет предикат, при false отпускает lk и засыпает:
+   cv.wait(lk, []{ return ready; });
+
+
+   ```
+
+   **Источник:** [Anthony Williams: C++ Concurrency in Action (Waiting for a condition)](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
 
 92. spurious wakeup — что это?
 
-    **Ответ:** Spurious wakeup (ложное пробуждение) — аппаратное или платформенное поведение, при котором поток просыпается из состояния ожидания на `condition_variable`, несмотря на то, что ни один другой поток не вызывал `notify()`. Поэтому ожидание всегда оборачивают в цикл с проверкой предиката.
+   **Ответ:** Spurious wakeup (ложное пробуждение) — аппаратное или платформенное поведение, при котором поток просыпается из состояния ожидания на `condition_variable`, несмотря на то, что ни один другой поток не вызывал `notify()`. Поэтому ожидание всегда оборачивают в цикл с проверкой предиката.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Всегда ждем в цикле:
-    while (!ready) {
-        cv.wait(lk);
-    }
+   ```
+   // Всегда ждем в цикле:
+   while (!ready) {
+       cv.wait(lk);
+   }
 
 
-    ```
+   ```
 
-    **Источник:** [POSIX standard: pthread_cond_wait (Spurious Wakeups)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_cond_wait.html?utm_source=gemini)
+   **Источник:** [POSIX standard: pthread_cond_wait (Spurious Wakeups)](https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_cond_wait.html)
 
 93. Что такое barrier?
 
-    **Ответ:** Barrier (барьер, `std::barrier` в C++20) — примитив синхронизации для группы из $N$ потоков, требующий, чтобы все участники дошли до определенной точки вычислений (`arrive_and_wait()`), прежде чем хотя бы один из них сможет продолжить выполнение следующей фазы алгоритма.
+   **Ответ:** Barrier (барьер, `std::barrier` в C++20) — примитив синхронизации для группы из $N$ потоков, требующий, чтобы все участники дошли до определенной точки вычислений (`arrive_and_wait()`), прежде чем хотя бы один из них сможет продолжить выполнение следующей фазы алгоритма.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    #include <barrier>
-    std::barrier sync_point(4); // Ждет 4 потока
+   ```
+   #include <barrier>
+   std::barrier sync_point(4); // Ждет 4 потока
 
-    void worker() {
-        step1();
-        sync_point.arrive_and_wait(); // Все 4 потока сойдутся здесь
-        step2();
-    }
+   void worker() {
+       step1();
+       sync_point.arrive_and_wait(); // Все 4 потока сойдутся здесь
+       step2();
+   }
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: std::barrier](https://en.cppreference.com/w/cpp/thread/barrier?utm_source=gemini)
+   **Источник:** [cppreference: std::barrier](https://en.cppreference.com/w/cpp/thread/barrier)
 
 94. Что такое reader-writer lock?
 
-    **Ответ:** Reader-Writer Lock (`std::shared_mutex` в C++17) — примитив, разрешающий параллельный одновременный доступ неограниченному количеству читающих потоков (`shared_lock`), но предоставляющий строго монопольный доступ только одному пишущему потоку (`unique_lock`), оптимизируя сценарии Read-Heavy.
+   **Ответ:** Reader-Writer Lock (`std::shared_mutex` в C++17) — примитив, разрешающий параллельный одновременный доступ неограниченному количеству читающих потоков (`shared_lock`), но предоставляющий строго монопольный доступ только одному пишущему потоку (`unique_lock`), оптимизируя сценарии Read-Heavy.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    #include <shared_mutex>
-    std::shared_mutex rw_mtx;
+   ```
+   #include <shared_mutex>
+   std::shared_mutex rw_mtx;
 
-    // Множество читателей:
-    void read_data() { std::shared_lock lock(rw_mtx); }
+   // Множество читателей:
+   void read_data() { std::shared_lock lock(rw_mtx); }
 
-    // Один писатель:
-    void write_data() { std::unique_lock lock(rw_mtx); }
+   // Один писатель:
+   void write_data() { std::unique_lock lock(rw_mtx); }
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: std::shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex?utm_source=gemini)
+   **Источник:** [cppreference: std::shared_mutex](https://en.cppreference.com/w/cpp/thread/shared_mutex)
 
 95. Что такое false sharing?
 
-    **Ответ:** False sharing (ложное разделение данных) — аппаратная проблема многопоточности, при которой два потока на разных ядрах CPU параллельно модифицируют независимые переменные, оказавшиеся случайно расположенными в границах **одной и той же 64-байтной кэш-линии**, вызывая непрерывную инвалидацию кэша ядрами.
+   **Ответ:** False sharing (ложное разделение данных) — аппаратная проблема многопоточности, при которой два потока на разных ядрах CPU параллельно модифицируют независимые переменные, оказавшиеся случайно расположенными в границах **одной и той же 64-байтной кэш-линии**, вызывая непрерывную инвалидацию кэша ядрами.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Опасная структура (в одной кэш-линии):
-    struct BadCounters {
-        std::atomic<int> a; // Ядро 1
-        std::atomic<int> b; // Ядро 2 (постоянно выбивают кэш друг у друга)
-    };
+   ```
+   // Опасная структура (в одной кэш-линии):
+   struct BadCounters {
+       std::atomic<int> a; // Ядро 1
+       std::atomic<int> b; // Ядро 2 (постоянно выбивают кэш друг у друга)
+   };
 
 
-    ```
+   ```
 
-    **Источник:** [Herb Sutter: Eliminate False Sharing (Dr. Dobb's)](https://www.drdobbs.com/parallel/eliminate-false-sharing/217500206?utm_source=gemini)
+   **Источник:** [Herb Sutter: Eliminate False Sharing (Dr. Dobb's)](https://www.drdobbs.com/parallel/eliminate-false-sharing/217500206)
 
 96. Что такое cache coherence?
 
-    **Ответ:** Cache coherence (когерентность кэшей) — аппаратный протокол процессора (MESI, MOESI), поддерживающий целостность и актуальность данных между индивидуальными L1/L2 кэшами всех ядер CPU, гарантируя, что любая запись в ячейку памяти одним ядром делает устаревшими копии этой строки в кэшах всех остальных ядер.
+   **Ответ:** Cache coherence (когерентность кэшей) — аппаратный протокол процессора (MESI, MOESI), поддерживающий целостность и актуальность данных между индивидуальными L1/L2 кэшами всех ядер CPU, гарантируя, что любая запись в ячейку памяти одним ядром делает устаревшими копии этой строки в кэшах всех остальных ядер.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    Ядро 1 пишет в адрес 0x1000 -> Протокол MESI шлет сигнал Invalidate по шине ->
-    Кэш-линия в Ядре 2 помечается как 'Invalid' (I).
+   ```
+   Ядро 1 пишет в адрес 0x1000 -> Протокол MESI шлет сигнал Invalidate по шине ->
+   Кэш-линия в Ядре 2 помечается как 'Invalid' (I).
 
 
-    ```
+   ```
 
-    **Источник:** [Sorin et al.: A Primer on Memory Consistency and Cache Coherence](https://www.morganclaypool.com/doi/abs/10.2200/S00346ED1V01Y201104CAC016?utm_source=gemini)
+   **Источник:** [Sorin et al.: A Primer on Memory Consistency and Cache Coherence](https://www.morganclaypool.com/doi/abs/10.2200/S00346ED1V01Y201104CAC016)
 
 97. Что такое happens-before?
 
-    **Ответ:** Отношение `happens-before` — математическое отношение частичного порядка между двумя операциями в C++. Если $A$ happens-before $B$, то операция $A$ логически завершена до начала $B$, и все побочные эффекты в памяти, сделанные $A$, гарантированно видимы операции $B$.
+   **Ответ:** Отношение `happens-before` — математическое отношение частичного порядка между двумя операциями в C++. Если $A$ happens-before $B$, то операция $A$ логически завершена до начала $B$, и все побочные эффекты в памяти, сделанные $A$, гарантированно видимы операции $B$.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Завершение t.join() happens-before следующей инструкции вызывающего потока:
-    std::thread t([]{ res = 1; });
-    t.join();
-    assert(res == 1); // Всегда истинно
+   ```
+   // Завершение t.join() happens-before следующей инструкции вызывающего потока:
+   std::thread t([]{ res = 1; });
+   t.join();
+   assert(res == 1); // Всегда истинно
 
 
-    ```
+   ```
 
-    **Источник:** [ISO C++ Standard: Happens-before order (§ 6.9.2.1 \[intro.multithread\])](https://eel.is/c++draft/intro.multithread?utm_source=gemini)
+   **Источник:** [ISO C++ Standard: Happens-before order (§ 6.9.2.1 \[intro.multithread\])](https://eel.is/c++draft/intro.multithread)
 
 98. volatile в C++ — зачем?
 
-    **Ответ:** Ключевое слово `volatile` в C++ запрещает компилятору применять оптимизации к переменной (выносить чтения в регистры, удалять "лишние" записи). Оно предназначено **исключительно** для взаимодействия со специализированным аппаратным обеспечением (Memory-Mapped I/O, MMIO) и обработчиками сигналов `sig_atomic_t`.
+   **Ответ:** Ключевое слово `volatile` в C++ запрещает компилятору применять оптимизации к переменной (выносить чтения в регистры, удалять "лишние" записи). Оно предназначено **исключительно** для взаимодействия со специализированным аппаратным обеспечением (Memory-Mapped I/O, MMIO) и обработчиками сигналов `sig_atomic_t`.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    // Чтение регистра контроллера аппаратуры (MMIO):
-    volatile uint32_t* status_reg = (uint32_t*)0x40001000;
-    while (*status_reg & 0x1); // Компилятор не оптимизирует в бесконечный цикл
+   ```
+   // Чтение регистра контроллера аппаратуры (MMIO):
+   volatile uint32_t* status_reg = (uint32_t*)0x40001000;
+   while (*status_reg & 0x1); // Компилятор не оптимизирует в бесконечный цикл
 
 
-    ```
+   ```
 
-    **Источник:** [cppreference: cv (const/volatile) type qualifiers](https://en.cppreference.com/w/cpp/language/cv?utm_source=gemini)
+   **Источник:** [cppreference: cv (const/volatile) type qualifiers](https://en.cppreference.com/w/cpp/language/cv)
 
 99. Почему volatile не заменяет mutex?
 
-    **Ответ:** В отличие от Java/C#, в C++ `volatile` **не гарантирует атомарности** операций и **не генерирует барьеров памяти** (Memory Fences) для процессора. Процессор может произвольно переупорядочить операции чтения/записи `volatile`, а одновременный доступ к `volatile` из двух потоков является классическим Data Race с неопределенным поведением.
+   **Ответ:** В отличие от Java/C#, в C++ `volatile` **не гарантирует атомарности** операций и **не генерирует барьеров памяти** (Memory Fences) для процессора. Процессор может произвольно переупорядочить операции чтения/записи `volatile`, а одновременный доступ к `volatile` из двух потоков является классическим Data Race с неопределенным поведением.
 
-    **Пример:**
+   **Пример:**
 
-    ```
-    volatile int x = 0;
-    // Потоки A и B делают:
-    x++; // НЕАТОМАРНО! Приведет к Data Race (UB)
+   ```
+   volatile int x = 0;
+   // Потоки A и B делают:
+   x++; // НЕАТОМАРНО! Приведет к Data Race (UB)
 
 
-    ```
+   ```
 
-    **Источник:** [Hans Boehm: volatile vs atomic in C++](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2016.html?utm_source=gemini)
+   **Источник:** [Hans Boehm: volatile vs atomic in C++](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2016.html)
 
 100. Что такое ABA problem?
 
-     **Ответ:** ABA-проблема — ошибка в lock-free структурах данных при использовании CAS (Compare-And-Swap): поток прочитал значение `A`, был приостановлен; другие потоки сменили значение на `B`, освободили память и вернули `A` обратно. Первый поток просыпается, выполняет CAS, видит всё то же значение `A` и ошибочно считает, что состояние не менялось, повреждая данные.
+   **Ответ:** ABA-проблема — ошибка в lock-free структурах данных при использовании CAS (Compare-And-Swap): поток прочитал значение `A`, был приостановлен; другие потоки сменили значение на `B`, освободили память и вернули `A` обратно. Первый поток просыпается, выполняет CAS, видит всё то же значение `A` и ошибочно считает, что состояние не менялось, повреждая данные.
 
-     **Пример:**
+   **Пример:**
 
-     ```
-     Поток 1 прочитал Top = A.
-     Поток 2 удалил A (память освобождена!), удалил B, вставил новый узел с тем же адресом A.
-     Поток 1 делает CAS(Top, A, B) -> Успешно, но указатель B уже указывает на мусор!
+   ```
+   Поток 1 прочитал Top = A.
+   Поток 2 удалил A (память освобождена!), удалил B, вставил новый узел с тем же адресом A.
+   Поток 1 делает CAS(Top, A, B) -> Успешно, но указатель B уже указывает на мусор!
 
 
-     ```
+   ```
 
-     **Источник:** [Damian Dechev et al.: Practical Lock-Free Algorithms (ABA Prevention)](https://dl.acm.org/doi/10.1145/1810931.1810943?utm_source=gemini)
+   **Источник:** [Damian Dechev et al.: Practical Lock-Free Algorithms (ABA Prevention)](https://dl.acm.org/doi/10.1145/1810931.1810943)
 
-     ---
+   ---
 
-### IPC (Interprocess Communication)
+## IPC и Virtual Memory
+
+
+---
+
+## IPC (Interprocess Communication)
+
+
 101. Что такое IPC?
+
+   **Ответ:** IPC (Interprocess Communication, межпроцессное взаимодействие) — механизм операционной системы, позволяющий изолированным процессам обмениваться данными, координировать действия и синхронизировать состояние, обходя барьер изоляции адресных пространств.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+   #include <iostream>
+
+   int main() {
+       int fds[2];
+       pipe(fds); // Простейший механизм IPC
+       if (fork() == 0) {
+           close(fds[0]);
+           write(fds[1], "ping", 4);
+           close(fds[1]);
+       } else {
+           close(fds[1]);
+           char buf[5] = {0};
+           read(fds[0], buf, 4);
+           std::cout << "Received: " << buf << '\n';
+           close(fds[0]);
+       }
+   }
+
+   ```
+
+   **Типичная ошибка:** Использовать разделяемые глобальные переменные для взаимодействия между процессами (после `fork()` процессы имеют копии памяти, изменения не видны друг другу без специального IPC).
+
+   **Источник:** [Linux man pages: standards(7) / IPC Overview](https://man7.org/linux/man-pages/man7/standards.7.html)
+
+   ---
+
 102. pipe — как работает?
+
+   **Ответ:** Pipe — однонаправленный (unidirectional) байтовый поток, управляемый ядром через кольцевой буфер в памяти (по умолчанию 64 КБ в Linux). Запись блокируется при заполнении буфера, чтение блокируется при его опустошении.
+
+   **Пример:**
+
+   ```cpp
+   int fd[2];
+   if (pipe(fd) == -1) {
+       perror("pipe");
+   }
+   // fd[0] — конец для чтения, fd[1] — конец для записи
+
+   ```
+
+   **Типичная ошибка:** Попытка читать и писать в обоих направлениях через один `pipe`. Это порождает гонку данных и deadlock; для дуплекса требуется два пайпа.
+
+   **Источник:** [Linux man pages: pipe(2)](https://man7.org/linux/man-pages/man2/pipe.2.html)
+
+   ---
+
 103. unnamed vs named pipe?
+
+   **Ответ:** Unnamed (анонимный) pipe существует только в памяти ядра и доступен только родственным процессам, унаследовавшим файловые дескрипторы через `fork()`. Named pipe (FIFO) представлен специальным файлом в файловой системе и доступен любым независимым процессам по пути.
+
+   **Пример:**
+
+   ```bash
+   # Named pipe в shell:
+   mkfifo /tmp/my_fifo
+   cat < /tmp/my_fifo &
+   echo "data" > /tmp/my_fifo
+
+   ```
+
+   **Типичная ошибка:** Считать, что данные named pipe сохраняются на диск. В файловой системе хранится только inode точки входа, данные передаются исключительно через память ядра.
+
+   **Источник:** [Linux man pages: fifo(7)](https://man7.org/linux/man-pages/man7/fifo.7.html)
+
+   ---
+
 104. FIFO в Linux?
+
+   **Ответ:** FIFO (First-In, First-Out) — синоним named pipe в POSIX/Linux. Создается системным вызовом `mkfifo()`. Открытие FIFO на чтение по умолчанию блокируется ядром до тех пор, пока другой процесс не откроет его на запись, и наоборот.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/stat.h>
+   #include <fcntl.h>
+
+   mkfifo("/tmp/ipc_fifo", 0666);
+   int fd = open("/tmp/ipc_fifo", O_RDONLY); // заблокируется до вызова open(..., O_WRONLY)
+
+   ```
+
+   **Типичная ошибка:** Открытие FIFO с флагом `O_RDWR`. По стандарту POSIX поведение такого вызова не определено (хотя в Linux поддерживается).
+
+   **Источник:** [Linux man pages: mkfifo(3)](https://man7.org/linux/man-pages/man3/mkfifo.3.html)
+
+   ---
+
 105. Что такое shared memory?
+
+   **Ответ:** Shared memory (разделяемая память) — механизм IPC, при котором один и тот же диапазон физических страниц памяти проецируется в виртуальное адресное пространство двух или более процессов.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/mman.h>
+
+   void* ptr = mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+   // Память ptr доступна дочернему процессу после fork() без копирования
+
+   ```
+
+   **Типичная ошибка:** Хранение в shared memory сырых указателей C++ (`T*`). Виртуальные адреса отображения в разных процессах чаще всего различаются, что приводит к невалидным разыменованиям (нужно использовать относительные смещения или `boost::interprocess::offset_ptr`).
+
+   **Источник:** [Linux man pages: shm_overview(7)](https://man7.org/linux/man-pages/man7/shm_overview.7.html)
+
+   ---
+
 106. Преимущества shared memory?
+
+   **Ответ:** Максимальная производительность среди всех IPC за счет Zero-Copy: передача данных не требует системных вызовов `read`/`write`, копирования данных в буферы ядра и переключения контекста пользователь/ядро при передаче.
+
+   **Пример:**
+
+   ```cpp
+   // Прямая запись без перехода в кольцо 0:
+   struct Data { int id; double value; };
+   auto* shared_data = static_cast<Data*>(mapped_ptr);
+   shared_data->id = 42;
+
+   ```
+
+   **Типичная ошибка:** Полагать, что zero-copy автоматически ускоряет любые объемы данных. Для мелких сообщений накладные расходы на внешнюю синхронизацию могут нивелировать выигрыш.
+
+   **Источник:** [W. Richard Stevens: UNIX Network Programming, Vol 2 (Interprocess Communications)](https://www.pearson.com/)
+
+   ---
+
 107. Недостатки shared memory?
+
+   **Ответ:** Полное отсутствие встроенной синхронизации (необходимы внешние примитивы: POSIX семафоры, межпроцессные мьютексы), сложность управления временем жизни ресурсов, риск падения одного процесса во время нахождения в критической секции и отсутствие изоляции от сбоев/повреждения памяти соседом.
+
+   **Пример:**
+
+   ```cpp
+   // Если процесс упадет до unlock, разделяемый ресурс навсегда залочится:
+   pthread_mutex_lock(shared_mtx);
+   // CRASH (SIGSEGV) -> Deadlock для всех остальных процессов
+   pthread_mutex_unlock(shared_mtx);
+
+   ```
+
+   **Типичная ошибка:** Использование обычного `std::mutex` внутри shared memory. Внутреннее состояние стандартного мьютекса C++ не рассчитано на межпроцессное разделение без атрибута `PTHREAD_PROCESS_SHARED` и флага `ROBUST`.
+
+   **Источник:** [Linux man pages: pthread_mutexattr_setpshared(3)](https://man7.org/linux/man-pages/man3/pthread_mutexattr_setpshared.3.html)
+
+   ---
+
 108. Что такое mmap()?
+
+   **Ответ:** Системный вызов `mmap()` создает новое отображение в виртуальном адресном пространстве процесса: связывает виртуальные страницы либо с файлом на диске (file-backed mapping), либо с чистой памятью ядра (anonymous mapping).
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/mman.h>
+   #include <fcntl.h>
+
+   int fd = open("data.bin", O_RDWR);
+   void* addr = mmap(nullptr, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+
+   ```
+
+   **Типичная ошибка:** Не проверять результат на значение `MAP_FAILED` (`(void*)-1`), проверяя вместо этого возвращенный указатель на `nullptr`.
+
+   **Источник:** [Linux man pages: mmap(2)](https://man7.org/linux/man-pages/man2/mmap.2.html)
+
+   ---
+
 109. Как использовать shm_open?
+
+   **Ответ:** Функция `shm_open()` создает или открывает объект разделяемой памяти POSIX, возвращая файловый дескриптор. Затем размер задается через `ftruncate()`, а сам объект проецируется в адресное пространство через `mmap()`.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/mman.h>
+   #include <fcntl.h>
+   #include <unistd.h>
+
+   int fd = shm_open("/my_shm", O_CREAT | O_RDWR, 0666);
+   ftruncate(fd, 4096);
+   void* ptr = mmap(nullptr, 4096, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+   // По окончании:
+   shm_unlink("/my_shm");
+
+   ```
+
+   **Типичная ошибка:** Забыть вызов `ftruncate()`. Свежесозданный объект имеет размер 0 байт, попытка чтения или записи в `mmap` на нулевой размер вызовет `SIGBUS`.
+
+   **Источник:** [Linux man pages: shm_open(3)](https://man7.org/linux/man-pages/man3/shm_open.3.html)
+
+   ---
+
 110. Что такое message queue?
+
+   **Ответ:** Message Queue (очередь сообщений) — механизм IPC, реализующий список сообщений с дискретными границами, хранящийся в памяти ядра. В отличие от байтовых потоков (pipe), читатель получает сообщения целиком, с сохранением структуры пакетов и поддержкой приоритетов.
+
+   **Пример:**
+
+   ```cpp
+   #include <mqueue.h>
+
+   mqd_t mq = mq_open("/test_queue", O_CREAT | O_WRONLY, 0644, nullptr);
+   mq_send(mq, "msg", 3, /*priority=*/10);
+
+   ```
+
+   **Типичная ошибка:** Попытка передать сообщение размером больше системного лимита `msgsize_max` (возвращает `EMSGSIZE`).
+
+   **Источник:** [Linux man pages: mq_overview(7)](https://man7.org/linux/man-pages/man7/mq_overview.7.html)
+
+   ---
+
 111. POSIX message queues vs System V?
+
+   **Ответ:** POSIX MQ (`mq_*`) — современный стандарт: использует файловые дескрипторы, поддерживает интеграцию с `select`/`poll`/`epoll`, асинхронные нотификации через сигналы (`mq_notify`) и имеет строгую семантику приоритетов. System V (`msgget`, `msgsnd`) — устаревший API со сложными числовыми ключами `ftok` и глобальным состоянием, не связанным с файловыми дескрипторами.
+
+   **Пример:**
+
+   ```cpp
+   // POSIX: возвращает mqd_t (дескриптор)
+   mqd_t mq = mq_open("/name", O_RDWR);
+
+   // System V: оперирует int id
+   int qid = msgget(ftok("/tmp", 'a'), 0666 | IPC_CREAT);
+
+   ```
+
+   **Типичная ошибка:** Использовать System V API в новом коде, теряя возможность мультиплексировать события в общем цикле `epoll`.
+
+   **Источник:** [Michael Kerrisk: The Linux Programming Interface (Chapters 46 & 52)](https://man7.org/tlpi/)
+
+   ---
+
 112. Что такое socket?
+
+   **Ответ:** Сокет — абстракция конечной точки (endpoint) двунаправленного сетевого или межпроцессного коммуникационного канала, представленная в ОС в виде файлового дескриптора.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/socket.h>
+
+   int sock_fd = socket(AF_INET, SOCK_STREAM, 0); // Создание TCP-сокета
+
+   ```
+
+   **Типичная ошибка:** Предполагать, что сокет предназначен исключительно для работы по сети Ethernet/IP (сокеты универсальны и покрывают локальный IPC через семейство `AF_UNIX`).
+
+   **Источник:** [Linux man pages: socket(2)](https://man7.org/linux/man-pages/man2/socket.2.html)
+
+   ---
+
 113. UNIX domain socket vs TCP?
+
+   **Ответ:** UNIX Domain Sockets (`AF_UNIX`) оптимизированы для коммуникации внутри одной ОС: они не считают контрольные суммы, не генерируют сетевые заголовки, не используют TCP state machine и передают дескрипторы напрямую в оперативной памяти ядра, работая в 2–3 раза быстрее локального TCP.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/socket.h>
+   #include <sys/un.h>
+
+   int fd = socket(AF_UNIX, SOCK_STREAM, 0);
+   sockaddr_un addr{};
+   addr.sun_family = AF_UNIX;
+   strncpy(addr.sun_path, "/tmp/app.sock", sizeof(addr.sun_path) - 1);
+
+   ```
+
+   **Типичная ошибка:** Использовать TCP loopback (`127.0.0.1`) для локального взаимодействия процессов, расходуя CPU на весь сетевой стек.
+
+   **Источник:** [Linux man pages: unix(7)](https://man7.org/linux/man-pages/man7/unix.7.html)
+
+   ---
+
 114. Что такое loopback?
+
+   **Ответ:** Loopback (петлевой интерфейс, `lo`, `127.0.0.1`, `::1`) — виртуальный сетевой интерфейс, драйвер которого сразу заворачивает исходящие сетевые пакеты обратно в стек входящего сетевого трафика той же машины, не обращаясь к сетевому оборудованию.
+
+   **Пример:**
+
+   ```bash
+   ip link show lo
+   # Вывод: <LOOPBACK,UP,LOWER_UP> mtu 65536
+
+   ```
+
+   **Типичная ошибка:** Считать loopback эквивалентным по скорости межпроцессным пайпам: пакеты loopback по-прежнему проходят стек маршрутизации, TCP congestion control и файрвол (iptables/nftables).
+
+   **Источник:** [RFC 1122: Requirements for Internet Hosts](https://datatracker.ietf.org/doc/html/rfc1122)
+
+   ---
+
 115. Что такое serialization?
+
+   **Ответ:** Сериализация — процесс преобразования структур данных или графов объектов в оперативной памяти в линейную последовательность байт для сохранения на диск или передачи по каналу IPC/сети.
+
+   **Пример:**
+
+   ```cpp
+   // Концепт сериализации через FlatBuffers / Protobuf / JSON:
+   struct Message { int id; std::string text; };
+   // Превращается в поток байтов: [0x2A, 0x00, 0x00, 0x00, 0x04, 't', 'e', 'x', 't']
+
+   ```
+
+   **Типичная ошибка:** Прямой дамп структур `memcpy(&struct)` при межплатформенном или разносистемном обмене: приводит к поломке из-за разного endianness (порядка байт) и различий в padding/alignment компиляторов.
+
+   **Источник:** [ISO C++ FAQ: Serialization](https://isocpp.org/wiki/faq/serialization)
+
+   ---
+
 116. Что такое RPC?
+
+   **Ответ:** RPC (Remote Procedure Call) — протокол/концепция, позволяющая программе вызывать процедуру или метод в другом адресном пространстве (на другой машине или в соседнем процессе) так же прозрачно, как и локальный вызов, скрывая детали сетевого кодирования и передачи.
+
+   **Пример:**
+
+   ```cpp
+   // Клиентский gRPC псевдокод:
+   auto response = stub->GetUserBalance(context, request);
+   // Под капотом: сериализация protobuf, отправка по HTTP/2, ожидание, десериализация.
+
+   ```
+
+   **Типичная ошибка:** Обращаться с вызовом RPC как с обычной дешевой функцией памяти, игнорируя сетевые задержки, таймауты и возможность частичного падения системы (partial failure).
+
+   **Источник:** [RFC 1831: RPC: Remote Procedure Call Protocol Specification](https://datatracker.ietf.org/doc/html/rfc1831)
+
+   ---
+
 117. Что такое file descriptor?
+
+   **Ответ:** Файловый дескриптор (FD) — целое неотрицательное число, служащее индексом в системной per-process таблице открытых файлов процесса, через которую ядро ссылается на глобальную таблицу открытых файлов (`struct file`) и структуры inode/сокеты.
+
+   **Пример:**
+
+   ```cpp
+   int fd = open("/dev/null", O_RDONLY); // Обычно возвращает наименьший свободный int (3)
+
+   ```
+
+   **Типичная ошибка:** Утечка дескрипторов (file descriptor exhaustion): исчерпание лимита процесса (`ulimit -n`), после чего любые вызовы `socket()`, `open()`, `accept()` завершаются с ошибкой `EMFILE`.
+
+   **Источник:** [Linux man pages: open(2)](https://man7.org/linux/man-pages/man2/open.2.html)
+
+   ---
+
 118. Как передаются данные через pipe?
+
+   **Ответ:** Запись (`write`) копирует данные из пользовательского буфера в страницы кольцевого буфера ядра pipe buffer. Чтение (`read`) копирует данные из буфера ядра в пользовательский буфер процесса-получателя (двойное копирование в RAM).
+
+   **Пример:**
+
+   ```
+   User Space (Process A) -> copy_from_user() -> Kernel Pipe Buffer -> copy_to_user() -> User Space (Process B)
+
+   ```
+
+   **Типичная ошибка:** Полагать, что запись любого объема в `pipe` атомарна. Атомарность гарантируется стандартом POSIX только для сообщений размером не более константы `PIPE_BUF` (в Linux: 4096 байт).
+
+   **Источник:** [Linux man pages: pipe(7)](https://man7.org/linux/man-pages/man7/pipe.7.html)
+
+   ---
+
 119. blocking vs non-blocking IPC?
+
+   **Ответ:** В блокирующем режиме системный вызов (`read`/`write`/`msgrcv`) усыпляет поток до появления данных или свободного места в буфере. В неблокирующем (`O_NONBLOCK`) вызов немедленно возвращает управление с ошибкой `EAGAIN` или `EWOULDBLOCK`, если операция не может быть выполнена прямо сейчас.
+
+   **Пример:**
+
+   ```cpp
+   #include <fcntl.h>
+
+   int flags = fcntl(fd, F_GETFL, 0);
+   fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+   // Теперь read(fd, buf, sz) вернет -1 с errno=EAGAIN, если буфер пуст
+
+   ```
+
+   **Типичная ошибка:** Организовывать spin-wait цикл на неблокирующем дескрипторе, сжигая 100% ядра CPU вместо использования мультиплексирования ввода-вывода (`epoll`).
+
+   **Источник:** [Linux man pages: fcntl(2)](https://man7.org/linux/man-pages/man2/fcntl.2.html)
+
+   ---
+
 120. select/poll/epoll — что это?
+
+   **Ответ:** Это механизмы мультиплексирования ввода-вывода (I/O Multiplexing). `select` и `poll` опрашивают дескрипторы линейным перебором со сложностью $O(N)$, требуя передачи массива дескрипторов в ядро на каждом вызове. `epoll` работает со сложностью $O(1)$ по числу готовых событий, сохраняя interest list внутри структур ядра и регистрируя события через callback драйверов.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/epoll.h>
+
+   int epfd = epoll_create1(0);
+   epoll_event ev{.events = EPOLLIN, .data = {.fd = sock_fd}};
+   epoll_ctl(epfd, EPOLL_CTL_ADD, sock_fd, &ev);
+
+   epoll_event events[10];
+   int nfds = epoll_wait(epfd, events, 10, -1); // Ждет только готовые события
+
+   ```
+
+   **Типичная ошибка:** Использовать `select` для сокетов с дескриптором больше 1023: макрос `FD_SET` перезаписывает память за пределами битовой маски `fd_set`, вызывая memory corruption.
+
+   **Источник:** [Linux man pages: epoll(7)](https://man7.org/linux/man-pages/man7/epoll.7.html)
+
+   ---
+
 121. Что такое epoll edge-triggered?
+
+   **Ответ:** Edge-Triggered (ET, `EPOLLET`) — режим уведомлений, при котором `epoll_wait` сообщает о событии ровно один раз: в момент изменения состояния (перехода из неготовности в готовность). В отличие от Level-Triggered (LT), событие не будет повторяться, пока не поступит новая порция данных.
+
+   **Пример:**
+
+   ```cpp
+   epoll_event ev;
+   ev.events = EPOLLIN | EPOLLET; // Edge-Triggered
+   epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &ev);
+
+   // В цикле чтения необходимо вычитывать до конца:
+   while (true) {
+       ssize_t bytes = read(fd, buf, sizeof(buf));
+       if (bytes == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) break;
+   }
+
+   ```
+
+   **Типичная ошибка:** Не дочитать все данные до конца буфера (`EAGAIN`) в режиме ET: оставшиеся байты застрянут, а поток навсегда зависнет в ожидании следующего `epoll_wait`.
+
+   **Источник:** [Linux man pages: epoll(7) - Level-triggered and edge-triggered](https://man7.org/linux/man-pages/man7/epoll.7.html)
+
+   ---
+
 122. Что такое backpressure?
+
+   **Ответ:** Backpressure (обратное давление) — механизм контроля потока данных, при котором перегруженный получатель сигнализирует отправителю о необходимости замедлить или временно остановить передачу, предотвращая переполнение буферов и неконтролируемый рост задержек.
+
+   **Пример:**
+
+   ```cpp
+   // Пример на уровне TCP: получатель не вызывает read() -> окно TCP Receive Window
+   // (TCP window probe) схлопывается до 0 -> стек отправителя блокирует write().
+
+   ```
+
+   **Типичная ошибка:** Неограниченно складывать поступающие сообщения в бесконечную очередь в оперативной памяти (out-of-memory crash) вместо сброса входящего трафика или блокировки отправителя.
+
+   **Источник:** [Reactive Streams: The Backpressure Protocol](https://www.reactive-streams.org/)
+
+   ---
+
 123. Как синхронизировать shared memory?
+
+   **Ответ:** Разделяемая память синхронизируется через объекты синхронизации, расположенные в самой этой памяти: именованные POSIX-семафоры (`sem_open`), анонимные межпроцессные семафоры (`sem_init` с `pshared=1`), `pthread_mutex` с атрибутом `PTHREAD_PROCESS_SHARED` или атомарные типы C++ (`std::atomic`).
+
+   **Пример:**
+
+   ```cpp
+   #include <pthread.h>
+
+   struct SharedArea {
+       pthread_mutex_t mtx;
+       int payload;
+   };
+
+   // Инициализация при создании:
+   pthread_mutexattr_t attr;
+   pthread_mutexattr_init(&attr);
+   pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
+   pthread_mutex_init(&ptr->mtx, &attr);
+
+   ```
+
+   **Типичная ошибка:** Использовать обычные спинлоки без обработки аварийного завершения процесса: если владелец лока упадет, мьютекс останется заблокированным навсегда (для решения требуется `PTHREAD_MUTEX_ROBUST`).
+
+   **Источник:** [Linux man pages: pthread_mutexattr_setrobust(3)](https://man7.org/linux/man-pages/man3/pthread_mutexattr_setrobust.3.html)
+
+   ---
+
 124. Что быстрее: pipe или shared memory?
+
+   **Ответ:** Shared memory быстрее, поскольку работает с нулевым копированием (Zero-Copy) без переключения контекста пользователь/ядро. Pipe требует системных вызовов `read`/`write` и двух копирований данных через кольцевой буфер ядра.
+
+   **Пример:**
+
+   ```
+   Pipe:          App1 -> [copy_to_kernel] -> Kernel -> [copy_to_user] -> App2
+   Shared Memory: App1 -> [RAM] ----------------------------------------> App2
+
+   ```
+
+   **Типичная ошибка:** Выбирать shared memory всегда и везде. Для небольших сообщений (< 1 КБ) накладные расходы на сигнальные примитивы (футексы, ивенты) сравнимы с пайпами, при этом пайпы значительно проще в поддержке.
+
+   **Источник:** [Brendan Gregg: Systems Performance: Enterprise and the Cloud](http://www.brendangregg.com/systems-performance-2nd-edition-book.html)
+
+   ---
+
 125. Когда использовать sockets локально?
 
-     ---
+   **Ответ:** Локальные сокеты (особенно UNIX Domain Sockets) применяются, когда требуется надежная изоляция с передачей прав доступа (дескрипторов файлов через `SCM_RIGHTS`), проверка UID/GID процесса-клиента через `SO_PEERCRED`, а также если архитектура сервиса должна безболезненно переноситься с локальной машины на распределенную сеть без переписывания протокола.
 
-### Virtual Memory
+   **Пример:**
+
+   ```cpp
+   // Проверка прав клиента через UDS:
+   struct ucred cred;
+   socklen_t len = sizeof(cred);
+   getsockopt(client_fd, SOL_SOCKET, SO_PEERCRED, &cred, &len);
+   // cred.uid содержит реальный UID вызвавшего процесса
+
+   ```
+
+   **Типичная ошибка:** Использовать разделяемую память для задач авторизации и контроля прав доступа клиентов к сервису демона.
+
+   **Источник:** [Linux man pages: unix(7) / SCM_RIGHTS](https://man7.org/linux/man-pages/man7/unix.7.html)
+
+   ---
+
+## Virtual Memory
+
+
 126. Что такое virtual memory?
+
+   **Ответ:** Виртуальная память — аппаратная и программная абстракция операционной системы, предоставляющая каждому процессу иллюзию владения собственным непрерывным изолированным адресным пространством, аппаратно изолированным от других процессов и физического ОЗУ.
+
+   **Пример:**
+
+   ```cpp
+   #include <iostream>
+
+   int main() {
+       int x = 42;
+       // Адрес &x виртуальный. В двух разных запущенных копиях процесса
+       // адреса могут совпадать, но они транслируются в разные физические фреймы.
+       std::cout << "Virtual address: " << &x << '\n';
+   }
+
+   ```
+
+   **Типичная ошибка:** Полагать, что указатель в C++ указывает на реальную ячейку на планке оперативной памяти.
+
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (Chapter 9: Virtual Memory)](https://www.os-book.com/)
+
+   ---
+
 127. Почему нужна виртуальная память?
+
+   **Ответ:** Виртуальная память решает четыре ключевые задачи: защита памяти и изоляция процессов друг от друга, устранение фрагментации физической памяти, использование диска как расширения ОЗУ (swap/paging) и совместное использование страниц памяти библиотек (shared libs) и кода.
+
+   **Пример:**
+
+   ```
+   Процесс A (0x1000) -> [Трансляция MMU] -> Физический фрейм 0xAA000
+   Процесс B (0x1000) -> [Трансляция MMU] -> Физический фрейм 0xBB000
+
+   ```
+
+   **Типичная ошибка:** Считать, что виртуальная память придумана исключительно ради механизма SWAP (сброса данных на диск при нехватке памяти).
+
+   **Источник:** [Bryant, O'Hallaron: Computer Systems: A Programmer's Perspective (Chapter 9)](https://csapp.cs.cmu.edu/)
+
+   ---
+
 128. Что такое paging?
+
+   **Ответ:** Paging (страничная адресация) — схема управления памятью, при которой виртуальное адресное пространство разбивается на блоки фиксированного размера — *страницы* (pages), а физическая память — на блоки такого же размера — *фреймы* (page frames).
+
+   **Пример:**
+
+   ```
+   Виртуальный адрес (64-bit) = [ Номер виртуальной страницы (VPN) | Смещение внутри страницы (Offset) ]
+
+   ```
+
+   **Типичная ошибка:** Считать, что смещение (offset) транслируется через таблицы страниц. Транслируется только номер страницы (VPN -> PFN), смещение остается неизменным.
+
+   **Источник:** [Intel® 64 and IA-32 Architectures Software Developer Manuals (Vol 3A: Paging)](https://www.intel.com/)
+
+   ---
+
 129. Что такое page?
+
+   **Ответ:** Page (страница памяти) — наименьший непрерывный блок виртуальной памяти фиксированной длины, которым оперирует подсистема виртуальной памяти операционной системы и блок управления памятью процессора (MMU). Стандартный размер на архитектуре x86-64 составляет 4096 байт (4 КиБ).
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+   long page_size = sysconf(_SC_PAGESIZE); // Возвращает 4096 на большинстве систем
+
+   ```
+
+   **Типичная ошибка:** Попытка выставить права доступа на уровне отдельных байт: функции вроде `mprotect()` работают только с точностью до страницы, округляя границы.
+
+   **Источник:** [Linux man pages: sysconf(3)](https://man7.org/linux/man-pages/man3/sysconf.3.html)
+
+   ---
+
 130. Что такое page table?
+
+   **Ответ:** Таблица страниц (Page Table) — многоуровневая структура данных в оперативной памяти (например, 4- или 5-уровневое дерево PML4/PML5 на x86-64), используемая аппаратным блоком MMU для трансляции виртуальных номеров страниц в номера физических фреймов.
+
+   **Пример:**
+
+   ```
+   CR3 -> PML4 -> Page Directory Pointer -> Page Directory -> Page Table -> Физическая страница
+
+   ```
+
+   **Типичная ошибка:** Думать, что таблица страниц плоская и занимает гигабайты памяти на процесс. Многоуровневая структура позволяет создавать узлы дерева только для реально выделенных диапазонов памяти.
+
+   **Источник:** [OSDev Wiki: Paging](https://wiki.osdev.org/Paging)
+
+   ---
+
 131. Что такое TLB?
+
+   **Ответ:** TLB (Translation Lookaside Buffer) — специализированный аппаратный ассоциативный кэш внутри микропроцессора (в составе MMU), хранящий последние выполненные отображения виртуальных адресов страниц в физические адреса для исключения медленных обходов памяти (page walks).
+
+   **Пример:**
+
+   ```
+   Виртуальный адрес -> Проверка TLB -> TLB Hit (1 такт) -> Физический адрес
+                                     -> TLB Miss (Page Walk: ~50-100 тактов)
+
+   ```
+
+   **Типичная ошибка:** Не учитывать влияние сброса TLB (TLB shootdown / flush) при переключении контекста между тяжелыми процессами или вызовах `madvise`/`munmap`.
+
+   **Источник:** [Ulrich Drepper: What Every Programmer Should Know About Memory](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
+
+   ---
+
 132. Что такое page fault?
+
+   **Ответ:** Page fault (страничное нарушение) — аппаратное прерывание процессора (исключение #PF), возникающее при попытке доступа к виртуальной странице, у которой отсутствует валидная трансляция в физический фрейм, либо нарушены права доступа к ней.
+
+   **Пример:**
+
+   ```cpp
+   int* ptr = nullptr;
+   *ptr = 10; // CPU генерирует Page Fault, ядро проверяет VMA, видит невалидный адрес -> шлет SIGSEGV
+
+   ```
+
+   **Типичная ошибка:** Считать любой Page Fault фатальной ошибкой программы. Page faults являются штатным механизмом ленивого выделения памяти (Demand Paging) и работы swap.
+
+   **Источник:** [Linux man pages: sigaction(2) / SIGSEGV](https://man7.org/linux/man-pages/man2/sigaction.2.html)
+
+   ---
+
 133. minor vs major page fault?
+
+   **Ответ:** Minor (soft) page fault возникает, когда физическая страница уже находится в оперативной памяти (например, страница выделена ядром анонимно, или находится в page cache), и требуется только обновить запись в таблице страниц. Major (hard) page fault требует медленного синхронного чтения данных со вторичного блочного устройства (диска или swap).
+
+   **Пример:**
+
+   ```bash
+   /usr/bin/time -v ./my_app
+   # В выводе:
+   # Minor (reclaiming a frame) page faults: 1200
+   # Major (requiring I/O) page faults: 2
+
+   ```
+
+   **Типичная ошибка:** Не оптимизировать холодный старт приложений: большое число major page faults при загрузке бинарников и динамических библиотек с диска резко увеличивает launch latency.
+
+   **Источник:** [Linux man pages: getrusage(2)](https://man7.org/linux/man-pages/man2/getrusage.2.html)
+
+   ---
+
 134. Что такое segmentation?
+
+   **Ответ:** Сегментация — схема управления памятью, при которой адресное пространство делится на логические сегменты переменной длины (сегмент кода, сегмент стека, сегмент данных) в зависимости от назначения данных, задаваемых через сегментные регистры (CS, DS, SS).
+
+   **Пример:**
+
+   ```asm
+   mov eax, [ds:0x1000] ; обращение к смещению 0x1000 относительно базового адреса сегмента DS
+
+   ```
+
+   **Типичная ошибка:** Полагать, что сегментация активно используется в современных x86-64 ОС. В 64-битном режиме (Long Mode) сегментация отключена (базовые адреса большинства сегментов жестко зафиксированы в 0), память организована через страничную адресацию.
+
+   **Источник:** [Intel® 64 Architecture Processor Topology and Segmentation Manual](https://www.intel.com/)
+
+   ---
+
 135. Paging vs segmentation?
+
+   **Ответ:** Страничная организация оперирует блоками *фиксированного* размера (страницами) и управляется аппаратно/ОС незаметно для программиста, полностью решая проблему внешней фрагментации. Сегментация делит память на блоки *переменного* логического размера и страдает от внешней фрагментации.
+
+   **Пример:**
+
+   | Характеристика | Paging | Segmentation |
+   | --- | --- | --- |
+   | Размер блока | Фиксированный (обычно 4 КиБ) | Переменный (логический) |
+   | Фрагментация | Только внутренняя | Преимущественно внешняя |
+   | Прозрачность | Полностью скрыт от программиста | Отражает архитектуру кода/данных |
+
+   **Типичная ошибка:** Считать, что эти механизмы взаимоисключающие. Архитектура x86 аппаратно применяет сегментацию *до* страничного преобразования (Logical Address -> Linear Address -> Physical Address).
+
+   **Источник:** [Andrew S. Tanenbaum: Modern Operating Systems](https://www.pearson.com/)
+
+   ---
+
 136. Что такое swap?
+
+   **Ответ:** Swap (подкачка) — механизм виртуальной памяти, при котором неактивные, редко используемые страницы оперативной памяти выгружаются на диск (в специальный раздел подкачки или swap-файл) для освобождения физического ОЗУ под активные задачи или page cache.
+
+   **Пример:**
+
+   ```bash
+   swapon --show
+   # Просмотр активных разделов и файлов подкачки
+
+   ```
+
+   **Типичная ошибка:** Полное отключение swap на серверах. Без swap ядро теряет возможность скидывать мертвые анонимные страницы, чтобы освободить память под дисковый кэш, и раньше времени инициирует аварийный OOM Killer.
+
+   **Источник:** [Red Hat Enterprise Linux: Managing Swap Space](https://access.redhat.com/)
+
+   ---
+
 137. Что такое demand paging?
+
+   **Ответ:** Demand paging (подкачка по требованию) — механизм ленивого распределения ресурсов памяти: ядро ОС не выделяет физические фреймы и не читает файлы в память в момент вызова `malloc()` или `mmap()`, а откладывает это до первой реальной инструкции чтения/записи, вызывающей page fault.
+
+   **Пример:**
+
+   ```cpp
+   // Ядро выделяет только диапазон VMA (Virtual Memory Area):
+   void* ptr = malloc(1024 * 1024 * 1024); // 1 ГБ выделен мгновенно!
+   // Реальный физический фрейм выделится только здесь:
+   ((char*)ptr)[0] = 'A'; // Page fault -> выделение 1 страницы (4 КБ)
+
+   ```
+
+   **Типичная ошибка:** Измерять фактическое потребление памяти приложением по виртуальному размеру (VIRT/VMS), а не по фактически ассоциированной физической памяти (RES/RSS).
+
+   **Источник:** [Linux Kernel Documentation: Page Fault Handling](https://docs.kernel.org/)
+
+   ---
+
 138. Что такое copy-on-write?
+
+   **Ответ:** Copy-on-Write (COW) — техника оптимизации, при которой несколько задач разделяют одни и те же физические страницы с правами "только для чтения". При попытке любого процесса выполнить запись, процессор вызывает page fault, и ядро создает изолированную физическую копию этой конкретной страницы для модифицирующего процесса.
+
+   **Пример:**
+
+   ```cpp
+   pid_t pid = fork();
+   // Память родителя и потомка указывает на одни и те же физические фреймы.
+   // Реальное дублирование страниц начнется только при записи в переменные.
+
+   ```
+
+   **Типичная ошибка:** Предполагать, что системный вызов `fork()` на процессе с 32 ГБ памяти мгновенно дублирует все 32 ГБ физического ОЗУ.
+
+   **Источник:** [Linux man pages: fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html)
+
+   ---
+
 139. Что такое memory mapping?
+
+   **Ответ:** Memory mapping — связывание диапазона виртуальных адресов процесса с содержимым файла на накопителе или виртуальным ресурсом ядра, позволяющее обращаться к файлу через прямые инструкции процессора по указателю без использования системных вызовов `read` и `write`.
+
+   **Пример:**
+
+   ```cpp
+   int fd = open("db.dat", O_RDWR);
+   auto* db = (char*)mmap(NULL, file_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+   db[0] = 'X'; // Изменение страницы, сброс на диск выполняется ядром через page cache
+
+   ```
+
+   **Типичная ошибка:** Забывать, что усечение (truncate) отображенного файла другим процессом приведет к падению программы с сигналом `SIGBUS` при попытке адресации за пределами новой границы.
+
+   **Источник:** [Linux man pages: msync(2)](https://man7.org/linux/man-pages/man2/msync.2.html)
+
+   ---
+
 140. mmap vs malloc?
+
+   **Ответ:** `malloc` — высокоуровневая библиотечная функция рантайма (glibc), управляющая кучей через пользовательские пулы и мелкие чанки. Для больших аллокаций (по умолчанию от 128 КБ) `malloc` внутри вызывает системный вызов `mmap(MAP_ANONYMOUS)`, а для мелких использует системный вызов расширения кучи `brk()`.
+
+   **Пример:**
+
+   ```
+   malloc(16)   -> Берет кусок из существующей арены кучи (через brk), системный вызов не делается.
+   malloc(10MB) -> Вызывает mmap(MAP_ANONYMOUS) напрямую у ядра ОС.
+
+   ```
+
+   **Типичная ошибка:** Вызывать `mmap` напрямую для аллокации мелких объектов (по 32–64 байта): это нерационально расходует физическую память (минимальный квант `mmap` — 4096 байт) и перегружает ядро системными вызовами.
+
+   **Источник:** [Sourceware: Glibc Malloc Internals](https://sourceware.org/glibc/wiki/MallocInternals)
+
+   ---
+
 141. Что такое heap vs stack?
+
+   **Ответ:** Стек — быстрый, непрерывный LIFO-сегмент памяти, автоматически управляемый компилятором через указатель стека (RSP), используемый для локальных переменных и фреймов функций. Куча (Heap) — динамически управляемая программистом вручную или рантаймом область памяти для объектов с произвольным временем жизни.
+
+   **Пример:**
+
+   ```cpp
+   void foo() {
+       int a = 10;                     // Стек: аллокация за 1 такт CPU (sub rsp, 4)
+       auto* b = new int(20);          // Куча: поиск свободного блока, блокировка арены
+       delete b;                       // Ручное управление временем жизни
+   }
+
+   ```
+
+   **Типичная ошибка:** Размещение больших объектов (например, массивов `char buf[10*1024*1024]`) на стеке, что моментально приводит к переполнению стека.
+
+   **Источник:** [Bjarne Stroustrup: The C++ Programming Language](https://www.stroustrup.com/)
+
+   ---
+
 142. Как растёт стек?
+
+   **Ответ:** На большинстве современных платформ (включая x86 и x86-64) стек растет вниз — от старших адресов виртуальной памяти к младшим адресам. Операция `push` декрементирует регистр указателя стека `RSP`.
+
+   **Пример:**
+
+   ```cpp
+   int a;
+   int b;
+   // &b меньше чем &a, если переменные размещены последовательно на нисходящем стеке
+
+   ```
+
+   **Типичная ошибка:** Полагать, что стандарт C++ специфицирует направление роста стека: архитектурно в некоторых RISC-системах стек может расти вверх.
+
+   **Источник:** [AMD64 Architecture Programmer's Manual Volume 2: System Programming](https://www.amd.com/)
+
+   ---
+
 143. Что такое stack overflow?
+
+   **Ответ:** Stack overflow (переполнение стека) — ошибка, возникающая при попытке сместить указатель стека за пределы выделенного ему диапазона страниц. Указатель упирается в незамапленную страницу памяти — Guard Page, аппаратный MMU вызывает page fault, и ядро завершает процесс с `SIGSEGV`.
+
+   **Пример:**
+
+   ```cpp
+   void infinite_recursion() {
+       infinite_recursion(); // Вызывает исчерпание стека (обычно 8 МБ по умолчанию в Linux)
+   }
+
+   ```
+
+   **Типичная ошибка:** Пытаться перехватить переполнение стека стандартным обработчиком `signal(SIGSEGV, ...)`. Обработчик падает на том же самом переполненном стеке (для корректной обработки требуется альтернативный стек сигналов `sigaltstack`).
+
+   **Источник:** [Linux man pages: sigaltstack(2)](https://man7.org/linux/man-pages/man2/sigaltstack.2.html)
+
+   ---
+
 144. Что такое fragmentation?
+
+   **Ответ:** Фрагментация памяти — явление, при котором общий объем свободной памяти достаточен для выполнения запроса, но память разбита на неэффективные блоки, что делает невозможным выделение непрерывного участка нужного размера, либо приводит к нецелевому расходу страниц.
+
+   **Пример:**
+
+   ```
+   [Занято 1МБ] [Свободно 2МБ] [Занято 1МБ] [Свободно 2МБ]
+   Всего свободно 4МБ, но аллокацию непрерывных 3МБ выполнить невозможно.
+
+   ```
+
+   **Типичная ошибка:** Считать, что виртуальная память подвержена внешней фрагментации физических страниц: страничная трансляция MMU собирает непрерывный виртуальный буфер из любых разрозненных физических фреймов.
+
+   **Источник:** [Paul R. Wilson et al.: Dynamic Storage Allocation: A Survey and Critical Review](https://www.cs.utexas.edu/users/oops/papers.html)
+
+   ---
+
 145. internal vs external fragmentation?
+
+   **Ответ:** Внутренняя фрагментация возникает, когда память выделяется квантами фиксированного размера, и запрошенный размер меньше размера выделенного блока (память теряется внутри блока). Внешняя фрагментация возникает при выделении блоков произвольного размера, когда свободная память разбита на мелкие островки, между которыми нельзя разместить крупный блок.
+
+   **Пример:**
+
+   ```
+   Внутренняя: Запрошено 4097 байт -> Ядро выделило 2 страницы по 4096 байт (8192 байта).
+               Потеряно внутри блока: 4095 байт.
+   Внешняя:    Суммарно свободно 1 ГБ памяти, но самый большой непрерывный кусок — 100 КБ.
+
+   ```
+
+   **Типичная ошибка:** Считать, что paging имеет внешнюю фрагментацию. Paging имеет только внутреннюю фрагментацию на последней странице диапазона.
+
+   **Источник:** [Silberschatz, Galvin: Operating System Concepts (Memory Management)](https://www.os-book.com/)
+
+   ---
+
 146. Что такое huge pages?
+
+   **Ответ:** Huge Pages (большие страницы) — аппаратная возможность архитектур процессора использовать страницы размером 2 МиБ или 1 ГиБ вместо стандартных 4 КиБ. Это кратно сокращает количество записей в TLB, снижая процент TLB misses в приложениях с большими массивами данных (базы данных, высокочастотный трейдинг).
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/mman.h>
+
+   void* ptr = mmap(NULL, 2 * 1024 * 1024, PROT_READ | PROT_WRITE,
+                    MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
+
+   ```
+
+   **Типичная ошибка:** Включение Transparent Huge Pages (THP) для latency-critical нагрузок со случайным доступом к памяти: фоновый процесс дефрагментации страниц ядра (`khugepaged`) может вызывать непредсказуемые задержки (stalls).
+
+   **Источник:** [Linux Kernel Documentation: HugeTLB Pages](https://docs.kernel.org/admin-guide/mm/hugetlbpage.html)
+
+   ---
+
 147. Что такое NUMA memory?
+
+   **Ответ:** NUMA (Non-Uniform Memory Access) — архитектура многопроцессорных систем, в которой память физически распределена между сокетами CPU: доступ процессора к своей «локальной» памяти (подключенной к его контроллеру памяти) происходит значительно быстрее, чем к «удаленной» памяти других сокетов через интерконнект (QPI/UPI/Infinity Fabric).
+
+   **Пример:**
+
+   ```bash
+   numactl --hardware
+   # Показывает ноды памяти и штрафы (node distances) за межсокетовое обращение
+
+   ```
+
+   **Типичная ошибка:** Разрешать потокам свободно мигрировать между разными NUMA-нодами: переместившийся поток начинает непрерывно делать дорогой межсокетовый доступ к своим данным.
+
+   **Источник:** [Linux man pages: numactl(8)](https://man7.org/linux/man-pages/man8/numactl.8.html)
+
+   ---
+
 148. Что такое protection bits?
+
+   **Ответ:** Protection bits (биты защиты) — флаги в дескрипторах записей таблицы страниц (PTE), определяющие права доступа процессора к физическому фрейму: бит чтения/записи (R/W), бит супервизора (U/S — Kernel vs User mode) и бит запрета исполнения кода (NX / No-Execute bit).
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/mman.h>
+
+   // Установка бит защиты страницы (снимаем флаг записи):
+   mprotect(addr, 4096, PROT_READ); // Попытка записи вызовет hardware Page Fault -> SIGSEGV
+
+   ```
+
+   **Типичная ошибка:** Выделение страниц одновременно с правами записи и исполнения (`PROT_READ | PROT_WRITE | PROT_EXEC`), что нарушает принцип W^X (Write XOR Execute) и создает критические уязвимости безопасности.
+
+   **Источник:** [Linux man pages: mprotect(2)](https://man7.org/linux/man-pages/man2/mprotect.2.html)
+
+   ---
+
 149. Что такое address translation?
+
+   **Ответ:** Трансляция адресов — аппаратный процесс преобразования виртуального адреса, используемого программой, в физический адрес шины памяти RAM, выполняемый блоком MMU процессора при каждом обращении к памяти на основе аппаратных регистров (таких как `CR3`) и многоуровневых таблиц страниц.
+
+   **Пример:**
+
+   ```
+   Виртуальный адрес -> Сплит на индексы (PML4 -> PDPT -> PD -> PT) -> Чтение записей в RAM -> Физический адрес
+
+   ```
+
+   **Типичная ошибка:** Полагать, что трансляция адресов происходит программно через код операционной системы: ОС только настраивает таблицы страниц, саму трансляцию на каждом такте процессора осуществляет кремний (MMU).
+
+   **Источник:** [Intel® 64 and IA-32 Architectures Software Developer Manuals (Volume 3A: Memory Management)](https://www.intel.com/)
+
+   ---
+
 150. Что такое kernel memory allocator?
 
-     ---
+   **Ответ:** Kernel memory allocator — комплекс внутренних механизмов ядра ОС (в Linux: Buddy Allocator для страниц физической памяти и SLAB/SLUB/SLOB для гранулярных объектов ядра), отвечающий за эффективное распределение памяти под структуры данных ОС без внешней фрагментации.
 
-### System Calls
+   **Пример:**
+
+   ```c
+   // Внутренний код модуля ядра Linux:
+   struct task_struct *task;
+   task = kmem_cache_alloc(task_struct_cachep, GFP_KERNEL); // Аллокация из SLUB-кэша
+   kmem_cache_free(task_struct_cachep, task);
+
+   ```
+
+   **Типичная ошибка:** Путать пользовательский аллокатор приложения (`malloc` / `jemalloc` / `tcmalloc`) и аллокатор ядра. Пользовательский аллокатор распределяет адреса внутри своего виртуального пространства, а аллокатор ядра управляет физическими фреймами и внутренними объектами ОС.
+
+   **Источник:** [Robert Love: Linux Kernel Development (Chapter 12: Memory Management)](https://www.pearson.com/)
+
+
+        ---
+
+## System Calls
+
+
+---
+
 151. Что такое system call?
+
+   **Ответ:** Системный вызов (syscall) — программный интерфейс, предоставляемый ядром операционной системы приложениям пользовательского пространства (User Space) для безопасного запроса привилегированных операций: работы с оборудованием, управления процессами, памятью и сетевым стеком.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+   #include <sys/syscall.h>
+
+   int main() {
+       const char msg[] = "Hello\n";
+       // Прямой системный вызов write в обход glibc:
+       syscall(SYS_write, STDOUT_FILENO, msg, sizeof(msg) - 1);
+       return 0;
+   }
+
+   ```
+
+   **Типичная ошибка:** Считать, что функции стандартной библиотеки C/C++ (например, `printf` или `strlen`) сами по себе являются системными вызовами. Большинство функций libc выполняются целиком в user space и обращаются к ядру лишь при необходимости ввода-вывода или выделения страниц памяти.
+
+   **Источник:** [Linux man pages: syscalls(2)](https://man7.org/linux/man-pages/man2/syscalls.2.html)
+
+   ---
+
 152. Как выполняется syscall?
+
+   **Ответ:** На современных процессорах x86-64 аргументы помещаются в регистры общего назначения (`rdi`, `rsi`, `rdx`, `r10`, `r8`, `r9`), номер системного вызова кладется в регистр `rax`, после чего выполняется специализированная инструкция ассемблера `syscall`. Процессор аппаратно сохраняет состояние и передает управление в точку входа ядра.
+
+   **Пример:**
+
+   ```asm
+   mov rax, 60       ; номер syscall для sys_exit на x86-64
+   mov rdi, 0        ; аргумент: exit code 0
+   syscall           ; аппаратный переход в kernel mode
+
+   ```
+
+   **Типичная ошибка:** Использовать старый механизм программных прерываний `int 0x80` на 64-битных системах. Он предназначен для 32-битного x86, работает значительно медленнее и использует другую таблицу номеров вызовов.
+
+   **Источник:** [Intel® 64 and IA-32 Architectures Software Developer Manuals (Instruction Set: SYSCALL)](https://www.intel.com/)
+
+   ---
+
 153. user → kernel переход?
+
+   **Ответ:** Переход `user space -> kernel space` — аппаратно контролируемая смена уровня привилегий процессора (с Ring 3 на Ring 0). Инструкция `syscall` переключает указатель стека пользователя на стек ядра (через регистры MSR), сохраняет адрес возврата в регистр `rcx`, флаги в `r11` и передает исполнение обработчику системных вызовов ядра без сброса всей виртуальной памяти.
+
+   **Пример:**
+
+   ```
+   Ring 3 (User Code)
+          ↓ (инструкция syscall)
+   [CPU Hardware: сохранение RIP в RCX, переключение CPL на 0, загрузка адреса из MSR LSTAR]
+          ↓
+   Ring 0 (Kernel entry_SYSCALL_64 -> диспетчеризация вызова)
+
+   ```
+
+   **Типичная ошибка:** Путать переход в ядро (context switch privilege levels) с переключением контекста процессов (process context switch). Переход в ядро не меняет текущее адресное пространство процесса (регистр `CR3` остается прежним, если не включен KPTI).
+
+   **Источник:** [OSDev Wiki: Sysenter / Syscall](https://wiki.osdev.org/SYSENTER)
+
+   ---
+
 154. syscall vs function call?
+
+   **Ответ:** Обычный вызов функции (`call`/`ret`) выполняется за единицы тактов процессора, оставаясь внутри одного адресного пространства и уровня привилегий (Ring 3), передавая аргументы через стек или регистры ABI. Системный вызов требует аппаратного переключения уровня привилегий CPU (Ring 3 -> Ring 0), смены стека на стек ядра, валидации указателей и на порядки превосходит вызов функции по времени выполнения.
+
+   **Пример:**
+
+   | Критерий | Function Call (`call`) | System Call (`syscall`) |
+   | --- | --- | --- |
+   | Уровень привилегий | Ring 3 -> Ring 3 | Ring 3 -> Ring 0 |
+   | Задержка выполнения | ~1–3 такта CPU | ~50–300+ тактов CPU (с учетом Spectre/Meltdown mitigations) |
+   | Стек | Пользовательский стек | Переключение на Kernel Stack |
+
+   **Типичная ошибка:** Вызывать мелкие системные вызовы внутри горячих циклов (например, дергать `gettimeofday` или проверку дескриптора на каждой итерации), полагая, что оверхед сравним с обычной функцией.
+
+   **Источник:** [Bryant, O'Hallaron: Computer Systems: A Programmer's Perspective (Chapter 8: Exceptional Control Flow)](https://csapp.cs.cmu.edu/)
+
+   ---
+
 155. Что такое syscall table?
+
+   **Ответ:** Syscall table (`sys_call_table` в ядре Linux) — массив указателей на функции-обработчики системных вызовов внутри ядра. Номер вызова, переданный в регистре `rax`, используется диспетчером как прямой индекс для перехода к нужной внутренней функции (например, `sys_read`).
+
+   **Пример:**
+
+   ```c
+   // Псевдокод структуры ядра:
+   typedef asmlinkage long (*sys_call_ptr_t)(const struct pt_regs *);
+   const sys_call_ptr_t sys_call_table[__NR_syscall_max] = {
+       [0] = __x64_sys_read,
+       [1] = __x64_sys_write,
+       [2] = __x64_sys_open,
+       // ...
+   };
+
+   ```
+
+   **Типичная ошибка:** Попытка модифицировать таблицу системных вызовов из kernel-модуля на современных ядрах Linux. Страница с таблицей аппаратно помечена флагом Read-Only (CR0.WP), а ее перехват пресекается механизмами безопасности ядра.
+
+   **Источник:** [Linux Kernel Source: arch/x86/entry/syscall_64.c](https://github.com/torvalds/linux/blob/master/arch/x86/entry/syscall_64.c)
+
+   ---
+
 156. Примеры syscalls?
+
+   **Ответ:** Системные вызовы разделяются по подсистемам ядра:
+
+   * **Управление процессами:** `fork`, `execve`, `waitpid`, `exit`, `clone`.
+   * **Файловый ввод-вывод:** `open`, `read`, `write`, `close`, `lseek`, `stat`.
+   * **Память:** `mmap`, `munmap`, `brk`, `mprotect`.
+   * **Сеть и IPC:** `socket`, `bind`, `connect`, `pipe`, `epoll_create1`.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+
+   pid_t pid = fork();      // Создание процесса
+   int fd = dup(0);         // Дублирование дескриптора
+   void* p = sbrk(0);       // Запрос границы кучи
+
+   ```
+
+   **Типичная ошибка:** Считать вызовы распределения памяти `malloc()` и `free()` системными вызовами. Это библиотечные функции glibc, которые под капотом обращаются к реальным вызовам `brk()` или `mmap()`.
+
+   **Источник:** [Linux man pages: syscalls(2) - List of system calls](https://man7.org/linux/man-pages/man2/syscalls.2.html)
+
+   ---
+
 157. read(), write() — как работают?
+
+   **Ответ:** Вызов `write(fd, buf, count)` копирует `count` байт из буфера адресного пространства пользователя в page cache ядра или кольцевой буфер драйвера/сокета. Вызов `read(fd, buf, count)` копирует байты из кэша страниц/буфера ядра в буфер пользователя и возвращает число реально прочитанных байт.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+
+   char buf[128];
+   // Чтение не обязано вернуть запрошенное количество:
+   ssize_t bytes_read = read(STDIN_FILENO, buf, sizeof(buf));
+   if (bytes_read > 0) {
+       write(STDOUT_FILENO, buf, bytes_read);
+   }
+
+   ```
+
+   **Типичная ошибка:** Игнорировать short reads / short writes. Вызовы `read` и `write` имеют право обработать меньше байт, чем запрошено (например, при чтении из сокета или пайпа), поэтому их необходимо помещать в цикл до полной обработки буфера.
+
+   **Источник:** [Linux man pages: read(2)](https://man7.org/linux/man-pages/man2/read.2.html), [write(2)](https://man7.org/linux/man-pages/man2/write.2.html)
+
+   ---
+
 158. open(), close()?
+
+   **Ответ:** Системный вызов `open()` транслирует путь к файлу в файловый дескриптор, создавая структуру описания открытого файла (`struct file`) в ядре. Системный вызов `close()` удаляет ассоциацию дескриптора с объектом файла в процессе и декрементирует счетчик ссылок ядра на этот файл, освобождая ресурс при падении счетчика до нуля.
+
+   **Пример:**
+
+   ```cpp
+   #include <fcntl.h>
+   #include <unistd.h>
+
+   int fd = open("/tmp/test.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+   if (fd != -1) {
+       write(fd, "OK\n", 3);
+       close(fd);
+   }
+
+   ```
+
+   **Типичная ошибка:** Игнорировать возвращаемое значение `close()`. При отложенной записи (delayed write / NFS) ошибки ввода-вывода на диске могут сгенерироваться ядром именно в момент финального вызова `close()`.
+
+   **Источник:** [Linux man pages: open(2)](https://man7.org/linux/man-pages/man2/open.2.html), [close(2)](https://man7.org/linux/man-pages/man2/close.2.html)
+
+   ---
+
 159. Что возвращает errno?
+
+   **Ответ:** Системные вызовы ядра при ошибке возвращают отрицательное число (например, `-EINVAL`). Обертка glibc перехватывает этот код, сохраняет абсолютное значение кода ошибки в потокобезопасную (thread-local) переменную `errno`, а сам вызов возвращает вызывающему коду `-1` (или `MAP_FAILED`).
+
+   **Пример:**
+
+   ```cpp
+   #include <cerrno>
+   #include <cstring>
+   #include <iostream>
+   #include <unistd.h>
+
+   int res = close(-1);
+   if (res == -1) {
+       std::cout << "Error code: " << errno
+                 << " (" << std::strerror(errno) << ")\n"; // EBADF (Bad file descriptor)
+   }
+
+   ```
+
+   **Типичная ошибка:** Читать значение `errno`, если системный вызов завершился успешно (`return >= 0`). При успешных вызовах значение `errno` не сбрасывается в ноль и может содержать старый код ошибки предыдущих операций.
+
+   **Источник:** [Linux man pages: errno(3)](https://man7.org/linux/man-pages/man3/errno.3.html)
+
+   ---
+
 160. Что такое blocking syscall?
+
+   **Ответ:** Блокирующий системный вызов приостанавливает выполнение вызвавшего его потока: ядро переводит процесс из состояния `TASK_RUNNING` в состояние ожидания (`TASK_INTERRUPTIBLE` или `TASK_UNINTERRUPTIBLE`) до тех пор, пока запрошенное событие не завершится (поступят данные в сокет, завершится I/O на диске).
+
+   **Пример:**
+
+   ```cpp
+   char buf[10];
+   // Поток засыпает и не расходует CPU, пока пользователь не введет текст и не нажмет Enter:
+   read(STDIN_FILENO, buf, sizeof(buf));
+
+   ```
+
+   **Типичная ошибка:** Вызывать блокирующие системные вызовы ввода-вывода внутри основного цикла обработки событий (event loop) однопоточного сервера, что полностью замораживает обработку остальных клиентов.
+
+   **Источник:** [W. Richard Stevens: Advanced Programming in the UNIX Environment](https://www.pearson.com/)
+
+   ---
+
 161. non-blocking syscall?
+
+   **Ответ:** Неблокирующий системный вызов не усыпляет поток. Если операция не может быть завершена немедленно без ожидания (например, буфер сокета пуст при чтении или переполнен при записи), системный вызов сразу возвращает код `-1`, выставляя `errno` в `EAGAIN` или `EWOULDBLOCK`.
+
+   **Пример:**
+
+   ```cpp
+   #include <fcntl.h>
+   #include <unistd.h>
+
+   int flags = fcntl(fd, F_GETFL, 0);
+   fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+
+   char buf[32];
+   ssize_t res = read(fd, buf, sizeof(buf));
+   if (res == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+       // Данных прямо сейчас нет, поток может продолжать другую работу
+   }
+
+   ```
+
+   **Типичная ошибка:** Попытка использовать `O_NONBLOCK` для обычных дисковых файлов в Linux. Локальная файловая система в Linux игнорирует флаг `O_NONBLOCK` для файлов, и вызовы `read`/`write` всегда блокируются на время дискового I/O.
+
+   **Источник:** [Linux man pages: open(2) - O_NONBLOCK](https://man7.org/linux/man-pages/man2/open.2.html)
+
+   ---
+
 162. Что такое async I/O?
+
+   **Ответ:** Асинхронный ввод-вывод (AIO) — парадигма, при которой приложение инициирует системную операцию I/O и сразу же продолжает выполнение, а ядро ОС выполняет операцию в фоне и уведомляет приложение о завершении через сигнал, eventfd или completion queue (POSIX AIO, Linux `io_uring`).
+
+   **Пример:**
+
+   ```
+   Синхронный (включая non-blocking): Вызов -> Опрос готовности (epoll) -> Вычитка данных ядром.
+   Асинхронный (io_uring): Передача команды в Ring Buffer -> Ядро само вычитывает -> Получение готового результата.
+
+   ```
+
+   **Типичная ошибка:** Путать неблокирующий I/O с мультиплексированием (`epoll`) и асинхронный I/O (`io_uring`). В `epoll` поток оповещается о *готовности* к чтению, но саму операцию копирования данных `read()` он совершает синхронно.
+
+   **Источник:** [Jens Axboe: Efficient IO with io_uring](https://kernel.dk/io_uring.pdf)
+
+   ---
+
 163. select vs epoll?
+
+   **Ответ:** `select` принимает три битовые маски дескрипторов, имеет жесткий лимит в `FD_SETSIZE` (1024 дескриптора), требует полного копирования массивов в ядро и обратно на каждом вызове и итерируется по всем дескрипторам с вычислительной сложностью $O(N)$. `epoll` регистрирует дескрипторы в красно-черном дереве ядра один раз и возвращает список только готовых событий через кольцевой буфер за $O(1)$.
+
+   **Пример:**
+
+   ```cpp
+   // select: O(N) по общему числу отслеживаемых FD
+   select(max_fd + 1, &read_fds, NULL, NULL, &timeout);
+
+   // epoll: O(K), где K — число реально сработавших событий
+   int n = epoll_wait(epfd, events, MAX_EVENTS, -1);
+
+   ```
+
+   **Типичная ошибка:** Использовать `select` в сетевых сервисах с высокой конкурентностью (C10K problem). При росте числа неактивных соединений производительность `select` падает линейно, а `epoll` остается стабильным.
+
+   **Источник:** [The C10K problem: Dan Kegel](http://www.kegel.com/c10k.html)
+
+   ---
+
 164. Что такое file descriptor?
+
+   **Ответ:** Файловый дескриптор (FD) — абстрактный целочисленный идентификатор открытого потока ввода-вывода. Он служит индексом во внутренней таблице дескрипторов процесса, через которую ОС перенаправляет операции ввода-вывода к соответствующему vnode/inode файла, сетевому сокету, каналу или устройству.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+
+   int fd = 0; // Зарезервирован под стандартный поток ввода (stdin)
+
+   ```
+
+   **Типичная ошибка:** Полагать, что числовые значения файловых дескрипторов уникальны во всей операционной системе. Дескрипторы локальны для каждого отдельного процесса (одно и то же число 4 в двух разных процессах указывает на совершенно разные ресурсы).
+
+   **Источник:** [Linux man pages: open(2)](https://man7.org/linux/man-pages/man2/open.2.html)
+
+   ---
+
 165. STDIN/STDOUT/STDERR?
+
+   **Ответ:** Стандартные потоки ввода-вывода, автоматически открываемые операционной системой для любого создаваемого процесса:
+
+   * **0 (`STDIN_FILENO`):** Стандартный поток ввода (по умолчанию клавиатура / pipe).
+   * **1 (`STDOUT_FILENO`):** Стандартный поток вывода (терминал, строковая буферизация в libc).
+   * **2 (`STDERR_FILENO`):** Стандартный поток ошибок (терминал, всегда небуферизованный вывод).
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+
+   write(STDOUT_FILENO, "Log\n", 4);
+   write(STDERR_FILENO, "Panic!\n", 7);
+
+   ```
+
+   **Типичная ошибка:** Полагать, что `std::cerr` / `stderr` буферизуются так же, как `std::cout`. Ошибки сбрасываются немедленно, чтобы гарантировать запись данных перед аварийным падением процесса.
+
+   **Источник:** [POSIX.1-2017: Standard Streams](https://pubs.opengroup.org/onlinepubs/9699919799/functions/stdin.html)
+
+   ---
+
 166. dup(), dup2()?
+
+   **Ответ:** Системные вызовы клонирования дескрипторов. `dup(oldfd)` создает новый дескриптор (с наименьшим свободным номером), ссылающийся на ту же системную структуру открытого файла. `dup2(oldfd, newfd)` атомарно закрывает `newfd` (если он был открыт) и назначает его копией `oldfd`.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+   #include <fcntl.h>
+
+   int fd = open("log.txt", O_WRONLY | O_CREAT, 0644);
+   // Перенаправляем stdout в файл log.txt:
+   dup2(fd, STDOUT_FILENO);
+   close(fd);
+   // Теперь printf / write(1, ...) будут писать в log.txt
+
+   ```
+
+   **Типичная ошибка:** Использовать связку `close(newfd); dup(oldfd);` вместо атомарного `dup2()`. Между закрытием и переоткрытием в многопоточной программе другой поток может успеть занять освободившийся дескриптор.
+
+   **Источник:** [Linux man pages: dup(2)](https://man7.org/linux/man-pages/man2/dup.2.html)
+
+   ---
+
 167. fork() как syscall?
+
+   **Ответ:** `fork()` — системный вызов создания дочернего процесса, являющегося почти точной копией родителя. Ядро дублирует дескрипторы, регистры и таблицы страниц родителя, помечая все физические страницы флагом Copy-on-Write (COW). Родителю вызов возвращает PID созданного ребенка, а дочернему процессу — число `0`.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+   #include <iostream>
+
+   pid_t pid = fork();
+   if (pid == 0) {
+       // Код дочернего процесса
+       _exit(0);
+   } else if (pid > 0) {
+       // Код родительского процесса
+   }
+
+   ```
+
+   **Типичная ошибка:** Вызывать `fork()` в многопоточном приложении без немедленного последующего вызова `execve()`. В дочернем процессе выживает только тот поток, который вызвал `fork()`, в то время как мьютексы, залоченные другими потоками в момент форка, навсегда остаются заблокированными (deadlock).
+
+   **Источник:** [Linux man pages: fork(2)](https://man7.org/linux/man-pages/man2/fork.2.html)
+
+   ---
+
 168. execve()?
+
+   **Ответ:** Системный вызов семейства `exec`, полностью замещающий текущий образ процесса (код, стек, кучу, данные) новым исполняемым ELF-бинарником, считываемым с диска. PID процесса, связи с родителем и открытые дескрипторы (не помеченные флагом `FD_CLOEXEC`) сохраняются.
+
+   **Пример:**
+
+   ```cpp
+   #include <unistd.h>
+
+   char* args[] = {(char*)"/bin/ls", (char*)"-l", nullptr};
+   char* env[] = {nullptr};
+   execve("/bin/ls", args, env);
+   // Если execve вернул управление, произошла ошибка!
+   perror("execve failed");
+
+   ```
+
+   **Типичная ошибка:** Забывать флаг `O_CLOEXEC` при открытии служебных сокетов и файлов. Без него дескрипторы утекают в дочернюю стороннюю программу, запущенную через `execve`.
+
+   **Источник:** [Linux man pages: execve(2)](https://man7.org/linux/man-pages/man2/execve.2.html)
+
+   ---
+
 169. waitpid()?
+
+   **Ответ:** Системный вызов ожидания смены состояния (завершения, остановки или продолжения) дочернего процесса по его PID. Он освобождает ресурсы завершившегося процесса в таблице процессов ядра (удаляет процесс из состояния Zombie) и возвращает статус завершения (exit code / signal).
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/wait.h>
+   #include <unistd.h>
+
+   int status;
+   pid_t child_pid = waitpid(-1, &status, WNOHANG); // Неблокирующий сбор зомби-процессов
+   if (child_pid > 0 && WIFEXITED(status)) {
+       int exit_code = WEXITSTATUS(status);
+   }
+
+   ```
+
+   **Типичная ошибка:** Не вызывать `wait()` или `waitpid()` в родительском долгоживущем процессе. Завершившиеся потомки превращаются в "зомби" (zombies), засоряя глобальную таблицу процессов операционной системы до исчерпания лимита `pid_max`.
+
+   **Источник:** [Linux man pages: waitpid(2)](https://man7.org/linux/man-pages/man2/waitpid.2.html)
+
+   ---
+
 170. kill()?
+
+   **Ответ:** Системный вызов `kill(pid, sig)` отправляет сигнал процессу или группе процессов с указанным PID. Несмотря на название, вызов не обязательно уничтожает процесс, а отправляет любой POSIX-сигнал (например, `SIGSTOP`, `SIGCONT`, `SIGTERM`, `SIGUSR1`).
+
+   **Пример:**
+
+   ```cpp
+   #include <signal.h>
+
+   // Отправка сигнала мягкого завершения:
+   kill(target_pid, SIGTERM);
+
+   // Проверка существования процесса (сигнал 0 не отправляется, но права проверяются):
+   if (kill(target_pid, 0) == 0) {
+       // Процесс существует и доступен
+   }
+
+   ```
+
+   **Типичная ошибка:** Считать, что `kill(pid, SIGKILL)` выполняется мгновенно. Если процесс застрял в режиме ядра в состоянии непрерываемого сна (состояние `D`, например, зависший NFS I/O), ядро не сможет доставить сигнал до завершения ожидания оборудования.
+
+   **Источник:** [Linux man pages: kill(2)](https://man7.org/linux/man-pages/man2/kill.2.html)
+
+   ---
+
 171. Что такое signal handler?
+
+   **Ответ:** Обработчик сигналов — функция в пользовательском пространстве, зарегистрированная через вызов `sigaction()`, которая вызывается ядром асинхронно в контексте основного потока программы в момент получения процессом соответствующего сигнала.
+
+   **Пример:**
+
+   ```cpp
+   #include <csignal>
+   #include <unistd.h>
+
+   volatile sig_atomic_t g_stop = 0;
+
+   void handle_sigint(int sig) {
+       g_stop = 1; // Безопасная операция в обработчике
+   }
+
+   int main() {
+       struct sigaction sa{};
+       sa.sa_handler = handle_sigint;
+       sigaction(SIGINT, &sa, nullptr);
+   }
+
+   ```
+
+   **Типичная ошибка:** Вызывать внутри signal handler функции, не входящие в список async-signal-safe (например, `malloc`, `free`, `printf`, `pthread_mutex_lock`). Если сигнал прервал исполнение потока в момент работы того же `malloc`, повторный вход вызовет взаимную блокировку или повреждение кучи.
+
+   **Источник:** [Linux man pages: signal-safety(7)](https://man7.org/linux/man-pages/man7/signal-safety.7.html)
+
+   ---
+
 172. reentrant функции — что это?
+
+   **Ответ:** Реэнтерабельная (повторно входимая) функция — функция, которая может быть безопасно прервана на середине выполнения (аппаратным прерыванием, сигналом или другим потоком) и вызвана повторно из другого контекста без риска искажения данных и состояния.
+
+   **Пример:**
+
+   ```c
+   // НЕ реэнтерабельная (разделяет глобальное/статическое состояние):
+   int counter = 0;
+   int non_reentrant_inc() { return ++counter; }
+
+   // Реэнтерабельная (оперирует только переданными аргументами и стеком):
+   int reentrant_add(int a, int b) { return a + b; }
+
+   ```
+
+   **Типичная ошибка:** Использовать устаревшие стандартные функции вроде `strtok`, `asctime` или `gethostbyname`. Они используют внутренние статические буферы и не являются реэнтерабельными (необходимо использовать версионированные аналоги `strtok_r`, `gethostbyname_r`).
+
+   **Источник:** [Linux man pages: attributes(7)](https://man7.org/linux/man-pages/man7/attributes.7.html)
+
+   ---
+
 173. Что такое syscall overhead?
+
+   **Ответ:** Syscall overhead (накладные расходы системного вызова) — суммарное процессорное время, затрачиваемое не на полезную работу алгоритма, а на механику обслуживания вызова: переключение колец защиты (Ring 3 -> Ring 0), сохранение/восстановление регистров, смену указателя стека, проверку привилегий, валидацию диапазонов памяти и сбросы speculative-буферов (защита от уязвимостей Meltdown/Spectre через KPTI).
+
+   **Пример:**
+
+   ```
+   Полезная работа: запись 4 байт в буфер сокета (1 наносекунда)
+   Накладные расходы вызова: переключение контекста, KPTI, проверки (100–300 наносекунд)
+
+   ```
+
+   **Типичная ошибка:** Запись данных мелкими порциями по 1–10 байт прямыми вызовами `write()` вместо накопления данных в пользовательском буфере.
+
+   **Источник:** [Brendan Gregg: Systems Performance: Enterprise and the Cloud](http://www.brendangregg.com/systems-performance-2nd-edition-book.html)
+
+   ---
+
 174. Как уменьшить количество syscalls?
+
+   **Ответ:** Количество системных вызовов сокращают с помощью:
+
+      1. Буферизованного ввода-вывода (user-space buffering: `std::vector`, `fwrite` вместо сырого `write`).
+
+      2. Векторных системных вызовов (`readv`, `writev`).
+
+      3. Мультиплексирования пакетов/сообщений (`recvmmsg`, `sendmmsg`).
+
+      4. Механизмов разделяемой памяти и кольцевых очередей ядра без системных вызовов на каждый пакет (`io_uring`, memory mapped ring buffers).
+
+      5. Использования виртуальных вызовов vDSO для чтения времени и метаданных.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/uio.h>
+
+   // Векторная запись двух блоков за ОДИН системный вызов writev:
+   iovec iov[2];
+   iov[0].iov_base = (void*)"Header: ", iov[0].iov_len = 8;
+   iov[1].iov_base = (void*)"Body\n",    iov[1].iov_len = 5;
+   writev(fd, iov, 2);
+
+   ```
+
+   **Типичная ошибка:** Делать отдельные системные вызовы для заголовка и тела пакета, удваивая количество переходов в ядро и увеличивая фрагментацию TCP-пакетов.
+
+   **Источник:** [Linux man pages: writev(2)](https://man7.org/linux/man-pages/man2/writev.2.html)
+
+   ---
+
 175. Что такое zero-copy?
+
+   **Ответ:** Zero-Copy — технология передачи данных между устройствами (накопитель, сетевая карта, память), при которой процессор CPU не тратит такты на копирование байт между буферами ядра и буферами пользовательского пространства. Передача данных инициируется ядром, а прямое перемещение осуществляется контроллером прямого доступа к памяти (DMA).
+
+   **Пример:**
+
+   ```
+   Традиционный подход (4 копирования): Диск -> Ядро -> User Space -> Ядро -> Сетевая карта
+   Zero-Copy (sendfile / splice):       Диск -> [DMA буфер ядра] ------------> [DMA] -> Сетевая карта
+
+   ```
+
+   **Типичная ошибка:** Считать, что zero-copy абсолютно бесплатен: настройка дескрипторов DMA и управление страницами памяти в ядре также требуют вычислительных ресурсов CPU, что неэффективно для пакетов размером менее нескольких килобайт.
+
+   **Источник:** [Linux Journal: Zero Copy I: User-Mode Perspective](https://www.linuxjournal.com/article/6345)
+
+   ---
+
 176. sendfile()?
+
+   **Ответ:** Системный вызов `sendfile()` передает данные напрямую из одного файлового дескриптора (который должен поддерживать `mmap`, например, файл на диске) в другой (обычно сетевой сокет) целиком внутри адресного пространства ядра, минуя копирование в user space.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/sendfile.h>
+
+   off_t offset = 0;
+   // Отправка 1 МБ файла клиенту без подъема байтов в память процесса:
+   sendfile(client_socket_fd, file_fd, &offset, 1024 * 1024);
+
+   ```
+
+   **Типичная ошибка:** Пытаться передать данные через `sendfile` между двумя сокетами. В Linux входной дескриптор `in_fd` обязан указывать на mmap-совместимый файл (для сокетов используется `splice`).
+
+   **Источник:** [Linux man pages: sendfile(2)](https://man7.org/linux/man-pages/man2/sendfile.2.html)
+
+   ---
+
 177. splice()?
+
+   **Ответ:** Системный вызов `splice()` перемещает данные между двумя произвольными файловыми дескрипторами (хотя бы один из которых должен быть каналом — pipe) без копирования между пространством ядра и пользователя, перенаправляя указатели на страницы (`struct page`) в кольцевом буфере pipe.
+
+   **Пример:**
+
+   ```cpp
+   #define _GNU_SOURCE
+   #include <fcntl.h>
+
+   // Перенаправление данных из сокета в pipe без копирования в user space:
+   splice(sock_in_fd, NULL, pipe_fd[1], NULL, 4096, SPLICE_F_MOVE | SPLICE_F_NONBLOCK);
+
+   ```
+
+   **Типичная ошибка:** Забывать ограничение `splice`: один из участников передачи обязан быть файловым дескриптором pipe. Для передачи между сокетами создают промежуточный системный pipe.
+
+   **Источник:** [Linux man pages: splice(2)](https://man7.org/linux/man-pages/man2/splice.2.html)
+
+   ---
+
 178. mmap как альтернатива read?
+
+   **Ответ:** Отображение файла в виртуальную память через `mmap()` заменяет вызовы `read()` прямым доступом по указателю. Страницы подгружаются лениво аппаратным MMU процессора через механизм page faults напрямую из дискового page cache, устраняя двойное копирование данных ядра в пользовательский буфер.
+
+   **Пример:**
+
+   ```cpp
+   #include <sys/mman.h>
+
+   char* file_data = (char*)mmap(NULL, size, PROT_READ, MAP_SHARED, fd, 0);
+   // Прямой доступ к данным файла без единого системного вызова read():
+   char first_byte = file_data[0];
+
+   ```
+
+   **Типичная ошибка:** Использовать `mmap` для последовательного однократного чтения огромных файлов: накладные расходы на постоянную обработку исключений процессора (page faults) и манипуляции с таблицами страниц могут оказаться выше, чем один последовательный крупный блочный вызов `read()`.
+
+   **Источник:** [Linux man pages: mmap(2)](https://man7.org/linux/man-pages/man2/mmap.2.html)
+
+   ---
+
 179. Как дебажить syscalls (strace)?
+
+   **Ответ:** Утилита `strace` перехватывает и протоколирует все системные вызовы процесса и сигналы через системный вызов ядра `ptrace()`, отображая имена вызовов, переданные параметры, возвращаемые значения и ошибки.
+
+   **Пример:**
+
+   ```bash
+
+   # Трассировка процесса с подсчетом времени и статистики системных вызовов:
+
+   strace -c ./my_program
+
+   # Трассировка только сетевых и файловых вызовов с выводом таймстемпов:
+
+   strace -tt -e trace=openat,read,write,network -p <PID>
+
+   ```
+
+   **Типичная ошибка:** Запуск `strace` на продакшене под критической нагрузкой. Из-за механизма `ptrace` процессор выполняет переключение контекста на каждом системном вызове до и после его исполнения, замедляя приложение в десятки раз (в таких условиях безопаснее использовать eBPF/`bpftrace`).
+
+   **Источник:** [Linux man pages: strace(1)](https://man7.org/linux/man-pages/man1/strace.1.html)
+
+   ---
+
+
 180. Что такое ABI?
+
+   **Ответ:** ABI (Application Binary Interface) — спецификация бинарного интерфейса взаимодействия между программами на уровне машинного кода: определяет соглашение о вызовах (calling conventions), регистры передачи аргументов и возврата значений, правила выравнивания структур в памяти, формат исполняемых файлов (ELF) и номера инструкций системных вызовов ядра.
+
+   **Пример:**
+
+   ```
+   System V AMD64 ABI:
+   Аргументы syscall: RDI, RSI, RDX, R10, R8, R9. Номер вызова: RAX.
+   Возврат: RAX (отрицательное значение от -4095 до -1 кодирует ошибку -errno).
+
+   ```
+
+   **Типичная ошибка:** Путать API и ABI. API (Application Programming Interface) обеспечивает совместимость на уровне исходного кода C/C++ (требуется перекомпиляция), в то время как ABI гарантирует бинарную совместимость уже скомпилированных машинных файлов и библиотек без пересборки.
+
+   **Источник:** [System V Application Binary Interface: AMD64 Architecture Processor Supplement](https://gitlab.com/x86-psABIs/x86-64-ABI)

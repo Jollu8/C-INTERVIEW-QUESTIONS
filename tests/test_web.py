@@ -168,7 +168,7 @@ def test_updated_topics_keep_answers_inside_questions() -> None:
         'content/01_cpp/14_macro_and_build.md': 260,
         'content/01_cpp/15_performance.md': 250,
         'content/03_concurrency/01_base.md': 100,
-        'content/04_system_linux/01_operating_systems.md': 168,
+        'content/04_system_linux/01_operating_systems.md': 180,
         'content/05_networking/01_osi_and_tcp_ip.md': 74,
         'content/06_tools_build_debug/01_build.md': 121,
     }
@@ -179,3 +179,24 @@ def test_updated_topics_keep_answers_inside_questions() -> None:
             assert '<strong>Ответ:' not in question['question'], path
         if 'operating_systems' not in path:
             assert all(question['answer'] for question in questions), path
+
+
+def test_new_material_is_available_with_complete_answers() -> None:
+    from scripts.build_web import MARKDOWN
+
+    topics = {
+        "content/01_cpp/16_best_practices.md": (200, 200),
+        "content/02_algorithms_and_ds/README.md": (360, 360),
+        "content/03_concurrency/02_review_code.md": (110, 10),
+        "content/04_system_linux/01_operating_systems.md": (180, 180),
+        "content/04_system_linux/02_linux_basic.md": (290, 100),
+    }
+    for path, (total, answered) in topics.items():
+        source = (ROOT / path).read_text()
+        questions = parse_questions(source, path)
+        assert len(questions) == total, path
+        assert sum(bool(q["answer"]) for q in questions) == answered, path
+        assert all("<strong>Ответ:" not in q["question"] for q in questions), path
+        for token in MARKDOWN.parse(source):
+            if token.type == "fence":
+                assert "**Ответ:**" not in token.content, (path, token.map)
