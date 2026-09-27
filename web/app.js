@@ -184,15 +184,28 @@ function start() {
 function loadScript(url) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
+    const finish = error => {
+      clearTimeout(timer);
+      script.onload = script.onerror = null;
+      if (error) { script.remove(); reject(error); }
+      else resolve();
+    };
+    const timer = setTimeout(() => finish(new Error('Loading timed out')), 15000);
     script.src = url;
-    script.onload = resolve;
-    script.onerror = () => { script.remove(); reject(new Error('Loading failed')); };
+    script.onload = () => finish();
+    script.onerror = () => finish(new Error('Loading failed'));
     document.head.append(script);
   });
 }
 async function loadTopic(topic) {
   if (!topic.loading) topic.loading = loadScript(topic.file).then(() => {
-    for (const question of window.QUESTION_TOPICS[topic.id]) {
+    const questions = window.QUESTION_TOPICS?.[topic.id];
+    const byId = new Map(Array.isArray(questions) ? questions.map(q => [q.id, q]) : []);
+    if (!topic.questions.every(q => typeof byId.get(q.id)?.question === 'string')) {
+      throw new Error('Incomplete topic data');
+    }
+    for (const {id} of topic.questions) {
+      const question = byId.get(id);
       Object.assign(all.get(question.id), question);
     }
     delete window.QUESTION_TOPICS[topic.id];

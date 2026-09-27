@@ -55,3 +55,55 @@ test('review filter respects selected topics and availability of answers', () =>
   vm.runInContext('state.onlyAnswers = true', sandbox);
   assert.equal(vm.runInContext('JSON.stringify(pool())', sandbox), '[]');
 });
+
+function loadingContext() {
+  const sandbox = context();
+  const scripts = [];
+  const timers = new Map();
+  let nextTimer = 0;
+  sandbox.setTimeout = callback => { timers.set(++nextTimer, callback); return nextTimer; };
+  sandbox.clearTimeout = id => timers.delete(id);
+  sandbox.document.createElement = () => ({remove() { this.removed = true; }});
+  sandbox.document.head = {append(script) { scripts.push(script); }};
+  return {sandbox, scripts, timers};
+}
+
+test('stalled topic loading times out and can be retried', async () => {
+  const {sandbox, scripts, timers} = loadingContext();
+  const first = vm.runInContext("loadTopic(topics.get('topic'))", sandbox);
+  const failed = assert.rejects(first, /timed out/);
+  [...timers.values()][0]();
+  await failed;
+  assert.equal(scripts[0].removed, true);
+  assert.equal(timers.size, 0);
+  const retry = vm.runInContext("loadTopic(topics.get('topic'))", sandbox);
+  sandbox.window.QUESTION_TOPICS = {topic: [
+    {id: 'q1', question: 'First?', answer: 'Answer'},
+    {id: 'q2', question: 'Second?', answer: null},
+  ]};
+  scripts[1].onload();
+  await retry;
+  assert.equal(vm.runInContext("all.get('q1').question", sandbox), 'First?');
+  assert.equal(timers.size, 0);
+});
+
+test('incomplete topic data is rejected instead of repeatedly rendering loading', async () => {
+  const {sandbox, scripts} = loadingContext();
+  sandbox.window.QUESTION_TOPICS = {topic: [{id: 'q1', question: 'First?'}]};
+  const loading = vm.runInContext("loadTopic(topics.get('topic'))", sandbox);
+  const failed = assert.rejects(loading, /Incomplete topic data/);
+  scripts[0].onload();
+  await failed;
+  assert.equal(vm.runInContext("topics.get('topic').loading", sandbox), null);
+  assert.equal(vm.runInContext("all.get('q1').question", sandbox), undefined);
+});
+
+test('network failures clear the timer and allow retry', async () => {
+  const {sandbox, scripts, timers} = loadingContext();
+  const loading = vm.runInContext("loadTopic(topics.get('topic'))", sandbox);
+  const failed = assert.rejects(loading, /Loading failed/);
+  scripts[0].onerror();
+  await failed;
+  assert.equal(timers.size, 0);
+  assert.equal(vm.runInContext("topics.get('topic').loading", sandbox), null);
+});
