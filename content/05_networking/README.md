@@ -10,6 +10,7 @@
 6. 5G NR основы
 7. Network Security
 8. Troubleshooting и практические инструменты
+9. 3GPP L2 LTE/NR: scheduler и стек eNB/gNB — 160 вопросов с ответами
 
 ---
 
@@ -121,3 +122,19 @@
     - Потери пакетов
 - Bottlenecks в сети
 - Диагностика по уровням OSI
+
+---
+
+## 9. [3GPP L2 LTE/NR: scheduler и стек eNB/gNB](./09_3gpp_l2_lte_nr.md)
+
+160 вопросов с развёрнутыми ответами, примерами, типичными ошибками и источниками. Базовая линия — Release 17, с явным разделением LTE/NR и требований стандарта/политик реализации.
+
+- Архитектура MAC/RLC/PDCP/SDAP, CU/DU и контракты слоёв
+- Numerology, timing, MAC–PHY, DL/UL scheduling, PF и link adaptation
+- BSR/SR/PHR, HARQ, MAC PDU packing и безопасный parsing
+- Random access, DRX, timing advance и recovery
+- RLC UM/AM, segmentation, sequence windows, polling и STATUS
+- PDCP COUNT/security/reordering/duplication, SDAP и QoS
+- CA/DC, mobility, split bearers и F1-U flow control
+- C/C++ ownership, concurrency, timers, replay, fuzzing и performance
+- Практические разборы stalls, потерь throughput и ошибок lifecycle

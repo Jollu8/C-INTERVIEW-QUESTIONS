@@ -36,12 +36,14 @@
 - SSH
 - DNS, routing
 
-### Security
+### [Security](./06_sequrity.md)
 - Users & groups
 - /etc/passwd, /etc/shadow
 - sudo
 - ACL
 - SELinux / AppArmor
+- Capabilities, seccomp, Landlock
+- Secure C/C++ APIs and service hardening
 
 ### [Administration & DevOps](./07_administration_and_devops.md)
 - systemd

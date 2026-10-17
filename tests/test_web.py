@@ -192,7 +192,12 @@ def test_new_material_is_available_with_complete_answers() -> None:
         "content/01_cpp/04_memory.md": (250, 250),
         "content/04_system_linux/02_linux_basic.md": (290, 290),
         "content/04_system_linux/03_processes_and_resource_management.md": (240, 240),
-        "content/04_system_linux/04_filesystem_and_storage.md": (280, 40),
+        "content/04_system_linux/04_filesystem_and_storage.md": (280, 280),
+        "content/04_system_linux/05_linux_networking.md": (370, 370),
+        "content/04_system_linux/06_sequrity.md": (100, 100),
+        "content/04_system_linux/07_administration_and_devops.md": (280, 280),
+        "content/04_system_linux/08_advanced.md": (230, 230),
+        "content/05_networking/09_3gpp_l2_lte_nr.md": (160, 160),
     }
     for path, (total, answered) in topics.items():
         source = (ROOT / path).read_text()
