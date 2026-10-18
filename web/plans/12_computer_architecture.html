@@ -1,43 +1,43 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Архитектура компьютеров и взаимодействие с устройствами</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Архитектура компьютеров и взаимодействие с устройствами</h1>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Архитектура компьютеров и взаимодействие с устройствами</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Архитектура компьютеров и взаимодействие с устройствами</h1>
 <p>План раздела. Сначала используйте существующие вопросы C++ Low level, Performance и Linux; новые вопросы добавляйте после проверки пересечений.</p>
-<table>
-<thead>
-<tr>
-<th>Этап</th>
-<th>Темы</th>
-<th>Практическая проверка</th>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Этап</th>
+<th role="columnheader" scope="col">Темы</th>
+<th role="columnheader" scope="col">Практическая проверка</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>CPU</td>
-<td>ISA и микроархитектура, x86-64/ARM, registers, pipeline, branch prediction, out-of-order execution</td>
-<td>Изучить дизассемблирование функции; связать инструкции с исходником</td>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Этап">CPU</td>
+<td role="cell" data-label="Темы">ISA и микроархитектура, x86-64/ARM, registers, pipeline, branch prediction, out-of-order execution</td>
+<td role="cell" data-label="Практическая проверка">Изучить дизассемблирование функции; связать инструкции с исходником</td>
 </tr>
-<tr>
-<td>Иерархия памяти</td>
-<td>Cache lines, locality, associativity, TLB, page faults, prefetching</td>
-<td>Измерить обход массива и объяснить зависимость от размера</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Иерархия памяти</td>
+<td role="cell" data-label="Темы">Cache lines, locality, associativity, TLB, page faults, prefetching</td>
+<td role="cell" data-label="Практическая проверка">Измерить обход массива и объяснить зависимость от размера</td>
 </tr>
-<tr>
-<td>Многоядерность</td>
-<td>Cache coherence, consistency, false sharing, NUMA</td>
-<td>Сравнить размещение счётчиков и привязку потоков</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Многоядерность</td>
+<td role="cell" data-label="Темы">Cache coherence, consistency, false sharing, NUMA</td>
+<td role="cell" data-label="Практическая проверка">Сравнить размещение счётчиков и привязку потоков</td>
 </tr>
-<tr>
-<td>Векторизация</td>
-<td>SIMD, alignment, aliasing, AoS/SoA, compiler reports</td>
-<td>Проверить автовекторизацию и сравнить корректность и скорость</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Векторизация</td>
+<td role="cell" data-label="Темы">SIMD, alignment, aliasing, AoS/SoA, compiler reports</td>
+<td role="cell" data-label="Практическая проверка">Проверить автовекторизацию и сравнить корректность и скорость</td>
 </tr>
-<tr>
-<td>Устройства</td>
-<td>PCIe, MMIO, DMA, IOMMU, interrupts, polling</td>
-<td>Разобрать путь передачи буфера по документации; различать CPU atomics и device barriers</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Устройства</td>
+<td role="cell" data-label="Темы">PCIe, MMIO, DMA, IOMMU, interrupts, polling</td>
+<td role="cell" data-label="Практическая проверка">Разобрать путь передачи буфера по документации; различать CPU atomics и device barriers</td>
 </tr>
-<tr>
-<td>Системное ПО</td>
-<td>ABI, calling conventions, ELF, kernel/user space, драйверный lifecycle</td>
-<td>Проследить вызов от приложения до системного интерфейса</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Системное ПО</td>
+<td role="cell" data-label="Темы">ABI, calling conventions, ELF, kernel/user space, драйверный lifecycle</td>
+<td role="cell" data-label="Практическая проверка">Проследить вызов от приложения до системного интерфейса</td>
 </tr>
 </tbody>
 </table>

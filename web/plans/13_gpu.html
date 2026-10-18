@@ -1,43 +1,43 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GPU и параллельные вычисления</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>GPU и параллельные вычисления</h1>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>GPU и параллельные вычисления</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>GPU и параллельные вычисления</h1>
 <p>План раздела. Готовой базы вопросов CUDA пока нет. Предварительные знания: C++, lifetime, конкурентность, архитектура памяти, линейная алгебра и floating point.</p>
-<table>
-<thead>
-<tr>
-<th>Этап</th>
-<th>Темы</th>
-<th>Практика</th>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Этап</th>
+<th role="columnheader" scope="col">Темы</th>
+<th role="columnheader" scope="col">Практика</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>Модель исполнения</td>
-<td>Host/device, kernels, grid, blocks, threads, SM, warps, SIMT</td>
-<td>Vector addition с проверкой размеров и ошибок API</td>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Этап">Модель исполнения</td>
+<td role="cell" data-label="Темы">Host/device, kernels, grid, blocks, threads, SM, warps, SIMT</td>
+<td role="cell" data-label="Практика">Vector addition с проверкой размеров и ошибок API</td>
 </tr>
-<tr>
-<td>Память</td>
-<td>Global/shared/registers, coalescing, bank conflicts, transfers</td>
-<td>Transpose с тестами для некратных размеров</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Память</td>
+<td role="cell" data-label="Темы">Global/shared/registers, coalescing, bank conflicts, transfers</td>
+<td role="cell" data-label="Практика">Transpose с тестами для некратных размеров</td>
 </tr>
-<tr>
-<td>Синхронизация</td>
-<td>Barriers, atomics, streams, events, зависимости</td>
-<td>Проверить границы синхронизации и зависимости pipeline</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Синхронизация</td>
+<td role="cell" data-label="Темы">Barriers, atomics, streams, events, зависимости</td>
+<td role="cell" data-label="Практика">Проверить границы синхронизации и зависимости pipeline</td>
 </tr>
-<tr>
-<td>Алгоритмы</td>
-<td>Reduction, scan, histogram, matrix multiplication</td>
-<td>Сравнить с CPU и библиотечной реализацией, задать численные допуски</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Алгоритмы</td>
+<td role="cell" data-label="Темы">Reduction, scan, histogram, matrix multiplication</td>
+<td role="cell" data-label="Практика">Сравнить с CPU и библиотечной реализацией, задать численные допуски</td>
 </tr>
-<tr>
-<td>Производительность</td>
-<td>Timing, warm-up, asynchronous execution, bandwidth, occupancy, divergence, roofline</td>
-<td>Раздельно измерить kernel и end-to-end; объяснить bottleneck</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Производительность</td>
+<td role="cell" data-label="Темы">Timing, warm-up, asynchronous execution, bandwidth, occupancy, divergence, roofline</td>
+<td role="cell" data-label="Практика">Раздельно измерить kernel и end-to-end; объяснить bottleneck</td>
 </tr>
-<tr>
-<td>Инструменты и библиотеки</td>
-<td>Compute Sanitizer, Nsight Systems/Compute, cuBLAS, cuFFT</td>
-<td>Найти ошибку памяти и подтвердить оптимизацию профилем</td>
+<tr role="row">
+<td role="cell" data-label="Этап">Инструменты и библиотеки</td>
+<td role="cell" data-label="Темы">Compute Sanitizer, Nsight Systems/Compute, cuBLAS, cuFFT</td>
+<td role="cell" data-label="Практика">Найти ошибку памяти и подтвердить оптимизацию профилем</td>
 </tr>
 </tbody>
 </table>

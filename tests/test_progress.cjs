@@ -30,6 +30,36 @@ test('old progress retains position and receives empty ratings', () => {
   assert.equal(restored.position, 1);
   assert.deepEqual(restored.marks, {});
   assert.equal(restored.onlyReview, false);
+  assert.equal(restored.limit, 0);
+});
+
+test('new sessions include every selected question until a count is entered', () => {
+  const sandbox = context();
+  assert.equal(vm.runInContext('state.limit', sandbox), 0);
+});
+
+test('saved preset and arbitrary question counts survive restoring progress', () => {
+  const sandbox = context();
+  for (const limit of [0, 10, 20, 30, 1, 7, 45, 1000, Number.MAX_SAFE_INTEGER]) {
+    const restored = restore(sandbox, {...original, limit});
+    assert.equal(restored.limit, limit, `saved count ${limit}`);
+    assert.equal(restored.position, original.position);
+    assert.deepEqual(restored.queue, original.queue);
+  }
+});
+
+test('invalid saved question counts fall back to all selected questions', () => {
+  const sandbox = context();
+  const invalidCounts = [
+    undefined, null, -1, -10, 0.5, 7.5, NaN, Infinity, -Infinity,
+    Number.MAX_SAFE_INTEGER + 1, '20', '', false, {}, [],
+  ];
+  for (const limit of invalidCounts) {
+    const restored = restore(sandbox, {...original, limit});
+    assert.equal(restored.limit, 0, `invalid saved count ${String(limit)}`);
+    assert.equal(restored.position, original.position);
+    assert.deepEqual(restored.queue, original.queue);
+  }
 });
 
 test('unknown IDs are removed while current question and ratings survive', () => {

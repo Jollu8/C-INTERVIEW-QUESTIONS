@@ -1,122 +1,122 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Python для системного разработчика</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Python для системного разработчика</h1>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Python для системного разработчика</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Python для системного разработчика</h1>
 <p>Язык, автоматизация, тестирование и вычислительные эксперименты. Добавлено 395 вопросов и задач в 13 темах; ответы пока не добавлены. Основной маршрут рассчитан на C++/Linux, LTE/NR и развитие в GPU; backend выделен в дополнительную ветку.</p>
-<table>
-<thead>
-<tr>
-<th>Этап</th>
-<th>Темы</th>
-<th>Практика и критерий освоения</th>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Этап</th>
+<th role="columnheader" scope="col">Темы</th>
+<th role="columnheader" scope="col">Практика и критерий освоения</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>1. Модель языка</td>
-<td>Имена и объекты, identity/equality, mutability, hashability, области видимости, функции, аргументы, closures/decorators, comprehensions</td>
-<td>Объяснить aliasing, default arguments и shallow/deep copy</td>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Этап">1. Модель языка</td>
+<td role="cell" data-label="Темы">Имена и объекты, identity/equality, mutability, hashability, области видимости, функции, аргументы, closures/decorators, comprehensions</td>
+<td role="cell" data-label="Практика и критерий освоения">Объяснить aliasing, default arguments и shallow/deep copy</td>
 </tr>
-<tr>
-<td>2. Протоколы и управление ресурсами</td>
-<td>Classes, composition, MRO, dunder methods, iterators, generators, context managers, exceptions/chaining</td>
-<td>Потоково прочитать файл с гарантированным закрытием ресурса</td>
+<tr role="row">
+<td role="cell" data-label="Этап">2. Протоколы и управление ресурсами</td>
+<td role="cell" data-label="Темы">Classes, composition, MRO, dunder methods, iterators, generators, context managers, exceptions/chaining</td>
+<td role="cell" data-label="Практика и критерий освоения">Потоково прочитать файл с гарантированным закрытием ресурса</td>
 </tr>
-<tr>
-<td>3. Организация проекта</td>
-<td>Modules/imports, environments, pip, pyproject.toml, packaging, CLI/configuration</td>
-<td>Установить проект в чистое окружение и запустить CLI</td>
+<tr role="row">
+<td role="cell" data-label="Этап">3. Организация проекта</td>
+<td role="cell" data-label="Темы">Modules/imports, environments, pip, pyproject.toml, packaging, CLI/configuration</td>
+<td role="cell" data-label="Практика и критерий освоения">Установить проект в чистое окружение и запустить CLI</td>
 </tr>
-<tr>
-<td>4. Данные и Linux</td>
-<td>pathlib, JSON/CSV, bytes/bytearray/memoryview, struct, binary formats, subprocess, signals, sockets</td>
-<td>Разобрать бинарный пакет с проверкой длины; запустить benchmark с timeout и обработкой exit code</td>
+<tr role="row">
+<td role="cell" data-label="Этап">4. Данные и Linux</td>
+<td role="cell" data-label="Темы">pathlib, JSON/CSV, bytes/bytearray/memoryview, struct, binary formats, subprocess, signals, sockets</td>
+<td role="cell" data-label="Практика и критерий освоения">Разобрать бинарный пакет с проверкой длины; запустить benchmark с timeout и обработкой exit code</td>
 </tr>
-<tr>
-<td>5. Качество</td>
-<td>pytest, fixtures, parametrization, mocking boundaries, integration tests, typing, Protocol, dataclasses, logging/debugging</td>
-<td>Проверить parser на повреждённых данных и типизировать интерфейс</td>
+<tr role="row">
+<td role="cell" data-label="Этап">5. Качество</td>
+<td role="cell" data-label="Темы">pytest, fixtures, parametrization, mocking boundaries, integration tests, typing, Protocol, dataclasses, logging/debugging</td>
+<td role="cell" data-label="Практика и критерий освоения">Проверить parser на повреждённых данных и типизировать интерфейс</td>
 </tr>
-<tr>
-<td>6. Concurrency</td>
-<td>threading, processes, queues, synchronization, asyncio, cancellation, backpressure</td>
-<td>Выбрать модель для I/O и CPU работы, объяснить расходы передачи данных</td>
+<tr role="row">
+<td role="cell" data-label="Этап">6. Concurrency</td>
+<td role="cell" data-label="Темы">threading, processes, queues, synchronization, asyncio, cancellation, backpressure</td>
+<td role="cell" data-label="Практика и критерий освоения">Выбрать модель для I/O и CPU работы, объяснить расходы передачи данных</td>
 </tr>
-<tr>
-<td>7. NumPy и измерения</td>
-<td>ndarray, dtype, shape/strides, views/copies, broadcasting, vectorization, profiling, memory</td>
-<td>Сравнить цикл и NumPy; проверить результат, layout и расход памяти</td>
+<tr role="row">
+<td role="cell" data-label="Этап">7. NumPy и измерения</td>
+<td role="cell" data-label="Темы">ndarray, dtype, shape/strides, views/copies, broadcasting, vectorization, profiling, memory</td>
+<td role="cell" data-label="Практика и критерий освоения">Сравнить цикл и NumPy; проверить результат, layout и расход памяти</td>
 </tr>
-<tr>
-<td>8. Интеграция C/C++</td>
-<td>ctypes, buffer protocol, pybind11, ownership/lifetime, ошибки на границе языков</td>
-<td>Вызвать C++ обработку массива и обосновать lifetime буфера</td>
+<tr role="row">
+<td role="cell" data-label="Этап">8. Интеграция C/C++</td>
+<td role="cell" data-label="Темы">ctypes, buffer protocol, pybind11, ownership/lifetime, ошибки на границе языков</td>
+<td role="cell" data-label="Практика и критерий освоения">Вызвать C++ обработку массива и обосновать lifetime буфера</td>
 </tr>
-<tr>
-<td>9. Инженерные эксперименты</td>
-<td>Автоматизация сборок, серии benchmark, статистика, графики, воспроизводимость</td>
-<td>Собрать результаты C++ программы и построить latency/throughput отчёт</td>
+<tr role="row">
+<td role="cell" data-label="Этап">9. Инженерные эксперименты</td>
+<td role="cell" data-label="Темы">Автоматизация сборок, серии benchmark, статистика, графики, воспроизводимость</td>
+<td role="cell" data-label="Практика и критерий освоения">Собрать результаты C++ программы и построить latency/throughput отчёт</td>
 </tr>
 </tbody>
 </table>
 <h2>Вопросы по темам</h2>
 <p>Основной маршрут — темы 1–9 (315 вопросов). Темы 10–13 — дополнительные ветки (80 вопросов). Разборы кода включают намеренные ошибки; не запускайте фрагменты вслепую.</p>
-<table>
-<thead>
-<tr>
-<th>Тема</th>
-<th style="text-align:right">Вопросов</th>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Тема</th>
+<th style="text-align:right" role="columnheader" scope="col">Вопросов</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td><a href="../index.html?topic=content/10_python/01_language_model.md">1. Модель языка, объекты и функции</a></td>
-<td style="text-align:right">35</td>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/01_language_model.md">1. Модель языка, объекты и функции</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/02_protocols_and_resources.md">2. Протоколы, классы и управление ресурсами</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/02_protocols_and_resources.md">2. Протоколы, классы и управление ресурсами</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/03_projects_and_packaging.md">3. Модули, окружения, packaging и CLI</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/03_projects_and_packaging.md">3. Модули, окружения, packaging и CLI</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/04_data_and_linux.md">4. Файлы, бинарные данные, процессы и Linux</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/04_data_and_linux.md">4. Файлы, бинарные данные, процессы и Linux</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/05_quality_typing_testing.md">5. Тестирование, typing и диагностика</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/05_quality_typing_testing.md">5. Тестирование, typing и диагностика</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/06_concurrency_asyncio.md">6. Потоки, процессы и asyncio</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/06_concurrency_asyncio.md">6. Потоки, процессы и asyncio</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/07_numpy_and_performance.md">7. NumPy, память и производительность</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/07_numpy_and_performance.md">7. NumPy, память и производительность</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/08_cpp_integration.md">8. Интеграция Python с C и C++</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/08_cpp_integration.md">8. Интеграция Python с C и C++</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/09_engineering_experiments.md">9. Автоматизация и воспроизводимые эксперименты</a></td>
-<td style="text-align:right">35</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/09_engineering_experiments.md">9. Автоматизация и воспроизводимые эксперименты</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">35</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/10_backend_optional.md">10. Дополнительно: Python backend</a></td>
-<td style="text-align:right">20</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/10_backend_optional.md">10. Дополнительно: Python backend</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">20</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/11_data_processing_optional.md">11. Дополнительно: обработка данных и pandas</a></td>
-<td style="text-align:right">20</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/11_data_processing_optional.md">11. Дополнительно: обработка данных и pandas</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">20</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/12_security_optional.md">12. Дополнительно: безопасность Python-приложений</a></td>
-<td style="text-align:right">20</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/12_security_optional.md">12. Дополнительно: безопасность Python-приложений</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">20</td>
 </tr>
-<tr>
-<td><a href="../index.html?topic=content/10_python/13_runtime_internals_optional.md">13. Дополнительно: модель объектов и CPython internals</a></td>
-<td style="text-align:right">20</td>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/10_python/13_runtime_internals_optional.md">13. Дополнительно: модель объектов и CPython internals</a></td>
+<td style="text-align:right" role="cell" data-label="Вопросов">20</td>
 </tr>
 </tbody>
 </table>

@@ -302,7 +302,7 @@ def test_learning_pages_render_tables_and_preserve_local_links(tmp_path) -> None
     topic_ids = {t["id"] for s in catalog["sections"] for t in s["topics"]}
     write_learning_pages(tmp_path, catalog)
     roadmap = (tmp_path / "roadmap.html").read_text()
-    assert "<table>" in roadmap
+    assert '<table role="table">' in roadmap
     assert "index.html?track=systems" in roadmap
     assert '<html lang="ru">' in roadmap
 
@@ -347,6 +347,86 @@ def test_statistics_include_answer_coverage() -> None:
     ])
     assert stats["total_questions"] == 3
     assert stats["total_answers"] == 2
+
+
+def test_learning_tables_keep_headers_and_links_for_mobile_cards(tmp_path) -> None:
+    from html.parser import HTMLParser
+
+    from scripts.build_web import write_learning_pages
+
+    class LearningTables(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.tables = []
+            self.headers = []
+            self.rows = []
+            self.cell = None
+            self.links = []
+
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            roles = {
+                "table": "table", "thead": "rowgroup", "tbody": "rowgroup",
+                "tr": "row", "th": "columnheader", "td": "cell",
+            }
+            if tag in roles:
+                assert attrs.get("role") == roles[tag]
+            if tag == "table":
+                self.headers, self.rows = [], []
+            elif tag == "tr":
+                self.row = []
+            elif tag in {"th", "td"}:
+                self.cell = {"tag": tag, "attrs": attrs, "text": ""}
+            elif tag == "a":
+                self.links.append(attrs["href"])
+
+        def handle_data(self, data):
+            if self.cell is not None:
+                self.cell["text"] += data
+
+        def handle_endtag(self, tag):
+            if tag == "th":
+                assert self.cell["attrs"].get("scope") == "col"
+                self.headers.append(self.cell["text"])
+                self.cell = None
+            elif tag == "td":
+                self.row.append(self.cell)
+                self.cell = None
+            elif tag == "tr" and self.row:
+                self.rows.append(self.row)
+            elif tag == "table":
+                self.tables.append((self.headers, self.rows))
+
+    write_learning_pages(tmp_path)
+    examples = [
+        (
+            "roadmap.html",
+            ["Этап", "Что изучить и прочитать", "Практика", "Когда переходить дальше"],
+            "index.html?track=systems",
+        ),
+        (
+            "plans/11_math.html",
+            ["Порядок", "Тема", "Содержание", "Практика и критерий"],
+            "https://numpy.org/learn/",
+        ),
+        (
+            "materials/07_testing_and_quality/19_resources.html",
+            ["Задача", "Первичные источники"],
+            "https://google.github.io/googletest/primer.html",
+        ),
+    ]
+    for path, expected_headers, expected_link in examples:
+        source = (tmp_path / path).read_text()
+        assert "viewport-fit=cover" in source
+        parsed = LearningTables()
+        parsed.feed(source)
+        assert parsed.tables[0][0] == expected_headers
+        assert expected_link in parsed.links
+        for headers, rows in parsed.tables:
+            assert rows
+            for row in rows:
+                assert [cell["attrs"].get("data-label") for cell in row] == headers
+                assert all(cell["text"].strip() for cell in row)
 
 
 def test_exercise_context_is_visible_and_answer_is_separate() -> None:

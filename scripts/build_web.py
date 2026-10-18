@@ -216,6 +216,36 @@ def write_learning_pages(directory: Path, catalog: dict | None = None) -> None:
     ) -> str:
         title = source.splitlines()[0].removeprefix("# ")
         tokens = renderer.parse(source)
+        headers: list[str] = []
+        column = 0
+        table_roles = {
+            "table_open": "table", "thead_open": "rowgroup",
+            "tbody_open": "rowgroup", "tr_open": "row",
+            "th_open": "columnheader", "td_open": "cell",
+        }
+        for index, token in enumerate(tokens):
+            # Explicit roles retain table navigation when the mobile layout
+            # changes the native table elements to stacked blocks.
+            if token.type in table_roles:
+                token.attrSet("role", table_roles[token.type])
+            if token.type == "table_open":
+                headers = []
+            elif token.type == "tr_open":
+                column = 0
+            elif token.type == "th_open":
+                token.attrSet("scope", "col")
+                # Inline tokens retain readable header text without Markdown
+                # markers, so mobile cell labels also work with links or code.
+                inline = tokens[index + 1]
+                headers.append("".join(
+                    child.content
+                    for child in inline.children or []
+                    if child.type in {"text", "code_inline", "image"}
+                ).strip())
+            elif token.type == "td_open":
+                if column < len(headers):
+                    token.attrSet("data-label", headers[column])
+                column += 1
         if origin:
             for token in tokens:
                 for child in token.children or []:
@@ -245,7 +275,8 @@ def write_learning_pages(directory: Path, catalog: dict | None = None) -> None:
                     child.attrSet("href", link)
         return (
             '<!doctype html><html lang="ru"><head><meta charset="utf-8">'
-            '<meta name="viewport" content="width=device-width, initial-scale=1">'
+            '<meta name="viewport" content="width=device-width, '
+            'initial-scale=1, viewport-fit=cover">'
             f'<title>{html.escape(title)}</title>'
             f'<link rel="stylesheet" href="{prefix}style.css"></head><body>'
             f'<main class="learning-page"><a href="{back}">← К тренировкам</a>'

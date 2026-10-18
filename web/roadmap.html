@@ -1,97 +1,97 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Маршруты системного разработчика</title><link rel="stylesheet" href="style.css"></head><body><main class="learning-page"><a href="index.html">← К тренировкам</a><h1>Маршруты системного разработчика</h1>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Маршруты системного разработчика</title><link rel="stylesheet" href="style.css"></head><body><main class="learning-page"><a href="index.html">← К тренировкам</a><h1>Маршруты системного разработчика</h1>
 <p>Выберите цель, начните с первого незнакомого этапа и двигайтесь дальше после практической проверки. Знать все вопросы библиотеки для этого не требуется. Подготовка к собеседованию — один из способов проверить знания.</p>
 <h2>C++ и системная разработка</h2>
 <p>Подходит для развития из C++ LTE/NR в системное ПО, runtime и инструменты разработки.</p>
-<table>
-<thead>
-<tr>
-<th>Этап</th>
-<th>Что изучить и прочитать</th>
-<th>Практика</th>
-<th>Когда переходить дальше</th>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Этап</th>
+<th role="columnheader" scope="col">Что изучить и прочитать</th>
+<th role="columnheader" scope="col">Практика</th>
+<th role="columnheader" scope="col">Когда переходить дальше</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>1. Объекты и владение</td>
-<td>C++: память, lifetime, RAII, move semantics; в CS:APP — представление данных</td>
-<td>Исправить dangling references, собрать примеры с ASan/UBSan</td>
-<td>Объясняете владельца и время жизни каждого объекта</td>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Этап">1. Объекты и владение</td>
+<td role="cell" data-label="Что изучить и прочитать">C++: память, lifetime, RAII, move semantics; в CS:APP — представление данных</td>
+<td role="cell" data-label="Практика">Исправить dangling references, собрать примеры с ASan/UBSan</td>
+<td role="cell" data-label="Когда переходить дальше">Объясняете владельца и время жизни каждого объекта</td>
 </tr>
-<tr>
-<td>2. Компиляция и исполнение</td>
-<td>Toolchain, linking, ABI; CS:APP: машинный код и linking</td>
-<td>Собрать статическую и динамическую библиотеку, изучить символы и дизассемблирование</td>
-<td>Объясняете путь от исходника до выполнения</td>
+<tr role="row">
+<td role="cell" data-label="Этап">2. Компиляция и исполнение</td>
+<td role="cell" data-label="Что изучить и прочитать">Toolchain, linking, ABI; CS:APP: машинный код и linking</td>
+<td role="cell" data-label="Практика">Собрать статическую и динамическую библиотеку, изучить символы и дизассемблирование</td>
+<td role="cell" data-label="Когда переходить дальше">Объясняете путь от исходника до выполнения</td>
 </tr>
-<tr>
-<td>3. Linux и память</td>
-<td>Процессы, virtual memory, mmap, system calls; CS:APP: virtual memory и system-level I/O</td>
-<td>Написать обработчик бинарного файла, проверить через strace</td>
-<td>Различаете виртуальную память, физическую память и lifetime C++</td>
+<tr role="row">
+<td role="cell" data-label="Этап">3. Linux и память</td>
+<td role="cell" data-label="Что изучить и прочитать">Процессы, virtual memory, mmap, system calls; CS:APP: virtual memory и system-level I/O</td>
+<td role="cell" data-label="Практика">Написать обработчик бинарного файла, проверить через strace</td>
+<td role="cell" data-label="Когда переходить дальше">Различаете виртуальную память, физическую память и lifetime C++</td>
 </tr>
-<tr>
-<td>4. Конкурентность</td>
-<td>Mutex, condition variable, atomics, happens-before</td>
-<td>Сделать ограниченную очередь с остановкой и backpressure; проверить TSan</td>
-<td>Обосновываете корректность, завершение и поведение при переполнении</td>
+<tr role="row">
+<td role="cell" data-label="Этап">4. Конкурентность</td>
+<td role="cell" data-label="Что изучить и прочитать">Mutex, condition variable, atomics, happens-before</td>
+<td role="cell" data-label="Практика">Сделать ограниченную очередь с остановкой и backpressure; проверить TSan</td>
+<td role="cell" data-label="Когда переходить дальше">Обосновываете корректность, завершение и поведение при переполнении</td>
 </tr>
-<tr>
-<td>5. Производительность CPU</td>
-<td>Cache, TLB, false sharing, NUMA, SIMD; материалы CMU 15-418</td>
-<td>Сравнить layout AoS/SoA и обходы массива; измерить через perf</td>
-<td>Объясняете измеренный bottleneck и воспроизводите результат</td>
+<tr role="row">
+<td role="cell" data-label="Этап">5. Производительность CPU</td>
+<td role="cell" data-label="Что изучить и прочитать">Cache, TLB, false sharing, NUMA, SIMD; материалы CMU 15-418</td>
+<td role="cell" data-label="Практика">Сравнить layout AoS/SoA и обходы массива; измерить через perf</td>
+<td role="cell" data-label="Когда переходить дальше">Объясняете измеренный bottleneck и воспроизводите результат</td>
 </tr>
-<tr>
-<td>6. Инженерная практика</td>
-<td>Тестирование, sanitizers, fuzzing, benchmark</td>
-<td>Собрать pipeline обработки сообщений с тестами и измерением p50/p95/p99</td>
-<td>Документированы корректность, нагрузка и ограничения</td>
+<tr role="row">
+<td role="cell" data-label="Этап">6. Инженерная практика</td>
+<td role="cell" data-label="Что изучить и прочитать">Тестирование, sanitizers, fuzzing, benchmark</td>
+<td role="cell" data-label="Практика">Собрать pipeline обработки сообщений с тестами и измерением p50/p95/p99</td>
+<td role="cell" data-label="Когда переходить дальше">Документированы корректность, нагрузка и ограничения</td>
 </tr>
 </tbody>
 </table>
 <p><a href="index.html?track=systems">Тренировка по системным темам</a></p>
 <h2>GPU и параллельные вычисления</h2>
 <p>Предварительно: уверенный C++, память CPU, базовая многопоточность и линейная алгебра. CUDA используется для практики на совместимом GPU; чтение и CPU-версию можно пройти заранее.</p>
-<table>
-<thead>
-<tr>
-<th>Этап</th>
-<th>Что прочитать</th>
-<th>Практика</th>
-<th>Критерий освоения</th>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Этап</th>
+<th role="columnheader" scope="col">Что прочитать</th>
+<th role="columnheader" scope="col">Практика</th>
+<th role="columnheader" scope="col">Критерий освоения</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>1. Архитектура</td>
-<td>CMU 15-418: parallel machines; CUDA Guide: programming model</td>
-<td>Нарисовать соответствие grid/block/thread и SM/warp</td>
-<td>Различаете модель программы и аппаратное выполнение</td>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Этап">1. Архитектура</td>
+<td role="cell" data-label="Что прочитать">CMU 15-418: parallel machines; CUDA Guide: programming model</td>
+<td role="cell" data-label="Практика">Нарисовать соответствие grid/block/thread и SM/warp</td>
+<td role="cell" data-label="Критерий освоения">Различаете модель программы и аппаратное выполнение</td>
 </tr>
-<tr>
-<td>2. Память GPU</td>
-<td>CUDA Guide: memory hierarchy, coalescing, synchronization</td>
-<td>Сложение векторов и transpose с проверкой CPU-результата</td>
-<td>Объясняете обращения к памяти и границы синхронизации</td>
+<tr role="row">
+<td role="cell" data-label="Этап">2. Память GPU</td>
+<td role="cell" data-label="Что прочитать">CUDA Guide: memory hierarchy, coalescing, synchronization</td>
+<td role="cell" data-label="Практика">Сложение векторов и transpose с проверкой CPU-результата</td>
+<td role="cell" data-label="Критерий освоения">Объясняете обращения к памяти и границы синхронизации</td>
 </tr>
-<tr>
-<td>3. Параллельные алгоритмы</td>
-<td>Reduction, scan, histogram</td>
-<td>Реализовать reduction, проверить крайние размеры и погрешность</td>
-<td>Корректны неполные блоки и численные допуски</td>
+<tr role="row">
+<td role="cell" data-label="Этап">3. Параллельные алгоритмы</td>
+<td role="cell" data-label="Что прочитать">Reduction, scan, histogram</td>
+<td role="cell" data-label="Практика">Реализовать reduction, проверить крайние размеры и погрешность</td>
+<td role="cell" data-label="Критерий освоения">Корректны неполные блоки и численные допуски</td>
 </tr>
-<tr>
-<td>4. Измерения</td>
-<td>CUDA Best Practices Guide: timing, transfers, performance</td>
-<td>Раздельно измерить transfers и kernels, учесть warm-up и синхронизацию</td>
-<td>Сравниваете CPU/GPU на одинаковой задаче и данных</td>
+<tr role="row">
+<td role="cell" data-label="Этап">4. Измерения</td>
+<td role="cell" data-label="Что прочитать">CUDA Best Practices Guide: timing, transfers, performance</td>
+<td role="cell" data-label="Практика">Раздельно измерить transfers и kernels, учесть warm-up и синхронизацию</td>
+<td role="cell" data-label="Критерий освоения">Сравниваете CPU/GPU на одинаковой задаче и данных</td>
 </tr>
-<tr>
-<td>5. Оптимизация</td>
-<td>Roofline, arithmetic intensity, occupancy, divergence</td>
-<td>Оптимизировать transpose или матричное умножение</td>
-<td>Показаны профиль до/после и причина ускорения</td>
+<tr role="row">
+<td role="cell" data-label="Этап">5. Оптимизация</td>
+<td role="cell" data-label="Что прочитать">Roofline, arithmetic intensity, occupancy, divergence</td>
+<td role="cell" data-label="Практика">Оптимизировать transpose или матричное умножение</td>
+<td role="cell" data-label="Критерий освоения">Показаны профиль до/после и причина ускорения</td>
 </tr>
 </tbody>
 </table>
