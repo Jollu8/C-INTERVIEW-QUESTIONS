@@ -367,7 +367,17 @@ function study() {
   }
   loadRenderResources();
   const revealed = state.revealed.includes(q.id);
-  root.innerHTML = `<div class="study-top"><button class="text-button" id="back-setup">← К темам</button><span>${state.position + 1} / ${state.queue.length}</span></div><progress value="${state.position + 1}" max="${state.queue.length}" aria-label="Прогресс"></progress><article class="question"><p class="eyebrow">${escapeHtml(q.section)} / ${escapeHtml(q.topic)}</p><p class="group">${escapeHtml(q.group)}</p><div class="question-title" role="heading" aria-level="1" tabindex="-1">${q.question}</div>${q.answer ? `<button class="reveal" id="reveal" aria-controls="question-answer" aria-expanded="${revealed}">${revealed ? 'Скрыть ответ' : 'Показать ответ'}</button><div id="question-answer" class="answer" ${revealed ? '' : 'hidden'}>${revealed ? q.answer : ''}</div>` : '<p class="no-answer">Ответ пока не добавлен</p>'}<a class="source-link" href="../${q.id.split(':')[0]}" target="_blank" rel="noopener">Исходный материал ↗</a></article><nav class="question-nav" aria-label="Навигация по вопросам"><button id="prev" ${state.position === 0 ? 'disabled' : ''}>← Назад</button><button class="primary" id="next">${state.position === state.queue.length - 1 ? 'Завершить' : 'Следующий →'}</button></nav>`;
+  // Keep the fixed navigation in place while question content and scroll position change.
+  if (!root.querySelector('.question')) {
+    root.innerHTML = '<div class="study-top"><button class="text-button" id="back-setup">← К темам</button><span></span></div><progress aria-label="Прогресс"></progress><article class="question"></article><nav class="question-nav" aria-label="Навигация по вопросам"><button id="prev">← Назад</button><button class="primary" id="next"></button></nav>';
+  }
+  root.querySelector('.study-top span').textContent = `${state.position + 1} / ${state.queue.length}`;
+  const progress = root.querySelector('progress');
+  progress.max = state.queue.length;
+  progress.value = state.position + 1;
+  document.querySelector('#prev').disabled = state.position === 0;
+  document.querySelector('#next').textContent = state.position === state.queue.length - 1 ? 'Завершить' : 'Следующий →';
+  root.querySelector('.question').innerHTML = `<p class="eyebrow">${escapeHtml(q.section)} / ${escapeHtml(q.topic)}</p><p class="group">${escapeHtml(q.group)}</p><div class="question-title" role="heading" aria-level="1" tabindex="-1">${q.question}</div>${q.answer ? `<button class="reveal" id="reveal" aria-controls="question-answer" aria-expanded="${revealed}">${revealed ? 'Скрыть ответ' : 'Показать ответ'}</button><div id="question-answer" class="answer" ${revealed ? '' : 'hidden'}>${revealed ? q.answer : ''}</div>` : '<p class="no-answer">Ответ пока не добавлен</p>'}<a class="source-link" href="../${q.id.split(':')[0]}" target="_blank" rel="noopener">Исходный материал ↗</a>`;
   renderMath(root);
   highlightCode(root);
   addCodeCopyButtons(root);
