@@ -228,3 +228,50 @@ def test_new_material_is_available_with_complete_answers() -> None:
         for token in MARKDOWN.parse(source):
             if token.type == "fence":
                 assert "**Ответ:**" not in token.content, (path, token.map)
+
+
+def test_testing_quality_topics_have_complete_answers_and_correct_topics() -> None:
+    from scripts.build_web import MARKDOWN
+
+    expected = {
+        "01_base.md": 76,
+        "02_unit_test.md": 29,
+        "03_integration_test.md": 29,
+        "04_e2e_test.md": 29,
+        "05_api_test.md": 33,
+        "06_performance_test.md": 31,
+        "07_security_test.md": 31,
+        "08_automation_test.md": 33,
+        "09_qa_base.md": 27,
+        "10_qa_management_test.md": 30,
+        "11_qa_bug_tracking.md": 31,
+        "12_qa_code_qualaty.md": 31,
+        "13_qa_ci_cd.md": 31,
+        "14_qa_documentation.md": 31,
+        "15_qa_agile.md": 31,
+        "16_test_architecture.md": 31,
+        "17_observabilty_and_monitorung.md": 32,
+        "18_test_ai.md": 32,
+    }
+    directory = ROOT / "content/07_testing_and_quality"
+    for name, count in expected.items():
+        path = directory / name
+        source = path.read_text()
+        questions = parse_questions(source, path.relative_to(ROOT).as_posix())
+        assert len(questions) == count, name
+        assert "contentReference" not in source, name
+        for question in questions:
+            assert "<strong>Ответ:" not in question["question"], name
+            assert question["answer"], (name, question["line"])
+            assert "<strong>Источник:</strong>" in question["answer"], name
+            assert "**Ответ:**" not in question["answer"], name
+        for token in MARKDOWN.parse(source):
+            if token.type == "fence":
+                assert "**Ответ:**" not in token.content, (name, token.map)
+    assert sum(expected.values()) == 598
+    assert (directory / "17_observabilty_and_monitorung.md").read_text().startswith(
+        "# Observability & Monitoring\n"
+    )
+    assert (directory / "18_test_ai.md").read_text().startswith(
+        "# AI в тестировании\n"
+    )
