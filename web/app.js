@@ -5,12 +5,13 @@ const catalog = window.QUESTION_CATALOG;
 const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const all = new Map();
 const topics = new Map();
-let state = {selected: [], mode: 'ordered', onlyAnswers: false, onlyReview: false, limit: 0, marks: {}, queue: [], position: 0, revealed: [], view: 'setup'};
+let state = {selected: [], mode: 'ordered', onlyAnswers: false, onlyReview: false, marks: {}, queue: [], position: 0, revealed: [], view: 'setup'};
 let settingsExpanded = false;
 let learningExpanded = false;
 const libraryState = {query: '', open: null, scroll: 0};
 let focusOnQuestion = false;
 let actionBarObserver = null;
+let desktopLayout = null;
 function restore(saved) {
   if (!saved || !['queue', 'selected', 'revealed'].every(key =>
     Array.isArray(saved[key]) && saved[key].every(id => typeof id === 'string')) ||
@@ -24,14 +25,16 @@ function restore(saved) {
     if (!['known', 'review'].includes(mark)) throw new Error('Invalid mark');
     if (all.has(id)) marks[id] = mark;
   }
+  // Keep earlier sessions available through Resume while letting users build
+  // a full selection instead of automatically reopening a capped session.
+  const legacyLimitedSession = Number.isSafeInteger(saved.limit) && saved.limit > 0;
   return {
     selected: [...new Set(saved.selected)].filter(id => topics.has(id)),
-    limit: Number.isSafeInteger(saved.limit) && saved.limit >= 0 ? saved.limit : 0,
     mode: saved.mode, onlyAnswers: saved.onlyAnswers === true,
     onlyReview: saved.onlyReview === true, marks, queue,
     position: Math.max(0, queue.indexOf(saved.queue[saved.position])),
     revealed: [...new Set(saved.revealed)].filter(id => all.has(id)),
-    view: queue.length ? saved.view : 'setup',
+    view: queue.length ? (legacyLimitedSession && saved.view === 'study' ? 'setup' : saved.view) : 'setup',
   };
 }
 if (!catalog) {
@@ -53,9 +56,9 @@ if (!catalog) {
   const track = catalog.tracks?.find(t => t.id === url.searchParams.get('track'));
   if (topic) {
     Object.assign(state, {
-      selected: [topic.id], queue: topic.questions.map(q => q.id),
-      position: 0, revealed: [], view: 'study', onlyAnswers: false, onlyReview: false,
+      selected: [topic.id], view: 'setup', onlyAnswers: false, onlyReview: false,
     });
+    libraryState.open = catalog.sections.filter(s => s.topics.some(t => t.id === topic.id)).map(s => s.id);
     save();
   } else if (track) {
     selectTrack(track); state.view = 'setup'; save();
@@ -65,7 +68,14 @@ if (!catalog) {
     url.searchParams.delete('track');
     history.replaceState(null, '', url.href);
   }
+  desktopLayout = window.matchMedia('(min-width: 901px)');
+  desktopLayout.addEventListener('change', positionProgressTools);
   render();
+  if (topic) {
+    const input = [...document.querySelectorAll('[data-topic]')].find(el => el.dataset.topic === topic.id);
+    input.closest('.topic').scrollIntoView({block: 'center'});
+    input.focus({preventScroll: true});
+  }
 }
 function selectTrack(track) {
   state.selected = catalog.sections.flatMap(s => s.topics
@@ -83,6 +93,11 @@ function pool() {
     .filter(q => (!state.onlyAnswers || q.answer) && (!state.onlyReview || state.marks[q.id] === 'review')).map(q => q.id);
 }
 function countText(list) { return `${list.length.toLocaleString('ru')} вопросов · ${list.filter(q => q.answer).length.toLocaleString('ru')} с ответами`; }
+function questionWord(count) {
+  if (count % 100 >= 11 && count % 100 <= 14) return 'вопросов';
+  if (count % 10 === 1) return 'вопрос';
+  return count % 10 >= 2 && count % 10 <= 4 ? 'вопроса' : 'вопросов';
+}
 function renderMath(container) {
   if (typeof window.renderMathInElement !== 'function') return;
   window.renderMathInElement(container, {
@@ -158,7 +173,7 @@ function observeActionBar() {
   }
 }
 function setup() {
-  root.innerHTML = `<div class="page-heading"><h1 class="library-heading" tabindex="-1"><span class="desktop-heading">Библиотека / ${catalog.sections.length}<span class="section-count-label"> разделов</span></span><span class="mobile-heading">Выберите темы</span></h1><span class="total"><strong>${all.size.toLocaleString('ru')}</strong><span>вопросов</span></span>
+  root.innerHTML = `<div class="page-heading"><h1 class="library-heading" tabindex="-1"><span class="desktop-heading">Библиотека тем</span><span class="mobile-heading">Выберите темы</span></h1><span class="total"><strong>${all.size.toLocaleString('ru')}</strong><span>вопросов</span></span>
     ${state.queue.length ? `<div class="resume"><span>Сохранённая тренировка · ${state.position + 1} из ${state.queue.length}</span><button id="resume" aria-label="Продолжить сохранённую подборку" title="Продолжить сохранённую подборку"><span class="resume-label">Продолжить</span><span aria-hidden="true">→</span></button></div>` : ''}</div>
     <p class="library-intro">Отметьте интересующие темы и начните короткую тренировку.</p>
     <section id="learning-panel" class="learning-start" ${learningExpanded ? '' : 'hidden'} aria-label="Маршруты обучения"><h2>Что хотите освоить?</h2><p>Выберите маршрут или настройте подборку из библиотеки ниже.</p><div class="track-grid">${(catalog.tracks || []).map(t => `<button class="track-card" data-track="${escapeHtml(t.id)}"><strong>${escapeHtml(t.title)}</strong><span>${escapeHtml(t.description)}</span></button>`).join('')}</div><a href="roadmap.html">Что читать, что сделать и как проверить знания →</a></section>
@@ -167,7 +182,7 @@ function setup() {
       return `<details data-library-section="${s.id}" ${(libraryState.open === null ? index === 0 : libraryState.open.includes(s.id)) ? 'open' : ''}><summary><span class="section-number">${String(index + 1).padStart(2, '0')}</span><span class="section-name">${escapeHtml(s.title)}<small>${qs.length ? countText(qs) : 'План обучения'}</small><small class="section-selected" data-selected-section="${s.id}" hidden></small></span><span class="expand" aria-hidden="true">+</span></summary>
         ${s.plan ? `<a class="plan-link" href="${escapeHtml(s.plan)}">План обучения и материалы →</a>` : ''}${s.topics.length ? `<div class="topic-list"><label class="select-all"><input type="checkbox" data-section="${s.id}"> Весь раздел</label>${s.topics.map(t => `<label class="topic"><input type="checkbox" data-topic="${t.id}" ${state.selected.includes(t.id) ? 'checked' : ''}><span>${escapeHtml(t.title)}<small>${countText(t.questions)}</small></span></label>`).join('')}</div>` : '<p class="empty-section">Вопросы ещё не добавлены. Начните с плана обучения.</p>'}</details>`;
     }).join('')}</section>
-    <aside class="settings"><p class="eyebrow">ВАША ПОДБОРКА</p><h2>Настроить тренировку</h2><fieldset><legend>Порядок вопросов</legend><div class="segmented"><label><input type="radio" name="mode" value="ordered" ${state.mode === 'ordered' ? 'checked' : ''}><span>По порядку</span></label><label><input type="radio" name="mode" value="random" ${state.mode === 'random' ? 'checked' : ''}><span>Случайно</span></label></div></fieldset><label class="answer-filter"><input id="only-answers" type="checkbox" ${state.onlyAnswers ? 'checked' : ''}> Только с ответами</label><div class="setup-actions"><div class="selection-count"><label class="quantity-label" for="session-size">Вопросов в тренировке</label><input id="session-size" class="quantity-input" type="number" inputmode="numeric" min="1" step="1" placeholder="—" aria-describedby="empty-hint" enterkeyhint="done"><p id="empty-hint" class="muted" role="status"></p></div><button class="primary" id="start"><span class="desktop-label">Начать тренировку →</span><span class="mobile-label">Начать →</span></button></div></aside></div>`;
+    <aside class="settings"><p class="eyebrow">ВАША ПОДБОРКА</p><h2>Настроить тренировку</h2><fieldset><legend>Порядок вопросов</legend><div class="segmented"><label><input type="radio" name="mode" value="ordered" ${state.mode === 'ordered' ? 'checked' : ''}><span>По порядку</span></label><label><input type="radio" name="mode" value="random" ${state.mode === 'random' ? 'checked' : ''}><span>Случайно</span></label></div></fieldset><label class="answer-filter"><input id="only-answers" type="checkbox" ${state.onlyAnswers ? 'checked' : ''}> Только с ответами</label><div class="setup-actions"><div class="selection-count" role="status" aria-live="polite" aria-atomic="true"><div class="selection-total"><strong id="selected-count"></strong><span id="selected-count-label">вопросов</span></div><p id="empty-hint" class="muted"></p></div><button class="primary" id="start"><span class="desktop-label">Начать тренировку →</span><span class="mobile-label">Начать →</span></button></div></aside></div>`;
   document.querySelectorAll('[data-topic]').forEach(input => input.onchange = () => {
     state.selected = [...document.querySelectorAll('[data-topic]:checked')].map(el => el.dataset.topic); updateSelection(); save();
   });
@@ -197,24 +212,6 @@ function setup() {
     document.querySelector('#learning-panel').hidden = !learningExpanded;
     help.setAttribute('aria-expanded', String(learningExpanded));
   };
-  const quantity = document.querySelector('#session-size');
-  quantity.oninput = () => {
-    const count = pool().length;
-    const value = quantity.valueAsNumber;
-    const valid = Number.isSafeInteger(value) && value >= 1 && value <= count;
-    quantity.setCustomValidity(valid ? '' : `Введите число от 1 до ${count.toLocaleString('ru')}`);
-    document.querySelector('#start').disabled = !valid;
-    document.querySelector('#empty-hint').textContent = valid ? `Доступно: ${count.toLocaleString('ru')}` : `Укажите от 1 до ${count.toLocaleString('ru')}`;
-    if (valid) { state.limit = value; save(); }
-  };
-  quantity.onblur = () => { if (quantity.validity.valid) updateSelection(); };
-  quantity.onkeydown = event => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      if (!quantity.validity.valid) { quantity.reportValidity(); return; }
-      quantity.blur(); document.querySelector('#start').focus({preventScroll: true});
-    }
-  };
   document.querySelector('#start').onclick = start;
   addPracticeTools();
   addSettingsToggle();
@@ -241,6 +238,20 @@ function addSettingsToggle() {
   toggle.onclick = () => { settingsExpanded = !settingsExpanded; update(); };
   update();
   settings.querySelector('h2').after(toggle, options);
+  positionProgressTools();
+}
+function positionProgressTools() {
+  const settings = root.querySelector('.settings');
+  if (!settings) return;
+  const progress = settings.querySelector('.progress-tools');
+  const active = document.activeElement;
+  const hadFocus = progress.contains(active);
+  const container = desktopLayout.matches ? settings : settings.querySelector('.training-options');
+  container.append(progress);
+  if (hadFocus) {
+    const target = !desktopLayout.matches && !settingsExpanded ? settings.querySelector('.settings-toggle') : active;
+    target.focus({preventScroll: true});
+  }
 }
 function updateSettingsSummary() {
   const summary = document.querySelector('#settings-summary');
@@ -249,13 +260,10 @@ function updateSettingsSummary() {
 }
 function updateSelection() {
   const count = pool().length;
-  const quantity = document.querySelector('#session-size');
-  quantity.value = count ? (state.limit ? Math.min(state.limit, count) : count) : '';
-  quantity.max = count;
-  quantity.disabled = !count;
-  quantity.setCustomValidity('');
+  document.querySelector('#selected-count').textContent = count.toLocaleString('ru');
+  document.querySelector('#selected-count-label').textContent = questionWord(count);
   document.querySelector('#start').disabled = !count;
-  document.querySelector('#empty-hint').textContent = !state.selected.length ? 'Выберите темы выше' : !count ? 'Нет вопросов по фильтрам' : `Доступно: ${count.toLocaleString('ru')}`;
+  document.querySelector('#empty-hint').textContent = !state.selected.length ? 'Выберите темы' : !count ? 'Нет вопросов по фильтрам' : `Выбрано тем: ${state.selected.length}`;
   document.querySelector('#clear-selection').hidden = !state.selected.length;
   document.querySelectorAll('[data-topic]').forEach(input => input.closest('.topic').classList.toggle('is-selected', input.checked));
   document.querySelectorAll('[data-section]').forEach(input => {
@@ -277,7 +285,6 @@ function start() {
   if (state.mode === 'random') for (let i = queue.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1)); [queue[i], queue[j]] = [queue[j], queue[i]];
   }
-  if (state.limit) queue = queue.slice(0, state.limit);
   libraryState.scroll = window.scrollY;
   Object.assign(state, {queue, position: 0, revealed: [], view: 'study'}); save(); showQuestion();
 }

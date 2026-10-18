@@ -30,35 +30,112 @@ test('old progress retains position and receives empty ratings', () => {
   assert.equal(restored.position, 1);
   assert.deepEqual(restored.marks, {});
   assert.equal(restored.onlyReview, false);
-  assert.equal(restored.limit, 0);
+  assert.equal(restored.view, 'study');
+  assert.equal(Object.hasOwn(restored, 'limit'), false);
 });
 
-test('new sessions include every selected question until a count is entered', () => {
+test('new sessions have no question-count limit', () => {
   const sandbox = context();
-  assert.equal(vm.runInContext('state.limit', sandbox), 0);
+  assert.equal(vm.runInContext("Object.hasOwn(state, 'limit')", sandbox), false);
 });
 
-test('saved preset and arbitrary question counts survive restoring progress', () => {
+test('legacy capped sessions return to selection without losing progress', () => {
   const sandbox = context();
-  for (const limit of [0, 10, 20, 30, 1, 7, 45, 1000, Number.MAX_SAFE_INTEGER]) {
+  const marks = {q1: 'known', q2: 'review'};
+  for (const limit of [10, 20, 30, 1, 7, 45, 1000, Number.MAX_SAFE_INTEGER]) {
+    const restored = restore(sandbox, {...original, marks, limit});
+    assert.equal(Object.hasOwn(restored, 'limit'), false);
+    assert.equal(restored.view, 'setup', `legacy count ${limit}`);
+    assert.equal(restored.position, original.position);
+    assert.deepEqual(restored.queue, original.queue);
+    assert.deepEqual(restored.selected, original.selected);
+    assert.deepEqual(restored.revealed, original.revealed);
+    assert.deepEqual(restored.marks, marks);
+  }
+});
+
+test('uncapped and invalid legacy limits preserve the saved view', () => {
+  const sandbox = context();
+  const ignoredLimits = [
+    undefined, null, 0, -1, -10, 0.5, 7.5, NaN, Infinity, -Infinity,
+    Number.MAX_SAFE_INTEGER + 1, '20', '', false, {}, [],
+  ];
+  for (const limit of ignoredLimits) {
     const restored = restore(sandbox, {...original, limit});
-    assert.equal(restored.limit, limit, `saved count ${limit}`);
+    assert.equal(Object.hasOwn(restored, 'limit'), false);
+    assert.equal(restored.view, 'study', `ignored legacy limit ${String(limit)}`);
     assert.equal(restored.position, original.position);
     assert.deepEqual(restored.queue, original.queue);
   }
 });
 
-test('invalid saved question counts fall back to all selected questions', () => {
+test('completed legacy sessions remain completed', () => {
+  const restored = restore(context(), {...original, limit: 20, view: 'done'});
+  assert.equal(restored.view, 'done');
+  assert.deepEqual(restored.queue, original.queue);
+  assert.equal(restored.position, original.position);
+  assert.equal(Object.hasOwn(restored, 'limit'), false);
+});
+
+function startSession(mode, {onlyAnswers = false, onlyReview = false} = {}) {
   const sandbox = context();
-  const invalidCounts = [
-    undefined, null, -1, -10, 0.5, 7.5, NaN, Infinity, -Infinity,
-    Number.MAX_SAFE_INTEGER + 1, '20', '', false, {}, [],
-  ];
-  for (const limit of invalidCounts) {
-    const restored = restore(sandbox, {...original, limit});
-    assert.equal(restored.limit, 0, `invalid saved count ${String(limit)}`);
-    assert.equal(restored.position, original.position);
-    assert.deepEqual(restored.queue, original.queue);
+  sandbox.window.scrollY = 120;
+  sandbox.options = {mode, onlyAnswers, onlyReview};
+  vm.runInContext(`
+    all.clear(); topics.clear();
+    const selectedQuestions = Array.from({length: 60}, (_, index) => ({
+      id: 'selected-' + index,
+      answer: index % 4 === 0 ? null : 'Answer',
+    }));
+    const excludedQuestions = [{id: 'unselected', answer: 'Answer'}];
+    for (const question of [...selectedQuestions, ...excludedQuestions]) {
+      all.set(question.id, question);
+    }
+    topics.set('selected', {id: 'selected', questions: selectedQuestions});
+    topics.set('excluded', {id: 'excluded', questions: excludedQuestions});
+    Object.assign(state, options, {
+      selected: ['selected'], limit: 20,
+      marks: Object.fromEntries(selectedQuestions.map((question, index) =>
+        [question.id, index % 5 === 0 ? 'known' : 'review'])),
+      queue: ['old-session'], position: 1, revealed: ['old-session'],
+    });
+    save = () => {};
+    showQuestion = () => {};
+    start();
+  `, sandbox);
+  return JSON.parse(vm.runInContext('JSON.stringify(state)', sandbox));
+}
+
+test('new training includes all questions in the selected topics despite legacy caps', () => {
+  const expected = Array.from({length: 60}, (_, index) => 'selected-' + index);
+  for (const mode of ['ordered', 'random']) {
+    const started = startSession(mode);
+    assert.equal(started.queue.length, 60);
+    assert.equal(new Set(started.queue).size, 60);
+    assert.deepEqual(new Set(started.queue), new Set(expected));
+    if (mode === 'ordered') assert.deepEqual(started.queue, expected);
+    assert.equal(started.position, 0);
+    assert.deepEqual(started.revealed, []);
+    assert.equal(started.view, 'study');
+  }
+});
+
+test('full training honors answer and review filters in either question order', () => {
+  for (const mode of ['ordered', 'random']) {
+    for (const filters of [
+      {onlyAnswers: true}, {onlyReview: true},
+      {onlyAnswers: true, onlyReview: true},
+    ]) {
+      const expected = Array.from({length: 60}, (_, index) => index)
+        .filter(index => (!filters.onlyAnswers || index % 4 !== 0)
+          && (!filters.onlyReview || index % 5 !== 0))
+        .map(index => 'selected-' + index);
+      const started = startSession(mode, filters);
+      assert.equal(started.queue.length, expected.length);
+      assert.equal(new Set(started.queue).size, expected.length);
+      assert.deepEqual(new Set(started.queue), new Set(expected));
+      if (mode === 'ordered') assert.deepEqual(started.queue, expected);
+    }
   }
 });
 
