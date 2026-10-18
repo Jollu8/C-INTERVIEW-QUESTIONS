@@ -1,5 +1,25 @@
 # Networking Topics (Structured)
 
+В девяти темах — 4 834 вопроса с ответами. Каждый ответ содержит источник;
+примеры и типичные ошибки добавлены там, где помогают разобраться в теме.
+
+## Полнота раздела
+
+| Тема | Вопросов | С ответами |
+| --- | ---: | ---: |
+| [OSI и TCP/IP](./01_osi_and_tcp_ip.md) | 74 | 74 |
+| [Core Networking](./02_core_networking.md) | 535 | 535 |
+| [Transport Layer](./03_transport_layer.md) | 655 | 655 |
+| [Wireless Fundamentals](./04_wireless_fundamentals.md) | 550 | 550 |
+| [LTE](./05_lte.md) | 810 | 810 |
+| [5G NR](./06_nr.md) | 680 | 680 |
+| [Network Security](./07_network_security.md) | 745 | 745 |
+| [Troubleshooting](./08_troubleshooting_and_practice.md) | 625 | 625 |
+| [3GPP L2 LTE/NR](./09_3gpp_l2_lte_nr.md) | 160 | 160 |
+| **Всего** | **4 834** | **4 834** |
+
+Для последовательной подготовки проходите темы 1–3, затем безопасность и диагностику (7–8). Радиочасть изучайте по цепочке 4 → 5 → 6 → 9; последний файл посвящён реализации scheduler и L2 стека eNB/gNB.
+
 ## 📌 Краткий список топиков
 
 1. OSI и TCP/IP модели

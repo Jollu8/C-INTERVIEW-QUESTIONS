@@ -197,7 +197,22 @@ def test_new_material_is_available_with_complete_answers() -> None:
         "content/04_system_linux/06_sequrity.md": (100, 100),
         "content/04_system_linux/07_administration_and_devops.md": (280, 280),
         "content/04_system_linux/08_advanced.md": (230, 230),
+        "content/05_networking/02_core_networking.md": (535, 535),
+        "content/05_networking/03_transport_layer.md": (655, 655),
+        "content/05_networking/04_wireless_fundamentals.md": (550, 550),
+        "content/05_networking/05_lte.md": (810, 810),
+        "content/05_networking/06_nr.md": (680, 680),
+        "content/05_networking/07_network_security.md": (745, 745),
+        "content/05_networking/08_troubleshooting_and_practice.md": (625, 625),
         "content/05_networking/09_3gpp_l2_lte_nr.md": (160, 160),
+        "content/06_tools_build_debug/01_build.md": (121, 121),
+        "content/06_tools_build_debug/02_toolchain.md": (119, 119),
+        "content/06_tools_build_debug/03_debugging.md": (220, 220),
+        "content/06_tools_build_debug/04_performance.md": (270, 270),
+        "content/06_tools_build_debug/05_runtime.md": (260, 260),
+        "content/06_tools_build_debug/06_ci.md": (260, 260),
+        "content/06_tools_build_debug/07_type_questions.md": (105, 105),
+        "content/06_tools_build_debug/08_advanced_topic.md": (160, 160),
     }
     for path, (total, answered) in topics.items():
         source = (ROOT / path).read_text()
@@ -205,6 +220,11 @@ def test_new_material_is_available_with_complete_answers() -> None:
         assert len(questions) == total, path
         assert sum(bool(q["answer"]) for q in questions) == answered, path
         assert all("<strong>Ответ:" not in q["question"] for q in questions), path
+        if path.startswith("content/06_tools_build_debug/"):
+            assert all(
+                "<strong>Источник:</strong>" in q["answer"]
+                for q in questions
+            ), path
         for token in MARKDOWN.parse(source):
             if token.type == "fence":
                 assert "**Ответ:**" not in token.content, (path, token.map)

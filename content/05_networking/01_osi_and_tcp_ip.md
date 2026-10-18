@@ -20,7 +20,7 @@
    [ Physical     ] -> Биты / Радиоволны / Витая пара
    ```
 
-   **Источник:** [ISO/IEC 7498-1: Information technology — Open Systems Interconnection — Basic Reference Model](https://www.iso.org/standard/20269.html?utm_source=gemini)
+   **Источник:** [ISO/IEC 7498-1: Information technology — Open Systems Interconnection — Basic Reference Model](https://www.iso.org/standard/20269.html)
 
 2. Сколько слоёв в модели OSI?
 
@@ -38,7 +38,7 @@
    L1: Physical
    ```
 
-   **Источник:** [IETF RFC 1122: Requirements for Internet Hosts — Communication Layers](https://datatracker.ietf.org/doc/html/rfc1122?utm_source=gemini)
+   **Источник:** [IETF RFC 1122: Requirements for Internet Hosts — Communication Layers](https://datatracker.ietf.org/doc/html/rfc1122)
 
 3. Какие слои входят в TCP/IP модель?
 
@@ -54,7 +54,7 @@
    1. Link Layer        (Ethernet, Wi-Fi)
    ```
 
-   **Источник:** [IETF RFC 1122: Architectural Overview](https://datatracker.ietf.org/doc/html/rfc1122#section-1.1.3?utm_source=gemini)
+   **Источник:** [IETF RFC 1122: Architectural Overview](https://datatracker.ietf.org/doc/html/rfc1122#section-1.1.3)
 
 4. В чём разница между OSI и TCP/IP?
 
@@ -68,7 +68,7 @@
    TCP/IP:        [ Application Layer ] (TLS и сессии реализованы прямо внутри процесса приложения)
    ```
 
-   **Источник:** [Kurose, Ross: Computer Networking: A Top-Down Approach](https://www.pearson.com/en-us/subject-catalog/p/computer-networking-a-top-down-approach/P200000003335?utm_source=gemini)
+   **Источник:** [Kurose, Ross: Computer Networking: A Top-Down Approach](https://www.pearson.com/en-us/subject-catalog/p/computer-networking-a-top-down-approach/P200000003335)
 
 5. Почему TCP/IP используется на практике чаще, чем OSI?
 
@@ -81,7 +81,7 @@
    int s = socket(AF_INET, SOCK_STREAM, 0); // Стандарт де-факто
    ```
 
-   **Источник:** [Andrew S. Tanenbaum: Computer Networks (Why OSI didn't catch on)](https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003333?utm_source=gemini)
+   **Источник:** [Andrew S. Tanenbaum: Computer Networks (Why OSI didn't catch on)](https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003333)
 
    ---
 
@@ -98,7 +98,7 @@
    4 витые пары, амплитудная модуляция PAM-5, частота 125 МГц
    ```
 
-   **Источник:** [IEEE 802.3 Ethernet Standard: Physical Layer Specifications](https://standards.ieee.org/ieee/802.3/7081/?utm_source=gemini)
+   **Источник:** [IEEE 802.3 Ethernet Standard: Physical Layer Specifications](https://standards.ieee.org/ieee/802.3/7081/)
 
 7. За что отвечает Data Link layer?
 
@@ -111,7 +111,7 @@
    [ Preamble | Dest MAC (6B) | Src MAC (6B) | Type (2B) | Payload (46-1500B) | CRC32 (4B) ]
    ```
 
-   **Источник:** [IEEE Standard for Ethernet (IEEE 802.3-2022)](https://standards.ieee.org/ieee/802.3/10529/?utm_source=gemini)
+   **Источник:** [IEEE Standard for Ethernet (IEEE 802.3-2022)](https://standards.ieee.org/ieee/802.3/10529/)
 
 8. Какие задачи решает Network layer?
 
@@ -125,11 +125,11 @@
    # default via 192.168.1.1 dev eth0 proto dhcp metric 100
    ```
 
-   **Источник:** [IETF RFC 791: Internet Protocol (IP)](https://datatracker.ietf.org/doc/html/rfc791?utm_source=gemini)
+   **Источник:** [IETF RFC 791: Internet Protocol (IP)](https://datatracker.ietf.org/doc/html/rfc791)
 
 9. Что делает Transport layer?
 
-   **Ответ:** Транспортный уровень (L4) обеспечивает сквозную (end-to-end) связь между конкретными процессами приложений на хостах, мультиплексируя потоки с помощью номеров портов (1–65535). Он может предоставлять как гарантированную доставку с установлением соединения, контролем порядка, переповтором и регулированием скорости (TCP), так и легковесную датаграммную передачу без гарантий и задержек (UDP).
+   **Ответ:** Транспортный уровень (L4) обеспечивает сквозную (end-to-end) связь между конкретными процессами приложений на хостах, мультиплексируя потоки с помощью 16-битных номеров портов (0–65535; порт 0 зарезервирован). Он может предоставлять как гарантированную доставку с установлением соединения, контролем порядка, переповтором и регулированием скорости (TCP), так и легковесную датаграммную передачу без гарантий и задержек (UDP).
 
    **Пример:**
 
@@ -138,7 +138,7 @@
    192.168.1.50:5432 -> подключение к процессу PostgreSQL
    ```
 
-   **Источник:** [IETF RFC 793: Transmission Control Protocol](https://datatracker.ietf.org/doc/html/rfc793?utm_source=gemini)
+   **Источник:** [IETF RFC 793: Transmission Control Protocol](https://datatracker.ietf.org/doc/html/rfc793)
 
 10. Чем занимается Application layer?
 
@@ -152,7 +152,7 @@
     User-Agent: curl/8.0.1
     ```
 
-    **Источник:** [IETF RFC 9110: HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110?utm_source=gemini)
+    **Источник:** [IETF RFC 9110: HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc9110)
 
     ---
 
@@ -169,7 +169,7 @@
     ping -c 1 8.8.8.8
     ```
 
-    **Источник:** [IETF RFC 792: Internet Control Message Protocol (ICMP)](https://datatracker.ietf.org/doc/html/rfc792?utm_source=gemini)
+    **Источник:** [IETF RFC 792: Internet Control Message Protocol (ICMP)](https://datatracker.ietf.org/doc/html/rfc792)
 
 12. Какие протоколы относятся к Transport layer?
 
@@ -184,7 +184,7 @@
     # udp  UNCONN 0 0   0.0.0.0:53  (DNS)
     ```
 
-    **Источник:** [IETF RFC 768: User Datagram Protocol (UDP)](https://datatracker.ietf.org/doc/html/rfc768?utm_source=gemini)
+    **Источник:** [IETF RFC 768: User Datagram Protocol (UDP)](https://datatracker.ietf.org/doc/html/rfc768)
 
 13. Где работает HTTP?
 
@@ -197,7 +197,7 @@
     [ Transport   ] -> TCP (HTTP/1,2) или QUIC/UDP (HTTP/3)
     ```
 
-    **Источник:** [IETF RFC 9114: HTTP/3](https://datatracker.ietf.org/doc/html/rfc9114?utm_source=gemini)
+    **Источник:** [IETF RFC 9114: HTTP/3](https://datatracker.ietf.org/doc/html/rfc9114)
 
 14. Где работает TCP?
 
@@ -214,7 +214,7 @@
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     ```
 
-    **Источник:** [IETF RFC 9293: Transmission Control Protocol (TCP)](https://datatracker.ietf.org/doc/html/rfc9293?utm_source=gemini)
+    **Источник:** [IETF RFC 9293: Transmission Control Protocol (TCP)](https://datatracker.ietf.org/doc/html/rfc9293)
 
 15. Где работает IP?
 
@@ -227,7 +227,7 @@
     [ IP Header (Src: 192.168.1.10, Dst: 93.184.216.34) | [ TCP Header | Data ] ]
     ```
 
-    **Источник:** [IETF RFC 791: Internet Protocol Specification](https://datatracker.ietf.org/doc/html/rfc791?utm_source=gemini)
+    **Источник:** [IETF RFC 791: Internet Protocol Specification](https://datatracker.ietf.org/doc/html/rfc791)
 
     ---
 
@@ -246,7 +246,7 @@
     L2 Frame: [Eth Hdr | IP Hdr | TCP Hdr | HTTP Request | Eth Trailer]
     ```
 
-    **Источник:** [W. Richard Stevens: TCP/IP Illustrated, Volume 1 (The Protocols)](https://www.pearson.com/en-us/subject-catalog/p/tcp-ip-illustrated-volume-1-the-protocols/P200000003348?utm_source=gemini)
+    **Источник:** [W. Richard Stevens: TCP/IP Illustrated, Volume 1 (The Protocols)](https://www.pearson.com/en-us/subject-catalog/p/tcp-ip-illustrated-volume-1-the-protocols/P200000003348)
 
 17. Что происходит с данными на каждом уровне?
 
@@ -258,7 +258,7 @@
     Data (L7) -> Segment (L4) -> Packet (L3) -> Frame (L2) -> Bits (L1)
     ```
 
-    **Источник:** [Cisco Networking Academy: CCNA Routing and Switching Introduction](https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html?utm_source=gemini)
+    **Источник:** [Cisco Networking Academy: CCNA Routing and Switching Introduction](https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html)
 
 18. Чем отличается packet от frame?
 
@@ -271,7 +271,7 @@
     Кадр (L2):  MAC-адреса источника и назначения ПЕРЕЗАПИСЫВАЮТСЯ на каждом роутере!
     ```
 
-    **Источник:** [IETF RFC 894: Standard for the transmission of IP datagrams over Ethernet networks](https://datatracker.ietf.org/doc/html/rfc894?utm_source=gemini)
+    **Источник:** [IETF RFC 894: Standard for the transmission of IP datagrams over Ethernet networks](https://datatracker.ietf.org/doc/html/rfc894)
 
 19. Что такое payload?
 
@@ -284,7 +284,7 @@
     Для TCP-сегмента payload — это прикладной HTTP-запрос "GET / HTTP/1.1".
     ```
 
-    **Источник:** [RFC 791: Internet Protocol (Data Field)](https://datatracker.ietf.org/doc/html/rfc791#section-3.1?utm_source=gemini)
+    **Источник:** [RFC 791: Internet Protocol (Data Field)](https://datatracker.ietf.org/doc/html/rfc791#section-3.1)
 
 20. Что такое header?
 
@@ -297,7 +297,7 @@
     содержит Version, IHL, Total Length, TTL, Protocol, Source IP, Destination IP
     ```
 
-    **Источник:** [RFC 791: IP Header Format](https://datatracker.ietf.org/doc/html/rfc791#section-3.1?utm_source=gemini)
+    **Источник:** [RFC 791: IP Header Format](https://datatracker.ietf.org/doc/html/rfc791#section-3.1)
 
     ---
 
@@ -327,7 +327,7 @@
     1. Physical       +-> Link Layer
     ```
 
-    **Источник:** [RFC 1122: Requirements for Internet Hosts](https://datatracker.ietf.org/doc/html/rfc1122?utm_source=gemini)
+    **Источник:** [RFC 1122: Requirements for Internet Hosts](https://datatracker.ietf.org/doc/html/rfc1122)
 
 22. Почему Presentation и Session уровни отсутствуют в TCP/IP?
 
@@ -340,7 +340,7 @@
     но в стеке TCP/IP библиотека OpenSSL работает прямо внутри пользовательского процесса (L7).
     ```
 
-    **Источник:** [Saltzer, Reed, Clark: End-to-End Arguments in System Design (ACM TOCS)](https://web.mit.edu/Saltzer/www/publications/endtoend/endtoend.pdf?utm_source=gemini)
+    **Источник:** [Saltzer, Reed, Clark: End-to-End Arguments in System Design (ACM TOCS)](https://web.mit.edu/Saltzer/www/publications/endtoend/endtoend.pdf)
 
 23. Какие проблемы решает каждый слой в реальной сети?
 
@@ -361,7 +361,7 @@
     L7: на сервере упал скрипт -> HTTP 500 Internal Server Error.
     ```
 
-    **Источник:** [Tanenbaum, Wetherall: Computer Networks (5th Edition)](https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003333?utm_source=gemini)
+    **Источник:** [Tanenbaum, Wetherall: Computer Networks (5th Edition)](https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003333)
 
     ---
 
@@ -379,7 +379,7 @@
     [  OUI  ] [ Device ID ]
     ```
 
-    **Источник:** [IEEE Guidelines for Use of Extended Unique Identifier (EUI)](https://standards.ieee.org/products-programs/regauth/tut/eui/?utm_source=gemini)
+    **Источник:** [IEEE Guidelines for Use of Extended Unique Identifier (EUI)](https://standards.ieee.org/products-programs/regauth/tut/eui/)
 
 25. Как работает ARP?
 
@@ -393,7 +393,7 @@
     # 192.168.1.1 dev eth0 lladdr a4:91:b1:cd:23:01 REACHABLE
     ```
 
-    **Источник:** [IETF RFC 826: An Ethernet Address Resolution Protocol (ARP)](https://datatracker.ietf.org/doc/html/rfc826?utm_source=gemini)
+    **Источник:** [IETF RFC 826: An Ethernet Address Resolution Protocol (ARP)](https://datatracker.ietf.org/doc/html/rfc826)
 
 26. Что происходит при отправке пакета в другую подсеть?
 
@@ -411,7 +411,7 @@
     [ L3: Src IP  = 192.168.1.5, Dst IP  = 8.8.8.8   ]
     ```
 
-    **Источник:** [RFC 1122: Host Requirements — Communication Layers (Routing Outbound Datagrams)](https://datatracker.ietf.org/doc/html/rfc1122#section-3.3.1?utm_source=gemini)
+    **Источник:** [RFC 1122: Host Requirements — Communication Layers (Routing Outbound Datagrams)](https://datatracker.ietf.org/doc/html/rfc1122#section-3.3.1)
 
 27. Как работает маршрутизация на уровне IP?
 
@@ -425,7 +425,7 @@
     10.1.2.0/24    via 192.168.20.1 (префикс 24 бита - победитель Longest Prefix Match!)
     ```
 
-    **Источник:** [IETF RFC 1812: Requirements for IP Version 4 Routers](https://datatracker.ietf.org/doc/html/rfc1812?utm_source=gemini)
+    **Источник:** [IETF RFC 1812: Requirements for IP Version 4 Routers](https://datatracker.ietf.org/doc/html/rfc1812)
 
 28. Что такое TTL и зачем он нужен?
 
@@ -440,7 +440,7 @@
     # 2  10.50.0.1   (TTL=2 отброшен провайдером)
     ```
 
-    **Источник:** [IETF RFC 791: Internet Protocol (Time to Live)](https://datatracker.ietf.org/doc/html/rfc791#section-3.2?utm_source=gemini)
+    **Источник:** [IETF RFC 791: Internet Protocol (Time to Live)](https://datatracker.ietf.org/doc/html/rfc791#section-3.2)
 
     ---
 
@@ -459,7 +459,7 @@
     UDP: видеопотоки, онлайн-игры, DNS-запросы, VoIP.
     ```
 
-    **Источник:** [IETF RFC 793 (TCP)](https://datatracker.ietf.org/doc/html/rfc793?utm_source=gemini) и [IETF RFC 768 (UDP)](https://datatracker.ietf.org/doc/html/rfc768?utm_source=gemini)
+    **Источник:** [IETF RFC 793 (TCP)](https://datatracker.ietf.org/doc/html/rfc793) и [IETF RFC 768 (UDP)](https://datatracker.ietf.org/doc/html/rfc768)
 
 30. Что такое 3-way handshake?
 
@@ -477,7 +477,7 @@
       | ------ ACK (Ack=Y+1) ----> |
     ```
 
-    **Источник:** [RFC 793: Transmission Control Protocol (Connection Establishment)](https://datatracker.ietf.org/doc/html/rfc793#section-3.4?utm_source=gemini)
+    **Источник:** [RFC 793: Transmission Control Protocol (Connection Establishment)](https://datatracker.ietf.org/doc/html/rfc793#section-3.4)
 
 31. Что такое flow control?
 
@@ -490,7 +490,7 @@
     Отправитель немедленно останавливает передачу и шлет редкие Probe-пакеты.
     ```
 
-    **Источник:** [RFC 9293: Transmission Control Protocol (Flow Control)](https://datatracker.ietf.org/doc/html/rfc9293#section-3.8.3?utm_source=gemini)
+    **Источник:** [RFC 9293: Transmission Control Protocol (Flow Control)](https://datatracker.ietf.org/doc/html/rfc9293#section-3.8.3)
 
 32. Что такое congestion control?
 
@@ -504,7 +504,7 @@
     rwnd — ограничивает принимающий хост, cwnd — ограничивает состояние каналов интернета.
     ```
 
-    **Источник:** [IETF RFC 5681: TCP Congestion Control](https://datatracker.ietf.org/doc/html/rfc5681?utm_source=gemini)
+    **Источник:** [IETF RFC 5681: TCP Congestion Control](https://datatracker.ietf.org/doc/html/rfc5681)
 
 33. Как происходит повторная передача пакетов?
 
@@ -520,7 +520,7 @@
     Отправитель мгновенно переотправляет сегмент 2 (Fast Retransmit).
     ```
 
-    **Источник:** [IETF RFC 6298: Computing TCP's Retransmission Timer](https://datatracker.ietf.org/doc/html/rfc6298?utm_source=gemini)
+    **Источник:** [IETF RFC 6298: Computing TCP's Retransmission Timer](https://datatracker.ietf.org/doc/html/rfc6298)
 
     ---
 
@@ -538,7 +538,7 @@
     # Link detected: no (кабель отключен или поврежден)
     ```
 
-    **Источник:** [IEEE 802.3: Physical Medium Attachment Specifications](https://standards.ieee.org/ieee/802.3/7081/?utm_source=gemini)
+    **Источник:** [IEEE 802.3: Physical Medium Attachment Specifications](https://standards.ieee.org/ieee/802.3/7081/)
 
 35. Какие проблемы возникают на L2?
 
@@ -552,7 +552,7 @@
     # RX-ERR / RX-OVR / CRC errors указывают на проблему L1/L2
     ```
 
-    **Источник:** [IEEE 802.1Q: Bridges and Bridged Networks (VLANs)](https://standards.ieee.org/ieee/802.1Q/10323/?utm_source=gemini)
+    **Источник:** [IEEE 802.1Q: Bridges and Bridged Networks (VLANs)](https://standards.ieee.org/ieee/802.1Q/10323/)
 
 36. Какие проблемы типичны для L3?
 
@@ -566,7 +566,7 @@
     # RTNETLINK answers: Network is unreachable (отсутствует default gateway)
     ```
 
-    **Источник:** [IETF RFC 1812: Requirements for IP Version 4 Routers](https://datatracker.ietf.org/doc/html/rfc1812?utm_source=gemini)
+    **Источник:** [IETF RFC 1812: Requirements for IP Version 4 Routers](https://datatracker.ietf.org/doc/html/rfc1812)
 
 37. Как определить, на каком уровне произошла ошибка?
 
@@ -585,7 +585,7 @@
     # Connection to example.com 443 port [tcp/https] succeeded! (L1-L4 работают)
     ```
 
-    **Источник:** [Cisco Troubleshooting Methodology (Network Maintenance and Troubleshooting Guide)](https://www.cisco.com/c/en/us/support/docs/quality-of-service-qos/qos-troubleshooting/112028-qos-troubleshooting-methodology.html?utm_source=gemini)
+    **Источник:** [Cisco Troubleshooting Methodology (Network Maintenance and Troubleshooting Guide)](https://www.cisco.com/c/en/us/support/docs/quality-of-service-qos/qos-troubleshooting/112028-qos-troubleshooting-methodology.html)
 
 38. Почему ping может не работать?
 
@@ -604,7 +604,7 @@
     curl -I https://example.com # HTTP/2 200 OK (TCP 443 работает штатно)
     ```
 
-    **Источник:** [IETF RFC 792: Internet Control Message Protocol (Echo and Echo Reply)](https://datatracker.ietf.org/doc/html/rfc792?utm_source=gemini)
+    **Источник:** [IETF RFC 792: Internet Control Message Protocol (Echo and Echo Reply)](https://datatracker.ietf.org/doc/html/rfc792)
 
     ---
 
@@ -624,7 +624,7 @@
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     ```
 
-    **Источник:** [W. Richard Stevens: UNIX Network Programming, Volume 1 (Sockets API)](https://www.pearson.com/en-us/subject-catalog/p/unix-network-programming-volume-1-the-sockets-networking-api/P200000003347?utm_source=gemini)
+    **Источник:** [W. Richard Stevens: UNIX Network Programming, Volume 1 (Sockets API)](https://www.pearson.com/en-us/subject-catalog/p/unix-network-programming-volume-1-the-sockets-networking-api/P200000003347)
 
 40. Как системный вызов `socket()` соотносится с OSI?
 
@@ -640,7 +640,7 @@
     int fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     ```
 
-    **Источник:** [Linux man-pages: socket(2)](https://man7.org/linux/man-pages/man2/socket.2.html?utm_source=gemini)
+    **Источник:** [Linux man-pages: socket(2)](https://man7.org/linux/man-pages/man2/socket.2.html)
 
 41. Какие уровни затрагиваются при `send()`?
 
@@ -657,7 +657,7 @@
     send() [L7] -> tcp_sendmsg() [L4] -> ip_queue_xmit() [L3] -> dev_queue_xmit() [L2] -> Ring Buffer / PHY [L1]
     ```
 
-    **Источник:** [Understanding Linux Network Internals (Christian Benvenuti)](https://www.oreilly.com/library/view/understanding-linux-network/0596002556/?utm_source=gemini)
+    **Источник:** [Understanding Linux Network Internals (Christian Benvenuti)](https://www.oreilly.com/library/view/understanding-linux-network/0596002556/)
 
 42. Какие уровни задействованы при `recv()`?
 
@@ -673,7 +673,7 @@
     PHY/DMA [L1] -> netif_receive_skb() [L2] -> ip_rcv() [L3] -> tcp_v4_rcv() [L4] -> sys_recv() [L7]
     ```
 
-    **Источник:** [Linux Kernel Documentation: NAPI](https://docs.kernel.org/networking/napi.html?utm_source=gemini)
+    **Источник:** [Linux Kernel Documentation: NAPI](https://docs.kernel.org/networking/napi.html)
 
 43. Как OSI проявляется в BSD sockets API?
 
@@ -692,7 +692,7 @@
     addr.sin_addr.s_addr = INADDR_ANY; // L3: IP-интерфейс
     ```
 
-    **Источник:** [POSIX.1-2017: sys/socket.h](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_socket.h.html?utm_source=gemini)
+    **Источник:** [POSIX.1-2017: sys/socket.h](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_socket.h.html)
 
 ### Инкапсуляция в коде
 
@@ -708,7 +708,7 @@
     struct iphdr *iph = (struct iphdr *)data;
     ```
 
-    **Источник:** [Linux Kernel: struct sk_buff documentation](https://docs.kernel.org/networking/kapi.html?utm_source=gemini#c.sk_buff)
+    **Источник:** [Linux Kernel: struct sk_buff documentation](https://docs.kernel.org/networking/kapi.html#c.sk_buff)
 
 45. Где формируется TCP header?
 
@@ -724,7 +724,7 @@
     th->seq = htonl(tp->write_seq);
     ```
 
-    **Источник:** [Linux Kernel Source: net/ipv4/tcp_output.c](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/net/ipv4/tcp_output.c?utm_source=gemini)
+    **Источник:** [Linux Kernel Source: net/ipv4/tcp_output.c](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/net/ipv4/tcp_output.c)
 
 46. Где добавляется IP header?
 
@@ -741,7 +741,7 @@
     iph->protocol = IPPROTO_TCP;
     ```
 
-    **Источник:** [Linux Kernel Source: net/ipv4/ip_output.c](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/net/ipv4/ip_output.c?utm_source=gemini)
+    **Источник:** [Linux Kernel Source: net/ipv4/ip_output.c](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/net/ipv4/ip_output.c)
 
 47. Можно ли вручную сформировать пакет?
 
@@ -756,7 +756,7 @@
     setsockopt(fd, IPPROTO_IP, IP_HDRINCL, &opt, sizeof(opt));
     ```
 
-    **Источник:** [Linux man-pages: raw(7)](https://man7.org/linux/man-pages/man7/raw.7.html?utm_source=gemini)
+    **Источник:** [Linux man-pages: raw(7)](https://man7.org/linux/man-pages/man7/raw.7.html)
 
 48. Что такое raw socket и на каком уровне он работает?
 
@@ -771,7 +771,7 @@
     int raw_l2 = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
     ```
 
-    **Источник:** [Linux man-pages: packet(7)](https://man7.org/linux/man-pages/man7/packet.7.html?utm_source=gemini)
+    **Источник:** [Linux man-pages: packet(7)](https://man7.org/linux/man-pages/man7/packet.7.html)
 
 ### Практика (C/C++)
 
@@ -791,7 +791,7 @@
     printf("Client IP: %s\n", ip_str);
     ```
 
-    **Источник:** [Linux man-pages: getpeername(2)](https://man7.org/linux/man-pages/man2/getpeername.2.html?utm_source=gemini)
+    **Источник:** [Linux man-pages: getpeername(2)](https://man7.org/linux/man-pages/man2/getpeername.2.html)
 
 50. Как получить MAC-адрес?
 
@@ -814,7 +814,7 @@
     printf("MAC: %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
     ```
 
-    **Источник:** [Linux man-pages: netdevice(7)](https://man7.org/linux/man-pages/man7/netdevice.7.html?utm_source=gemini)
+    **Источник:** [Linux man-pages: netdevice(7)](https://man7.org/linux/man-pages/man7/netdevice.7.html)
 
 51. Как реализовать простой TCP клиент?
 
@@ -844,7 +844,7 @@
     }
     ```
 
-    **Источник:** [W. Richard Stevens: UNIX Network Programming, Volume 1 (TCP Echo Client)](https://www.pearson.com/en-us/subject-catalog/p/unix-network-programming-volume-1-the-sockets-networking-api/P200000003347?utm_source=gemini)
+    **Источник:** [W. Richard Stevens: UNIX Network Programming, Volume 1 (TCP Echo Client)](https://www.pearson.com/en-us/subject-catalog/p/unix-network-programming-volume-1-the-sockets-networking-api/P200000003347)
 
 52. Как реализовать UDP сервер?
 
@@ -875,7 +875,7 @@
     }
     ```
 
-    **Источник:** [Linux man-pages: recvfrom(2)](https://man7.org/linux/man-pages/man2/recvfrom.2.html?utm_source=gemini)
+    **Источник:** [Linux man-pages: recvfrom(2)](https://man7.org/linux/man-pages/man2/recvfrom.2.html)
 
 53. Чем отличается blocking и non-blocking socket?
 
@@ -890,7 +890,7 @@
     fcntl(sock, F_SETFL, flags | O_NONBLOCK);
     ```
 
-    **Источник:** [Linux man-pages: fcntl(2)](https://man7.org/linux/man-pages/man2/fcntl.2.html?utm_source=gemini)
+    **Источник:** [Linux man-pages: fcntl(2)](https://man7.org/linux/man-pages/man2/fcntl.2.html)
 
 ### Debugging и анализ
 
@@ -909,7 +909,7 @@
     tcpdump -enni eth0 host 192.168.1.50
     ```
 
-    **Источник:** [tcpdump(1) manual page](https://www.tcpdump.org/manpages/tcpdump.1.html?utm_source=gemini)
+    **Источник:** [tcpdump(1) manual page](https://www.tcpdump.org/manpages/tcpdump.1.html)
 
 55. Как Wireshark отображает уровни OSI?
 
@@ -930,7 +930,7 @@
     > Hypertext Transfer Protocol (L7)
     ```
 
-    **Источник:** [Wireshark User’s Guide: Packet Details Window](https://www.wireshark.org/docs/wsug_html_chunked/ChUsePacketDetailsPaneSection.html?utm_source=gemini)
+    **Источник:** [Wireshark User’s Guide: Packet Details Window](https://www.wireshark.org/docs/wsug_html_chunked/ChUsePacketDetailsPaneSection.html)
 
 56. Как определить потерю пакетов?
 
@@ -947,7 +947,7 @@
     # Поля RX/TX: dropped, errors, overruns
     ```
 
-    **Источник:** [Brendan Gregg: Systems Performance (Network Drops and Errors)](https://www.brendangregg.com/methodology.html?utm_source=gemini)
+    **Источник:** [Brendan Gregg: Systems Performance (Network Drops and Errors)](https://www.brendangregg.com/methodology.html)
 
 57. Как анализировать TCP retransmissions?
 
@@ -962,7 +962,7 @@
     tshark -r capture.pcap -Y "tcp.analysis.retransmission"
     ```
 
-    **Источник:** [Wireshark Wiki: TCP Analysis Infra](https://wiki.wireshark.org/TCP_Analysis?utm_source=gemini)
+    **Источник:** [Wireshark Wiki: TCP Analysis Infra](https://wiki.wireshark.org/TCP_Analysis)
 
 58. Как увидеть handshake в дампе?
 
@@ -978,7 +978,7 @@
     tcp.flags.syn == 1
     ```
 
-    **Источник:** [RFC 793: Transmission Control Protocol (Handshake analysis)](https://datatracker.ietf.org/doc/html/rfc793?utm_source=gemini)
+    **Источник:** [RFC 793: Transmission Control Protocol (Handshake analysis)](https://datatracker.ietf.org/doc/html/rfc793)
 
 ### Производительность
 
@@ -998,7 +998,7 @@
     # Процент в колонке %soft указывает на сетевую нагрузку ядра
     ```
 
-    **Источник:** [Bufferbloat: Dark Buffers in the Internet (ACM Queue)](https://queue.acm.org/detail.cfm?id=2071893?utm_source=gemini)
+    **Источник:** [Bufferbloat: Dark Buffers in the Internet (ACM Queue)](https://queue.acm.org/detail.cfm?id=2071893)
 
 60. Как влияет MTU на передачу данных?
 
@@ -1013,7 +1013,7 @@
     ip link set dev eth0 mtu 9000
     ```
 
-    **Источник:** [IETF RFC 894: Transmission of IP Datagrams over Ethernet](https://datatracker.ietf.org/doc/html/rfc894?utm_source=gemini)
+    **Источник:** [IETF RFC 894: Transmission of IP Datagrams over Ethernet](https://datatracker.ietf.org/doc/html/rfc894)
 
 61. Что такое fragmentation?
 
@@ -1028,7 +1028,7 @@
     Фрагмент 3: 60 байт   (IP Header + 40B data,   Offset=370, MF=0)
     ```
 
-    **Источник:** [IETF RFC 791: IP Fragmentation and Reassembly](https://datatracker.ietf.org/doc/html/rfc791?utm_source=gemini#section-3.2?utm_source=gemini)
+    **Источник:** [IETF RFC 791: IP Fragmentation and Reassembly](https://datatracker.ietf.org/doc/html/rfc791#section-3.2)
 
 62. Как избежать fragmentation?
 
@@ -1044,7 +1044,7 @@
     iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
     ```
 
-    **Источник:** [IETF RFC 1191: Path MTU Discovery](https://datatracker.ietf.org/doc/html/rfc1191?utm_source=gemini)
+    **Источник:** [IETF RFC 1191: Path MTU Discovery](https://datatracker.ietf.org/doc/html/rfc1191)
 
 63. Как latency зависит от уровней стека?
 
@@ -1063,7 +1063,7 @@
     setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof(int));
     ```
 
-    **Источник:** [Computer Systems: A Programmer's Perspective (Network Latency Factors)](https://csapp.cs.cmu.edu/?utm_source=gemini)
+    **Источник:** [Computer Systems: A Programmer's Perspective (Network Latency Factors)](https://csapp.cs.cmu.edu/)
 
     ---
 
@@ -1083,7 +1083,7 @@
     Практика: сокеты ОС отдают приложению сразу L4-поток, минуя L5 и L6.
     ```
 
-    **Источник:** [Andrew S. Tanenbaum: Computer Networks (A Critique of the OSI Model and Protocols)](https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003333?utm_source=gemini)
+    **Источник:** [Andrew S. Tanenbaum: Computer Networks (A Critique of the OSI Model and Protocols)](https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003333)
 
 65. Где нарушается строгая слоистость в TCP/IP?
 
@@ -1100,7 +1100,7 @@
     [ Source IP (32 bit) | Dest IP (32 bit) | Zero (8) | Protocol (8) | TCP Length (16) ]
     ```
 
-    **Источник:** [RFC 793: TCP Checksum Calculation and Pseudo-header](https://datatracker.ietf.org/doc/html/rfc793?utm_source=gemini#section-3.1?utm_source=gemini)
+    **Источник:** [RFC 793: TCP Checksum Calculation and Pseudo-header](https://datatracker.ietf.org/doc/html/rfc793#section-3.1)
 
 66. Почему некоторые протоколы "протекают" между уровнями?
 
@@ -1115,7 +1115,7 @@
     NAT транслирует сокетное соединение: подменяет L3 IP и L4 Port одновременно.
     ```
 
-    **Источник:** [Joel Spolsky: The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/?utm_source=gemini)
+    **Источник:** [Joel Spolsky: The Law of Leaky Abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)
 
 67. Как современные протоколы (например QUIC) меняют модель?
 
@@ -1131,7 +1131,7 @@
     HTTP/3: [ HTTP/3 (L7) ] -> [ QUIC (Шифрование + Надежный транспорт в User-Space) ] -> [ UDP (L4) ] -> [ IP (L3) ]
     ```
 
-    **Источник:** [IETF RFC 9000: QUIC: A UDP-Based Multiplexed and Secure Transport](https://datatracker.ietf.org/doc/html/rfc9000?utm_source=gemini)
+    **Источник:** [IETF RFC 9000: QUIC: A UDP-Based Multiplexed and Secure Transport](https://datatracker.ietf.org/doc/html/rfc9000)
 
 68. Можно ли реализовать свою сетевую модель?
 
@@ -1147,7 +1147,7 @@
     Ядро ОС и классический TCP/IP стек полностью исключены из передачи.
     ```
 
-    **Источник:** [RDMA Aware Networks Programming User Manual (Mellanox/NVIDIA)](https://network.nvidia.com/files/doc-2020/ethernet-rdma-handbook.pdf?utm_source=gemini)
+    **Источник:** [RDMA Aware Networks Programming User Manual (Mellanox/NVIDIA)](https://network.nvidia.com/files/doc-2020/ethernet-rdma-handbook.pdf)
 
 69. Какие уровни реализуются в user-space, а какие в kernel?
 
@@ -1166,24 +1166,21 @@
     [ NIC / PHY  ] -> MAC-контроллер, DMA контроллер, кабель (L1)
     ```
 
-    **Источник:** [Robert Love: Linux Kernel Development (Network Architecture)](https://en.wikipedia.org/wiki/Linux_Kernel_Development?utm_source=gemini)
+    **Источник:** [Robert Love: Linux Kernel Development (Network Architecture)](https://en.wikipedia.org/wiki/Linux_Kernel_Development)
 
 70. Как работает zero-copy networking?
 
-    **Ответ:** В классической схеме данные копируются: `User Buffer -> Kernel Socket Buffer -> NIC DMA Buffer`. Zero-Copy исключает промежуточное копирование через память ядра:
-    1. Системный вызов `sendfile()` или `splice()` передает страницы из страничного кэша диска (page cache) напрямую в кольцевой буфер сетевой карты через дескрипторы страниц.
-    2. Флаг `MSG_ZEROCOPY` отображает страницы пользовательской памяти напрямую в память для DMA сетевой карты.
-    3. Технологии типа **AF_XDP** или **DPDK** выделяют память в User-Space (UMEM), разделяемую напрямую с сетевой картой через кольцевые буферы без участия сетевого стека ядра.
+    **Ответ:** Zero-copy уменьшает число копирований payload между буферами. DMA сама по себе не означает копирование CPU из socket buffer в отдельный NIC buffer: адаптер может читать подготовленные страницы памяти.
 
-    **Пример:**
+    - `sendfile()` передаёт данные файла в socket без промежуточного пользовательского буфера; `splice()` работает через pipe. Это не гарантирует отсутствие всех копирований внутри стека.
+    - Для `MSG_ZEROCOPY` сначала включают `SO_ZEROCOPY`. После успешного `send()` буфер нельзя менять до соответствующего completion из error queue (`recvmsg(..., MSG_ERRQUEUE)`). Возможен fallback с копированием; completion разрешает переиспользовать память, но не подтверждает получение данных peer.
+    - AF_XDP и DPDK используют другой datapath; возможность zero-copy зависит от драйвера и режима.
 
-    ```c
-    // Передача файла в сокет без копирования в пространство пользователя:
-    #include <sys/sendfile.h>
-    sendfile(socket_fd, file_fd, &offset, file_stat.st_size);
-    ```
+    **Пример:** Для большого буфера: включить опцию → отправить принятый syscall диапазон → обработать completion → переиспользовать память. Частичную отправку учитывают отдельно.
 
-    **Источник:** [Linux Kernel Documentation: MSG_ZEROCOPY](https://docs.kernel.org/networking/msg_zerocopy.html?utm_source=gemini)
+    **Типичная ошибка:** Освобождать буфер сразу после `send(..., MSG_ZEROCOPY)`.
+
+    **Источник:** [Linux kernel: MSG_ZEROCOPY](https://docs.kernel.org/networking/msg_zerocopy.html); [sendfile(2)](https://man7.org/linux/man-pages/man2/sendfile.2.html); [splice(2)](https://man7.org/linux/man-pages/man2/splice.2.html).
 
 71. Как NIC взаимодействует с OSI слоями?
 
@@ -1198,63 +1195,55 @@
     Кабель (L1) -> PHY -> MAC Controller (L2 CRC Check) -> PCIe DMA -> RX Ring Buffer RAM
     ```
 
-    **Источник:** [Intel 82599 10 GbE Controller Datasheet (Architecture)](https://www.intel.com/content/www/us/en/content-details/322472/intel-82599-10-gbe-controller-datasheet.html?utm_source=gemini)
+    **Источник:** [Intel 82599 10 GbE Controller Datasheet (Architecture)](https://www.intel.com/content/www/us/en/content-details/322472/intel-82599-10-gbe-controller-datasheet.html)
 
 72. Что такое offloading (TSO, LRO)?
 
-    **Ответ:** Hardware Offloading — делегирование тяжелых сетевых вычислений от центрального процессора (CPU) аппаратному контроллеру сетевой карты (NIC):
-    * **TSO (TCP Segmentation Offload):** ядро формирует один гигантский TCP-сегмент размером до 64 КБ (GSO) и отдает его сетевой карте; сетевая карта самостоятельно нарезает его на пакеты размером под MTU (1500 байт), дублируя заголовки TCP/IP в железе.
-    * **LRO / GRO (Large / Generic Receive Offload):** сетевая карта или нижний слой драйвера объединяет пачку последовательно пришедших мелких TCP-сегментов в один большой суперпакет перед передачей его в сетевой стек ядра, сокращая накладные расходы процессора на обход стека.
-    * **Checksum Offloading:** расчет и проверка контрольных сумм IP, TCP и UDP аппаратурой сетевой карты.
+    **Ответ:** Offload сокращает работу CPU при обработке пакетов. TSO передаёт сегментацию TCP адаптеру; GSO описывает крупный пакет в стеке и позволяет программную сегментацию, если аппаратная недоступна. GRO объединяет совместимые входящие пакеты программно; LRO — отдельный механизм агрегации с ограничениями применения. GRO не следует называть исключительно аппаратным offload.
+
+    Размеры крупных буферов зависят от стека и устройства, а размер wire-пакета — от MTU и заголовков. Checksum offload переносит расчёт/проверку checksum в NIC. Поэтому локальный capture может показывать крупные пакеты и ещё не рассчитанные checksum.
 
     **Пример:**
 
     ```bash
-    # Просмотр и включение TSO на сетевой карте:
-    ethtool -k eth0 | grep tcp-segmentation-offload
-    ethtool -K eth0 tso on
+    ethtool -k eth0
     ```
 
-    **Источник:** [Linux Kernel Documentation: Segmentation Offloads](https://docs.kernel.org/networking/scaling.html?utm_source=gemini#segmentation-offloads)
+    **Типичная ошибка:** Считать большой пакет в capture доказательством отправки такого же Ethernet-кадра в сеть.
+
+    **Источник:** [Linux kernel: Segmentation Offloads](https://docs.kernel.org/networking/segmentation-offloads.html).
 
 73. Как kernel networking stack обрабатывает пакеты?
 
-    **Ответ:** Конвейер обработки пакета в Linux:
-    1. Сетевая карта складывает кадр в память по DMA и генерирует аппаратное прерывание (Hard IRQ).
-    2. Ядро выполняет минимальный обработчик прерывания, отключает прерывания сетевой карты и планирует программное прерывание NAPI (SoftIRQ).
-    3. Подсистема NAPI в контексте `ksoftirqd` без прерываний читает пачку пакетов из DMA-буфера в цикле (polling).
-    4. Пакет оборачивается в `struct sk_buff` и передается функции `netif_receive_skb()`.
-    5. Кадр проходит хуки TC (Traffic Control) и eBPF/XDP.
-    6. Вызывается L3 обработчик `ip_rcv()`: проверка целостности, фильтрация Netfilter (PREROUTING).
-    7. Подсистема маршрутизации решает, локальный ли это пакет; если да, вызывается хук INPUT и L4-функция `tcp_v4_rcv()`.
-    8. Пакет сопоставляется с сокетом и помещается в очередь приема, а ждущий процесс пробуждается.
+    **Ответ:** Типичный RX path Linux начинается с DMA в подготовленные драйвером буферы. IRQ планирует обработку NAPI; poll обрабатывает события с ограничением RX budget. Обычно это softirq context, иногда работа переносится в `ksoftirqd`; возможны threaded NAPI и busy polling. Отдельное аппаратное прерывание на каждый пакет не требуется.
+
+    Native XDP, если включён и поддерживается драйвером, работает до создания `sk_buff`; generic XDP имеет другую точку обработки. При `XDP_PASS` пакет может пройти создание skb/GRO, ingress processing, IP и routing. Локальный IP traffic проходит INPUT и transport demultiplexing до socket queue; forwarding идёт по другому пути. Точная последовательность зависит от конфигурации и версии ядра.
 
     **Пример:**
 
-    ```
-    Hard IRQ -> SoftIRQ (NAPI poll) -> XDP/eBPF -> ip_rcv() -> Netfilter -> tcp_v4_rcv() -> Socket Queue -> Application
+    ```text
+    NIC DMA → NAPI poll → native XDP (если включён) → skb/GRO
+      → ingress → IP/routing → local transport → socket → приложение
     ```
 
-    **Источник:** [Red Hat Enterprise Linux Network Performance Tuning Guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/monitoring_and_managing_system_status_and_performance/tuning-network-performance_monitoring-and-managing-system-status-and-performance?utm_source=gemini)
+    **Типичная ошибка:** Считать NAPI отдельным softirq или утверждать, что вся обработка всегда выполняется потоком `ksoftirqd`.
+
+    **Источник:** [Linux kernel: NAPI](https://docs.kernel.org/networking/napi.html); [Linux kernel: AF_XDP, overview of XDP](https://docs.kernel.org/networking/af_xdp.html).
 
 74. Где происходит переключение контекста при сетевых вызовах?
 
-    **Ответ:** Переключение контекста (Context Switch) происходит на двух рубежах:
-    1. **Переход User <-> Kernel:** при выполнении системных вызовов `send()` / `recv()` процессор меняет уровень привилегий (Ring 3 -> Ring 0) через команду `syscall`. Это системный переход контекста привилегий.
-    2. **Переключение потоков планировщиком:** если блокирующий сокет пуст при вызове `recv()`, ядро переводит поток в состояние `TASK_INTERRUPTIBLE` и вызывает планировщик `schedule()`. Планировщик сохраняет регистры текущего потока и переключает CPU на исполнение другого процесса. Когда сетевая карта через прерывание доставит пакет, ядро вернет поток в очередь `runqueue`, и планировщик выполнит обратное переключение контекста на вызывающий процесс.
+    **Ответ:** Вход в ядро через syscall меняет режим исполнения, но сам по себе не означает переключение планировщика на другой поток. Если операция может завершиться сразу, вызывающий поток выполняет код ядра и возвращается в user space.
+
+    Блокирующий `recv()` при отсутствии данных может усыпить поток: тогда scheduler выбирает другую runnable task. Поступление данных делает ожидающий поток runnable, но не гарантирует немедленного исполнения. Неблокирующий вызов обычно возвращает `EAGAIN`/`EWOULDBLOCK` без такого ожидания; вытеснение планировщиком возможно независимо от этого.
 
     **Пример:**
 
-    ```
-    Application (Ring 3) --[ syscall: recv() ]--> Kernel (Ring 0)
-                                                        |
-                                             Данных нет? Поток спит
-                                                        |
-                                                schedule() -> Переключение на другой процесс
-                                                        |
-                                          Пакет пришел по IRQ -> Поток разбужен
-                                                        |
-    Application <--[ возврат данных из ядра ]-----------+
+    ```text
+    recv(), данные есть: user → kernel → user в том же потоке
+    recv(), данных нет: user → kernel → sleep → scheduler
+                       → wakeup → выполнение потока → user
     ```
 
-    **Источник:** [Linux man-pages: sched(7)](https://man7.org/linux/man-pages/man7/sched.7.html?utm_source=gemini)
+    **Типичная ошибка:** Приравнивать число syscalls к числу context switches между потоками.
+
+    **Источник:** [Linux man-pages: recv(2)](https://man7.org/linux/man-pages/man2/recv.2.html); [sched(7)](https://man7.org/linux/man-pages/man7/sched.7.html).

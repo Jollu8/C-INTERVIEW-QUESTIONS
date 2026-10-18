@@ -1025,25 +1025,26 @@ clean:
 
 74. (L2, P) Использование `$@`, `$<`, `$^`
 
-**Ответ:** Автоматические переменные Make:
+    **Ответ:** Автоматические переменные Make:
 
-* `$@` — имя текущей цели правила;
+    * `$@` — имя текущей цели правила;
 
-* `$<` — имя первой зависимости;
+    * `$<` — имя первой зависимости;
 
-* `$^` — имена всех зависимостей через пробел.
+    * `$^` — имена всех зависимостей через пробел.
 
-**Пример:**
+    **Пример:**
 
-```makefile
-app: main.o utils.o
-	gcc $^ -o $@
+    ```makefile
+    .RECIPEPREFIX := >
+    app: main.o utils.o
+    >gcc $^ -o $@
 
-%.o: %.c
-	gcc -c $< -o $@
-```
+    %.o: %.c
+    >gcc -c $< -o $@
+    ```
 
-**Источник:** [GNU Make: Automatic Variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html?utm_source=gemini)
+    **Источник:** [GNU Make: Automatic Variables](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html?utm_source=gemini)
 
 75. (L2, P) Pattern rules
 
@@ -1222,21 +1223,21 @@ add_library(Engine STATIC engine.cpp)
 
 87. (L2, T) PUBLIC vs PRIVATE vs INTERFACE
 
-**Ответ:** Спецификаторы транзитивности зависимостей target:
+    **Ответ:** Спецификаторы транзитивности зависимостей target:
 
-* `PRIVATE` — свойство нужно только самому таргету;
+    * `PRIVATE` — свойство нужно только самому таргету;
 
-* `INTERFACE` — свойство передается только внешним потребителям этого таргета;
+    * `INTERFACE` — свойство передается только внешним потребителям этого таргета;
 
-* `PUBLIC` — свойство применяется и к самому таргету, и ко всем, кто с ним линкуется.
+    * `PUBLIC` — свойство применяется и к самому таргету, и ко всем, кто с ним линкуется.
 
-**Пример:**
+    **Пример:**
 
-```cmake
-target_include_directories(MyLib PUBLIC include/ PRIVATE src/)
-```
+    ```cmake
+    target_include_directories(MyLib PUBLIC include/ PRIVATE src/)
+    ```
 
-**Источник:** [CMake: Transitive Usage Requirements](https://cmake.org/cmake/help/latest/manual/cmake-buildsystem.7.html?utm_source=gemini#transitive-usage-requirements)
+    **Источник:** [CMake: Transitive Usage Requirements](https://cmake.org/cmake/help/latest/manual/cmake-buildsystem.7.html?utm_source=gemini#transitive-usage-requirements)
 
 88. (L2, P) add_executable / add_library
 
