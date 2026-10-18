@@ -1,0 +1,144 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>System Design &amp; C/C++ &amp; Linux Interview Questions</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>System Design &amp; C/C++ &amp; Linux Interview Questions</h1>
+<h2>🧠 1. Базовые принципы распределённых систем</h2>
+<p>Это фундамент. Без него любые “кейсы” превращаются в угадайку.</p>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>CAP theorem (consistency / availability / partition tolerance)</li>
+<li>Consistency models (strong, eventual, causal)</li>
+<li>Latency vs throughput trade-offs</li>
+<li>Idempotency</li>
+<li>Fault tolerance</li>
+<li>Horizontal vs vertical scaling</li>
+</ul>
+<p>👉 Это база для 30–40% всех вопросов.</p>
+<hr />
+<h2>🗄️ 2. Хранение данных (Data Storage)</h2>
+<p>Очень часто проверяют глубину именно здесь.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>SQL vs NoSQL</li>
+<li>ACID vs BASE</li>
+<li>Indexing (B-Tree, LSM)</li>
+<li>Sharding (range, hash, geo)</li>
+<li>Replication (leader-follower, multi-leader)</li>
+<li>Data partitioning</li>
+</ul>
+<p>👉 Классический вопрос: “как хранить миллиарды записей и быстро читать?”</p>
+<hr />
+<h1>⚙️ 3. Backend архитектура</h1>
+<p>Здесь начинается реальный System Design.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>Monolith vs Microservices</li>
+<li>API design (REST, gRPC)</li>
+<li>Service discovery</li>
+<li>Load balancing</li>
+<li>Stateless vs stateful services</li>
+</ul>
+<p>👉 Часто дают: “спроектируй backend для X”</p>
+<hr />
+<h1>🌐 4. Сетевой слой и доставка</h1>
+<p>Про это забывают — и заваливаются.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>DNS</li>
+<li>CDN (например Cloudflare)</li>
+<li>Reverse proxy</li>
+<li>HTTP vs WebSockets</li>
+<li>TLS / HTTPS</li>
+</ul>
+<p>👉 Вопросы уровня: “как ускорить загрузку контента по всему миру?”</p>
+<hr />
+<h1>⚡ 5. Кэширование</h1>
+<p>Один из самых частых топиков.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>Cache aside / write-through / write-back</li>
+<li>TTL, eviction policies (LRU, LFU)</li>
+<li>Distributed cache (например Redis)</li>
+</ul>
+<p>👉 Почти в каждом дизайне ты обязан предложить кэш.</p>
+<hr />
+<h1>📩 6. Асинхронность и очереди</h1>
+<p>Критично для масштабируемости.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>Message queues</li>
+<li>Pub/Sub</li>
+<li>Event-driven architecture</li>
+<li>Stream processing</li>
+</ul>
+<p><strong>Инструменты:</strong></p>
+<ul>
+<li>Apache Kafka</li>
+<li>RabbitMQ</li>
+</ul>
+<hr />
+<h1>📈 7. Масштабирование</h1>
+<p>Отдельный блок, хотя пересекается с другими.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>Horizontal scaling</li>
+<li>Auto-scaling</li>
+<li>Load balancing algorithms</li>
+<li>Hot partitions</li>
+</ul>
+<hr />
+<h1>🔒 8. Надёжность и отказоустойчивость</h1>
+<p>Интервьюеры любят ломать твою систему.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>Retries, backoff</li>
+<li>Circuit breaker</li>
+<li>Failover</li>
+<li>SLA / SLO / SLI</li>
+</ul>
+<hr />
+<h1>🔍 9. Observability (наблюдаемость)</h1>
+<p>Senior уровень без этого не проходит.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>Logging</li>
+<li>Metrics</li>
+<li>Tracing (например Jaeger)</li>
+<li>Alerting</li>
+</ul>
+<hr />
+<h1>🔐 10. Безопасность</h1>
+<p>Часто задают ближе к концу интервью.</p>
+<p><strong>Подтемы:</strong></p>
+<ul>
+<li>Authentication / Authorization</li>
+<li>OAuth, JWT</li>
+<li>Rate limiting</li>
+<li>DDoS protection</li>
+</ul>
+<hr />
+<h1>🧩 11. Типовые system design кейсы</h1>
+<p>Это уже “прикладной слой”.</p>
+<p><strong>Набор must-have:</strong></p>
+<ul>
+<li>URL shortener (как Bitly)</li>
+<li>Chat system (как WhatsApp)</li>
+<li>News feed (как Instagram)</li>
+<li>Video streaming (как YouTube)</li>
+<li>Ride sharing (как Uber)</li>
+</ul>
+<hr />
+<h1>📊 Как это превратить в вопросы</h1>
+<h3>1. Вопросы по теории</h3>
+<ul>
+<li>“В чём разница между strong consistency и eventual?”</li>
+<li>“Когда нарушается CAP?”</li>
+</ul>
+<h3>2. Вопросы по trade-offs</h3>
+<ul>
+<li>“Почему выбрать NoSQL вместо SQL?”</li>
+<li>“Когда кэш вреден?”</li>
+</ul>
+<h3>3. Дизайн-вопросы</h3>
+<ul>
+<li>“Спроектируй WhatsApp”</li>
+<li>“Спроектируй CDN”</li>
+</ul>
+</main></body></html>

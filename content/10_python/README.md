@@ -1,267 +1,52 @@
-# 🐍 Python — топчики
-
-Python обычно проверяют не только как язык, но и как **runtime, экосистему и инженерный инструмент**.  
-Особенно если роль связана с backend, automation, data, infra, testing или platform engineering.
-
----
-
-## 🧱 1. Базовый синтаксис и модель языка
-
-**Что входит:**
-
-* Variables, scopes
-* Functions
-* Arguments (`*args`, `**kwargs`)
-* Comprehensions
-* Modules / packages
-
----
-
-## 🔤 2. Типы данных и структуры
-
-**Что входит:**
-
-* `list`, `tuple`, `dict`, `set`
-* Mutability / immutability
-* Hashability
-* Slicing
-* Deep copy vs shallow copy
-
----
-
-## 🧠 3. Object model и internals
-
-**Что входит:**
-
-* Everything is an object
-* Identity vs equality
-* `__dict__`
-* Reference counting
-* Garbage collection
-
----
-
-## 🏗️ 4. OOP в Python
-
-**Что входит:**
-
-* Classes / objects
-* Inheritance
-* MRO
-* `super()`
-* Encapsulation / composition
-
----
-
-## 🧩 5. Dunder methods и protocol-oriented Python
-
-**Что входит:**
-
-* `__init__`
-* `__repr__`, `__str__`
-* `__len__`, `__iter__`, `__next__`
-* `__enter__`, `__exit__`
-* `__getattr__`, `__setattr__`
-
----
-
-## 🧵 6. Итераторы, генераторы, lazy evaluation
-
-**Что входит:**
-
-* Iterators
-* Generators
-* `yield`
-* Generator expressions
-* Lazy pipelines
-
----
-
-## ⚙️ 7. Функциональные возможности
-
-**Что входит:**
-
-* First-class functions
-* Closures
-* Decorators
-* `lambda`
-* `map`, `filter`, `reduce`
-
----
-
-## 🧪 8. Исключения и error handling
-
-**Что входит:**
-
-* `try/except/finally`
-* Custom exceptions
-* Exception chaining
-* Context managers
-* Fail-fast vs graceful handling
-
----
-
-## 📦 9. Импорты, модули и packaging
-
-**Что входит:**
-
-* `import` system
-* Absolute vs relative imports
-* `__init__.py`
-* Virtual environments
-* `pip`, `pyproject.toml`
-
----
-
-## 🚀 10. Performance и memory
-
-**Что входит:**
-
-* Time complexity
-* Memory overhead
-* Profiling
-* Copy costs
-* `slots`, generators, batching
-
----
-
-## 🔒 11. Concurrency и parallelism
-
-**Что входит:**
-
-* `threading`
-* `multiprocessing`
-* `asyncio`
-* GIL
-* Queues / synchronization
-
----
-
-## 🌐 12. Async Python
-
-**Что входит:**
-
-* `async` / `await`
-* Event loop
-* Coroutines
-* Tasks
-* Async I/O
-
----
-
-## 🐧 13. Python и Linux / system programming
-
-**Что входит:**
-
-* Files
-* Processes
-* Signals
-* Subprocess
-* Sockets
-
----
-
-## 🗄️ 14. Backend на Python
-
-**Что входит:**
-
-* WSGI / ASGI
-* REST API
-* Middleware
-* Dependency injection
-* Background jobs
-
----
-
-## 🧬 15. Typing и качество кода
-
-**Что входит:**
-
-* Type hints
-* `mypy`
-* `Protocol`
-* `TypedDict`
-* Dataclasses / pydantic
-
----
-
-## 🧰 16. Testing
-
-**Что входит:**
-
-* `pytest`
-* Unit tests
-* Integration tests
-* Mocking
-* Fixtures
-
----
-
-## 📊 17. Работа с данными
-
-**Что входит:**
-
-* JSON / CSV
-* Serialization
-* Parsing
-* Pandas basics
-* Streaming data processing
-
----
-
-## 🛠️ 18. Debugging и observability
-
-**Что входит:**
-
-* `pdb`
-* Logging
-* Stack traces
-* Profiling
-* Tracing / metrics integration
-
----
-
-## 🔐 19. Security
-
-**Что входит:**
-
-* Secrets handling
-* Unsafe deserialization
-* SQL injection
-* Input validation
-* Dependency vulnerabilities
-
----
-
-## 🏛️ 20. Архитектура и best practices
-
-**Что входит:**
-
-* Project structure
-* Layered architecture
-* Domain vs infrastructure separation
-* Config management
-* Maintainability trade-offs
-
----
-
-## 📌 Если с уклоном в backend / infra / Linux, то самые важные топчики
-
-**Приоритетный набор:**
-
-1. Базовый синтаксис и модель языка
-2. Типы данных и структуры
-3. Object model и internals
-4. Исключения и context managers
-5. Итераторы и генераторы
-6. Decorators / closures
-7. Performance и memory
-8. Concurrency / GIL
-9. Async Python
-10. Python и Linux / subprocess / sockets
-11. Backend на Python
-12. Testing
-13. Typing
-14. Debugging / logging
-15. Архитектура проектов
-
+# Python для системного разработчика
+
+Язык, автоматизация, тестирование и вычислительные эксперименты. Добавлено 395 вопросов и задач в 13 темах; ответы пока не добавлены. Основной маршрут рассчитан на C++/Linux, LTE/NR и развитие в GPU; backend выделен в дополнительную ветку.
+
+| Этап | Темы | Практика и критерий освоения |
+| --- | --- | --- |
+| 1. Модель языка | Имена и объекты, identity/equality, mutability, hashability, области видимости, функции, аргументы, closures/decorators, comprehensions | Объяснить aliasing, default arguments и shallow/deep copy |
+| 2. Протоколы и управление ресурсами | Classes, composition, MRO, dunder methods, iterators, generators, context managers, exceptions/chaining | Потоково прочитать файл с гарантированным закрытием ресурса |
+| 3. Организация проекта | Modules/imports, environments, pip, pyproject.toml, packaging, CLI/configuration | Установить проект в чистое окружение и запустить CLI |
+| 4. Данные и Linux | pathlib, JSON/CSV, bytes/bytearray/memoryview, struct, binary formats, subprocess, signals, sockets | Разобрать бинарный пакет с проверкой длины; запустить benchmark с timeout и обработкой exit code |
+| 5. Качество | pytest, fixtures, parametrization, mocking boundaries, integration tests, typing, Protocol, dataclasses, logging/debugging | Проверить parser на повреждённых данных и типизировать интерфейс |
+| 6. Concurrency | threading, processes, queues, synchronization, asyncio, cancellation, backpressure | Выбрать модель для I/O и CPU работы, объяснить расходы передачи данных |
+| 7. NumPy и измерения | ndarray, dtype, shape/strides, views/copies, broadcasting, vectorization, profiling, memory | Сравнить цикл и NumPy; проверить результат, layout и расход памяти |
+| 8. Интеграция C/C++ | ctypes, buffer protocol, pybind11, ownership/lifetime, ошибки на границе языков | Вызвать C++ обработку массива и обосновать lifetime буфера |
+| 9. Инженерные эксперименты | Автоматизация сборок, серии benchmark, статистика, графики, воспроизводимость | Собрать результаты C++ программы и построить latency/throughput отчёт |
+
+## Вопросы по темам
+
+Основной маршрут — темы 1–9 (315 вопросов). Темы 10–13 — дополнительные ветки (80 вопросов). Разборы кода включают намеренные ошибки; не запускайте фрагменты вслепую.
+
+| Тема | Вопросов |
+| --- | ---: |
+| [1. Модель языка, объекты и функции](./01_language_model.md) | 35 |
+| [2. Протоколы, классы и управление ресурсами](./02_protocols_and_resources.md) | 35 |
+| [3. Модули, окружения, packaging и CLI](./03_projects_and_packaging.md) | 35 |
+| [4. Файлы, бинарные данные, процессы и Linux](./04_data_and_linux.md) | 35 |
+| [5. Тестирование, typing и диагностика](./05_quality_typing_testing.md) | 35 |
+| [6. Потоки, процессы и asyncio](./06_concurrency_asyncio.md) | 35 |
+| [7. NumPy, память и производительность](./07_numpy_and_performance.md) | 35 |
+| [8. Интеграция Python с C и C++](./08_cpp_integration.md) | 35 |
+| [9. Автоматизация и воспроизводимые эксперименты](./09_engineering_experiments.md) | 35 |
+| [10. Дополнительно: Python backend](./10_backend_optional.md) | 20 |
+| [11. Дополнительно: обработка данных и pandas](./11_data_processing_optional.md) | 20 |
+| [12. Дополнительно: безопасность Python-приложений](./12_security_optional.md) | 20 |
+| [13. Дополнительно: модель объектов и CPython internals](./13_runtime_internals_optional.md) | 20 |
+
+В тренажёре отключите фильтр «Только с ответами», чтобы видеть эти вопросы. Самостоятельно сформулируйте ответ, затем проверьте его по документации и эксперименту. Число вопросов не является оценкой глубины освоения.
+
+## Как готовить вопросы
+
+Для каждого этапа нужны объяснения, разбор кода и практические задачи. Указывайте версию Python; особенности CPython отделяйте от гарантий языка. GIL рассматривайте отдельно для обычной и free-threaded сборки: наличие GIL не устраняет необходимость синхронизации логических операций.
+
+Не дублируйте asyncio в нескольких разделах: основы конкурентности → модель asyncio → прикладная задача. Profiling изучается как инструмент проверки гипотез, а не список названий утилит.
+
+## Дополнительные ветки
+
+- Backend: HTTP, WSGI/ASGI, framework, database access, background tasks.
+- Data: pandas, большие наборы данных, streaming и форматы хранения.
+- Security: недоверенная десериализация, shell injection, secrets и зависимости; базовые правила включаются и в основной маршрут.
+- Runtime internals: reference counting, GC, descriptors, metaclasses — по необходимости и с привязкой к реализации.
+
+Чтение: [Python Tutorial](https://docs.python.org/3/tutorial/), [Packaging Guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/), [free threading](https://docs.python.org/3/howto/free-threading-python.html), [NumPy Learn](https://numpy.org/learn/), [pybind11](https://pybind11.readthedocs.io/en/stable/).

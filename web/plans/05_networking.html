@@ -1,0 +1,248 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Networking Topics (Structured)</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Networking Topics (Structured)</h1>
+<p>В девяти темах — 4 834 вопроса с ответами. Каждый ответ содержит источник;
+примеры и типичные ошибки добавлены там, где помогают разобраться в теме.</p>
+<h2>Полнота раздела</h2>
+<table>
+<thead>
+<tr>
+<th>Тема</th>
+<th style="text-align:right">Вопросов</th>
+<th style="text-align:right">С ответами</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/01_osi_and_tcp_ip.md">OSI и TCP/IP</a></td>
+<td style="text-align:right">74</td>
+<td style="text-align:right">74</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/02_core_networking.md">Core Networking</a></td>
+<td style="text-align:right">535</td>
+<td style="text-align:right">535</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/03_transport_layer.md">Transport Layer</a></td>
+<td style="text-align:right">655</td>
+<td style="text-align:right">655</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/04_wireless_fundamentals.md">Wireless Fundamentals</a></td>
+<td style="text-align:right">550</td>
+<td style="text-align:right">550</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/05_lte.md">LTE</a></td>
+<td style="text-align:right">810</td>
+<td style="text-align:right">810</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/06_nr.md">5G NR</a></td>
+<td style="text-align:right">680</td>
+<td style="text-align:right">680</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/07_network_security.md">Network Security</a></td>
+<td style="text-align:right">745</td>
+<td style="text-align:right">745</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/08_troubleshooting_and_practice.md">Troubleshooting</a></td>
+<td style="text-align:right">625</td>
+<td style="text-align:right">625</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/05_networking/09_3gpp_l2_lte_nr.md">3GPP L2 LTE/NR</a></td>
+<td style="text-align:right">160</td>
+<td style="text-align:right">160</td>
+</tr>
+<tr>
+<td><strong>Всего</strong></td>
+<td style="text-align:right"><strong>4 834</strong></td>
+<td style="text-align:right"><strong>4 834</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Для последовательной подготовки проходите темы 1–3, затем безопасность и диагностику (7–8). Радиочасть изучайте по цепочке 4 → 5 → 6 → 9; последний файл посвящён реализации scheduler и L2 стека eNB/gNB.</p>
+<h2>📌 Краткий список топиков</h2>
+<ol>
+<li>OSI и TCP/IP модели</li>
+<li>Core Networking (IP, Routing, DNS)</li>
+<li>Transport Layer (TCP/UDP/QUIC)</li>
+<li>Wireless Fundamentals</li>
+<li>LTE (4G) основы</li>
+<li>5G NR основы</li>
+<li>Network Security</li>
+<li>Troubleshooting и практические инструменты</li>
+<li>3GPP L2 LTE/NR: scheduler и стек eNB/gNB — 160 вопросов с ответами</li>
+</ol>
+<hr />
+<h1>📚 Детализация топиков</h1>
+<h2>1. <a href="../index.html?topic=content/05_networking/01_osi_and_tcp_ip.md">OSI и TCP/IP модели</a></h2>
+<ul>
+<li>Слои модели OSI</li>
+<li>Сопоставление OSI ↔ TCP/IP</li>
+<li>Функции каждого уровня</li>
+<li>Примеры протоколов на каждом уровне</li>
+<li>Инкапсуляция данных</li>
+<li>Типичные проблемы по уровням (L1–L7)</li>
+</ul>
+<hr />
+<h2>2. <a href="../index.html?topic=content/05_networking/02_core_networking.md">Core Networking</a></h2>
+<ul>
+<li>IPv4 vs IPv6</li>
+<li>CIDR и subnetting</li>
+<li>Private vs Public IP</li>
+<li>NAT (SNAT, DNAT, PAT)</li>
+<li>Routing:
+<ul>
+<li>Static routing</li>
+<li>Dynamic routing (OSPF, BGP — обзор)</li>
+</ul>
+</li>
+<li>ARP</li>
+<li>DNS:
+<ul>
+<li>Recursive vs iterative queries</li>
+</ul>
+</li>
+<li>DHCP:
+<ul>
+<li>Процесс получения IP</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>3. <a href="../index.html?topic=content/05_networking/03_transport_layer.md">Transport Layer</a></h2>
+<ul>
+<li>TCP:
+<ul>
+<li>Handshake (3-way)</li>
+<li>Congestion control</li>
+<li>Flow control</li>
+<li>Retransmissions</li>
+</ul>
+</li>
+<li>UDP:
+<ul>
+<li>Когда используется</li>
+</ul>
+</li>
+<li>QUIC:
+<ul>
+<li>Основные преимущества</li>
+</ul>
+</li>
+<li>Метрики:
+<ul>
+<li>Latency</li>
+<li>Jitter</li>
+<li>Packet loss</li>
+<li>Throughput</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>4. <a href="../index.html?topic=content/05_networking/04_wireless_fundamentals.md">Wireless Fundamentals</a></h2>
+<ul>
+<li>Основы радиосвязи:
+<ul>
+<li>Частоты и спектр</li>
+</ul>
+</li>
+<li>Signal / Noise / SNR</li>
+<li>Interference</li>
+<li>Multipath propagation</li>
+<li>Fading</li>
+<li>Bandwidth vs throughput</li>
+<li>Duplex (FDD / TDD)</li>
+</ul>
+<hr />
+<h2>5. <a href="../index.html?topic=content/05_networking/05_lte.md">LTE (4G)</a></h2>
+<ul>
+<li>Архитектура:
+<ul>
+<li>eNodeB</li>
+<li>EPC (MME, SGW, PGW)</li>
+</ul>
+</li>
+<li>Control plane vs User plane</li>
+<li>RRC (Radio Resource Control)</li>
+<li>MAC layer scheduling</li>
+<li>Handover:
+<ul>
+<li>Типы и сценарии</li>
+</ul>
+</li>
+<li>QoS в LTE</li>
+</ul>
+<hr />
+<h2>6. <a href="../index.html?topic=content/05_networking/06_nr.md">5G NR</a></h2>
+<ul>
+<li>Архитектура:
+<ul>
+<li>gNodeB</li>
+<li>5G Core</li>
+</ul>
+</li>
+<li>Beamforming</li>
+<li>Massive MIMO</li>
+<li>Network slicing</li>
+<li>URLLC / eMBB / mMTC</li>
+<li>Low latency механизмы</li>
+</ul>
+<hr />
+<h2>7. <a href="../index.html?topic=content/05_networking/07_network_security.md">Network Security</a></h2>
+<ul>
+<li>TLS/SSL</li>
+<li>HTTPS</li>
+<li>VPN:
+<ul>
+<li>IPsec</li>
+<li>WireGuard (обзор)</li>
+</ul>
+</li>
+<li>Основные атаки:
+<ul>
+<li>MITM</li>
+<li>Spoofing</li>
+<li>DDoS (обзор)</li>
+</ul>
+</li>
+<li>Базовые принципы защиты</li>
+</ul>
+<hr />
+<h2>8. <a href="../index.html?topic=content/05_networking/08_troubleshooting_and_practice.md">Troubleshooting и практика</a></h2>
+<ul>
+<li>Инструменты:
+<ul>
+<li>ping</li>
+<li>traceroute</li>
+<li>nslookup / dig</li>
+</ul>
+</li>
+<li>Анализ проблем:
+<ul>
+<li>Нет connectivity</li>
+<li>Высокая задержка</li>
+<li>Потери пакетов</li>
+</ul>
+</li>
+<li>Bottlenecks в сети</li>
+<li>Диагностика по уровням OSI</li>
+</ul>
+<hr />
+<h2>9. <a href="../index.html?topic=content/05_networking/09_3gpp_l2_lte_nr.md">3GPP L2 LTE/NR: scheduler и стек eNB/gNB</a></h2>
+<p>160 вопросов с развёрнутыми ответами, примерами, типичными ошибками и источниками. Базовая линия — Release 17, с явным разделением LTE/NR и требований стандарта/политик реализации.</p>
+<ul>
+<li>Архитектура MAC/RLC/PDCP/SDAP, CU/DU и контракты слоёв</li>
+<li>Numerology, timing, MAC–PHY, DL/UL scheduling, PF и link adaptation</li>
+<li>BSR/SR/PHR, HARQ, MAC PDU packing и безопасный parsing</li>
+<li>Random access, DRX, timing advance и recovery</li>
+<li>RLC UM/AM, segmentation, sequence windows, polling и STATUS</li>
+<li>PDCP COUNT/security/reordering/duplication, SDAP и QoS</li>
+<li>CA/DC, mobility, split bearers и F1-U flow control</li>
+<li>C/C++ ownership, concurrency, timers, replay, fuzzing и performance</li>
+<li>Практические разборы stalls, потерь throughput и ошибок lifecycle</li>
+</ul>
+</main></body></html>

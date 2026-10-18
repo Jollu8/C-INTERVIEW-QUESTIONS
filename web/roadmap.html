@@ -1,0 +1,119 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Маршруты системного разработчика</title><link rel="stylesheet" href="style.css"></head><body><main class="learning-page"><a href="index.html">← К тренировкам</a><h1>Маршруты системного разработчика</h1>
+<p>Выберите цель, начните с первого незнакомого этапа и двигайтесь дальше после практической проверки. Знать все вопросы библиотеки для этого не требуется. Подготовка к собеседованию — один из способов проверить знания.</p>
+<h2>C++ и системная разработка</h2>
+<p>Подходит для развития из C++ LTE/NR в системное ПО, runtime и инструменты разработки.</p>
+<table>
+<thead>
+<tr>
+<th>Этап</th>
+<th>Что изучить и прочитать</th>
+<th>Практика</th>
+<th>Когда переходить дальше</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Объекты и владение</td>
+<td>C++: память, lifetime, RAII, move semantics; в CS:APP — представление данных</td>
+<td>Исправить dangling references, собрать примеры с ASan/UBSan</td>
+<td>Объясняете владельца и время жизни каждого объекта</td>
+</tr>
+<tr>
+<td>2. Компиляция и исполнение</td>
+<td>Toolchain, linking, ABI; CS:APP: машинный код и linking</td>
+<td>Собрать статическую и динамическую библиотеку, изучить символы и дизассемблирование</td>
+<td>Объясняете путь от исходника до выполнения</td>
+</tr>
+<tr>
+<td>3. Linux и память</td>
+<td>Процессы, virtual memory, mmap, system calls; CS:APP: virtual memory и system-level I/O</td>
+<td>Написать обработчик бинарного файла, проверить через strace</td>
+<td>Различаете виртуальную память, физическую память и lifetime C++</td>
+</tr>
+<tr>
+<td>4. Конкурентность</td>
+<td>Mutex, condition variable, atomics, happens-before</td>
+<td>Сделать ограниченную очередь с остановкой и backpressure; проверить TSan</td>
+<td>Обосновываете корректность, завершение и поведение при переполнении</td>
+</tr>
+<tr>
+<td>5. Производительность CPU</td>
+<td>Cache, TLB, false sharing, NUMA, SIMD; материалы CMU 15-418</td>
+<td>Сравнить layout AoS/SoA и обходы массива; измерить через perf</td>
+<td>Объясняете измеренный bottleneck и воспроизводите результат</td>
+</tr>
+<tr>
+<td>6. Инженерная практика</td>
+<td>Тестирование, sanitizers, fuzzing, benchmark</td>
+<td>Собрать pipeline обработки сообщений с тестами и измерением p50/p95/p99</td>
+<td>Документированы корректность, нагрузка и ограничения</td>
+</tr>
+</tbody>
+</table>
+<p><a href="index.html?track=systems">Тренировка по системным темам</a></p>
+<h2>GPU и параллельные вычисления</h2>
+<p>Предварительно: уверенный C++, память CPU, базовая многопоточность и линейная алгебра. CUDA используется для практики на совместимом GPU; чтение и CPU-версию можно пройти заранее.</p>
+<table>
+<thead>
+<tr>
+<th>Этап</th>
+<th>Что прочитать</th>
+<th>Практика</th>
+<th>Критерий освоения</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Архитектура</td>
+<td>CMU 15-418: parallel machines; CUDA Guide: programming model</td>
+<td>Нарисовать соответствие grid/block/thread и SM/warp</td>
+<td>Различаете модель программы и аппаратное выполнение</td>
+</tr>
+<tr>
+<td>2. Память GPU</td>
+<td>CUDA Guide: memory hierarchy, coalescing, synchronization</td>
+<td>Сложение векторов и transpose с проверкой CPU-результата</td>
+<td>Объясняете обращения к памяти и границы синхронизации</td>
+</tr>
+<tr>
+<td>3. Параллельные алгоритмы</td>
+<td>Reduction, scan, histogram</td>
+<td>Реализовать reduction, проверить крайние размеры и погрешность</td>
+<td>Корректны неполные блоки и численные допуски</td>
+</tr>
+<tr>
+<td>4. Измерения</td>
+<td>CUDA Best Practices Guide: timing, transfers, performance</td>
+<td>Раздельно измерить transfers и kernels, учесть warm-up и синхронизацию</td>
+<td>Сравниваете CPU/GPU на одинаковой задаче и данных</td>
+</tr>
+<tr>
+<td>5. Оптимизация</td>
+<td>Roofline, arithmetic intensity, occupancy, divergence</td>
+<td>Оптимизировать transpose или матричное умножение</td>
+<td>Показаны профиль до/после и причина ускорения</td>
+</tr>
+</tbody>
+</table>
+<p><a href="index.html?track=gpu">Тренировка по предварительным темам GPU</a>. Отдельные вопросы CUDA ещё предстоит подготовить: текущая подборка проверяет C++, конкурентность и performance.</p>
+<h2>LTE/NR → системы с высокой пропускной способностью</h2>
+<p>Сохраните телеком-экспертизу как специализацию: timing, scheduling, HARQ, очереди, backpressure, задержки и throughput. Пройдите системный маршрут, затем GPU-маршрут для вычислительных задач. Для сетевого data plane отдельно изучите packet processing, DMA, PCIe, NUMA и RDMA.</p>
+<p>Сквозной проект: генератор сообщений → ограниченные очереди → обработка на CPU → измерение latency/throughput → Python-анализ результатов → перенос подходящего вычислительного этапа на GPU. Фиксируйте нагрузку, версии инструментов, ошибки измерения и компромиссы.</p>
+<p><a href="index.html?track=telecom">Тренировка C++ / Linux / LTE / NR</a></p>
+<h2>Математика и Python</h2>
+<p>Математику проходите по зависимости: дискретная математика → линейная алгебра → floating point и численные методы → вероятность и статистика. Анализ и оптимизацию подключайте по задачам; комплексные числа и Фурье — для DSP.</p>
+<p>Python изучайте как инструмент автоматизации и вычислительных экспериментов: язык → файлы и процессы → тесты → NumPy → профилирование → интеграция C++.</p>
+<p>В Python подготовлено 395 вопросов и задач: 315 по основному маршруту и 80 по дополнительным веткам. Откройте раздел Python → «План обучения и материалы», затем выберите тему. Ответы пока не добавлены; при выборе через библиотеку отключите «Только с ответами».</p>
+<p>Математика, архитектура компьютеров и GPU доступны как планы обучения с упражнениями; наличие плана не означает наличие готовых вопросов.</p>
+<h2>Другие специализации</h2>
+<p>Драйверы и firmware: после системной основы — kernel/user space, MMIO, DMA, interrupts, PCIe и платформенная документация. Компиляторы: IR, LLVM, анализ и преобразования программ. Проектирование чипов: цифровая логика, SystemVerilog, RTL и верификация — отдельный маршрут, который здесь пока не разработан.</p>
+<h2>Источники и порядок чтения</h2>
+<ul>
+<li><a href="https://csapp.cs.cmu.edu/3e/">CS:APP, авторский сайт</a>: читать тематически по системному маршруту; упражнения обязательны.</li>
+<li><a href="https://www.cs.cmu.edu/~418/">CMU 15-418: Parallel Computer Architecture and Programming</a>: архитектура параллельных машин, memory consistency, locality и performance; набор материалов зависит от семестра.</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/index.html">CUDA Programming Guide</a>: programming model → память → синхронизация → углублённые темы.</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a>: измерения и оптимизация после первых корректных kernels.</li>
+<li><a href="https://docs.python.org/3/tutorial/">Python Tutorial</a>, <a href="https://numpy.org/learn/">NumPy Learn</a>: язык, затем массивы и вычисления.</li>
+</ul>
+<p>Ссылка «Источник» в ответе должна подтверждать конкретное утверждение. «Что прочитать» в маршруте объясняет порядок обучения и может охватывать несколько тем.</p>
+</main></body></html>

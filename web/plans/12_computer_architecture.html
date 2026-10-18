@@ -1,0 +1,46 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Архитектура компьютеров и взаимодействие с устройствами</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Архитектура компьютеров и взаимодействие с устройствами</h1>
+<p>План раздела. Сначала используйте существующие вопросы C++ Low level, Performance и Linux; новые вопросы добавляйте после проверки пересечений.</p>
+<table>
+<thead>
+<tr>
+<th>Этап</th>
+<th>Темы</th>
+<th>Практическая проверка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>ISA и микроархитектура, x86-64/ARM, registers, pipeline, branch prediction, out-of-order execution</td>
+<td>Изучить дизассемблирование функции; связать инструкции с исходником</td>
+</tr>
+<tr>
+<td>Иерархия памяти</td>
+<td>Cache lines, locality, associativity, TLB, page faults, prefetching</td>
+<td>Измерить обход массива и объяснить зависимость от размера</td>
+</tr>
+<tr>
+<td>Многоядерность</td>
+<td>Cache coherence, consistency, false sharing, NUMA</td>
+<td>Сравнить размещение счётчиков и привязку потоков</td>
+</tr>
+<tr>
+<td>Векторизация</td>
+<td>SIMD, alignment, aliasing, AoS/SoA, compiler reports</td>
+<td>Проверить автовекторизацию и сравнить корректность и скорость</td>
+</tr>
+<tr>
+<td>Устройства</td>
+<td>PCIe, MMIO, DMA, IOMMU, interrupts, polling</td>
+<td>Разобрать путь передачи буфера по документации; различать CPU atomics и device barriers</td>
+</tr>
+<tr>
+<td>Системное ПО</td>
+<td>ABI, calling conventions, ELF, kernel/user space, драйверный lifecycle</td>
+<td>Проследить вызов от приложения до системного интерфейса</td>
+</tr>
+</tbody>
+</table>
+<p>Уже есть: <a href="../index.html?topic=content/01_cpp/13_low_level.md">Low level</a>, <a href="../index.html?topic=content/01_cpp/15_performance.md">Performance</a>, <a href="../index.html?topic=content/04_system_linux/08_advanced.md">Linux advanced</a>.</p>
+<p>Чтение: <a href="https://csapp.cs.cmu.edu/3e/">CS:APP</a>, <a href="https://www.cs.cmu.edu/~418/">CMU 15-418</a>, <a href="https://docs.kernel.org/">документация ядра Linux</a>. Уточняйте архитектуру и ОС: гарантии C++ не заменяют платформенные правила доступа к устройствам.</p>
+</main></body></html>

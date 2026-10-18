@@ -1,0 +1,210 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ресурсы по Testing &amp; Quality</title><link rel="stylesheet" href="../../style.css"></head><body><main class="learning-page"><a href="../../index.html">← К тренировкам</a><h1>Ресурсы по Testing &amp; Quality</h1>
+<h2>📚 Resources</h2>
+<h2>Документация для практики</h2>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Первичные источники</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Терминология, анализ рисков и тест-дизайн</td>
+<td><a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/">ISTQB CTFL syllabus</a>, <a href="https://glossary.istqb.org/">ISTQB Glossary</a></td>
+</tr>
+<tr>
+<td>C++ unit tests и doubles</td>
+<td><a href="https://google.github.io/googletest/primer.html">GoogleTest Primer</a>, <a href="https://google.github.io/googletest/gmock_cook_book.html">GoogleMock Cookbook</a>, <a href="https://catch2-temp.readthedocs.io/en/latest/">Catch2</a>, <a href="https://github.com/doctest/doctest">doctest</a></td>
+</tr>
+<tr>
+<td>Регистрация и запуск тестов</td>
+<td><a href="https://cmake.org/cmake/help/latest/module/GoogleTest.html">CMake GoogleTest module</a>, <a href="https://cmake.org/cmake/help/latest/manual/ctest.1.html">CTest</a></td>
+</tr>
+<tr>
+<td>Integration и contracts</td>
+<td><a href="https://testcontainers.com/">Testcontainers</a>, <a href="https://docs.pact.io/">Pact</a>, <a href="https://protobuf.dev/programming-guides/proto3/#updating">Protocol Buffers compatibility</a></td>
+</tr>
+<tr>
+<td>API и schemas</td>
+<td><a href="https://www.rfc-editor.org/rfc/rfc9110">HTTP semantics</a>, <a href="https://spec.openapis.org/oas/latest.html">OpenAPI</a>, <a href="https://json-schema.org/understanding-json-schema/">JSON Schema</a>, <a href="https://spec.graphql.org/">GraphQL specification</a>, <a href="https://github.com/fullstorydev/grpcurl">grpcurl</a></td>
+</tr>
+<tr>
+<td>E2E</td>
+<td><a href="https://playwright.dev/docs/best-practices">Playwright</a>, <a href="https://docs.cypress.io/">Cypress</a>, <a href="https://www.selenium.dev/documentation/">Selenium</a></td>
+</tr>
+<tr>
+<td>Нагрузочные сценарии</td>
+<td><a href="https://grafana.com/docs/k6/latest/">k6</a>, <a href="https://jmeter.apache.org/usermanual/">JMeter</a>, <a href="https://docs.locust.io/">Locust</a>, <a href="https://github.com/google/benchmark/blob/main/docs/user_guide.md">Google Benchmark</a></td>
+</tr>
+<tr>
+<td>Security и C++ memory/concurrency defects</td>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">OWASP WSTG</a>, <a href="https://owasp.org/www-project-application-security-verification-standard/">OWASP ASVS</a>, <a href="https://clang.llvm.org/docs/AddressSanitizer.html">ASan</a>, <a href="https://clang.llvm.org/docs/ThreadSanitizer.html">TSan</a>, <a href="https://llvm.org/docs/LibFuzzer.html">LibFuzzer</a></td>
+</tr>
+<tr>
+<td>Review и анализ</td>
+<td><a href="https://google.github.io/eng-practices/review/">Google Code Review Practices</a>, <a href="https://clang.llvm.org/extra/clang-tidy/">Clang-Tidy</a>, <a href="https://clang.llvm.org/docs/ClangFormat.html">ClangFormat</a></td>
+</tr>
+<tr>
+<td>Quality в delivery</td>
+<td><a href="https://scrumguides.org/scrum-guide.html">Scrum Guide 2020</a>, <a href="https://docs.github.com/en/actions">GitHub Actions</a>, <a href="https://docs.gitlab.com/ci/">GitLab CI</a>, <a href="https://www.jenkins.io/doc/book/pipeline/">Jenkins Pipeline</a></td>
+</tr>
+<tr>
+<td>Runtime evidence и reliability</td>
+<td><a href="https://opentelemetry.io/docs/languages/cpp/">OpenTelemetry C++</a>, <a href="https://prometheus.io/docs/introduction/overview/">Prometheus</a>, <a href="https://sre.google/sre-book/table-of-contents/">Google SRE</a></td>
+</tr>
+<tr>
+<td>AI-assisted testing и model evaluation risks</td>
+<td><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI RMF</a>, <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/">OWASP LLM Applications</a></td>
+</tr>
+</tbody>
+</table>
+<p>Ссылки ведут на поддерживаемую документацию проектов; для воспроизводимого упражнения фиксируют конкретные versions/commits. Старые статьи и книги полезно сопоставлять с текущими APIs, не переносить команды без проверки.</p>
+<h2>Практический маршрут</h2>
+<ul>
+<li>Выберите небольшую C++ библиотеку с явным контрактом: добавьте unit boundaries, RAII failure paths и один intentional defect, который тест должен обнаружить.</li>
+<li>Добавьте реальный storage/API integration test с isolated данными и проверкой timeout/retry/idempotency.</li>
+<li>Подключите CTest и отдельные sanitizer configurations; сохраните artifact identity и понятный failure report.</li>
+<li>Для сервиса задайте измеримый SLO и representative load, соберите correlated metrics/traces и объясните найденный bottleneck.</li>
+<li>Если используете AI, сравните предложенные assertions с независимым oracle и negative control; не считайте рост числа тестов достаточной оценкой.</li>
+</ul>
+<h3>📖 Книги</h3>
+<ul>
+<li>
+<p><strong>Testing &amp; QA</strong></p>
+<ul>
+<li><em>Clean Code</em> — Robert C. Martin</li>
+<li><em>The Pragmatic Programmer</em> — Andrew Hunt, David Thomas</li>
+<li><em>Software Testing</em> — Ron Patton</li>
+<li><em>Foundations of Software Testing</em> — Dorothy Graham</li>
+<li><em>Agile Testing</em> — Lisa Crispin, Janet Gregory</li>
+</ul>
+</li>
+<li>
+<p><strong>Test Automation</strong></p>
+<ul>
+<li><em>Test Automation in the Real World</em> — Greg Paskal</li>
+<li><em>xUnit Test Patterns</em> — Gerard Meszaros</li>
+</ul>
+</li>
+<li>
+<p><strong>Architecture &amp; Quality</strong></p>
+<ul>
+<li><em>Clean Architecture</em> — Robert C. Martin</li>
+<li><em>Building Microservices</em> — Sam Newman</li>
+</ul>
+</li>
+<li>
+<p><strong>C++ (важно для testing контекста)</strong></p>
+<ul>
+<li><em>Effective C++</em> — Scott Meyers</li>
+<li><em>Clean C++</em> — Stephan Roth</li>
+<li><em>Large-Scale C++ Software Design</em> — John Lakos</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>🎓 Курсы</h3>
+<ul>
+<li>
+<p><strong>Общие</strong></p>
+<ul>
+<li>Coursera / edX — Software Testing &amp; QA курсы</li>
+<li>Udemy — практические курсы по automation (Selenium, API testing)</li>
+</ul>
+</li>
+<li>
+<p><strong>Специализированные</strong></p>
+<ul>
+<li>Test Automation University (бесплатно)</li>
+<li>Google Testing Blog &amp; материалы</li>
+</ul>
+</li>
+<li>
+<p><strong>C++ / Systems</strong></p>
+<ul>
+<li>C++ Nanodegree (Udacity)</li>
+<li>Advanced C++ (Pluralsight)</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>🔧 Документация и инструменты</h3>
+<ul>
+<li>
+<p><strong>Testing frameworks</strong></p>
+<ul>
+<li>GoogleTest / GoogleMock</li>
+<li>Catch2</li>
+<li>doctest</li>
+</ul>
+</li>
+<li>
+<p><strong>API testing</strong></p>
+<ul>
+<li>Postman</li>
+<li>REST Assured</li>
+<li>curl / grpcurl</li>
+</ul>
+</li>
+<li>
+<p><strong>Performance</strong></p>
+<ul>
+<li>k6</li>
+<li>JMeter</li>
+<li>wrk</li>
+</ul>
+</li>
+<li>
+<p><strong>Static analysis</strong></p>
+<ul>
+<li>clang-tidy</li>
+<li>cppcheck</li>
+<li>SonarQube</li>
+</ul>
+</li>
+<li>
+<p><strong>CI/CD</strong></p>
+<ul>
+<li>GitHub Actions</li>
+<li>GitLab CI</li>
+<li>Jenkins</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>🌐 Полезные ресурсы</h3>
+<ul>
+<li>
+<p>Блоги:</p>
+<ul>
+<li>Martin Fowler</li>
+<li>Google Testing Blog</li>
+<li>Netflix Tech Blog</li>
+</ul>
+</li>
+<li>
+<p>Сообщества:</p>
+<ul>
+<li>Stack Overflow</li>
+<li>Reddit (r/softwaretesting, r/cpp)</li>
+</ul>
+</li>
+<li>
+<p>Практика:</p>
+<ul>
+<li>Open-source проекты на GitHub</li>
+<li>Code review в реальных проектах</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>🧠 Рекомендации по обучению</h3>
+<ul>
+<li>Комбинировать теорию + практику (писать тесты сразу)</li>
+<li>Читать код open-source проектов</li>
+<li>Делать учебные проекты с проверкой критичных рисков, meaningful assertions и известными ограничениями coverage</li>
+<li>Регулярно проходить code review</li>
+<li>Изучать реальные инциденты (postmortems)</li>
+</ul>
+</main></body></html>

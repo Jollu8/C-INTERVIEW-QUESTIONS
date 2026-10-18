@@ -1,0 +1,142 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>🗄️ Data Base &amp; Storage</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>🗄️ Data Base &amp; Storage</h1>
+<p>Это один из самых “глубоких” доменов. Здесь проверяют не только знание терминов, но и понимание <strong>внутренностей БД, trade-offs и production проблем</strong>.</p>
+<hr />
+<h2>🧱 1. <a href="../index.html?topic=content/09_database_and_storage/01_mode.md">Модели данных</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Relational model</li>
+<li>Key-value</li>
+<li>Document</li>
+<li>Column-family</li>
+<li>Graph</li>
+</ul>
+<hr />
+<h2>📦 2. <a href="../index.html?topic=content/09_database_and_storage/02_types_of_data.md">Типы баз данных</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>OLTP vs OLAP</li>
+<li>Row-based vs column-based</li>
+<li>In-memory databases</li>
+<li>Time-series databases</li>
+<li>NewSQL</li>
+</ul>
+<hr />
+<h2>🧮 3. <a href="../index.html?topic=content/09_database_and_storage/03_transactions_and_consistency.md">Транзакции и консистентность</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>ACID</li>
+<li>Isolation levels (read committed, repeatable read, serializable)</li>
+<li>MVCC</li>
+<li>Locks (row/table)</li>
+<li>Deadlocks</li>
+</ul>
+<hr />
+<h2>🔍 4. <a href="../index.html?topic=content/09_database_and_storage/04_indexes_and_data_structures.md">Индексы и структуры данных</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>B-Tree</li>
+<li>LSM Tree</li>
+<li>Hash index</li>
+<li>Secondary indexes</li>
+<li>Covering indexes</li>
+</ul>
+<hr />
+<h2>🧩 5. <a href="../index.html?topic=content/09_database_and_storage/05_partitioning_and_sharding.md">Партиционирование и шардинг</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Range partitioning</li>
+<li>Hash partitioning</li>
+<li>Geo partitioning</li>
+<li>Consistent hashing</li>
+<li>Rebalancing</li>
+</ul>
+<hr />
+<h2>🔁 6. <a href="../index.html?topic=content/09_database_and_storage/06_replication.md">Репликация</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Leader-follower</li>
+<li>Multi-leader</li>
+<li>Leaderless (Dynamo-style)</li>
+<li>Sync vs async replication</li>
+<li>Replication lag</li>
+</ul>
+<hr />
+<h2>⚙️ 7. <a href="../index.html?topic=content/09_database_and_storage/07_storage_engine_internals.md">Storage engine internals</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>WAL (write-ahead log)</li>
+<li>SSTables</li>
+<li>Compaction</li>
+<li>Write amplification</li>
+<li>Read amplification</li>
+</ul>
+<hr />
+<h2>💾 8. <a href="../index.html?topic=content/09_database_and_storage/08_disks_and_io.md">Диски и I/O</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>HDD vs SSD</li>
+<li>Sequential vs random I/O</li>
+<li>fsync</li>
+<li>Page cache</li>
+<li>Direct I/O</li>
+</ul>
+<hr />
+<h2>⚡ 9. <a href="../index.html?topic=content/09_database_and_storage/09_performance_and_optimisation.md">Производительность и оптимизация</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Query planning</li>
+<li>Cost-based optimizer</li>
+<li>Execution plans</li>
+<li>Index selection</li>
+<li>Caching (buffer pool)</li>
+</ul>
+<hr />
+<h2>🧵 10. <a href="../index.html?topic=content/09_database_and_storage/10_competitiveness.md">Конкурентность</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Locks vs MVCC</li>
+<li>Isolation anomalies</li>
+<li>Phantom reads</li>
+<li>Write skew</li>
+<li>Contention</li>
+</ul>
+<hr />
+<h2>🔄 11. <a href="../index.html?topic=content/09_database_and_storage/11_migrations_and_schema_evolution.md">Миграции и эволюция схемы</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Schema migration</li>
+<li>Backward/forward compatibility</li>
+<li>Online migrations</li>
+<li>Dual writes</li>
+<li>Data backfill</li>
+</ul>
+<hr />
+<h2>📊 12. <a href="../index.html?topic=content/09_database_and_storage/12_purpose_built_storage.md">Специализированные хранилища</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Time-series DB</li>
+<li>Search engines</li>
+<li>Analytical warehouses</li>
+<li>Blob/object storage</li>
+</ul>
+<hr />
+<h2>🔐 13. <a href="../index.html?topic=content/09_database_and_storage/13_data_reliability.md">Надёжность данных</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Backup/restore</li>
+<li>Snapshots</li>
+<li>Point-in-time recovery</li>
+<li>Data corruption</li>
+<li>Checksums</li>
+</ul>
+<hr />
+<h2>🌍 14. <a href="../index.html?topic=content/09_database_and_storage/14_distributed_storage_systems.md">Distributed storage systems</a></h2>
+<p><strong>Что входит:</strong></p>
+<ul>
+<li>Distributed databases</li>
+<li>Consensus (Raft, Paxos)</li>
+<li>Quorum reads/writes</li>
+<li>Partition tolerance</li>
+<li>Data locality</li>
+</ul>
+</main></body></html>

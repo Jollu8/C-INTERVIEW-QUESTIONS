@@ -275,3 +275,122 @@ def test_testing_quality_topics_have_complete_answers_and_correct_topics() -> No
     assert (directory / "18_test_ai.md").read_text().startswith(
         "# AI в тестировании\n"
     )
+
+
+def test_index_uses_web_question_boundaries() -> None:
+    from scripts.build_index import count_questions
+
+    source = (
+        "# Navigation\n\n1. [Topic](topic.md)\n\n"
+        "2. Real question?\n\n   **Ответ:** Explanation\n\n"
+        "   1. Nested explanation\n\n"
+        "   ```text\n   1. Code is not a question\n   ```\n"
+    )
+    assert count_questions(source, "README.md") == 1
+    assert count_questions(source, "README.md") == len(
+        parse_questions(source, "README.md")
+    )
+
+
+def test_learning_pages_render_tables_and_preserve_local_links(tmp_path) -> None:
+    from html.parser import HTMLParser
+    from urllib.parse import parse_qs, unquote, urlsplit
+
+    from scripts.build_web import build_catalog, write_learning_pages
+
+    catalog = build_catalog()
+    topic_ids = {t["id"] for s in catalog["sections"] for t in s["topics"]}
+    write_learning_pages(tmp_path, catalog)
+    roadmap = (tmp_path / "roadmap.html").read_text()
+    assert "<table>" in roadmap
+    assert "index.html?track=systems" in roadmap
+    assert '<html lang="ru">' in roadmap
+
+    class Links(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.targets = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "a":
+                self.targets.append(dict(attrs).get("href", ""))
+
+    pages = list((tmp_path / "plans").glob("*.html"))
+    pages += list((tmp_path / "materials").rglob("*.html"))
+    for plan in pages:
+        links = Links()
+        links.feed(plan.read_text())
+        for target in links.targets:
+            url = urlsplit(target)
+            if url.scheme or url.netloc or not url.path:
+                continue
+            assert not url.path.endswith(".md"), (plan, target)
+            if url.path.endswith("index.html"):
+                topic = parse_qs(url.query).get("topic")
+                if topic:
+                    assert topic[0] in topic_ids, (plan, target)
+            else:
+                assert (plan.parent / unquote(url.path)).is_file(), (plan, target)
+    cpp = (tmp_path / "plans/01_cpp.html").read_text()
+    assert "../index.html?topic=content/01_cpp/01_base.md" in cpp
+    resources = tmp_path / "materials/07_testing_and_quality/19_resources.html"
+    assert resources.is_file()
+    assert "<h1>" in resources.read_text()
+
+
+def test_statistics_include_answer_coverage() -> None:
+    from scripts.stats import build_stats
+
+    stats = build_stats([
+        {"section": "cpp", "question_count": 3, "answer_count": 2},
+        {"section": "plans", "question_count": 0, "answer_count": 0},
+    ])
+    assert stats["total_questions"] == 3
+    assert stats["total_answers"] == 2
+
+
+def test_exercise_context_is_visible_and_answer_is_separate() -> None:
+    source = (
+        '1. What happens?\n\n   **Условие:**\n\n'
+        '   ```python\n   print("**Ответ:** is only a string")\n   ```\n'
+    )
+    unanswered = parse_questions(source, 'exercise.md')[0]
+    answered = parse_questions(
+        source + '\n   **Ответ:** Explanation, not part of the condition.\n',
+        'exercise.md',
+    )[0]
+    assert unanswered['answer'] is None
+    assert '<pre><code class="language-python">' in unanswered['question']
+    assert 'print(' in unanswered['question']
+    assert answered['id'] == unanswered['id']
+    assert answered['question'] == unanswered['question']
+    assert 'Explanation' not in answered['question']
+    assert 'Explanation' in answered['answer']
+    assert 'print(' not in answered['answer']
+
+
+def test_python_questions_include_code_and_no_unwritten_answers() -> None:
+    import ast
+
+    from scripts.build_web import MARKDOWN
+
+    paths = sorted((ROOT / 'content/10_python').glob('[0-9]*.md'))
+    assert len(paths) == 13
+    all_ids = set()
+    total = 0
+    for index, path in enumerate(paths):
+        source = path.read_text()
+        questions = parse_questions(source, path.relative_to(ROOT).as_posix())
+        assert len(questions) == (35 if index < 9 else 20), path
+        assert all(q['answer'] is None for q in questions), path
+        exercises = [q for q in questions if q['group'] == 'Разбор кода']
+        assert len(exercises) == 5, path
+        assert all('<pre><code' in q['question'] for q in exercises), path
+        for token in MARKDOWN.parse(source):
+            if token.type == 'fence' and token.info == 'python':
+                ast.parse(token.content, filename=str(path))
+        for question in questions:
+            assert question['id'] not in all_ids, path
+            all_ids.add(question['id'])
+        total += len(questions)
+    assert total == 395

@@ -1,0 +1,288 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tools / Debug / Build</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Tools / Debug / Build</h1>
+<h2>Полнота и порядок подготовки</h2>
+<p>В восьми темах <strong>1 515 вопросов с ответами и источниками</strong>. Практические команды и примеры добавлены для основных сценариев сборки, диагностики и автоматизации.</p>
+<table>
+<thead>
+<tr>
+<th>Тема</th>
+<th style="text-align:right">Вопросов</th>
+<th style="text-align:right">С ответами</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/01_build.md">Build Systems</a></td>
+<td style="text-align:right">121</td>
+<td style="text-align:right">121</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/02_toolchain.md">Toolchain &amp; Tooling</a></td>
+<td style="text-align:right">119</td>
+<td style="text-align:right">119</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/03_debugging.md">Debugging</a></td>
+<td style="text-align:right">220</td>
+<td style="text-align:right">220</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/04_performance.md">Performance &amp; Profiling</a></td>
+<td style="text-align:right">270</td>
+<td style="text-align:right">270</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/05_runtime.md">Runtime &amp; System Level</a></td>
+<td style="text-align:right">260</td>
+<td style="text-align:right">260</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/06_ci.md">CI/CD и автоматизация</a></td>
+<td style="text-align:right">260</td>
+<td style="text-align:right">260</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/07_type_questions.md">Типовые вопросы</a></td>
+<td style="text-align:right">105</td>
+<td style="text-align:right">105</td>
+</tr>
+<tr>
+<td><a href="../index.html?topic=content/06_tools_build_debug/08_advanced_topic.md">Advanced Topics</a></td>
+<td style="text-align:right">160</td>
+<td style="text-align:right">160</td>
+</tr>
+<tr>
+<td><strong>Всего</strong></td>
+<td style="text-align:right"><strong>1 515</strong></td>
+<td style="text-align:right"><strong>1 515</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Начните с 1 → 2 → 3, затем изучите runtime (5) и profiling (4). CI/CD (6) связывает эти инструменты в общий процесс. Файл 7 используйте для самопроверки; LTO/PGO и cross-build из файла 8 — после основ.</p>
+<p>Уровни L1–L4 обозначают глубину: от терминов и простых команд до расследований и проектирования инженерных процессов. Вопросы T/P/D/S разделяют теорию, практику, диагностику и design. Linux-specific команды требуют соответствующей среды; версии стандартов, flags и возможностей инструментов уточняются в ответах и linked documentation.</p>
+<h2>Overview</h2>
+<p>Этот документ описывает ключевые области знаний для C++ разработчика в Linux-среде с акцентом на:</p>
+<ul>
+<li>инструменты (tools)</li>
+<li>сборку (build systems)</li>
+<li>отладку (debugging)</li>
+</ul>
+<p>Можно использовать как:</p>
+<ul>
+<li>чеклист навыков</li>
+<li>основу для подготовки к интервью</li>
+<li>базу для внутреннего knowledge sharing</li>
+</ul>
+<hr />
+<h1>1. <a href="../index.html?topic=content/06_tools_build_debug/01_build.md">Build Systems</a></h1>
+<h2>1.1 Основы сборки</h2>
+<ul>
+<li>Что такое compilation pipeline (preprocess → compile → link)</li>
+<li>Разница между static и dynamic linking</li>
+<li>Что такое ABI и почему он важен</li>
+<li>Role of linker (<code>ld</code>, <code>gold</code>, <code>lld</code>)</li>
+</ul>
+<h2>1.2 Make и low-level сборка</h2>
+<ul>
+<li>Как работает Makefile (targets, dependencies)</li>
+<li>Что такое phony targets</li>
+<li>Инкрементальная сборка: как она реально определяется</li>
+<li>Dependency hell: как Make решает (или не решает)</li>
+</ul>
+<h2>1.3 CMake</h2>
+<ul>
+<li>Target-based подход vs старый style (variables)</li>
+<li>PUBLIC / PRIVATE / INTERFACE</li>
+<li>add_library / add_executable</li>
+<li>find_package: как работает под капотом</li>
+<li>toolchain files (cross-compiling)</li>
+<li>generator'ы (Ninja vs Make)</li>
+</ul>
+<h2>1.4 Другие build системы</h2>
+<ul>
+<li>Ninja — зачем нужен и почему быстрее Make</li>
+<li>Bazel — hermetic builds, sandboxing</li>
+<li>Meson — современная альтернатива</li>
+</ul>
+<h2>1.5 Управление зависимостями</h2>
+<ul>
+<li>vendoring vs system packages</li>
+<li>vcpkg / Conan</li>
+<li>ABI compatibility между библиотеками</li>
+<li>version pinning</li>
+</ul>
+<hr />
+<h1>2. <a href="../index.html?topic=content/06_tools_build_debug/02_toolchain.md">Toolchain &amp; Tooling</a></h1>
+<h2>2.1 Компиляторы</h2>
+<ul>
+<li>
+<p>GCC vs Clang</p>
+</li>
+<li>
+<p>Основные флаги:</p>
+<ul>
+<li><code>-O0/-O2/-O3</code></li>
+<li><code>-g</code></li>
+<li><code>-Wall -Wextra -Werror</code></li>
+</ul>
+</li>
+<li>
+<p>undefined behavior и его последствия</p>
+</li>
+</ul>
+<h2>2.2 Линковка</h2>
+<ul>
+<li>static vs shared libraries (.a vs .so)</li>
+<li>rpath / runpath</li>
+<li>symbol visibility (<code>-fvisibility=hidden</code>)</li>
+<li>проблемы multiple definition</li>
+</ul>
+<h2>2.3 Binary tools</h2>
+<ul>
+<li><code>nm</code>, <code>objdump</code>, <code>readelf</code></li>
+<li>как читать symbols</li>
+<li>как понять, почему не линкуется</li>
+</ul>
+<h2>2.4 Package management (Linux)</h2>
+<ul>
+<li>apt / yum / pacman</li>
+<li>как устроены dev-пакеты</li>
+<li>pkg-config: что он реально делает</li>
+</ul>
+<h2>2.5 IDE / Editors</h2>
+<ul>
+<li>VS Code + clangd</li>
+<li>CLion</li>
+<li>compile_commands.json — зачем нужен</li>
+</ul>
+<hr />
+<h1>3. <a href="../index.html?topic=content/06_tools_build_debug/03_debugging.md">Debugging</a></h1>
+<h2>3.1 Основы отладки</h2>
+<ul>
+<li>debug symbols (<code>-g</code>)</li>
+<li>stack trace: как формируется</li>
+<li>core dump: как включить и анализировать</li>
+</ul>
+<h2>3.2 GDB</h2>
+<ul>
+<li>breakpoints (conditional, watchpoints)</li>
+<li>stepping (step / next / finish)</li>
+<li>inspect variables / memory</li>
+<li>attach к процессу</li>
+<li>debugging multithreaded программ</li>
+</ul>
+<h2>3.3 Memory debugging</h2>
+<ul>
+<li>
+<p>Valgrind</p>
+<ul>
+<li>memcheck</li>
+<li>leak detection</li>
+</ul>
+</li>
+<li>
+<p>AddressSanitizer</p>
+</li>
+<li>
+<p>UBSan</p>
+</li>
+</ul>
+<h2>3.4 Post-mortem анализ</h2>
+<ul>
+<li>core dumps + gdb</li>
+<li>символы vs stripped binaries</li>
+<li>debugging production crashes</li>
+</ul>
+<h2>3.5 Logging</h2>
+<ul>
+<li>structured logging</li>
+<li>уровни логирования</li>
+<li>performance impact логов</li>
+</ul>
+<hr />
+<h1>4. <a href="../index.html?topic=content/06_tools_build_debug/04_performance.md">Performance &amp; Profiling</a></h1>
+<h2>4.1 CPU profiling</h2>
+<ul>
+<li>perf</li>
+<li>gprof</li>
+<li>flamegraphs</li>
+</ul>
+<h2>4.2 Memory profiling</h2>
+<ul>
+<li>heap profiling</li>
+<li>fragmentation</li>
+<li>cache locality</li>
+</ul>
+<h2>4.3 Benchmarking</h2>
+<ul>
+<li>microbenchmarks vs macro</li>
+<li>влияние оптимизаций компилятора</li>
+<li>false sharing</li>
+</ul>
+<hr />
+<h1>5. <a href="../index.html?topic=content/06_tools_build_debug/05_runtime.md">Runtime &amp; System Level</a></h1>
+<h2>5.1 Процессы и потоки</h2>
+<ul>
+<li>fork / exec</li>
+<li>pthreads</li>
+<li>race conditions</li>
+</ul>
+<h2>5.2 Работа с системой</h2>
+<ul>
+<li>file descriptors</li>
+<li>signals</li>
+<li>epoll/select</li>
+</ul>
+<h2>5.3 Dynamic loading</h2>
+<ul>
+<li>dlopen / dlsym</li>
+<li>plugin architectures</li>
+</ul>
+<hr />
+<h1>6. <a href="../index.html?topic=content/06_tools_build_debug/06_ci.md">CI/CD и автоматизация</a></h1>
+<h2>6.1 CI pipelines</h2>
+<ul>
+<li>сборка + тесты + линтинг</li>
+<li>caching build artifacts</li>
+</ul>
+<h2>6.2 Инструменты</h2>
+<ul>
+<li>GitHub Actions</li>
+<li>GitLab CI</li>
+<li>Jenkins</li>
+</ul>
+<h2>6.3 Code quality</h2>
+<ul>
+<li>clang-tidy</li>
+<li>clang-format</li>
+<li>static analysis</li>
+</ul>
+<hr />
+<h1>7. <a href="../index.html?topic=content/06_tools_build_debug/07_type_questions.md">Типовые вопросы (для самопроверки)</a></h1>
+<h2>Build</h2>
+<ul>
+<li>Почему проект может собираться на одной машине и падать на другой?</li>
+<li>Что произойдет, если изменить header?</li>
+<li>Как уменьшить время сборки?</li>
+</ul>
+<h2>Debug</h2>
+<ul>
+<li>Как найти memory leak в production?</li>
+<li>Что делать, если crash без stack trace?</li>
+<li>Как дебажить зависание (deadlock)?</li>
+</ul>
+<h2>Tools</h2>
+<ul>
+<li>Как понять, какая библиотека реально подлинкована?</li>
+<li>Как анализировать ELF бинарник?</li>
+<li>Как воспроизвести баг из CI локально?</li>
+</ul>
+<hr />
+<h1>8. <a href="../index.html?topic=content/06_tools_build_debug/08_advanced_topic.md">Advanced Topics (опционально)</a></h1>
+<ul>
+<li>LTO (Link Time Optimization)</li>
+<li>PGO (Profile Guided Optimization)</li>
+<li>Cross-compilation (embedded, ARM)</li>
+<li>Reproducible builds</li>
+<li>Sanitizers в CI</li>
+</ul>
+</main></body></html>

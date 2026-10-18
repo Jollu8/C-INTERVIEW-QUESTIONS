@@ -57,7 +57,7 @@ def test_question_count_matches_markdown_files() -> None:
     for i, item in enumerate(load_index()):
         path = ROOT / item["path"]
         text = path.read_text(encoding="utf-8")
-        expected = count_questions(text)
+        expected = count_questions(text, item["path"])
         assert item["question_count"] == expected, (
             f"Entry #{i}: question_count does not match {item['path']}"
         )

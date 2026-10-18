@@ -16,7 +16,7 @@ def package_pages(output: Path) -> None:
         '<!doctype html>\n<html lang="ru"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<meta http-equiv="refresh" content="0;url=web/">'
-        '<title>Interview Practice</title></head>'
+        '<title>Системное программирование — практика</title></head>'
         '<body><a href="web/">Открыть тренажёр</a></body></html>\n',
         encoding="utf-8",
     )

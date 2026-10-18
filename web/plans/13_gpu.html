@@ -1,0 +1,46 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GPU и параллельные вычисления</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>GPU и параллельные вычисления</h1>
+<p>План раздела. Готовой базы вопросов CUDA пока нет. Предварительные знания: C++, lifetime, конкурентность, архитектура памяти, линейная алгебра и floating point.</p>
+<table>
+<thead>
+<tr>
+<th>Этап</th>
+<th>Темы</th>
+<th>Практика</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Модель исполнения</td>
+<td>Host/device, kernels, grid, blocks, threads, SM, warps, SIMT</td>
+<td>Vector addition с проверкой размеров и ошибок API</td>
+</tr>
+<tr>
+<td>Память</td>
+<td>Global/shared/registers, coalescing, bank conflicts, transfers</td>
+<td>Transpose с тестами для некратных размеров</td>
+</tr>
+<tr>
+<td>Синхронизация</td>
+<td>Barriers, atomics, streams, events, зависимости</td>
+<td>Проверить границы синхронизации и зависимости pipeline</td>
+</tr>
+<tr>
+<td>Алгоритмы</td>
+<td>Reduction, scan, histogram, matrix multiplication</td>
+<td>Сравнить с CPU и библиотечной реализацией, задать численные допуски</td>
+</tr>
+<tr>
+<td>Производительность</td>
+<td>Timing, warm-up, asynchronous execution, bandwidth, occupancy, divergence, roofline</td>
+<td>Раздельно измерить kernel и end-to-end; объяснить bottleneck</td>
+</tr>
+<tr>
+<td>Инструменты и библиотеки</td>
+<td>Compute Sanitizer, Nsight Systems/Compute, cuBLAS, cuFFT</td>
+<td>Найти ошибку памяти и подтвердить оптимизацию профилем</td>
+</tr>
+</tbody>
+</table>
+<p>Чтение по порядку: <a href="https://docs.nvidia.com/cuda/cuda-programming-guide/index.html">CUDA Programming Guide</a>, затем <a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a>. Версии toolkit, GPU и поддерживаемые возможности фиксируйте в каждом эксперименте.</p>
+<p>Для оборудования других производителей модель и инструменты могут отличаться. Раздел должен явно отделять общие принципы параллелизма от особенностей CUDA.</p>
+</main></body></html>

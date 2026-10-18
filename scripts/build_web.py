@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import hashlib
+import html
 import json
+import posixpath
 import re
 import textwrap
 from pathlib import Path
+from urllib.parse import quote, unquote, urlsplit
 
 from markdown_it import MarkdownIt
 
@@ -21,6 +24,9 @@ SECTION_NAMES = [
     "Архитектура",
     "Базы данных",
     "Python",
+    "Математика",
+    "Архитектура компьютеров",
+    "GPU и параллельные вычисления",
 ]
 
 
@@ -62,6 +68,20 @@ def parse_questions(source: str, path: str) -> list[dict]:
         end = next((line for line in boundaries if line > start), len(lines))
         body = textwrap.dedent("\n".join(lines[paragraph.map[1] : end])).strip()
         body = re.sub(r"(?m)^\[<- Prev\].*$", "", body).strip()
+        context = ""
+        if body.startswith("**Условие:**"):
+            # A code exercise is visible before an answer is added or revealed.
+            answer_line = next((
+                item.map[0] for item in MARKDOWN.parse(body)
+                if item.type == "inline" and item.map
+                and re.match(r"^\*\*Ответ\s*:\*\*", item.content)
+            ), None)
+            if answer_line is None:
+                context, body = body, ""
+            else:
+                body_lines = body.splitlines()
+                context = "\n".join(body_lines[:answer_line]).strip()
+                body = "\n".join(body_lines[answer_line:]).strip()
         has_answer = bool(re.search(r"\*\*Ответ\s*:\*\*", body))
         if not has_answer:
             # Code-review material uses an example followed by an error analysis.
@@ -83,7 +103,7 @@ def parse_questions(source: str, path: str) -> list[dict]:
         questions.append(
             {
                 "id": f"{path}:{digest}:{occurrences[digest]}",
-                "question": MARKDOWN.render(question),
+                "question": MARKDOWN.render(question + "\n\n" + context),
                 "answer": MARKDOWN.render(body) if has_answer else None,
                 "group": heading.replace("_", " "),
                 "line": start + 1,
@@ -110,11 +130,23 @@ def build_catalog() -> dict:
             )
             title = re.sub(r"^\d+[_ .-]*", "", title).replace("_", " ")
             topics.append({"id": path, "title": title, "questions": questions})
+        plan = directory / "README.md"
         index = int(directory.name.split("_", 1)[0]) - 1
         sections.append(
-            {"id": directory.name, "title": SECTION_NAMES[index], "topics": topics}
+            {
+                "id": directory.name, "title": SECTION_NAMES[index], "topics": topics,
+                "plan": f"plans/{directory.name}.html" if plan.exists() else None,
+            }
         )
-    return {"sections": sections}
+    tracks = json.loads((ROOT / "learning/paths.json").read_text(encoding="utf-8"))
+    topic_ids = {t["id"] for section in sections for t in section["topics"]}
+    section_ids = {section["id"] for section in sections}
+    for track in tracks:
+        if not set(track.get("topics", [])).issubset(topic_ids):
+            raise ValueError(f"Unknown topic in track {track['id']}")
+        if not set(track.get("sections", [])).issubset(section_ids):
+            raise ValueError(f"Unknown section in track {track['id']}")
+    return {"sections": sections, "tracks": tracks}
 
 
 def write_web(catalog: dict, directory: Path) -> None:
@@ -161,9 +193,86 @@ def version_assets(directory: Path) -> None:
     index.write_text(source, encoding="utf-8")
 
 
+def write_learning_pages(directory: Path, catalog: dict | None = None) -> None:
+    renderer = MarkdownIt("commonmark", {"html": False}).enable("table")
+    if catalog is None:
+        catalog = build_catalog()
+    topic_ids = {t["id"] for s in catalog["sections"] for t in s["topics"]}
+    sources = sorted((ROOT / "content").rglob("*.md"))
+    destinations = {
+        path: (
+            f"plans/{path.parent.name}.html" if path.name == "README.md"
+            else "materials/" + path.relative_to(ROOT / "content").with_suffix(
+                ".html"
+            ).as_posix()
+        )
+        for path in sources if path.relative_to(ROOT).as_posix() not in topic_ids
+        or path.name == "README.md"
+    }
+
+    def page(
+        source: str, back: str, prefix: str, origin: Path | None = None,
+        destination: str = "roadmap.html",
+    ) -> str:
+        title = source.splitlines()[0].removeprefix("# ")
+        tokens = renderer.parse(source)
+        if origin:
+            for token in tokens:
+                for child in token.children or []:
+                    if child.type != "link_open":
+                        continue
+                    href = child.attrGet("href") or ""
+                    url = urlsplit(href)
+                    if url.scheme or url.netloc or not url.path:
+                        continue
+                    target = (origin.parent / unquote(url.path)).resolve()
+                    if (
+                        target.suffix != ".md"
+                        or not target.is_relative_to(ROOT / "content")
+                    ):
+                        continue
+                    topic_id = target.relative_to(ROOT).as_posix()
+                    parent = posixpath.dirname(destination)
+                    if topic_id in topic_ids:
+                        link = posixpath.relpath("index.html", parent)
+                        link += "?topic=" + quote(topic_id, safe="/")
+                    elif target in destinations:
+                        link = posixpath.relpath(destinations[target], parent)
+                        if url.fragment:
+                            link += "#" + url.fragment
+                    else:
+                        raise ValueError(f"Missing learning material: {target}")
+                    child.attrSet("href", link)
+        return (
+            '<!doctype html><html lang="ru"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width, initial-scale=1">'
+            f'<title>{html.escape(title)}</title>'
+            f'<link rel="stylesheet" href="{prefix}style.css"></head><body>'
+            f'<main class="learning-page"><a href="{back}">← К тренировкам</a>'
+            + renderer.renderer.render(tokens, renderer.options, {})
+            + '</main></body></html>\n'
+        )
+
+    source = (ROOT / "learning/roadmap.md").read_text(encoding="utf-8")
+    source = source.replace("../web/index.html?track=", "index.html?track=")
+    (directory / "roadmap.html").write_text(
+        page(source, "index.html", ""), encoding="utf-8"
+    )
+    for path, destination in destinations.items():
+        source = path.read_text(encoding="utf-8")
+        output = directory / destination
+        output.parent.mkdir(parents=True, exist_ok=True)
+        prefix = posixpath.relpath(".", posixpath.dirname(destination)) + "/"
+        output.write_text(
+            page(source, prefix + "index.html", prefix, path, destination),
+            encoding="utf-8",
+        )
+
+
 def main() -> None:
     catalog = build_catalog()
     write_web(catalog, ROOT / "web")
+    write_learning_pages(ROOT / "web", catalog)
     version_assets(ROOT / "web")
     count = sum(len(t["questions"]) for s in catalog["sections"] for t in s["topics"])
     print(f"Built web/data.js: {count} questions")

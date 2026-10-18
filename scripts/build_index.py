@@ -4,6 +4,11 @@ import json
 import re
 from pathlib import Path
 
+try:
+    from scripts.build_web import parse_questions
+except ModuleNotFoundError:
+    from build_web import parse_questions
+
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT_DIR = ROOT / "content"
 GENERATED_DIR = ROOT / "generated"
@@ -11,7 +16,6 @@ OUTPUT_FILE = GENERATED_DIR / "index.json"
 
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$", re.MULTILINE)
 LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
-QUESTION_RE = re.compile(r"^\s*(?:Q:|[-*+]\s*Q:|##+\s*Q:|\d+[.)]\s+)", re.MULTILINE)
 
 
 def iter_markdown_files(content_dir: Path) -> list[Path]:
@@ -47,8 +51,8 @@ def extract_links(text: str) -> list[str]:
     return links
 
 
-def count_questions(text: str) -> int:
-    return len(QUESTION_RE.findall(text))
+def count_questions(text: str, path: str = "topic.md") -> int:
+    return len(parse_questions(text, path))
 
 
 def build_topic_record(md_file: Path) -> dict:
@@ -60,7 +64,8 @@ def build_topic_record(md_file: Path) -> dict:
     title = extract_title(text, md_file.stem)
     headings = extract_headings(text)
     links = extract_links(text)
-    question_count = count_questions(text)
+    questions = parse_questions(text, relative_path)
+    question_count = len(questions)
 
     return {
         "id": stem,
@@ -68,6 +73,7 @@ def build_topic_record(md_file: Path) -> dict:
         "section": section,
         "path": relative_path,
         "question_count": question_count,
+        "answer_count": sum(bool(q["answer"]) for q in questions),
         "headings": headings,
         "links": links,
     }

@@ -5,8 +5,9 @@ const catalog = window.QUESTION_CATALOG;
 const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const all = new Map();
 const topics = new Map();
-let state = {selected: [], mode: 'ordered', onlyAnswers: false, onlyReview: false, marks: {}, queue: [], position: 0, revealed: [], view: 'setup'};
+let state = {selected: [], mode: 'ordered', onlyAnswers: false, onlyReview: false, limit: 20, marks: {}, queue: [], position: 0, revealed: [], view: 'setup'};
 let settingsExpanded = false;
+let learningExpanded = false;
 function restore(saved) {
   if (!saved || !['queue', 'selected', 'revealed'].every(key =>
     Array.isArray(saved[key]) && saved[key].every(id => typeof id === 'string')) ||
@@ -22,6 +23,7 @@ function restore(saved) {
   }
   return {
     selected: [...new Set(saved.selected)].filter(id => topics.has(id)),
+    limit: [10, 20, 30, 0].includes(saved.limit) ? saved.limit : 20,
     mode: saved.mode, onlyAnswers: saved.onlyAnswers === true,
     onlyReview: saved.onlyReview === true, marks, queue,
     position: Math.max(0, queue.indexOf(saved.queue[saved.position])),
@@ -43,7 +45,31 @@ if (!catalog) {
     const saved = JSON.parse(localStorage.getItem(KEY));
     if (saved) state = restore(saved);
   } catch (_) { /* A missing or invalid save starts a new session. */ }
+  const url = new URL(location.href);
+  const topic = topics.get(url.searchParams.get('topic'));
+  const track = catalog.tracks?.find(t => t.id === url.searchParams.get('track'));
+  if (topic) {
+    Object.assign(state, {
+      selected: [topic.id], queue: topic.questions.map(q => q.id),
+      position: 0, revealed: [], view: 'study', onlyAnswers: false, onlyReview: false,
+    });
+    save();
+  } else if (track) {
+    selectTrack(track); state.view = 'setup'; save();
+  }
+  if (topic || track) {
+    url.searchParams.delete('topic');
+    url.searchParams.delete('track');
+    history.replaceState(null, '', url.href);
+  }
   render();
+}
+function selectTrack(track) {
+  state.selected = catalog.sections.flatMap(s => s.topics
+    .filter(t => track.sections?.includes(s.id) || track.topics?.includes(t.id)).map(t => t.id));
+  state.onlyAnswers = true;
+  state.onlyReview = false;
+  save();
 }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(state)); }
@@ -72,7 +98,7 @@ function highlightCode(container) {
   container.querySelectorAll('pre code').forEach(block => window.hljs.highlightElement(block));
 }
 function addCodeCopyButtons(container) {
-  container.querySelectorAll('.answer pre').forEach(pre => {
+  container.querySelectorAll('.answer pre, .question-title pre').forEach(pre => {
     if (pre.parentElement.classList.contains('code-example')) return;
     const code = pre.querySelector('code') || pre;
     const wrapper = document.createElement('div');
@@ -110,19 +136,21 @@ function addCodeCopyButtons(container) {
 }
 function render() {
   document.querySelector('#footer-source').hidden = state.view !== 'setup';
+  document.querySelector('#learning-help').hidden = state.view !== 'setup';
   if (state.view === 'setup') setup();
   else if (state.view === 'done') complete();
   else study();
 }
 function setup() {
-  root.innerHTML = `<div class="page-heading"><h1 class="library-heading">Библиотека / 10 разделов</h1><span class="total"><strong>${all.size.toLocaleString('ru')}</strong><span>вопросов</span></span></div>
-    ${state.queue.length ? '<div class="resume"><span>Есть сохранённая подборка</span><button id="resume" aria-label="Продолжить сохранённую подборку">Продолжить<span class="resume-mobile-label"> подборку</span> →</button></div>' : ''}
+  root.innerHTML = `<div class="page-heading"><h1 class="library-heading">Библиотека / ${catalog.sections.length}<span class="section-count-label"> разделов</span></h1><span class="total"><strong>${all.size.toLocaleString('ru')}</strong><span>вопросов</span></span>
+    ${state.queue.length ? '<div class="resume"><span>Есть сохранённая подборка</span><button id="resume" aria-label="Продолжить сохранённую подборку" title="Продолжить сохранённую подборку"><span class="resume-label">Продолжить</span><span aria-hidden="true">→</span></button></div>' : ''}</div>
+    <section id="learning-panel" class="learning-start" ${learningExpanded ? '' : 'hidden'} aria-label="Маршруты обучения"><h2>Что хотите освоить?</h2><p>Выберите маршрут или настройте подборку из библиотеки ниже.</p><div class="track-grid">${(catalog.tracks || []).map(t => `<button class="track-card" data-track="${escapeHtml(t.id)}"><strong>${escapeHtml(t.title)}</strong><span>${escapeHtml(t.description)}</span></button>`).join('')}</div><a href="roadmap.html">Что читать, что сделать и как проверить знания →</a></section>
     <div class="setup-layout"><section class="library" aria-label="Темы">${catalog.sections.map((s, index) => {
       const qs = s.topics.flatMap(t => t.questions);
-      return `<details ${index === 0 ? 'open' : ''}><summary><span class="section-number">${String(index + 1).padStart(2, '0')}</span><span class="section-name">${escapeHtml(s.title)}<small>${qs.length ? countText(qs) : 'Пока только план тем'}</small></span><span class="expand">+</span></summary>
-        ${s.topics.length ? `<div class="topic-list"><label class="select-all"><input type="checkbox" data-section="${s.id}"> Весь раздел</label>${s.topics.map(t => `<label class="topic"><input type="checkbox" data-topic="${t.id}" ${state.selected.includes(t.id) ? 'checked' : ''}><span>${escapeHtml(t.title)}<small>${countText(t.questions)}</small></span></label>`).join('')}</div>` : '<p class="empty-section">Вопросы ещё не добавлены.</p>'}</details>`;
+      return `<details ${index === 0 ? 'open' : ''}><summary><span class="section-number">${String(index + 1).padStart(2, '0')}</span><span class="section-name">${escapeHtml(s.title)}<small>${qs.length ? countText(qs) : 'План обучения'}</small></span><span class="expand">+</span></summary>
+        ${s.plan ? `<a class="plan-link" href="${escapeHtml(s.plan)}">План обучения и материалы →</a>` : ''}${s.topics.length ? `<div class="topic-list"><label class="select-all"><input type="checkbox" data-section="${s.id}"> Весь раздел</label>${s.topics.map(t => `<label class="topic"><input type="checkbox" data-topic="${t.id}" ${state.selected.includes(t.id) ? 'checked' : ''}><span>${escapeHtml(t.title)}<small>${countText(t.questions)}</small></span></label>`).join('')}</div>` : '<p class="empty-section">Вопросы ещё не добавлены. Начните с плана обучения.</p>'}</details>`;
     }).join('')}</section>
-    <aside class="settings"><p class="eyebrow">ВАША ПОДБОРКА</p><h2>Настроить тренировку</h2><fieldset><legend>Порядок вопросов</legend><div class="segmented"><label><input type="radio" name="mode" value="ordered" ${state.mode === 'ordered' ? 'checked' : ''}><span>По порядку</span></label><label><input type="radio" name="mode" value="random" ${state.mode === 'random' ? 'checked' : ''}><span>Случайно</span></label></div></fieldset><label class="answer-filter"><input id="only-answers" type="checkbox" ${state.onlyAnswers ? 'checked' : ''}> Только с ответами</label><div class="selection-count"><strong id="selected-count"></strong><span>вопросов выбрано</span></div><button class="primary" id="start">Начать тренировку →</button><p id="empty-hint" class="muted"></p></aside></div>`;
+    <aside class="settings"><p class="eyebrow">ВАША ПОДБОРКА</p><h2>Настроить тренировку</h2><fieldset><legend>Порядок вопросов</legend><div class="segmented"><label><input type="radio" name="mode" value="ordered" ${state.mode === 'ordered' ? 'checked' : ''}><span>По порядку</span></label><label><input type="radio" name="mode" value="random" ${state.mode === 'random' ? 'checked' : ''}><span>Случайно</span></label></div></fieldset><label class="session-size" for="session-size">Вопросов в тренировке<select id="session-size">${[10, 20, 30, 0].map(n => `<option value="${n}" ${state.limit === n ? 'selected' : ''}>${n || 'Все выбранные'}</option>`).join('')}</select></label><label class="answer-filter"><input id="only-answers" type="checkbox" ${state.onlyAnswers ? 'checked' : ''}> Только с ответами</label><div class="selection-count"><strong id="selected-count"></strong><span>вопросов выбрано</span></div><button class="primary" id="start">Начать тренировку →</button><p id="empty-hint" class="muted"></p></aside></div>`;
   document.querySelectorAll('[data-topic]').forEach(input => input.onchange = () => {
     state.selected = [...document.querySelectorAll('[data-topic]:checked')].map(el => el.dataset.topic); updateSelection(); save();
   });
@@ -136,6 +164,18 @@ function setup() {
   });
   document.querySelectorAll('[name=mode]').forEach(input => input.onchange = () => { state.mode = input.value; save(); });
   document.querySelector('#only-answers').onchange = event => { state.onlyAnswers = event.target.checked; updateSelection(); save(); };
+  document.querySelectorAll('[data-track]').forEach(button => button.onclick = () => {
+    selectTrack(catalog.tracks.find(t => t.id === button.dataset.track)); learningExpanded = false; render();
+    document.querySelector('.settings').scrollIntoView({block: 'center', behavior: 'smooth'});
+  });
+  const help = document.querySelector('#learning-help');
+  help.setAttribute('aria-expanded', String(learningExpanded));
+  help.onclick = () => {
+    learningExpanded = !learningExpanded;
+    document.querySelector('#learning-panel').hidden = !learningExpanded;
+    help.setAttribute('aria-expanded', String(learningExpanded));
+  };
+  document.querySelector('#session-size').onchange = event => { state.limit = Number(event.target.value); updateSelection(); save(); };
   document.querySelector('#start').onclick = start;
   addPracticeTools();
   addSettingsToggle();
@@ -148,7 +188,7 @@ function addSettingsToggle() {
   const options = document.createElement('div');
   options.id = 'training-options';
   options.className = 'training-options';
-  options.append(...settings.querySelectorAll('fieldset, .answer-filter, .progress-tools'));
+  options.append(...settings.querySelectorAll('fieldset, .answer-filter, .session-size, .progress-tools'));
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'settings-toggle';
@@ -164,7 +204,7 @@ function addSettingsToggle() {
 }
 function updateSelection() {
   const count = pool().length;
-  document.querySelector('#selected-count').textContent = count.toLocaleString('ru');
+  document.querySelector('#selected-count').textContent = (state.limit ? Math.min(state.limit, count) : count).toLocaleString('ru');
   document.querySelector('#start').disabled = !count;
   document.querySelector('#empty-hint').textContent = !state.selected.length ? 'Выберите темы' : !count ? 'Нет вопросов, соответствующих фильтрам' : '';
   document.querySelectorAll('[data-section]').forEach(input => {
@@ -174,11 +214,12 @@ function updateSelection() {
   });
 }
 function start() {
-  const queue = pool();
+  let queue = pool();
   if (!queue.length) return;
   if (state.mode === 'random') for (let i = queue.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1)); [queue[i], queue[j]] = [queue[j], queue[i]];
   }
+  if (state.limit) queue = queue.slice(0, state.limit);
   Object.assign(state, {queue, position: 0, revealed: [], view: 'study'}); save(); render(); window.scrollTo(0, 0);
 }
 function loadScript(url) {
@@ -242,7 +283,7 @@ function study() {
   }
   loadRenderResources();
   const revealed = state.revealed.includes(q.id);
-  root.innerHTML = `<div class="study-top"><button class="text-button" id="back-setup">← К темам</button><span>${state.position + 1} / ${state.queue.length}</span></div><progress value="${state.position + 1}" max="${state.queue.length}" aria-label="Прогресс"></progress><article class="question"><p class="eyebrow">${escapeHtml(q.section)} / ${escapeHtml(q.topic)}</p><p class="group">${escapeHtml(q.group)}</p><div class="question-title">${q.question}</div>${q.answer ? `<button class="reveal" id="reveal" aria-expanded="${revealed}">${revealed ? 'Скрыть ответ' : 'Показать ответ'}</button><div class="answer" ${revealed ? '' : 'hidden'}>${q.answer}</div>` : '<p class="no-answer">Ответ пока не добавлен</p>'}<a class="source-link" href="../${q.id.split(':')[0]}" target="_blank" rel="noopener">Исходный материал ↗</a></article><nav class="question-nav" aria-label="Навигация по вопросам"><button id="prev" ${state.position === 0 ? 'disabled' : ''}>← Назад</button><button class="primary" id="next">${state.position === state.queue.length - 1 ? 'Завершить' : 'Следующий →'}</button></nav>`;
+  root.innerHTML = `<div class="study-top"><button class="text-button" id="back-setup">← К темам</button><span>${state.position + 1} / ${state.queue.length}</span></div><progress value="${state.position + 1}" max="${state.queue.length}" aria-label="Прогресс"></progress><article class="question"><p class="eyebrow">${escapeHtml(q.section)} / ${escapeHtml(q.topic)}</p><p class="group">${escapeHtml(q.group)}</p><div class="question-title">${q.question}</div>${q.answer ? `<button class="reveal" id="reveal" aria-expanded="${revealed}">${revealed ? 'Скрыть ответ' : 'Показать ответ'}</button><div class="answer" ${revealed ? '' : 'hidden'}>${revealed ? q.answer : ''}</div>` : '<p class="no-answer">Ответ пока не добавлен</p>'}<a class="source-link" href="../${q.id.split(':')[0]}" target="_blank" rel="noopener">Исходный материал ↗</a></article><nav class="question-nav" aria-label="Навигация по вопросам"><button id="prev" ${state.position === 0 ? 'disabled' : ''}>← Назад</button><button class="primary" id="next">${state.position === state.queue.length - 1 ? 'Завершить' : 'Следующий →'}</button></nav>`;
   renderMath(root);
   highlightCode(root);
   addCodeCopyButtons(root);

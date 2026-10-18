@@ -24,16 +24,19 @@ def build_stats(index: list[dict]) -> dict:
     section_counter = Counter()
     total_questions = 0
     total_links = 0
+    total_answers = 0
 
     for item in index:
         section = item.get("section", "unknown")
         section_counter[section] += 1
         total_questions += int(item.get("question_count", 0))
+        total_answers += int(item.get("answer_count", 0))
         total_links += len(item.get("links", []))
 
     return {
         "total_topics": len(index),
         "total_questions": total_questions,
+        "total_answers": total_answers,
         "total_links": total_links,
         "sections": dict(sorted(section_counter.items())),
     }

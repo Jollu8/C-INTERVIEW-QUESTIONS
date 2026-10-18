@@ -39,15 +39,6 @@ body>main{width:100%;flex:1}
   .settings .training-options{padding:8px 0 14px;border-bottom:1px solid #dce3df}
 }
 
-.resume-mobile-label{display:none}
-@media(max-width:760px){
-  .resume{padding:0 10px;margin-bottom:16px;gap:0}
-  .resume>span{display:none}
-  .resume #resume{width:100%;min-height:44px;padding:8px 0;border:0;background:transparent;text-align:left;font-size:14px;color:#175b43}
-  .resume #resume:hover{background:#dce8df}
-  .resume-mobile-label{display:inline}
-}
-
 .site-footer .footer-icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:10px;border-radius:6px}
 .site-footer .footer-icon:hover{background:#edf2ef}
 .footer-icon svg{width:24px;height:24px}
@@ -60,3 +51,42 @@ body>main{width:100%;flex:1}
 .page-heading .total{display:inline-flex;align-items:baseline;gap:6px;padding:5px 10px;margin:0;border:1px solid #d4e2d9;border-radius:20px;background:#eaf2ed;color:#536b5d;font-size:12px;white-space:nowrap}
 .total strong{color:#185f4b;font-size:14px;font-weight:650;font-variant-numeric:tabular-nums}
 @media(max-width:760px){.page-heading{display:flex;flex-wrap:wrap;gap:8px 12px}}
+
+.learning-start{margin:0 0 28px;padding:20px;border:1px solid #d4e2d9;border-radius:10px;background:#fff}
+.learning-start h2{margin-bottom:8px}.learning-start p{color:#536159;margin-top:0}
+.track-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+.track-card{text-align:left;display:flex;flex-direction:column;gap:8px;font-size:14px;min-height:110px}
+.track-card span{font-size:13px;font-weight:400;color:#536159}
+.plan-link{display:inline-block;margin:0 0 16px 40px;font-size:13px}
+.session-size{display:block;font-size:14px;margin:20px 0}.session-size select{display:block;width:100%;margin-top:8px;padding:10px;font:inherit;background:#fff;color:inherit;border:1px solid #cbd5cf;border-radius:6px}
+.learning-page{max-width:1050px;overflow-wrap:anywhere}.learning-page h1{margin:24px 0}.learning-page h2{margin:32px 0 16px}.learning-page table{display:block;overflow-x:auto;border-collapse:collapse;margin:20px 0}.learning-page th,.learning-page td{text-align:left;vertical-align:top;border:1px solid #d4ded7;padding:12px;min-width:150px}.learning-page th{background:#eaf2ed}.learning-page li{margin:10px 0}
+select:focus-visible{outline:3px solid #b27919;outline-offset:4px}
+@media(max-width:760px){.track-grid{grid-template-columns:1fr}.track-card{min-height:0}.learning-start{padding:16px}.topbar{height:auto;min-height:60px;flex-wrap:wrap;padding:12px 20px;gap:8px}.learning-page table{font-size:14px}.learning-start h2{font-size:20px}}
+
+/* Compact library header; learning routes open from the help button. */
+.topbar{flex-wrap:nowrap;min-height:60px;height:60px;padding:0 5%}
+.help-button{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:44px;height:44px;padding:0;border-radius:50%;font-size:18px;color:#185f4b}
+.help-button[hidden],.learning-start[hidden]{display:none}
+.help-button[aria-expanded=true]{background:#e5eee8;border-color:#8faf9b}
+.page-heading{justify-content:flex-start;flex-wrap:nowrap;gap:12px;min-height:44px;margin-bottom:16px}
+.page-heading .library-heading{white-space:nowrap}
+.page-heading .resume{margin:0 0 0 auto;padding:0;background:transparent;border:0;gap:12px;flex-wrap:nowrap;white-space:nowrap;font-size:12px}
+.page-heading .resume #resume{display:inline-flex;align-items:center;gap:8px;min-height:44px;width:auto;padding:8px 12px;border:1px solid #d4e2d9;background:#eaf2ed;color:#175b43;font-size:12px}
+.page-heading .resume #resume:hover{background:#dce8df}
+@media(max-width:900px){.page-heading .resume>span{display:none}}
+@media(max-width:600px){
+  .topbar{height:56px;min-height:56px;padding:0 20px}
+  .page-heading{gap:8px;margin-bottom:12px}
+  .page-heading .library-heading{font-size:10px}
+  .section-count-label{display:none}
+  .page-heading .total{gap:4px;padding:4px 7px;font-size:11px}
+  .page-heading .total strong{font-size:12px}
+  .page-heading .resume #resume{width:44px;padding:0;justify-content:center;font-size:20px}
+  .resume-label{display:none}
+}
+
+.question-title>p:not(:first-child){font-size:16px;font-weight:400}
+.question-title pre{font-size:14px;line-height:1.6;font-weight:400;overflow:auto;padding:12px;background:#252c29;color:#edf3ef;border-radius:5px}
+.question-title pre code{font-size:inherit;background:transparent;padding:0;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.question-title .code-example pre{margin:0;border-radius:0}
+.question-title pre code.hljs{background:transparent;padding:0}
