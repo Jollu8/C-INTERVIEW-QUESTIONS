@@ -35,6 +35,7 @@ def parse_questions(source: str, path: str) -> list[dict]:
             and (
                 (token.type == "list_item_open" and token.level == 1)
                 or (token.type == "heading_open" and token.level == 0)
+                or (token.type == "hr" and token.level == 0)
             )
         }
     )
@@ -62,6 +63,21 @@ def parse_questions(source: str, path: str) -> list[dict]:
         body = textwrap.dedent("\n".join(lines[paragraph.map[1] : end])).strip()
         body = re.sub(r"(?m)^\[<- Prev\].*$", "", body).strip()
         has_answer = bool(re.search(r"\*\*Ответ\s*:\*\*", body))
+        if not has_answer:
+            # Code-review material uses an example followed by an error analysis.
+            # Read paragraph tokens so labels inside a code fence cannot qualify.
+            paragraphs = [
+                token.content
+                for token in MARKDOWN.parse(body)
+                if token.type == "inline"
+            ]
+            has_answer = any(
+                re.match(r"^(?:\*\*)?Пример\s*:", text)
+                for text in paragraphs
+            ) and any(
+                re.match(r"^(?:\*\*)?Ошибка\s*:", text)
+                for text in paragraphs
+            )
         digest = hashlib.sha256(question.encode()).hexdigest()[:16]
         occurrences[digest] = occurrences.get(digest, 0) + 1
         questions.append(

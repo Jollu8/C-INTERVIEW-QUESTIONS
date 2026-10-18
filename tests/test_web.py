@@ -187,7 +187,7 @@ def test_new_material_is_available_with_complete_answers() -> None:
     topics = {
         "content/01_cpp/16_best_practices.md": (200, 200),
         "content/02_algorithms_and_ds/README.md": (360, 360),
-        "content/03_concurrency/02_review_code.md": (110, 10),
+        "content/03_concurrency/02_review_code.md": (110, 110),
         "content/04_system_linux/01_operating_systems.md": (180, 180),
         "content/01_cpp/04_memory.md": (250, 250),
         "content/04_system_linux/02_linux_basic.md": (290, 290),

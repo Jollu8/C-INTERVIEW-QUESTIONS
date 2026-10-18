@@ -1,3 +1,4 @@
+# Concurrency: разбор кода для Senior C++
 
 У каждого пункта есть:
 * **вопрос**
@@ -8,7 +9,7 @@
 
 ---
 
-# 1. Memory model и базовая корректность
+## 1. Memory model и базовая корректность
 
 
 1. **Что такое data race в терминах C++ и почему это UB?**
@@ -192,7 +193,7 @@
 
    ---
 
-# 2. Жизненный цикл потоков и lifetime
+## 2. Жизненный цикл потоков и lifetime
 
 
 16. **Что произойдет, если уничтожить joinable `std::thread`?**
@@ -364,7 +365,7 @@
 
    ---
 
-# 3. Mutex, lock discipline и deadlock
+## 3. Mutex, lock discipline и deadlock
 
 
 31. **Почему RAII обязателен для locks?**
@@ -524,7 +525,7 @@
 
    ---
 
-# 4. Condition variable и wait/notify протоколы
+## 4. Condition variable и wait/notify протоколы
 
 
 46. **Почему `cv.wait()` всегда должен быть с predicate?**
@@ -694,7 +695,7 @@
 
    ---
 
-# 5. Atomics и CAS
+## 5. Atomics и CAS
 
 
 61. **Когда atomic counter — правильное решение?**
@@ -857,7 +858,7 @@
 
    ---
 
-# 6. Thread-safe структуры и API design
+## 6. Thread-safe структуры и API design
 
 
 76. **Как бы вы спроектировали thread-safe queue для interview?**
@@ -971,7 +972,7 @@
 
    ---
 
-# 7. Thread pools, tasks и execution
+## 7. Thread pools, tasks и execution
 
 
 86. **Зачем нужен thread pool вместо “новый поток на задачу”?**
@@ -1078,7 +1079,7 @@
 
    ---
 
-# 8. `std::async`, futures, coroutines
+## 8. `std::async`, futures, coroutines
 
 
 96. **Почему `std::async` часто избегают в production infra-коде?**
@@ -1124,18 +1125,17 @@
 
 100. **Что senior-кандидат должен уметь объяснить про coroutine + concurrency?**
 
-        Пример:
-        `cpp
-            co_await scheduler.schedule();
-            `
-        Ошибка: не уметь разделить три вещи:
-        - где выполняется continuation,
-        - кто владеет coroutine frame,
-        - как устроены cancellation, synchronization и lifetime.
+     Пример:
 
-   ---
+     ```cpp
+     co_await scheduler.schedule();
+     ```
 
-# 9. Типичные мини-задачи, которые любят на senior interview
+     Ошибка: не уметь разделить, где выполняется continuation, кто владеет coroutine frame и как устроены cancellation, synchronization и lifetime. Возможности scheduler определяются контрактом конкретной библиотеки.
+
+     ---
+
+## 9. Типичные мини-задачи, которые любят на senior interview
 
 
 Ниже — разбор задач в формате вопрос-ответ с примерами кода, подводными камнями и ссылками на первоисточники.
@@ -1533,7 +1533,7 @@
 
    ---
 
-# 10. Что особенно отличает strong senior answer
+## 10. Что особенно отличает strong senior answer
 
 
 На senior-собеседовании оценивается системный подход к архитектуре, надёжности и ресурсам:
