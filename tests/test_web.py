@@ -449,7 +449,7 @@ def test_exercise_context_is_visible_and_answer_is_separate() -> None:
     assert 'print(' not in answered['answer']
 
 
-def test_python_questions_include_code_and_no_unwritten_answers() -> None:
+def test_python_questions_include_code_answers_and_sources() -> None:
     import ast
 
     from scripts.build_web import MARKDOWN
@@ -462,7 +462,12 @@ def test_python_questions_include_code_and_no_unwritten_answers() -> None:
         source = path.read_text()
         questions = parse_questions(source, path.relative_to(ROOT).as_posix())
         assert len(questions) == (35 if index < 9 else 20), path
-        assert all(q['answer'] is None for q in questions), path
+        assert all(
+            q['answer'] and '<strong>Источник:</strong>' in q['answer']
+            for q in questions
+        ), path
+        assert source.count('**Источник:**') == len(questions), path
+        assert 'Ответы пока не добавлены' not in source, path
         exercises = [q for q in questions if q['group'] == 'Разбор кода']
         assert len(exercises) == 5, path
         assert all('<pre><code' in q['question'] for q in exercises), path
