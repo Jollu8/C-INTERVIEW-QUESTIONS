@@ -14,7 +14,7 @@
 
 Маршруты охватывают системную разработку, переход из LTE/NR и подготовку к GPU. Для каждого этапа указаны чтение, практика и критерий освоения. На сайте roadmap доступен по ссылке «Маршруты обучения».
 
-В [Python](./content/10_python/README.md) добавлено 395 вопросов и задач без готовых ответов. Новые направления пока представлены планами: [математика](./content/11_math/README.md), [архитектура компьютеров](./content/12_computer_architecture/README.md), [GPU](./content/13_gpu/README.md).
+В [Python](./content/10_python/README.md) добавлено 395 вопросов и задач. В [архитектуре компьютеров](./content/12_computer_architecture/README.md) — 384 вопроса и задания без готовых ответов в 16 темах, с тремя уровнями сложности. [Математика](./content/11_math/README.md) и [GPU](./content/13_gpu/README.md) пока представлены планами.
 
 Репозиторий охватывает не только C/C++, но и широкий инженерный стек:
 алгоритмы, concurrency, Linux, networking, инструменты разработки, тестирование, архитектуру, базы данных и Python.
@@ -136,7 +136,7 @@ pytest
 | Базы данных                  | [Вопросы](./content/09_database_and_storage/README.md)    |   ☐    |
 | Python                       | [Вопросы](./content/10_python/README.md)                     |   ☐    |
 | Математика | [План](./content/11_math/README.md) | ☐ |
-| Архитектура компьютеров | [План](./content/12_computer_architecture/README.md) | ☐ |
+| Архитектура компьютеров | [Вопросы](./content/12_computer_architecture/README.md) | ☐ |
 | GPU | [План](./content/13_gpu/README.md) | ☐ |
 
 Наличие готового ответа можно проверить в тренажёре фильтром «Только с ответами».

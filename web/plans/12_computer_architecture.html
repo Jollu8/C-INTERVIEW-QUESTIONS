@@ -1,46 +1,220 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Архитектура компьютеров и взаимодействие с устройствами</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Архитектура компьютеров и взаимодействие с устройствами</h1>
-<p>План раздела. Сначала используйте существующие вопросы C++ Low level, Performance и Linux; новые вопросы добавляйте после проверки пересечений.</p>
+<p>В разделе 16 тем и 384 вопроса и задания без готовых ответов. Маршрут ведёт от цифровой логики и машинного представления данных к исполнению программ, памяти, параллелизму, устройствам и исследованию производительности. Вопросы раскрывают понятия через причины, примеры, расчёты и проверяемые гипотезы.</p>
+<h2>Как проходить раздел</h2>
+<p>Начните с тем 1–4, затем разберите память в темах 5–8. После этого переходите к многоядерности и SIMD, устройствам и системному ПО. Тему 16 используйте и по ходу обучения: небольшое измерение помогает проверить объяснение сразу после изучения механизма.</p>
+<p>В каждой теме по 24 вопроса: по 8 на каждом уровне.</p>
 <table role="table">
 <thead role="rowgroup">
 <tr role="row">
-<th role="columnheader" scope="col">Этап</th>
-<th role="columnheader" scope="col">Темы</th>
-<th role="columnheader" scope="col">Практическая проверка</th>
+<th role="columnheader" scope="col">Уровень</th>
+<th role="columnheader" scope="col">Что требуется от ответа</th>
+<th role="columnheader" scope="col">Когда переходить дальше</th>
 </tr>
 </thead>
 <tbody role="rowgroup">
 <tr role="row">
-<td role="cell" data-label="Этап">CPU</td>
-<td role="cell" data-label="Темы">ISA и микроархитектура, x86-64/ARM, registers, pipeline, branch prediction, out-of-order execution</td>
-<td role="cell" data-label="Практическая проверка">Изучить дизассемблирование функции; связать инструкции с исходником</td>
+<td role="cell" data-label="Уровень">Лёгкий</td>
+<td role="cell" data-label="Что требуется от ответа">Объяснить термин своими словами, нарисовать механизм, разобрать небольшой пример</td>
+<td role="cell" data-label="Когда переходить дальше">Можете объяснить, какую задачу решает механизм и с чем его легко перепутать</td>
 </tr>
 <tr role="row">
-<td role="cell" data-label="Этап">Иерархия памяти</td>
-<td role="cell" data-label="Темы">Cache lines, locality, associativity, TLB, page faults, prefetching</td>
-<td role="cell" data-label="Практическая проверка">Измерить обход массива и объяснить зависимость от размера</td>
+<td role="cell" data-label="Уровень">Средний</td>
+<td role="cell" data-label="Что требуется от ответа">Проследить последовательность событий, выполнить расчёт, сравнить варианты на заданной платформе</td>
+<td role="cell" data-label="Когда переходить дальше">Можете предсказать поведение и назвать условия, при которых прогноз изменится</td>
 </tr>
 <tr role="row">
-<td role="cell" data-label="Этап">Многоядерность</td>
-<td role="cell" data-label="Темы">Cache coherence, consistency, false sharing, NUMA</td>
-<td role="cell" data-label="Практическая проверка">Сравнить размещение счётчиков и привязку потоков</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">Векторизация</td>
-<td role="cell" data-label="Темы">SIMD, alignment, aliasing, AoS/SoA, compiler reports</td>
-<td role="cell" data-label="Практическая проверка">Проверить автовекторизацию и сравнить корректность и скорость</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">Устройства</td>
-<td role="cell" data-label="Темы">PCIe, MMIO, DMA, IOMMU, interrupts, polling</td>
-<td role="cell" data-label="Практическая проверка">Разобрать путь передачи буфера по документации; различать CPU atomics и device barriers</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">Системное ПО</td>
-<td role="cell" data-label="Темы">ABI, calling conventions, ELF, kernel/user space, драйверный lifecycle</td>
-<td role="cell" data-label="Практическая проверка">Проследить вызов от приложения до системного интерфейса</td>
+<td role="cell" data-label="Уровень">Сложный</td>
+<td role="cell" data-label="Что требуется от ответа">Разобрать ограничения, предложить эксперимент или спроектировать взаимодействие компонентов</td>
+<td role="cell" data-label="Когда переходить дальше">Можете обосновать корректность решения и отделить измеренные факты от предположений</td>
 </tr>
 </tbody>
 </table>
-<p>Уже есть: <a href="../index.html?topic=content/01_cpp/13_low_level.md">Low level</a>, <a href="../index.html?topic=content/01_cpp/15_performance.md">Performance</a>, <a href="../index.html?topic=content/04_system_linux/08_advanced.md">Linux advanced</a>.</p>
-<p>Чтение: <a href="https://csapp.cs.cmu.edu/3e/">CS:APP</a>, <a href="https://www.cs.cmu.edu/~418/">CMU 15-418</a>, <a href="https://docs.kernel.org/">документация ядра Linux</a>. Уточняйте архитектуру и ОС: гарантии C++ не заменяют платформенные правила доступа к устройствам.</p>
+<p>Для каждого вопроса сначала запишите собственное объяснение. Если не хватает знания, найдите конкретный раздел документации, дополните схему или расчёт и вернитесь к вопросу. Для практики сохраняйте исходники, параметры сборки, входные данные и результаты; для аппаратной особенности указывайте модель CPU, ISA и ОС. У тем есть предварительные знания, ссылки на соседние темы и критерий освоения.</p>
+<h2>Темы и вопросы</h2>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Тема</th>
+<th role="columnheader" scope="col">Что охватывает</th>
+<th style="text-align:right" role="columnheader" scope="col">Вопросов</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/01_digital_foundations.md">1. Цифровые основы и устройство компьютера</a></td>
+<td role="cell" data-label="Что охватывает">Логика, состояние, тактирование, CPU/RAM/устройства, latency и throughput</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/02_data_representation.md">2. Представление данных и компьютерная арифметика</a></td>
+<td role="cell" data-label="Что охватывает">Биты, endian, целые числа, fixed point, IEEE 754, округление</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/03_isa_and_assembly.md">3. ISA, инструкции и ассемблер</a></td>
+<td role="cell" data-label="Что охватывает">Регистры, адресация, x86-64/AArch64/RISC-V, дизассемблирование</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/04_cpu_microarchitecture.md">4. Микроархитектура CPU</a></td>
+<td role="cell" data-label="Что охватывает">Конвейер, зависимости, superscalar, OoO, prediction, speculation, SMT</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/05_cache_hierarchy.md">5. Кеши и иерархия памяти</a></td>
+<td role="cell" data-label="Что охватывает">Locality, cache lines, associativity, write policies, misses, prefetch</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/06_dram_and_controllers.md">6. DRAM и контроллеры памяти</a></td>
+<td role="cell" data-label="Что охватывает">Каналы, банки, строки, refresh, очереди, latency и bandwidth</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/07_virtual_memory.md">7. Виртуальная память и трансляция адресов</a></td>
+<td role="cell" data-label="Что охватывает">MMU, page tables, TLB, faults, huge pages, shootdowns</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/08_coherence_and_memory_models.md">8. Когерентность, модели памяти и атомарность</a></td>
+<td role="cell" data-label="Что охватывает">MESI, ownership, consistency, store buffers, atomics, barriers</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/09_multicore_and_numa.md">9. Многоядерность, топология и NUMA</a></td>
+<td role="cell" data-label="Что охватывает">Ядра и сокеты, chiplets, affinity, first touch, масштабирование</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/10_simd_and_data_layout.md">10. SIMD и размещение данных</a></td>
+<td role="cell" data-label="Что охватывает">Векторизация, masks, alignment, AoS/SoA, reductions, dispatch</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/11_interconnects_and_mmio.md">11. Шины, PCIe и MMIO</a></td>
+<td role="cell" data-label="Что охватывает">Топология, BAR, регистры устройств, posted writes, reset</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/12_dma_iommu_and_interrupts.md">12. DMA, IOMMU и прерывания</a></td>
+<td role="cell" data-label="Что охватывает">Адреса устройств, ownership буфера, очереди, MSI-X, polling</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/13_abi_and_system_interface.md">13. ABI, бинарные файлы и системный интерфейс</a></td>
+<td role="cell" data-label="Что охватывает">Calling conventions, ELF, linking, TLS, syscall, context switch</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/14_boot_and_virtualization.md">14. Загрузка, привилегии и виртуализация</a></td>
+<td role="cell" data-label="Что охватывает">Firmware, UEFI, загрузчик, kernel, hypervisor, nested translation</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/15_security_reliability_and_power.md">15. Безопасность, надёжность и энергопотребление</a></td>
+<td role="cell" data-label="Что охватывает">Изоляция, side channels, ECC/RAS, persistence, DVFS, throttling</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/12_computer_architecture/16_performance_experiments.md">16. Измерения и сквозные задачи</a></td>
+<td role="cell" data-label="Что охватывает">PMU, perf, Roofline, воспроизводимость, диагностика и оптимизация</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+</tbody>
+</table>
+<p>В веб-тренажёре отключите фильтр «Только с ответами», чтобы увидеть эти вопросы.</p>
+<h2>Практические рубежи</h2>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">После тем</th>
+<th role="columnheader" scope="col">Задание</th>
+<th role="columnheader" scope="col">Что должно получиться</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="После тем">1–4</td>
+<td role="cell" data-label="Задание">Скомпилировать небольшую функцию и связать исходник с инструкциями, зависимостями и ветвлениями</td>
+<td role="cell" data-label="Что должно получиться">Аннотированное дизассемблирование и объяснение различий ISA и микроархитектуры</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">5–8</td>
+<td role="cell" data-label="Задание">Сравнить обходы массива и pointer chasing при разных размерах рабочего набора</td>
+<td role="cell" data-label="Что должно получиться">График и гипотезы о кеше, трансляции адресов и доступе к DRAM; указаны ограничения эксперимента</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">9–10</td>
+<td role="cell" data-label="Задание">Сравнить общий и локальные счётчики, затем AoS/SoA для вычислительного цикла</td>
+<td role="cell" data-label="Что должно получиться">Проверка корректности, масштабирование по потокам и отчёт компилятора о векторизации</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">11–12</td>
+<td role="cell" data-label="Задание">По документации выбранного устройства проследить путь буфера от CPU до завершения DMA</td>
+<td role="cell" data-label="Что должно получиться">Схема адресов, владельцев буфера, барьеров и обработки завершения; оборудование для разбора не требуется</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">13–15</td>
+<td role="cell" data-label="Задание">Проследить запуск процесса и системный вызов, затем объяснить отличия в виртуальной машине</td>
+<td role="cell" data-label="Что должно получиться">Схема переходов, ответственности компонентов и границ изоляции</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">16</td>
+<td role="cell" data-label="Задание">Исследовать одну реальную проблему производительности</td>
+<td role="cell" data-label="Что должно получиться">Воспроизводимый отчёт с исходной гипотезой, измерениями, проверкой результата и объяснением компромиссов</td>
+</tr>
+</tbody>
+</table>
+<h2>Границы и связи с другими разделами</h2>
+<p>Здесь основной акцент — аппаратные механизмы и их связь с программой. Владение объектами и правила C++ разбираются в <a href="../index.html?topic=content/01_cpp/13_low_level.md">Low level</a>, прикладная оптимизация — в <a href="../index.html?topic=content/01_cpp/15_performance.md">Performance</a>, системные API — в <a href="../index.html?topic=content/04_system_linux/08_advanced.md">Linux advanced</a>. Возвращайтесь к ним за языковыми и системными подробностями.</p>
+<p>Для каждого объяснения различайте гарантии языка, правила ISA, устройство конкретной микроархитектуры и контракт ОС или драйвера. Размер кеш-линии, задержки, поддержка инструкций и особенности когерентности зависят от платформы. Модель памяти C++ не заменяет правила MMIO и DMA. В расчётных вопросах учебные параметры заданы явно.</p>
+<p>Раздел охватывает основу архитектуры компьютеров для системного разработчика. RTL и проектирование чипов, полный курс ОС, подробности отдельных устройств и программирование GPU требуют самостоятельных маршрутов; к GPU ведёт <a href="13_gpu.html">следующий раздел</a>.</p>
+<h2>Что читать дальше</h2>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Источник</th>
+<th role="columnheader" scope="col">Для каких тем и как использовать</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://csapp.cs.cmu.edu/3e/">CS:APP, авторский сайт</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Представление данных → машинный код → linking → память; закреплять упражнениями</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.cs.cmu.edu/~418/">CMU 15-418</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Параллельные машины, memory consistency, locality и анализ ускорения</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html">Intel Software Developer Manuals</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Уточнять инструкции, paging, исключения, PMU и виртуализацию для выбранного CPU</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://github.com/ARM-software/abi-aa">Arm ABI</a>, <a href="https://gitlab.com/x86-psABIs/x86-64-ABI">x86-64 psABI</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Проверять calling conventions и бинарные контракты конкретной платформы</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.kernel.org/driver-api/device-io.html">Linux: доступ к MMIO</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Разобрать mapping, accessors и порядок обращений к регистрам</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.kernel.org/core-api/dma-api-howto.html">Linux: DMA API</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Проследить виды адресов, mapping, владение и время жизни буфера</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.kernel.org/virt/kvm/api.html">Linux: KVM API</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Связать VM, vCPU, память гостя и взаимодействие с hypervisor</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.kernel.org/admin-guide/hw-vuln/index.html">Linux: аппаратные уязвимости</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Различать механизм уязвимости, модель угроз и платформенные mitigations</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html">GCC: оптимизации</a></td>
+<td role="cell" data-label="Для каких тем и как использовать">Проверять смысл флагов и условия преобразований в своей версии компилятора</td>
+</tr>
+</tbody>
+</table>
+<p>Документацию читайте под выбранный вопрос. Записывайте использованную редакцию руководства и конфигурацию системы: одинаковое название инструкции или механизма не гарантирует одинаковые характеристики на разных процессорах.</p>
 </main></body></html>
