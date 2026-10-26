@@ -1,46 +1,217 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>GPU и параллельные вычисления</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>GPU и параллельные вычисления</h1>
-<p>План раздела. Готовой базы вопросов CUDA пока нет. Предварительные знания: C++, lifetime, конкурентность, архитектура памяти, линейная алгебра и floating point.</p>
+<p>В разделе 16 тем и 384 подробных вопроса и задания без готовых ответов. Маршрут ведёт от устройства GPU и первого kernel до параллельных алгоритмов, библиотек, профилирования, нескольких GPU и интеграции в приложение. Основная практическая платформа — CUDA C++ на NVIDIA GPU; общие принципы параллелизма и особенности конкретного API рассматриваются отдельно.</p>
+<h2>Предварительные знания и порядок изучения</h2>
+<p>Нужны массивы, указатели, время жизни объектов и владение ресурсами в C++, базовые представления о потоках и синхронизации, целочисленной и floating-point арифметике. Для матричных задач понадобятся размеры матриц и умножение, для FFT — комплексные числа и основы преобразования Фурье. Память и параллельное выполнение на CPU можно повторить в <a href="12_computer_architecture.html">архитектуре компьютеров</a>, численные основы — в <a href="11_math.html">математике</a>.</p>
+<p>Проходите темы 1–3 до первого корректного kernel, затем память и синхронизацию в темах 4–8. Темы 9–12 посвящены алгоритмам и библиотечным решениям. Измерения из темы 13 и проверки из темы 14 используйте с первого эксперимента; несколько GPU и сложную интеграцию разбирайте после устойчивой версии для одного GPU.</p>
+<p>В каждой теме 24 вопроса: по 8 на каждом из трёх уровней.</p>
 <table role="table">
 <thead role="rowgroup">
 <tr role="row">
-<th role="columnheader" scope="col">Этап</th>
-<th role="columnheader" scope="col">Темы</th>
-<th role="columnheader" scope="col">Практика</th>
+<th role="columnheader" scope="col">Уровень</th>
+<th role="columnheader" scope="col">Что требуется от ответа</th>
+<th role="columnheader" scope="col">Критерий перехода</th>
 </tr>
 </thead>
 <tbody role="rowgroup">
 <tr role="row">
-<td role="cell" data-label="Этап">Модель исполнения</td>
-<td role="cell" data-label="Темы">Host/device, kernels, grid, blocks, threads, SM, warps, SIMT</td>
-<td role="cell" data-label="Практика">Vector addition с проверкой размеров и ошибок API</td>
+<td role="cell" data-label="Уровень">Лёгкий</td>
+<td role="cell" data-label="Что требуется от ответа">Объяснить понятие, показать размещение данных или работу потоков на маленьком примере</td>
+<td role="cell" data-label="Критерий перехода">Различаете программную модель, аппаратные ресурсы и задачи CPU и GPU</td>
 </tr>
 <tr role="row">
-<td role="cell" data-label="Этап">Память</td>
-<td role="cell" data-label="Темы">Global/shared/registers, coalescing, bank conflicts, transfers</td>
-<td role="cell" data-label="Практика">Transpose с тестами для некратных размеров</td>
+<td role="cell" data-label="Уровень">Средний</td>
+<td role="cell" data-label="Что требуется от ответа">Проследить обращения и зависимости, выполнить расчёт, выбрать реализацию под заданные условия</td>
+<td role="cell" data-label="Критерий перехода">Можете объяснить корректность, обработать границы и проверить гипотезу измерением</td>
 </tr>
 <tr role="row">
-<td role="cell" data-label="Этап">Синхронизация</td>
-<td role="cell" data-label="Темы">Barriers, atomics, streams, events, зависимости</td>
-<td role="cell" data-label="Практика">Проверить границы синхронизации и зависимости pipeline</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">Алгоритмы</td>
-<td role="cell" data-label="Темы">Reduction, scan, histogram, matrix multiplication</td>
-<td role="cell" data-label="Практика">Сравнить с CPU и библиотечной реализацией, задать численные допуски</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">Производительность</td>
-<td role="cell" data-label="Темы">Timing, warm-up, asynchronous execution, bandwidth, occupancy, divergence, roofline</td>
-<td role="cell" data-label="Практика">Раздельно измерить kernel и end-to-end; объяснить bottleneck</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">Инструменты и библиотеки</td>
-<td role="cell" data-label="Темы">Compute Sanitizer, Nsight Systems/Compute, cuBLAS, cuFFT</td>
-<td role="cell" data-label="Практика">Найти ошибку памяти и подтвердить оптимизацию профилем</td>
+<td role="cell" data-label="Уровень">Сложный</td>
+<td role="cell" data-label="Что требуется от ответа">Спроектировать алгоритм или pipeline, разобрать ограничения, подтвердить оптимизацию</td>
+<td role="cell" data-label="Критерий перехода">Можете сравнить решения на одинаковой задаче и обосновать область применимости результата</td>
 </tr>
 </tbody>
 </table>
-<p>Чтение по порядку: <a href="https://docs.nvidia.com/cuda/cuda-programming-guide/index.html">CUDA Programming Guide</a>, затем <a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a>. Версии toolkit, GPU и поддерживаемые возможности фиксируйте в каждом эксперименте.</p>
-<p>Для оборудования других производителей модель и инструменты могут отличаться. Раздел должен явно отделять общие принципы параллелизма от особенностей CUDA.</p>
+<p>Сначала сформулируйте собственный ответ и схему исполнения. Если возникают пробелы, найдите конкретный раздел документации и вернитесь к вопросу. Не переходите к ускорению, пока не проверены результат, границы доступа, зависимости и время жизни буферов. Для floating point заранее определите допустимую ошибку и требование к воспроизводимости.</p>
+<h2>Темы и вопросы</h2>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Тема</th>
+<th role="columnheader" scope="col">Что охватывает</th>
+<th style="text-align:right" role="columnheader" scope="col">Вопросов</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/01_gpu_architecture.md">1. Архитектура GPU и модель исполнения</a></td>
+<td role="cell" data-label="Что охватывает">Host/device, SM, warps, SIMT, divergence, latency hiding</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/02_cuda_toolchain.md">2. CUDA: окружение, сборка и совместимость</a></td>
+<td role="cell" data-label="Что охватывает">Driver/runtime/toolkit, nvcc, PTX/SASS, compute capability, ошибки запуска</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/03_kernels_and_indexing.md">3. Kernels, индексы и разбиение задачи</a></td>
+<td role="cell" data-label="Что охватывает">Grid/block/thread, 1D–3D, bounds, grid-stride loops, большие размеры</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/04_global_memory.md">4. Global memory и размещение данных</a></td>
+<td role="cell" data-label="Что охватывает">Coalescing, alignment, stride, AoS/SoA, caches, constant/texture memory</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/05_shared_memory_and_resources.md">5. Shared memory и ресурсы SM</a></td>
+<td role="cell" data-label="Что охватывает">Банки, tiling, registers, spills, occupancy, асинхронное копирование</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/06_synchronization_and_atomics.md">6. Синхронизация, атомики и модель памяти</a></td>
+<td role="cell" data-label="Что охватывает">Barriers, masks, shuffles, ordering, scopes, cooperative groups</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/07_streams_events_and_graphs.md">7. Streams, events и CUDA Graphs</a></td>
+<td role="cell" data-label="Что охватывает">Асинхронность, зависимости, перекрытие, capture, время жизни ресурсов</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/08_transfers_and_unified_memory.md">8. Передачи CPU–GPU и Unified Memory</a></td>
+<td role="cell" data-label="Что охватывает">Pinned/pageable memory, batching, zero-copy, migration, prefetch</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/09_reduction_scan_and_histogram.md">9. Reduction, scan и histogram</a></td>
+<td role="cell" data-label="Что охватывает">Коллективные примитивы, сегменты, compaction, атомарная конкуренция</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/10_linear_algebra_and_tensor_cores.md">10. Линейная алгебра и Tensor Cores</a></td>
+<td role="cell" data-label="Что охватывает">GEMM, tiling, arithmetic intensity, precision, accumulation, epilogue</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/11_sparse_and_irregular_algorithms.md">11. Разреженные и нерегулярные алгоритмы</a></td>
+<td role="cell" data-label="Что охватывает">Stencil, CSR/COO, SpMV, frontiers, сортировка, балансировка</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/12_libraries_fft_and_random.md">12. Библиотеки, FFT и случайные числа</a></td>
+<td role="cell" data-label="Что охватывает">Thrust/CUB, cuBLAS/cuSPARSE/cuFFT/cuRAND, workspace, планы, DSP</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/13_profiling_and_optimization.md">13. Профилирование и оптимизация</a></td>
+<td role="cell" data-label="Что охватывает">Timing, Nsight Systems/Compute, Roofline, counters, bottlenecks</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/14_debugging_and_correctness.md">14. Отладка, тестирование и численная корректность</a></td>
+<td role="cell" data-label="Что охватывает">Compute Sanitizer, async errors, races, границы, допуски, determinism</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/15_multi_gpu_and_communication.md">15. Несколько GPU и обмен данными</a></td>
+<td role="cell" data-label="Что охватывает">P2P, PCIe/NVLink, NCCL, collectives, partitioning, scaling, RDMA</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема"><a href="../index.html?topic=content/13_gpu/16_integration_and_projects.md">16. Интеграция, переносимость и сквозные проекты</a></td>
+<td role="cell" data-label="Что охватывает">C++/Python, ownership, memory pools, deployment, HIP/SYCL, полный pipeline</td>
+<td style="text-align:right" role="cell" data-label="Вопросов">24</td>
+</tr>
+</tbody>
+</table>
+<p>В веб-тренажёре отключите фильтр «Только с ответами», чтобы увидеть вопросы раздела.</p>
+<h2>Практические рубежи</h2>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">После тем</th>
+<th role="columnheader" scope="col">Задание</th>
+<th role="columnheader" scope="col">Что сохранить для проверки</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="После тем">1–3</td>
+<td role="cell" data-label="Задание">Сложение векторов и двумерное преобразование с проверкой размеров, индексов и ошибок</td>
+<td role="cell" data-label="Что сохранить для проверки">CPU-эталон, тесты нулевых и некратных размеров, параметры сборки и запуска</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">4–6</td>
+<td role="cell" data-label="Задание">Transpose с shared-memory tile и корректной синхронизацией</td>
+<td role="cell" data-label="Что сохранить для проверки">Схему обращений, обработку неполных tiles, результат проверки памяти и сравнение вариантов</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">7–8</td>
+<td role="cell" data-label="Задание">Потоковая обработка порций данных с зависимостями и повторным использованием буферов</td>
+<td role="cell" data-label="Что сохранить для проверки">Timeline передач и kernels, границы владения, время полной обработки и отдельных стадий</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">9–12</td>
+<td role="cell" data-label="Задание">Reduction, histogram или GEMM; отдельно FFT для задачи свёртки</td>
+<td role="cell" data-label="Что сохранить для проверки">Контракт операции, граничные случаи, численные допуски и сравнение с библиотекой</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">13–14</td>
+<td role="cell" data-label="Задание">Оптимизация одной измеренной проблемы</td>
+<td role="cell" data-label="Что сохранить для проверки">Профили до и после, контрольный эксперимент и подтверждение корректности</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="После тем">15–16</td>
+<td role="cell" data-label="Задание">Распределение задачи по двум GPU либо законченный CPU–GPU pipeline на одном</td>
+<td role="cell" data-label="Что сохранить для проверки">Разбиение работы, расходы обмена, завершение при ошибках и воспроизводимый end-to-end отчёт</td>
+</tr>
+</tbody>
+</table>
+<h2>Как работать с оборудованием и документацией</h2>
+<p>Фиксируйте модель GPU, compute capability, driver, toolkit, библиотеки, компилятор, параметры запуска и доступные ресурсы. Поддержку Tensor Cores, cluster operations, Unified Memory, P2P и инструментов проверяйте по документации конкретной конфигурации. Числовые задачи задают учебные параметры и не заменяют спецификацию устройства.</p>
+<p>Без совместимого NVIDIA GPU можно пройти вопросы, расчёты, схемы и CPU-эталоны. Измерения CUDA и проверки Compute Sanitizer требуют поддерживаемой среды; их результаты нельзя получить из одного чтения кода. Для AMD, Intel и других платформ потребуются соответствующие API, компиляторы и инструменты; переносимость корректности и переносимость скорости проверяются отдельно.</p>
+<p>Раздел даёт основу вычислений общего назначения на GPU. Полные курсы графики, ray tracing, обучения нейросетей, распределённого HPC и проектирования GPU требуют отдельных маршрутов; здесь они появляются как контекст и направления продолжения.</p>
+<h2>Что читать дальше</h2>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Источник</th>
+<th role="columnheader" scope="col">Как использовать</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/index.html">CUDA Programming Guide</a></td>
+<td role="cell" data-label="Как использовать">Programming model → SIMT kernels → asynchronous execution → память и углублённые возможности</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a></td>
+<td role="cell" data-label="Как использовать">Проверка результата → измерения → память → исполнение → сравнение CPU/GPU</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html">NVCC</a>, <a href="https://docs.nvidia.com/deploy/cuda-compatibility/index.html">CUDA Compatibility</a></td>
+<td role="cell" data-label="Как использовать">Сборка host/device-кода и проверка совместимости выбранных версий</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.nvidia.com/nsight-systems/UserGuide/index.html">Nsight Systems</a>, <a href="https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html">Nsight Compute</a></td>
+<td role="cell" data-label="Как использовать">Сначала найти дорогую стадию приложения, затем исследовать конкретный kernel</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.nvidia.com/compute-sanitizer/ComputeSanitizer/index.html">Compute Sanitizer</a></td>
+<td role="cell" data-label="Как использовать">Выбрать проверку памяти, инициализации или синхронизации и понять её область покрытия</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.nvidia.com/cuda/cublas/index.html">cuBLAS</a>, <a href="https://docs.nvidia.com/cuda/cufft/index.html">cuFFT</a>, <a href="https://docs.nvidia.com/cuda/cusparse/index.html">cuSPARSE</a>, <a href="https://docs.nvidia.com/cuda/curand/index.html">cuRAND</a></td>
+<td role="cell" data-label="Как использовать">Уточнить layout, типы, размеры, workspace, поток выполнения и контракт результата</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/index.html">NCCL</a></td>
+<td role="cell" data-label="Как использовать">Коллективные операции, ранги, буферы, порядок вызовов и диагностика обмена</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://rocm.docs.amd.com/projects/HIP/en/latest/how-to/hip_porting_guide.html">HIP: перенос CUDA-кода</a>, <a href="https://registry.khronos.org/SYCL/specs/sycl-2020/html/sycl-2020.html">SYCL 2020</a></td>
+<td role="cell" data-label="Как использовать">Сравнить модели выполнения, памяти и синхронизации перед переносом алгоритма</td>
+</tr>
+</tbody>
+</table>
+<p>Ссылки ведут на обновляемую документацию. В ответе и эксперименте указывайте использованную редакцию и отдельно проверяйте доступность API в установленном toolkit.</p>
 </main></body></html>
