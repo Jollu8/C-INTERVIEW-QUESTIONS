@@ -5,9 +5,11 @@ on:
     branches: [main]
     paths:
       - 'content/**'
+      - 'generate_plane_5.md'
       - 'web/**'
       - 'scripts/build_web.py'
       - 'scripts/build_pages.py'
+      - 'scripts/validate_links.py'
       - 'tests/test_web.py'
       - 'requirements.txt'
       - '.github/workflows/pages.yml'

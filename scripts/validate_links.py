@@ -47,6 +47,8 @@ def is_external_link(target: str) -> bool:
 
 def normalize_local_target(source_file: Path, target: str) -> Path:
     clean_target = target.split("#", 1)[0].split("?", 1)[0].strip()
+    if not clean_target:
+        return source_file.resolve()
     return (source_file.parent / clean_target).resolve()
 
 
@@ -70,12 +72,18 @@ def extract_anchors(markdown: str) -> set[str]:
 
 
 def validate_links(
-    content_dir: Path = CONTENT_DIR,
+    content_dir: Path | None = None,
     root: Path = ROOT,
 ) -> list[str]:
     errors: list[str] = []
+    if content_dir is None:
+        files = iter_markdown_files(root / "content")
+        files += sorted(root.glob("*.md"))
+        files += sorted((root / "learning").glob("*.md"))
+    else:
+        files = iter_markdown_files(content_dir)
 
-    for md_file in iter_markdown_files(content_dir):
+    for md_file in files:
         text = strip_fenced_code(md_file.read_text(encoding="utf-8"))
 
         for match in LINK_RE.finditer(text):

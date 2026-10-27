@@ -1,4 +1,5 @@
 from pathlib import Path
+from urllib.parse import unquote
 
 from scripts.build_pages import package_pages
 from scripts.build_web import parse_questions
@@ -303,26 +304,36 @@ def test_learning_pages_render_tables_and_preserve_local_links(tmp_path) -> None
     write_learning_pages(tmp_path, catalog)
     roadmap = (tmp_path / "roadmap.html").read_text()
     assert '<table role="table">' in roadmap
-    assert "index.html?track=systems" in roadmap
+    assert "?track=" not in roadmap
     assert '<html lang="ru">' in roadmap
 
     class Links(HTMLParser):
         def __init__(self):
             super().__init__()
             self.targets = []
+            self.ids = []
 
         def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            if "id" in attrs:
+                self.ids.append(attrs["id"])
             if tag == "a":
-                self.targets.append(dict(attrs).get("href", ""))
+                self.targets.append(attrs.get("href", ""))
 
     pages = list((tmp_path / "plans").glob("*.html"))
     pages += list((tmp_path / "materials").rglob("*.html"))
+    pages.append(tmp_path / "roadmap.html")
     for plan in pages:
         links = Links()
         links.feed(plan.read_text())
+        assert len(links.ids) == len(set(links.ids)), plan
         for target in links.targets:
             url = urlsplit(target)
-            if url.scheme or url.netloc or not url.path:
+            if url.scheme or url.netloc:
+                continue
+            if not url.path:
+                if url.fragment:
+                    assert unquote(url.fragment) in links.ids, (plan, target)
                 continue
             assert not url.path.endswith(".md"), (plan, target)
             if url.path.endswith("index.html"):
@@ -335,7 +346,46 @@ def test_learning_pages_render_tables_and_preserve_local_links(tmp_path) -> None
     assert "../index.html?topic=content/01_cpp/01_base.md" in cpp
     resources = tmp_path / "materials/07_testing_and_quality/19_resources.html"
     assert resources.is_file()
-    assert "<h1>" in resources.read_text()
+    assert '<h1 id="' in resources.read_text()
+
+
+def test_roadmap_uses_one_source_without_question_tracks(tmp_path, monkeypatch) -> None:
+    from scripts import build_web
+
+    root = tmp_path / "project"
+    section = root / "content/01_cpp"
+    section.mkdir(parents=True)
+    (section / "01_base.md").write_text("# Basics\n\n1. Question?\n")
+    (section / "README.md").write_text(
+        "# C++\n\n[Roadmap](../../generate_plane_5.md#этап-1)\n"
+    )
+    roadmap = root / "generate_plane_5.md"
+    roadmap.write_text(
+        "# Единственный roadmap\n\n[Этап](#этап-1)\n\n## Этап 1\n\n"
+        "[Раздел](content/01_cpp/README.md)\n\n"
+        "[Практика](content/01_cpp/01_base.md)\n\n## Этап 1\n"
+    )
+    monkeypatch.setattr(build_web, "ROOT", root)
+    catalog = build_web.build_catalog()
+    assert set(catalog) == {"sections"}
+    output = tmp_path / "web"
+    output.mkdir()
+    build_web.write_learning_pages(output, catalog)
+    page = (output / "roadmap.html").read_text()
+    assert '<h1 id="единственный-roadmap">Единственный roadmap</h1>' in page
+    assert '<h2 id="этап-1">' in page
+    assert '<h2 id="этап-1-1">' in page
+    assert 'href="#этап-1"' in unquote(page)
+    assert 'href="plans/01_cpp.html"' in page
+    assert 'href="index.html?topic=content/01_cpp/01_base.md"' in page
+    assert 'href="../roadmap.html#этап-1"' in unquote(
+        (output / "plans/01_cpp.html").read_text()
+    )
+    roadmap.write_text("# Обновлённый roadmap\n\nНовый этап.\n")
+    build_web.write_learning_pages(output, catalog)
+    updated = (output / "roadmap.html").read_text()
+    assert "Новый этап." in updated
+    assert "Единственный roadmap" not in updated
 
 
 def test_statistics_include_answer_coverage() -> None:
@@ -378,7 +428,7 @@ def test_learning_tables_keep_headers_and_links_for_mobile_cards(tmp_path) -> No
             elif tag in {"th", "td"}:
                 self.cell = {"tag": tag, "attrs": attrs, "text": ""}
             elif tag == "a":
-                self.links.append(attrs["href"])
+                self.links.append(unquote(attrs["href"]))
 
         def handle_data(self, data):
             if self.cell is not None:
@@ -401,8 +451,8 @@ def test_learning_tables_keep_headers_and_links_for_mobile_cards(tmp_path) -> No
     examples = [
         (
             "roadmap.html",
-            ["Этап", "Что изучить и прочитать", "Практика", "Когда переходить дальше"],
-            "index.html?track=systems",
+            ["Проверка", "Что предъявить", "Если не получается"],
+            "#как-пользоваться",
         ),
         (
             "plans/11_math.html",

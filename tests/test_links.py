@@ -43,6 +43,26 @@ def test_missing_anchor_is_reported(tmp_path: Path) -> None:
     ]
 
 
+def test_default_validation_includes_roadmap_and_project_docs(tmp_path: Path) -> None:
+    (tmp_path / "README.md").write_text(
+        "[Roadmap](generate_plane_5.md#этап-1)\n", encoding="utf-8"
+    )
+    roadmap = tmp_path / "generate_plane_5.md"
+    roadmap.write_text("# План\n\n## Этап 1\n", encoding="utf-8")
+    learning = tmp_path / "learning"
+    learning.mkdir()
+    (learning / "development.md").write_text(
+        "[Roadmap](../generate_plane_5.md#этап-1)\n", encoding="utf-8"
+    )
+    assert validate_links(root=tmp_path) == []
+    roadmap.write_text("# План\n\n[Ошибка](#нет-раздела)\n", encoding="utf-8")
+    errors = validate_links(root=tmp_path)
+    assert len(errors) == 3
+    assert any("generate_plane_5.md:3: missing anchor" in e for e in errors)
+    assert any("README.md:1: missing anchor" in e for e in errors)
+    assert any("learning/development.md:1: missing anchor" in e for e in errors)
+
+
 @pytest.mark.parametrize("fence", ["```", "~~~~"])
 @pytest.mark.parametrize("indent", ["", "     "])
 def test_code_blocks_are_not_links(tmp_path: Path, fence: str, indent: str) -> None:

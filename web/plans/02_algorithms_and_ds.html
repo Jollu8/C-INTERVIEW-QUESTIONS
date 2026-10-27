@@ -1,5 +1,5 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Алгоритмы и структуры данных</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>Алгоритмы и структуры данных</h1>
-<h2>Темы</h2>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Алгоритмы и структуры данных</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1 id="алгоритмы-и-структуры-данных">Алгоритмы и структуры данных</h1>
+<h2 id="темы">Темы</h2>
 <ul>
 <li>асимптотике</li>
 <li>массивам и строкам</li>
@@ -16,7 +16,7 @@
 <li>STL и практическому C++</li>
 </ul>
 <hr />
-<h2>О сборнике</h2>
+<h2 id="о-сборнике">О сборнике</h2>
 <p>Формат каждого пункта:</p>
 <ul>
 <li>вопрос сформулирован в стиле интервью или задачи;</li>
@@ -39,7 +39,7 @@
 <hr />
 </li>
 </ol>
-<h2>1. Базовая асимптотика и анализ</h2>
+<h2 id="1-базовая-асимптотика-и-анализ">1. Базовая асимптотика и анализ</h2>
 <ol>
 <li>
 <p>Что такое O(1), O(log n), O(n), O(n log n), O(n^2)? Приведи по одному примеру алгоритма на C++ для каждого класса.</p>
@@ -407,7 +407,7 @@ void process_good(const std::vector&lt;std::string&gt;&amp; list) {
 
 </code></pre>
 <p><strong>Источник:</strong> <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rf-in">C++ Core Guidelines: F.16: For &quot;in&quot; parameters, pass cheaply-copied types by value and others by reference to const</a></p>
-<h2>2. Массивы и префиксные техники</h2>
+<h2 id="2-массивы-и-префиксные-техники">2. Массивы и префиксные техники</h2>
 <ol start="16">
 <li>
 <p>Как найти сумму на подотрезке за <code>O(1)</code> после <code>O(n)</code> preprocessing?</p>
@@ -731,7 +731,7 @@ bool can_split(const std::vector&lt;int&gt;&amp; nums, int k, long long max_sum)
 </code></pre>
 <p><strong>Источник:</strong> <a href="https://cses.fi/book/book.pdf">Competitive Programmer's Handbook: Binary Search</a></p>
 <hr />
-<h2>3. Строки</h2>
+<h2 id="3-строки">3. Строки</h2>
 <ol start="31">
 <li>Как проверить, являются ли две строки анаграммами?</li>
 </ol>
@@ -1115,7 +1115,7 @@ std::string concat_strings(const std::vector&lt;std::string&gt;&amp; list) {
 <p><strong>Источник:</strong> <a href="https://en.cppreference.com/w/cpp/string/basic_string/reserve">Cppreference: std::basic_string::reserve</a></p>
 </li>
 </ol>
-<h2>4. Связные списки</h2>
+<h2 id="4-связные-списки">4. Связные списки</h2>
 <ol start="46">
 <li>Как развернуть односвязный список итеративно и рекурсивно?</li>
 </ol>
@@ -1431,7 +1431,7 @@ Node* copy_random_list(Node* head) {
 <strong>Типичная ошибка:</strong> Выбор <code>std::list</code> в расчете на «быструю вставку в середину», забывая, что поиск места вставки по списку требует времени $O(n)$ и вызывает постоянные промахи процессорного кэша.
 <strong>Источник:</strong> <a href="https://www.youtube.com/watch?v=YQs6IC-vgmo">Bjarne Stroustrup: Why you should avoid Linked Lists</a></p>
 <hr />
-<h2>5. Stack / Queue / Deque</h2>
+<h2 id="5-stack-queue-deque">5. Stack / Queue / Deque</h2>
 <ol start="61">
 <li>Как реализовать стек с поддержкой операции <code>getMin()</code> за время $O(1)$?</li>
 </ol>
@@ -1754,7 +1754,7 @@ for (int i = 0; i &lt; n; ++i) {
 </code></pre>
 <p><strong>Типичная ошибка:</strong> Ошибочная оценка сложности алгоритма как $O(n^2)$ из-за наличия вложенного цикла <code>while</code> внутри цикла <code>for</code>.
 <strong>Источник:</strong> <a href="https://cp-algorithms.com/">CP-Algorithms: Monotonic stack</a></p>
-<h2>6. Хеш-таблицы и множества</h2>
+<h2 id="6-хеш-таблицы-и-множества">6. Хеш-таблицы и множества</h2>
 <ol start="76">
 <li>Как работает хеш-таблица в среднем и худшем случаях?</li>
 </ol>
@@ -1977,7 +1977,7 @@ if (visited.test(42)) { /* ... */ }
 <p><strong>Типичная ошибка:</strong> Использование <code>std::unordered_set&lt;int&gt;</code> для проверки посещенности вершин графа с номерами от 0 до $N$, что увеличивает расход памяти в десятки раз из-за накладных расходов нод.
 <strong>Источник:</strong> <a href="https://en.cppreference.com/w/cpp/utility/bitset">Cppreference: std::bitset</a></p>
 <hr />
-<h2>7. Двоичный поиск и поиск по ответу</h2>
+<h2 id="7-двоичный-поиск-и-поиск-по-ответу">7. Двоичный поиск и поиск по ответу</h2>
 <ol start="91">
 <li>Как реализовать классический бинарный поиск без ошибок смещения на единицу (<em>off-by-one errors</em>)?</li>
 </ol>
@@ -2210,7 +2210,7 @@ int lower_bound_half_open(const std::vector&lt;int&gt;&amp; arr, int target) {
 </code></pre>
 <p><strong>Типичная ошибка:</strong> Установка <code>r = mid - 1</code> для полуинтервала, что исключает из дальнейшего рассмотрения потенциально валидный элемент <code>mid - 1</code>.
 <strong>Источник:</strong> <a href="http://elementsofprogramming.com/">Elements of Programming (Alexander Stepanov)</a></p>
-<h2>8. Сортировки</h2>
+<h2 id="8-сортировки">8. Сортировки</h2>
 <ol start="106">
 <li>Как работает bubble sort (пузырьковая сортировка) и почему она практически не применяется на практике?</li>
 </ol>
@@ -2465,7 +2465,7 @@ std::partial_sort(v.begin(), v.begin() + 5, v.end());
 <p><strong>Типичная ошибка:</strong> Вызов полной <code>std::sort</code> для нахождения медианы массива вместо вызова <code>std::nth_element</code>.</p>
 <p><strong>Источник:</strong> <a href="https://www.oreilly.com/library/view/effective-stl-50/0201749629/">Effective STL: Item 31 (Scott Meyers)</a></p>
 <hr />
-<h2>9. Деревья: основы</h2>
+<h2 id="9-деревья-основы">9. Деревья: основы</h2>
 <ol start="121">
 <li>Что означают термины height, depth, leaf, subtree и ancestor в теории деревьев?</li>
 </ol>
@@ -2728,7 +2728,7 @@ TreeNode* deserialize(std::istringstream&amp; in) {
 </code></pre>
 <p><strong>Типичная ошибка:</strong> Спуск только по правым веткам <code>curr = curr-&gt;right</code>: если левое поддерево глубже правого, его выступающие нижние листья ошибочно пропускаются.</p>
 <p><strong>Источник:</strong> <a href="https://leetcode.com/problems/binary-tree-right-side-view/">LeetCode: Binary Tree Right Side View</a></p>
-<h2>10. BST / Heap / Priority Queue</h2>
+<h2 id="10-bst-heap-priority-queue">10. BST / Heap / Priority Queue</h2>
 <ol start="136">
 <li>Как устроены операции вставки, удаления и поиска в BST и какова их сложность в среднем и худшем случаях?</li>
 </ol>
@@ -2949,7 +2949,7 @@ std::priority_queue&lt;Task, std::vector&lt;Task&gt;, Compare&gt; pq;
 <p><strong>Типичная ошибка:</strong> Проход циклом до самого конца массива $n-1$, вызывающий выход за пределы вектора при вычислении $2i + 1$.</p>
 <p><strong>Источник:</strong> <a href="https://en.cppreference.com/w/cpp/algorithm/is_heap">Cppreference: std::is_heap</a></p>
 <hr />
-<h2>11. Графы: базовые обходы</h2>
+<h2 id="11-графы-базовые-обходы">11. Графы: базовые обходы</h2>
 <ol start="151">
 <li>Что такое список смежности и матрица смежности и когда следует выбирать каждый из них?</li>
 </ol>
@@ -3218,7 +3218,7 @@ public:
 </code></pre>
 <p><strong>Типичная ошибка:</strong> Хранение графа напрямую в виде <code>std::unordered_map&lt;std::string, std::vector&lt;std::string&gt;&gt;</code>, что многократно замедляет обходы из-за непрерывных аллокаций строк и вычислений хешей на каждом ребре.</p>
 <p><strong>Источник:</strong> <a href="https://cp-algorithms.com/">CP-Algorithms: String Hashing and Graph Indexing</a></p>
-<h2>12. Графы: кратчайшие пути и MST</h2>
+<h2 id="12-графы-кратчайшие-пути-и-mst">12. Графы: кратчайшие пути и MST</h2>
 <ol start="166">
 <li>Когда следует использовать алгоритм Дейкстры, а когда обычный BFS?</li>
 </ol>
@@ -3407,7 +3407,7 @@ if (p == -1 &amp;&amp; children &gt; 1) is_cutpoint[u] = true;
 <p><strong>Типичная ошибка:</strong> Забытая особая обработка корневой вершины DFS (у корня условие $low[v] \ge tin[u]$ выполняется всегда, но шарниром он является только при наличии двух и более независимых ветвей).</p>
 <p><strong>Источник:</strong> <a href="https://cp-algorithms.com/graph/cutpoints.html">CP-Algorithms: Finding Articulation Points</a></p>
 <hr />
-<h2>13. DSU / Union-Find</h2>
+<h2 id="13-dsu-union-find">13. DSU / Union-Find</h2>
 <ol start="181">
 <li>Как реализовать DSU со сжатием путей (<em>path compression</em>) и эвристикой по размеру (<em>union by size</em>)?</li>
 </ol>
@@ -3622,7 +3622,7 @@ int find(int u) { return u == parent[u] ? u : parent[u] = find(parent[u]); }
 <p><strong>Источник:</strong> <a href="https://cp-algorithms.com/data_structures/disjoint_set_union.html">CP-Algorithms: DSU Implementation Pitfalls</a></p>
 </li>
 </ol>
-<h2>14. Рекурсия, backtracking, brute force</h2>
+<h2 id="14-рекурсия-backtracking-brute-force">14. Рекурсия, backtracking, brute force</h2>
 <ol start="196">
 <li>Чем отличаются brute force, backtracking и branch and bound?</li>
 </ol>
@@ -3888,7 +3888,7 @@ while (!st.empty()) {
 <p><strong>Типичная ошибка:</strong> Попытка оценить backtracking только по глубине рекурсии $O(N)$, забывая про коэффициент ветвления дерева поиска.</p>
 <p><strong>Источник:</strong> <a href="https://algs4.cs.princeton.edu/">Algorithms, 4th Edition (Sedgewick, Wayne)</a></p>
 <hr />
-<h2>15. Dynamic Programming: базовый уровень</h2>
+<h2 id="15-dynamic-programming-базовый-уровень">15. Dynamic Programming: базовый уровень</h2>
 <ol start="211">
 <li>По каким ключевым признакам можно определить, что задача решается методом динамического программирования?</li>
 </ol>
@@ -4158,7 +4158,7 @@ std::vector&lt;int&gt; dp(min_dim + 1, 0);
 </code></pre>
 <p><strong>Типичная ошибка:</strong> Перезапись значений в единственном векторе слева направо в тех случаях, когда формула перехода требует старого неперезаписанного значения $dp[i-1][j-1]$ (требуется промежуточное сохранение в переменную <code>prev</code>).</p>
 <p><strong>Источник:</strong> <a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/">Introduction to Algorithms (CLRS: Memory-Efficient DP)</a></p>
-<h2>16. Dynamic Programming: продвинутый уровень</h2>
+<h2 id="16-dynamic-programming-продвинутый-уровень">16. Dynamic Programming: продвинутый уровень</h2>
 <ol start="226">
 <li>Что такое динамическое программирование по профилю (DP on broken profile) и где оно применяется?</li>
 </ol>
@@ -4412,7 +4412,7 @@ while (curr &gt; 0) {
 <hr />
 </li>
 </ol>
-<h2>17. Greedy</h2>
+<h2 id="17-greedy">17. Greedy</h2>
 <ol start="241">
 <li>Как определить, что к задаче применим жадный алгоритм (Greedy Algorithm)?</li>
 </ol>
@@ -4653,7 +4653,7 @@ while (min_heap.size() &gt; 1) {
 <p><strong>Пример:</strong> Выбор максимальной прибыли от задач с дедлайнами: сортировка задач по дедлайну, вставка в min-heap и удаление наименее прибыльных задач при переполнении лимита времени.</p>
 <p><strong>Типичная ошибка:</strong> Использование линейного поиска минимума/максимума в массиве за $O(n)$ на каждом жадном шаге вместо поддержания кучи за $O(\log n)$.</p>
 <p><strong>Источник:</strong> <a href="https://cses.fi/book/book.pdf">Competitive Programmer's Handbook (Antti Laaksonen: Chapter 6)</a></p>
-<h2>18. Bit manipulation</h2>
+<h2 id="18-bit-manipulation">18. Bit manipulation</h2>
 <ol start="256">
 <li>Как проверить, является ли положительное целое число степенью двойки?</li>
 </ol>
@@ -4861,7 +4861,7 @@ uint32_t u = 1U &lt;&lt; 31; // Корректно
 <hr />
 </li>
 </ol>
-<h2>19. Интервалы, sweep line, события</h2>
+<h2 id="19-интервалы-sweep-line-события">19. Интервалы, sweep line, события</h2>
 <ol start="271">
 <li>Как объединить все перекрывающиеся интервалы (Merge Intervals)?</li>
 </ol>
@@ -5123,7 +5123,7 @@ struct Event {
 <p><strong>Источник:</strong> <a href="https://cp-algorithms.com/">CP-Algorithms: Sweep Line pitfalls</a></p>
 </li>
 </ol>
-<h2>20. Fenwick / Segment Tree / Sparse Table</h2>
+<h2 id="20-fenwick-segment-tree-sparse-table">20. Fenwick / Segment Tree / Sparse Table</h2>
 <ol start="286">
 <li>Когда обычных префиксных сумм уже недостаточно и требуется дерево Фенвика (Fenwick Tree / Binary Indexed Tree)?</li>
 </ol>
@@ -5321,7 +5321,7 @@ int idx = os.order_of_key(15); // Вернет 1 (одно число меньш
 <p><strong>Типичная ошибка:</strong> Попытка использовать <code>pb_ds</code> в переносимом коде под MSVC (библиотека является специфичным расширением GNU C++).</p>
 <p><strong>Источник:</strong> <a href="https://gcc.gnu.org/onlinedocs/libstdc++/manual/policy_data_structures.html">GCC Online Docs: Policy-Based Data Structures</a></p>
 <hr />
-<h2>21. Trie / String DS</h2>
+<h2 id="21-trie-string-ds">21. Trie / String DS</h2>
 <ol start="301">
 <li>Как устроено префиксное дерево (Trie) и какова сложность операций по длине строки?</li>
 </ol>
@@ -5530,7 +5530,7 @@ while (l &lt;= r) {
 <p><strong>Пример:</strong> В роутере сетевых пакетов для выбора маршрута по маске подсети (Longest Prefix Match) подходит исключительно Trie (Radix Tree).</p>
 <p><strong>Типичная ошибка:</strong> Попытка реализовать функцию автодополнения (поиск всех слов с префиксом) на базе <code>std::unordered_map</code>.</p>
 <p><strong>Источник:</strong> <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#slcon3-choose-containers-based-on-performance-needs">C++ Core Guidelines: SL.con.3</a></p>
-<h2>22. Математика и теория чисел</h2>
+<h2 id="22-математика-и-теория-чисел">22. Математика и теория чисел</h2>
 <ol start="316">
 <li>Как найти GCD (наибольший общий делитель) и LCM (наименьшее общее кратное) двух чисел?</li>
 </ol>
@@ -5761,7 +5761,7 @@ Matrix mat_pow(Matrix A, long long p, long long mod) {
 <p><strong>Типичная ошибка:</strong> Применение классической формулы CRT к модулям, которые не являются взаимно простыми (требуется предварительная редукция через расширенный алгоритм Евклида).</p>
 <p><strong>Источник:</strong> <a href="https://cp-algorithms.com/algebra/chinese-remainder-theorem.html">CP-Algorithms: Chinese Remainder Theorem</a></p>
 <hr />
-<h2>23. Геометрия и вычислительная геометрия</h2>
+<h2 id="23-геометрия-и-вычислительная-геометрия">23. Геометрия и вычислительная геометрия</h2>
 <ol start="331">
 <li>Как вычислить ориентацию тройки точек на плоскости через векторное (косое) произведение?</li>
 </ol>
@@ -6036,7 +6036,7 @@ long long cp = 1LL * a.x * b.y - 1LL * a.y * b.x;
 <p><strong>Типичная ошибка:</strong> Реализация операторов в виде методов, мутирующих текущую точку на месте (<code>+=</code>), там, где вызывающий код ожидает получение нового вектора без побочных эффектов.</p>
 <p><strong>Источник:</strong> <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#c1-organize-related-data-into-structures-structs-or-classes">C++ Core Guidelines: C.1</a></p>
 <hr />
-<h2>24. C++ STL и практические аспекты</h2>
+<h2 id="24-c-stl-и-практические-аспекты">24. C++ STL и практические аспекты</h2>
 <ol start="346">
 <li>Какие операции у контейнера <code>std::vector</code> обладают амортизированной сложностью $O(1)$?</li>
 </ol>

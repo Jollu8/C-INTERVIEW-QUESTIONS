@@ -1,5 +1,5 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>🧪 Testing &amp; Quality Guide</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1>🧪 Testing &amp; Quality Guide</h1>
-<h2>Полнота раздела и порядок подготовки</h2>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>🧪 Testing &amp; Quality Guide</title><link rel="stylesheet" href="../style.css"></head><body><main class="learning-page"><a href="../index.html">← К тренировкам</a><h1 id="testing-quality-guide">🧪 Testing &amp; Quality Guide</h1>
+<h2 id="полнота-раздела-и-порядок-подготовки">Полнота раздела и порядок подготовки</h2>
 <p>В 18 темах — <strong>598 вопросов с ответами и источниками</strong>. Обзорный файл 01 намеренно повторяет основные направления в компактной форме; остальные темы раскрывают их подробнее с акцентом на C++ и backend-системы.</p>
 <table role="table">
 <thead role="rowgroup">
@@ -109,123 +109,123 @@
 </table>
 <p>Начните с 01 → 02 → 03 → 05, затем изучите E2E, performance и security (04, 06, 07). Автоматизация и test architecture (08, 16) связывают проверки в систему; QA-процессы (09–15) — в lifecycle продукта. Observability (17) помогает расследовать failures, AI (18) — оценивать возможности и ограничения новых инструментов. <a href="../materials/07_testing_and_quality/19_resources.html">Ресурсы и практика</a> содержат ссылки на документацию.</p>
 <p>L1–L4 обозначают глубину от терминов до стратегии; T/P/D/S — теорию, практику, диагностику и проектирование. Примеры являются учебными: пути, selectors, endpoints и численные SLO адаптируют к проекту. Команды и версии framework/runtime сверяют с документацией; высокий coverage или зелёный pipeline сами по себе не доказывают качество.</p>
-<h2>📌 Overview</h2>
+<h2 id="overview">📌 Overview</h2>
 <p>Этот документ покрывает ключевые области тестирования и обеспечения качества (QA), которые используются в современной разработке ПО.</p>
 <hr />
-<h2>🧪 Testing</h2>
-<h3>1. <a href="../index.html?topic=content/07_testing_and_quality/01_base.md">Основы тестирования</a></h3>
+<h2 id="testing">🧪 Testing</h2>
+<h3 id="1-основы-тестирования01_basemd">1. <a href="../index.html?topic=content/07_testing_and_quality/01_base.md">Основы тестирования</a></h3>
 <ul>
 <li>Что такое тестирование и зачем оно нужно</li>
 <li>Виды тестирования (manual vs automation)</li>
 <li>Уровни тестирования (unit, integration, system, acceptance)</li>
 <li>SDLC и STLC</li>
 </ul>
-<h3>2. <a href="../index.html?topic=content/07_testing_and_quality/02_unit_test.md">Unit Testing</a></h3>
+<h3 id="2-unit-testing02_unit_testmd">2. <a href="../index.html?topic=content/07_testing_and_quality/02_unit_test.md">Unit Testing</a></h3>
 <ul>
 <li>Принципы unit-тестов</li>
 <li>Популярные фреймворки (JUnit, pytest, Jest)</li>
 <li>Моки и стабы</li>
 <li>TDD (Test-Driven Development)</li>
 </ul>
-<h3>3. <a href="../index.html?topic=content/07_testing_and_quality/03_integration_test.md">Integration Testing</a></h3>
+<h3 id="3-integration-testing03_integration_testmd">3. <a href="../index.html?topic=content/07_testing_and_quality/03_integration_test.md">Integration Testing</a></h3>
 <ul>
 <li>Проверка взаимодействия модулей</li>
 <li>Контрактное тестирование</li>
 <li>Использование test containers</li>
 </ul>
-<h3>4. <a href="../index.html?topic=content/07_testing_and_quality/04_e2e_test.md">End-to-End (E2E) Testing</a></h3>
+<h3 id="4-end-to-end-e2e-testing04_e2e_testmd">4. <a href="../index.html?topic=content/07_testing_and_quality/04_e2e_test.md">End-to-End (E2E) Testing</a></h3>
 <ul>
 <li>Сквозные сценарии</li>
 <li>Инструменты (Cypress, Playwright, Selenium)</li>
 <li>Best practices</li>
 </ul>
-<h3>5. <a href="../index.html?topic=content/07_testing_and_quality/05_api_test.md">API Testing</a></h3>
+<h3 id="5-api-testing05_api_testmd">5. <a href="../index.html?topic=content/07_testing_and_quality/05_api_test.md">API Testing</a></h3>
 <ul>
 <li>REST / GraphQL тестирование</li>
 <li>Инструменты (Postman, REST Assured)</li>
 <li>Проверка статусов, схем, данных</li>
 </ul>
-<h3>6. <a href="../index.html?topic=content/07_testing_and_quality/06_performance_test.md">Performance Testing</a></h3>
+<h3 id="6-performance-testing06_performance_testmd">6. <a href="../index.html?topic=content/07_testing_and_quality/06_performance_test.md">Performance Testing</a></h3>
 <ul>
 <li>Нагрузочное тестирование (load testing)</li>
 <li>Стресс-тестирование</li>
 <li>Инструменты (JMeter, k6)</li>
 </ul>
-<h3>7. <a href="../index.html?topic=content/07_testing_and_quality/07_security_test.md">Security Testing</a></h3>
+<h3 id="7-security-testing07_security_testmd">7. <a href="../index.html?topic=content/07_testing_and_quality/07_security_test.md">Security Testing</a></h3>
 <ul>
 <li>Основы безопасности</li>
 <li>OWASP Top 10</li>
 <li>Static и Dynamic анализ</li>
 </ul>
-<h3>8. <a href="../index.html?topic=content/07_testing_and_quality/08_automation_test.md">Test Automation</a></h3>
+<h3 id="8-test-automation08_automation_testmd">8. <a href="../index.html?topic=content/07_testing_and_quality/08_automation_test.md">Test Automation</a></h3>
 <ul>
 <li>Когда автоматизировать</li>
 <li>Паттерны (Page Object Model)</li>
 <li>CI/CD интеграция</li>
 </ul>
 <hr />
-<h2>✅ Quality Assurance (QA)</h2>
-<h3>9. <a href="../index.html?topic=content/07_testing_and_quality/09_qa_base.md">Основы качества</a></h3>
+<h2 id="quality-assurance-qa">✅ Quality Assurance (QA)</h2>
+<h3 id="9-основы-качества09_qa_basemd">9. <a href="../index.html?topic=content/07_testing_and_quality/09_qa_base.md">Основы качества</a></h3>
 <ul>
 <li>Что такое Quality Assurance vs Quality Control</li>
 <li>Метрики качества</li>
 <li>Definition of Done</li>
 </ul>
-<h3>10. <a href="../index.html?topic=content/07_testing_and_quality/10_qa_management_test.md">Test Management</a></h3>
+<h3 id="10-test-management10_qa_management_testmd">10. <a href="../index.html?topic=content/07_testing_and_quality/10_qa_management_test.md">Test Management</a></h3>
 <ul>
 <li>Тест-кейсы и чек-листы</li>
 <li>Тест-планы</li>
 <li>Инструменты (TestRail, Zephyr)</li>
 </ul>
-<h3>11. <a href="../index.html?topic=content/07_testing_and_quality/11_qa_bug_tracking.md">Bug Tracking</a></h3>
+<h3 id="11-bug-tracking11_qa_bug_trackingmd">11. <a href="../index.html?topic=content/07_testing_and_quality/11_qa_bug_tracking.md">Bug Tracking</a></h3>
 <ul>
 <li>Жизненный цикл бага</li>
 <li>Приоритизация и severity</li>
 <li>Инструменты (Jira, YouTrack)</li>
 </ul>
-<h3>12. <a href="../index.html?topic=content/07_testing_and_quality/12_qa_code_qualaty.md">Code Quality</a></h3>
+<h3 id="12-code-quality12_qa_code_qualatymd">12. <a href="../index.html?topic=content/07_testing_and_quality/12_qa_code_qualaty.md">Code Quality</a></h3>
 <ul>
 <li>Code review</li>
 <li>Статический анализ (SonarQube, ESLint)</li>
 <li>Coding standards</li>
 </ul>
-<h3>13. <a href="../index.html?topic=content/07_testing_and_quality/13_qa_ci_cd.md">CI/CD и качество</a></h3>
+<h3 id="13-cicd-и-качество13_qa_ci_cdmd">13. <a href="../index.html?topic=content/07_testing_and_quality/13_qa_ci_cd.md">CI/CD и качество</a></h3>
 <ul>
 <li>Pipeline и автоматизация тестов</li>
 <li>Quality gates</li>
 <li>Continuous Testing</li>
 </ul>
-<h3>14. <a href="../index.html?topic=content/07_testing_and_quality/14_qa_documentation.md">Documentation</a></h3>
+<h3 id="14-documentation14_qa_documentationmd">14. <a href="../index.html?topic=content/07_testing_and_quality/14_qa_documentation.md">Documentation</a></h3>
 <ul>
 <li>Тестовая документация</li>
 <li>Требования и спецификации</li>
 <li>Traceability matrix</li>
 </ul>
-<h3>15. <a href="../index.html?topic=content/07_testing_and_quality/15_qa_agile.md">Agile QA</a></h3>
+<h3 id="15-agile-qa15_qa_agilemd">15. <a href="../index.html?topic=content/07_testing_and_quality/15_qa_agile.md">Agile QA</a></h3>
 <ul>
 <li>Роль QA в Scrum</li>
 <li>Shift-left testing</li>
 <li>Continuous feedback</li>
 </ul>
 <hr />
-<h2>🚀 Advanced Topics</h2>
-<h3>16. <a href="../index.html?topic=content/07_testing_and_quality/16_test_architecture.md">Test Architecture</a></h3>
+<h2 id="advanced-topics">🚀 Advanced Topics</h2>
+<h3 id="16-test-architecture16_test_architecturemd">16. <a href="../index.html?topic=content/07_testing_and_quality/16_test_architecture.md">Test Architecture</a></h3>
 <ul>
 <li>Структура тестового проекта</li>
 <li>Масштабируемость тестов</li>
 </ul>
-<h3>17. <a href="../index.html?topic=content/07_testing_and_quality/17_observabilty_and_monitorung.md">Observability &amp; Monitoring</a></h3>
+<h3 id="17-observability-monitoring17_observabilty_and_monitorungmd">17. <a href="../index.html?topic=content/07_testing_and_quality/17_observabilty_and_monitorung.md">Observability &amp; Monitoring</a></h3>
 <ul>
 <li>Логи, метрики, трассировка</li>
 <li>Инструменты (Prometheus, Grafana)</li>
 </ul>
-<h3>18. <a href="../index.html?topic=content/07_testing_and_quality/18_test_ai.md">AI в тестировании</a></h3>
+<h3 id="18-ai-в-тестировании18_test_aimd">18. <a href="../index.html?topic=content/07_testing_and_quality/18_test_ai.md">AI в тестировании</a></h3>
 <ul>
 <li>Генерация тестов</li>
 <li>Self-healing tests</li>
 </ul>
 <hr />
-<h2>📚 <a href="../materials/07_testing_and_quality/19_resources.html">Resources</a></h2>
+<h2 id="resources19_resourcesmd">📚 <a href="../materials/07_testing_and_quality/19_resources.html">Resources</a></h2>
 <ul>
 <li>Книги</li>
 <li>Курсы</li>

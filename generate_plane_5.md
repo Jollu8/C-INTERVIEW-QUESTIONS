@@ -1,1527 +1,429 @@
-# Elite C++ / Systems / Networking Engineer Roadmap
+# Roadmap C++ / Systems / Networking
 
-Полный roadmap для системного программиста уровня Principal / Staff / Distinguished Engineer.
+Долгосрочный план развития в C++, Linux, сетях и производительности: общая основа → одна специализация → интеграционный проект → работа с архитектурой и реальными ограничениями. Telecom, GPU, kernel и distributed systems развивают эту основу в разных направлениях.
 
-Фокус:
+Roadmap самостоятелен: порядок изучения не зависит от количества, структуры и готовности вопросов в репозитории. Библиотеку вопросов можно использовать для повторения и подготовки к собеседованиям; практические результаты ниже определяют переход между этапами.
 
-* Modern C++
-* Linux internals
-* Networking
-* Telecom (LTE/5G)
-* Distributed Systems
-* Performance Engineering
-* Kernel / eBPF / DPDK
-* Architecture
+Цель — уметь объяснить устройство системы, написать корректную реализацию, найти ограничение и обосновать изменение измерениями. Уровень Staff / Principal зависит также от ответственности, влияния и опыта командной работы; календарь обучения сам по себе его не определяет.
 
----
+## Оглавление
 
-# 5-Year Plan
+- [Как пользоваться](#как-пользоваться)
+- [Карта зависимостей](#карта-зависимостей)
+- [Темп и горизонт планирования](#темп-и-горизонт-планирования)
+- [Общая основа](#общая-основа)
+- [Специализации](#специализации)
+- [Сквозной проект](#сквозной-проект)
+- [Литература и документация](#литература-и-документация)
+- [Чтение кода и исследовательских работ](#чтение-кода-и-исследовательских-работ)
+- [Рабочий ритм](#рабочий-ритм)
+- [Проверка результата](#проверка-результата)
 
-| Year | Focus                                          |
-| ---- | ---------------------------------------------- |
-| 1    | Hardcore CS + Modern C++ + Linux               |
-| 2    | Concurrency + Networking + Performance         |
-| 3    | Distributed Systems + Databases + Kernel       |
-| 4    | Telecom + DPDK + eBPF + HPC                    |
-| 5    | Architecture + Research Papers + Large Systems |
+## Как пользоваться
 
----
+1. Пройдите диагностику и выберите первый этап, результат которого пока не можете воспроизвести самостоятельно.
+2. Держите в работе один основной этап, один проект и один основной учебный источник. Дополнительные книги открывайте для конкретного пробела.
+3. Читайте нужную тему → реализуйте небольшой пример → проверьте ошибочные сценарии → объясните результат своими словами.
+4. После общей основы выберите одну главную специализацию. Остальные добавляйте, когда они нужны проекту или работе.
+5. Раз в месяц сверяйте план с результатами. Переносить сроки нормально; пропускать проверку корректности ради календаря не следует.
 
-# LEVEL 1 — Computer Science Fundamentals
+Если программирование пока незнакомо, сначала освойте переменные, функции, циклы, массивы, простые программы и работу с Git. Дальнейшие этапы предполагают этот минимум.
 
-## Algorithms & Data Structures
+### Диагностика перед стартом
 
-### MUST READ
+| Проверка | Что предъявить | Если не получается |
+| --- | --- | --- |
+| Владение и lifetime | Найти dangling reference и объяснить, кто освобождает ресурс | Этап 1 |
+| Сборка | Собрать библиотеку и приложение, объяснить ошибку линковки | Этап 0 |
+| CPU и Linux | Объяснить путь от указателя к странице памяти и отличить page fault от cache miss | Этап 2 |
+| Конкурентность | Реализовать ограниченную очередь с корректной остановкой | Этап 3 |
+| Сеть | Обработать неполное чтение сообщения, таймаут и разрыв соединения | Этап 4 |
+| Измерения | Воспроизвести профиль и сравнение двух вариантов программы | Этап 5 |
+| Надёжность | Проверить восстановление файла после прерванной записи | Этап 6 |
 
-1. Introduction to Algorithms (CLRS)
-   [https://en.wikipedia.org/wiki/Introduction_to_Algorithms](https://en.wikipedia.org/wiki/Introduction_to_Algorithms)
+Знакомый этап можно пройти сокращённо: предъявить работающий результат, тесты и объяснение ограничений. Знания названий инструментов недостаточно.
 
-2. The Algorithm Design Manual
-   [https://www.algorist.com/](https://www.algorist.com/)
+## Карта зависимостей
 
-3. Algorithms — Robert Sedgewick
-   [https://algs4.cs.princeton.edu/home/](https://algs4.cs.princeton.edu/home/)
+Общий порядок: **0 → 1 → 2 → 3 → 4 → 5 → 6**. Алгоритмы, математика, Python, тестирование и безопасность сопровождают практику с первого этапа, а не откладываются на последний год.
 
-### ADVANCED
+| Направление | Что требуется заранее | Что можно изучать параллельно |
+| --- | --- | --- |
+| C++ и инструменты | Базовое программирование | Алгоритмы, дискретная математика, Git |
+| Linux и архитектура CPU | Владение, указатели, двоичное представление | Сборка, ABI, отладка |
+| Конкурентность | Lifetime, процессы, память | Базовый анализ производительности |
+| Сетевые сервисы | Linux I/O, конкурентность | TCP/IP, тестирование протокола |
+| Performance | Корректный работающий сервис | Python-анализ, статистика измерений |
+| Storage и distributed systems | I/O, протоколы, отказы, очереди | Модели согласованности, эксплуатация |
+| Kernel / eBPF / DPDK | Этапы 0–5 | DMA, NIC queues, NUMA |
+| Telecom / LTE / NR | Сети, очереди, измерения | Вероятность, DSP, архитектура radio stack |
+| GPU / HPC | C++, память, параллелизм, измерения | Линейная алгебра, численная точность |
+| Компиляторы и runtime | Toolchain, ABI, архитектура CPU | Графы, автоматы, анализ программ |
 
-4. Competitive Programming 4
-   [https://cpbook.net/](https://cpbook.net/)
+Модель памяти C++ и устройство памяти CPU — связанные, но разные темы. Корректность программы обосновывается правилами языка; аппаратные особенности объясняют стоимость выбранной реализации.
 
-5. MIT Advanced Data Structures
-   [https://courses.csail.mit.edu/6.851/spring21/](https://courses.csail.mit.edu/6.851/spring21/)
+## Темп и горизонт планирования
 
----
+Выберите устойчивый объём занятий. Пример для 6–8 часов в неделю: 2 часа чтения, 3–4 часа реализации и тестов, 1–2 часа измерений и записи выводов. При 3–4 часах уменьшайте объём проекта, а не число проверок. Профиль работы и исходная подготовка меняют длительность сильнее, чем количество прочитанных страниц.
 
-# LEVEL 2 — Computer Architecture
+Пять лет — удобный горизонт для пересмотра направления, а не обязательный срок или обещание результата. Общая основа может занять несколько месяцев у опытного разработчика или несколько лет при небольшом доступном времени.
 
-## MUST
+| Период от старта | Основной фокус | Проверяемый результат |
+| --- | --- | --- |
+| Первый год | C++, toolchain, Linux, конкурентность, базовые сети | Небольшой сервис с тестами, обработкой ошибок и воспроизводимой сборкой |
+| Второй год | Производительность и углубление сетевого пути | Профиль, нагрузочный стенд и объяснённые изменения latency / throughput |
+| Третий год | Одна специализация | Законченный прототип с моделью корректности и проверкой отказов |
+| Четвёртый год | Интеграция и эксплуатационные ограничения | Наблюдаемая система, capacity model, восстановление и ограничения ресурсов |
+| Пятый год | Архитектура, совместная работа, открытый код | Обоснованные решения, технический обзор и изменения, прошедшие внешнее ревью |
 
-1. Computer Systems: A Programmer's Perspective (CSAPP)
-   [https://csapp.cs.cmu.edu/](https://csapp.cs.cmu.edu/)
+В конце каждого периода решайте: углублять текущую ветку, расширять систему или закрывать обнаруженный пробел в основе. Не требуется закончить все специализации.
 
-2. Computer Organization and Design
-   [https://www.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-820331-6](https://www.elsevier.com/books/computer-organization-and-design-risc-v-edition/patterson/978-0-12-820331-6)
+## Общая основа
 
-3. Structured Computer Organization
-   [https://www.pearson.com/en-us/subject-catalog/p/structured-computer-organization/P200000003141](https://www.pearson.com/en-us/subject-catalog/p/structured-computer-organization/P200000003141)
+### Этап 0. Рабочая среда и toolchain
 
-## ELITE LEVEL
+**Цель:** самостоятельно собрать, запустить и исследовать программу.
 
-4. Modern Processor Design
-   [https://www.amazon.com/Modern-Processor-Design-Fundamentals-Superscalar/dp/1478607831](https://www.amazon.com/Modern-Processor-Design-Fundamentals-Superscalar/dp/1478607831)
+Изучить:
 
-5. Computer Architecture: A Quantitative Approach
-   [https://www.elsevier.com/books/computer-architecture-a-quantitative-approach/hennessy/978-0-12-811905-1](https://www.elsevier.com/books/computer-architecture-a-quantitative-approach/hennessy/978-0-12-811905-1)
+- Git, shell, структуру проекта и минимальный CMake-проект; Debug / Release, предупреждения компилятора, зависимости.
+- Препроцессинг → компиляцию → объектные файлы → линковку → загрузку; символы, статические и динамические библиотеки.
+- GDB или LLDB, stack trace, core dump; основы ABI, calling convention и дизассемблирования.
+- Тестовый запуск в CI, фиксацию версий инструментов и воспроизводимые команды сборки.
 
----
+**Практика:** собрать библиотеку и CLI-приложение; намеренно получить undefined reference и ошибку поиска shared library; разобрать обе. Добавить тесты, ASan / UBSan и инструкцию запуска. На macOS разработку можно начинать локально; Linux-специфические опыты проводить в Linux VM или на отдельной машине.
 
-# LEVEL 3 — Modern C++
+**Переход:** чистая копия проекта собирается по инструкции; вы находите место падения, объясняете ошибку линковки и отличаете проблему сборки от ошибки выполнения.
 
-## Core C++
+**Чтение:** CS:APP — машинный код и linking; TLPI — вводные главы об интерфейсах Linux. Ссылки собраны в [литературе](#литература-и-документация).
 
-1. Effective Modern C++
-   [https://www.oreilly.com/library/view/effective-modern-c/9781491908419/](https://www.oreilly.com/library/view/effective-modern-c/9781491908419/)
+### Этап 1. C++, владение и алгоритмы
 
-2. C++ Concurrency in Action
-   [https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
+**Цель:** писать код с понятными lifetime, инвариантами и стоимостью операций.
 
-3. The C++ Programming Language
-   [https://www.stroustrup.com/4th.html](https://www.stroustrup.com/4th.html)
+Изучить:
 
-4. A Tour of C++
-   [https://www.stroustrup.com/tour3.html](https://www.stroustrup.com/tour3.html)
+- Объекты, lifetime, storage duration, ссылки и указатели; RAII, value semantics, move semantics, exception safety.
+- Контейнеры и алгоритмы STL, инвалидацию итераторов, сложность, аллокации, `span` и `string_view`.
+- Templates, deduction, concepts и constexpr на небольших примерах; углублённое metaprogramming оставить до задачи, которая его требует.
+- Массивы, списки, hash tables, деревья, heap, обходы графов, сортировки и поиск; оценку времени и памяти.
+- Целочисленные переполнения, преобразования типов, границы буферов и обработку недоверенных входных данных.
 
-5. Effective C++
-   [https://www.oreilly.com/library/view/effective-c/0321334876/](https://www.oreilly.com/library/view/effective-c/0321334876/)
+**Практика:** написать RAII-обёртку для дескриптора и парсер бинарных сообщений. Покрыть пустые, повреждённые и слишком большие входы; найти lifetime bugs sanitizers и fuzzing. Сравнить два подходящих контейнера на данных проекта.
 
-6. More Effective C++
-   [https://www.oreilly.com/library/view/more-effective-c/020163371x/](https://www.oreilly.com/library/view/more-effective-c/020163371x/)
+**Переход:** для каждого ресурса понятен владелец; вы объясняете поведение при исключении и переносе объекта, выбираете структуру данных по нагрузке и исправляете найденную ошибку без маскировки симптома.
 
-## Templates / Metaprogramming
+**Чтение:** A Tour of C++ — обзор; Effective Modern C++ — владение, move и deduction; один основной источник по алгоритмам: The Algorithm Design Manual, CLRS или Algorithms Седжвика. Читать все три подряд не требуется.
 
-7. C++ Templates: The Complete Guide
-   [https://www.informit.com/store/c-plus-plus-templates-the-complete-guide-9780321714121](https://www.informit.com/store/c-plus-plus-templates-the-complete-guide-9780321714121)
+### Этап 2. Архитектура CPU, память и Linux
 
-8. Modern C++ Design
-   [https://www.informit.com/store/modern-c-plus-plus-design-generic-programming-and-9780201704310](https://www.informit.com/store/modern-c-plus-plus-design-generic-programming-and-9780201704310)
+**Цель:** связать поведение программы с процессором и операционной системой.
 
-## Performance
+Изучить:
 
-9. Optimized C++
-   [https://www.oreilly.com/library/view/optimized-c/9781491922057/](https://www.oreilly.com/library/view/optimized-c/9781491922057/)
+- Представление чисел, endian, alignment; ISA, регистры, pipeline, branch prediction и основы out-of-order execution.
+- Cache hierarchy, cache line, locality, TLB, виртуальную память, page fault, page cache и NUMA.
+- Процессы и потоки, scheduling, syscalls, file descriptors, pipes, signals, `mmap` и shared memory.
+- Файловую систему и путь I/O; различие данных в памяти процесса, page cache и устойчивого хранения.
 
-10. Systems Performance — Brendan Gregg
-    [https://www.brendangregg.com/systems-performance-2nd-edition-book.html](https://www.brendangregg.com/systems-performance-2nd-edition-book.html)
+**Практика:** сделать обработчик большого файла с обычным I/O и `mmap`, сравнить проходы по массиву и layout AoS / SoA. Посмотреть syscalls через `strace`, размещение памяти процесса и сгенерированный машинный код.
 
----
+**Переход:** вы различаете lifetime C++, виртуальную и физическую память; объясняете наблюдаемое число syscalls, эффект locality и ограничения эксперимента. NUMA-измерения выполняются только на подходящей машине; отсутствие такого оборудования фиксируется.
 
-# LEVEL 4 — Operating Systems & Linux
+**Чтение:** CS:APP — представление данных, memory hierarchy, virtual memory и I/O; OSTEP — virtualization, concurrency и persistence; TLPI — нужные интерфейсы. Computer Organization and Design — для углубления аппаратной части.
 
-## Operating Systems
+### Этап 3. Конкурентность и завершение работы
 
-1. Operating Systems: Three Easy Pieces (OSTEP)
-   [https://pages.cs.wisc.edu/~remzi/OSTEP/](https://pages.cs.wisc.edu/~remzi/OSTEP/)
+**Цель:** обеспечить корректный обмен данными и предсказуемую остановку программы.
 
-2. Modern Operating Systems
-   [https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003276](https://www.pearson.com/en-us/subject-catalog/p/modern-operating-systems/P200000003276)
+Изучить:
 
-3. Operating System Concepts
-   [https://www.os-book.com/](https://www.os-book.com/)
+- Data race, happens-before, mutex, condition variable, atomics и memory ordering.
+- Bounded queues, thread pools, ownership между потоками, backpressure, cancellation и shutdown.
+- Deadlock, starvation, false sharing; различие конкурентности, параллелизма и асинхронного I/O.
+- Модели корректности concurrent structures. Lock-free, wait-free, CAS, ABA и reclamation — углубление после рабочей версии с блокировками.
 
-## Linux Internals
+**Практика:** реализовать bounded queue с mutex / condition variable, producer–consumer pipeline и остановку при пустой и полной очереди. Проверить TSan, стрессовыми тестами и разбором допустимых interleavings. Затем, если есть измеримая потребность, реализовать SPSC ring buffer и сравнить его с исходным вариантом.
 
-4. Linux Kernel Development
-   [https://www.pearson.com/en-us/subject-catalog/p/linux-kernel-development/P200000003045](https://www.pearson.com/en-us/subject-catalog/p/linux-kernel-development/P200000003045)
+**Переход:** вы обосновываете отсутствие гонки, определяете поведение при переполнении и остановке, показываете отсутствие зависания в проверяемых сценариях. Успешный TSan или стресс-тест дополняет объяснение, но не доказывает корректность алгоритма.
 
-5. Understanding the Linux Kernel
-   [https://www.oreilly.com/library/view/understanding-the-linux/0596005652/](https://www.oreilly.com/library/view/understanding-the-linux/0596005652/)
+**Чтение:** C++ Concurrency in Action; затем The Art of Multiprocessor Programming или Is Parallel Programming Hard… Для MPSC / MPMC отдельно разбирать memory reclamation и прогресс операций.
 
-6. Professional Linux Kernel Architecture
-   [https://www.wiley.com/en-us/Professional+Linux+Kernel+Architecture-p-9780470343432](https://www.wiley.com/en-us/Professional+Linux+Kernel+Architecture-p-9780470343432)
+### Этап 4. Сети и асинхронный сервис
 
-7. Linux Device Drivers
-   [https://lwn.net/Kernel/LDD3/](https://lwn.net/Kernel/LDD3/)
+**Цель:** понимать сетевой путь и поведение приложения при медленных или неисправных клиентах.
 
-8. The Linux Programming Interface
-   [https://man7.org/tlpi/](https://man7.org/tlpi/)
+Изучить:
 
----
+- Ethernet, ARP / ND, IP, routing, TCP и UDP; TCP state machine, RTT, retransmission, flow control и congestion control.
+- Sockets, nonblocking I/O, `epoll`, reactor, timers и framing сообщений.
+- Partial reads / writes, half-close, таймауты, лимиты соединений и буферов, очереди и backpressure.
+- DNS, TLS, HTTP; разделение прикладного протокола, транспорта и защиты канала.
 
-# LEVEL 5 — Concurrency / Parallelism / Lock-Free
+**Практика:** написать TCP-сервис с явным форматом сообщений, ограниченными очередями, метриками и graceful shutdown. Добавить генератор нагрузки, медленного клиента, оборванные сообщения, повторные соединения и ограничения памяти. Через `tcpdump` / Wireshark сопоставить packet trace с логами приложения.
 
-1. C++ Concurrency in Action
-   [https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition)
+**Переход:** сервис корректно обрабатывает фрагментированные сообщения, короткую запись, таймаут и disconnect; память ограничена; вы можете объяснить задержку на стороне клиента, приложения и сети.
 
-2. The Art of Multiprocessor Programming
-   [https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-397337-5](https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-397337-5)
+**Чтение:** TCP/IP Illustrated или Computer Networking: A Top-Down Approach; TLPI / UNIX Network Programming — sockets и I/O. Boost.Asio — для сравнения собственной реализации с библиотечным подходом.
 
-3. Is Parallel Programming Hard, And, If So, What Can You Do About It?
-   [https://mirrors.edge.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html](https://mirrors.edge.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html)
+### Этап 5. Performance engineering
 
-4. Concurrency with Modern C++
-   [https://www.modernescpp.com/index.php/concurrency-with-modern-c/](https://www.modernescpp.com/index.php/concurrency-with-modern-c/)
+**Цель:** находить ограничение и проверять гипотезы о производительности.
 
----
+Изучить:
 
-# LEVEL 6 — Networking
+- Workload, baseline, latency distribution, throughput, saturation, queueing и resource utilization.
+- CPU / off-CPU profiling, flame graphs, allocation profiling, hardware counters; стоимость контекста и системных вызовов в условиях конкретной нагрузки.
+- Warm-up, размер выборки, повторные запуски, влияние частот CPU и фоновой нагрузки; отличие microbenchmark от поведения сервиса.
+- NUMA, CPU affinity, batching, data layout, SIMD и копирование — в порядке, который подсказывает профиль.
 
-## MUST
+**Практика:** измерить сервис из этапа 4, выделить один bottleneck, сформулировать гипотезу и изменить одну существенную переменную. Зафиксировать p50 / p95 / p99, ошибки, память и CPU при нескольких уровнях нагрузки. Проверить, не ограничен ли результат генератором нагрузки. Хранить сырые результаты и сценарий анализа на Python.
 
-1. Computer Networking: A Top-Down Approach
-   [https://gaia.cs.umass.edu/kurose_ross/index.php](https://gaia.cs.umass.edu/kurose_ross/index.php)
+**Переход:** сравнение воспроизводится; вы объясняете выигрыш, потери и диапазон применимости. Отсутствие ускорения — тоже результат, если гипотеза проверена и причина разобрана.
 
-2. TCP/IP Illustrated Volume 1
-   [https://www.informit.com/store/tcp-ip-illustrated-volume-1-the-protocols-9780321336316](https://www.informit.com/store/tcp-ip-illustrated-volume-1-the-protocols-9780321336316)
+**Чтение:** Systems Performance — основной источник; What Every Programmer Should Know About Memory — для модели памяти и кешей; BPF Performance Tools — после базового профилирования. Детали привязывать к документации своей платформы.
 
-3. UNIX Network Programming
-   [https://www.pearson.com/en-us/subject-catalog/p/unix-network-programming-volume-1-the-sockets-networking-api/P200000003056](https://www.pearson.com/en-us/subject-catalog/p/unix-network-programming-volume-1-the-sockets-networking-api/P200000003056)
+### Этап 6. Данные, отказы и эксплуатация
 
-## Advanced Networking
+**Цель:** понимать поведение системы после сбоя, а не только на успешном пути.
 
-4. High Performance Browser Networking
-   [https://hpbn.co/](https://hpbn.co/)
+Изучить:
 
-5. HTTP: The Definitive Guide
-   [https://www.oreilly.com/library/view/http-the-definitive/1565925092/](https://www.oreilly.com/library/view/http-the-definitive/1565925092/)
+- Durable log, WAL, checksums, recovery, `fsync`, write ordering и ограничения накопителя / файловой системы.
+- B-tree и LSM-tree, compaction, transactions, MVCC — на уровне устройства и компромиссов.
+- Replication, partitioning, idempotency, retries, consistency и consensus; различие подтверждения получения и подтверждения устойчивой записи.
+- Метрики, логи, tracing, SLO, capacity planning, rollout и rollback; лимиты ресурсов и наблюдаемость перегрузки.
 
-6. BGP Design and Implementation
-   [https://www.ciscopress.com/store/bgp-design-and-implementation-9781587051098](https://www.ciscopress.com/store/bgp-design-and-implementation-9781587051098)
+**Практика:** добавить журнал в сервис, определить контракт подтверждения записи и восстановление после перезапуска. Внедрить fault injection в выбранных точках записи; проверить повтор запроса, повреждённый хвост журнала и недоступность зависимости. Репликацию оставить для специализации, если локальный контракт ещё неясен.
 
----
+**Переход:** записан контракт потери / дублирования данных; проверки восстановления воспроизводятся; вы различаете process crash и сбой питания и не заявляете более сильные гарантии, чем проверили.
 
-# LEVEL 7 — Telecom / LTE / 5G
+**Чтение:** Designing Data-Intensive Applications — модели и компромиссы; Database Internals — устройство хранения; Google SRE — эксплуатация. Подробная реализация СУБД относится к отдельной ветке.
 
-1. LTE for UMTS
-   [https://www.wiley.com/en-us/LTE+for+UMTS%3A+Evolution+to+LTE+Advanced%2C+2nd+Edition-p-9780470660256](https://www.wiley.com/en-us/LTE+for+UMTS%3A+Evolution+to+LTE+Advanced%2C+2nd+Edition-p-9780470660256)
+### Сопровождающие навыки
 
-2. LTE: The UMTS Long Term Evolution
-   [https://www.elsevier.com/books/lte-the-umts-long-term-evolution/dahlman/978-0-12-374538-5](https://www.elsevier.com/books/lte-the-umts-long-term-evolution/dahlman/978-0-12-374538-5)
+| Навык | Минимум для общей основы | Когда углублять |
+| --- | --- | --- |
+| Математика | Логика, множества, доказательства, комбинаторика, графы, вероятность и статистика | Очереди и модели производительности; линейная алгебра и численные методы для HPC; комплексные числа и Фурье для DSP |
+| Python | Файлы, процессы, CLI, тесты, typing, виртуальная среда, обработка результатов | NumPy, анализ больших измерений, интеграция с C++, asyncio по задаче |
+| Качество | Unit / integration tests, sanitizers, negative tests, fuzzing парсера, CI | Тестирование отказов, нагрузка, compatibility, длительные прогоны |
+| Безопасность | Lifetime, bounds, лимиты, проверка входов, secrets и permissions | Threat model, TLS, fuzzing, binary analysis и hardening своей специализации |
+| Коммуникация | Инструкция запуска, журнал решений, понятный bug report | Design review, разбор инцидента, обучение коллег и согласование изменений |
 
-3. 5G NR: The Next Generation Wireless Access Technology
-   [https://www.elsevier.com/books/5g-nr/dahlman/978-0-12-814323-0](https://www.elsevier.com/books/5g-nr/dahlman/978-0-12-814323-0)
+## Специализации
 
-4. 3GPP Standards
-   [https://www.3gpp.org/specifications-technologies](https://www.3gpp.org/specifications-technologies)
+Выберите одну основную ветку. Общую основу продолжайте применять во всех проектах; изучение следующего инструмента должно отвечать на конкретный вопрос системы.
 
----
+### A. Linux kernel, eBPF и packet processing
 
-# LEVEL 8 — Distributed Systems
+**Предпосылки:** этапы 0–5; уверенная работа с Linux и сетевым сервисом.
 
-1. Designing Data-Intensive Applications
-   [https://dataintensive.net/](https://dataintensive.net/)
+**Порядок:** путь пакета через NIC → interrupt / NAPI / softirq → `skb` и socket buffers → RSS / RPS / XPS и очереди → tracing → eBPF / XDP → AF_XDP или DPDK по задаче. Параллельно: PCIe, DMA, IOMMU, NUMA и CPU pinning.
 
-2. Distributed Systems — Maarten van Steen
-   [https://www.distributed-systems.net/index.php/books/ds4/](https://www.distributed-systems.net/index.php/books/ds4/)
+**Проекты:** сначала монитор задержек и drops с eBPF; затем packet forwarding с одной выбранной технологией. Сравнить baseline, загрузку CPU, packet loss и поведение при перегрузке. `io_uring` исследовать как отдельную модель асинхронного I/O, а не считать эквивалентом DPDK или AF_XDP.
 
-3. Understanding Distributed Systems
-   [https://understandingdistributed.systems/](https://understandingdistributed.systems/)
+**Критерий:** можете проследить пакет, объяснить владение буферами, стоимость копирования и границы измерения. Для kernel bypass описаны требования к NIC, драйверу, привилегиям и выделенным CPU. Эксперименты с kernel / NIC проводить на отдельной тестовой среде.
 
-4. Site Reliability Engineering
-   [https://sre.google/books/](https://sre.google/books/)
+**Источники:** документация Linux своей версии; BPF Performance Tools; код Linux networking, DPDK и VPP. Книги Linux Kernel Development, Understanding the Linux Kernel, Professional Linux Kernel Architecture и Linux Device Drivers полезны как историческое объяснение устройства; актуальные API проверяются по документации и исходникам выбранного kernel.
 
----
+### B. Low-latency C++ и высокопроизводительный data plane
 
-# LEVEL 9 — Database Internals
+**Предпосылки:** конкурентность, сетевой путь и воспроизводимый performance report.
 
-1. Database Internals
-   [https://www.databass.dev/](https://www.databass.dev/)
+**Порядок:** распределение задержек и очереди → размещение данных → allocation strategy → batching → affinity / NUMA → SIMD → специализированные concurrent structures → RDMA при наличии подходящей среды.
 
-2. Transaction Processing — Jim Gray
-   [https://www.elsevier.com/books/transaction-processing/gray/978-1-55860-190-1](https://www.elsevier.com/books/transaction-processing/gray/978-1-55860-190-1)
+**Проект:** telemetry pipeline или обработчик потока сообщений с latency budget на каждый этап. Проверить обычную нагрузку, burst и перегрузку; измерить компромисс между batching, throughput и tail latency. Для HFT дополнительно нужны предметная модель, требования к порядку событий и корректности расчётов.
 
----
+**Критерий:** установлен предел ресурсов и допустимая потеря / задержка; улучшение подтверждено профилем; сложная lock-free структура имеет обоснование корректности. Формулировки «zero-copy» и «миллионы пакетов» сопровождаются точной границей измерения и конфигурацией стенда.
 
-# LEVEL 10 — Performance Engineering
+**Углубление:** RDMA verbs, registration и lifetime буферов, completion queues, ordering и failure handling; HPC networking и GPU networking после освоения обеих сторон обмена. Без RDMA-оборудования пройти модель и отложить аппаратные измерения.
 
-1. Systems Performance
-   [https://www.brendangregg.com/systems-performance-2nd-edition-book.html](https://www.brendangregg.com/systems-performance-2nd-edition-book.html)
+### C. Distributed systems и storage
 
-2. BPF Performance Tools
-   [https://www.brendangregg.com/bpf-performance-tools-book.html](https://www.brendangregg.com/bpf-performance-tools-book.html)
+**Предпосылки:** этап 6, тесты протокола и понимание локальной durability.
 
-3. What Every Programmer Should Know About Memory
-   [https://people.freebsd.org/~lstewart/articles/cpumemory.pdf](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
+**Порядок:** storage engine → WAL / recovery → replication → consistency → consensus → partitioning → consumer semantics и эксплуатация. Raft изучать вместе с моделью отказов и проверками, а не только по схеме leader / follower.
 
----
+**Проект:** выбрать один вариант: message queue, time-series storage или distributed cache. Сначала сделать локальное хранилище; затем добавить репликацию и явно ограниченную модель согласованности. Для очереди проверить повторную доставку и consumer recovery; для TSDB — compaction и retention; для cache — sharding и устаревшие значения.
 
-# LEVEL 11 — Security
+**Критерий:** описаны инварианты и допустимые аномалии; проверены restart, задержки, повтор сообщений и network partition; результаты тестов соответствуют заявленному контракту.
 
-1. Practical Binary Analysis
-   [https://nostarch.com/binaryanalysis](https://nostarch.com/binaryanalysis)
+**Источники:** DDIA, Database Internals, Transaction Processing, Distributed Systems и SRE; код ClickHouse, RocksDB, Kafka или ScyllaDB — одна подсистема за раз.
 
-2. Hacking: The Art of Exploitation
-   [https://nostarch.com/hacking2.htm](https://nostarch.com/hacking2.htm)
+### D. Telecom, LTE и 5G NR
 
----
+**Предпосылки:** сети, конкурентность, измерения, очереди; базовая вероятность. Имеющийся опыт LTE / NR можно использовать сразу, закрывая пробелы общей основы параллельно.
 
-# LEVEL 12 — Software Architecture
+**Порядок:** архитектура radio stack → PDCP / RLC / MAC и интерфейсы → HARQ и timing → scheduling / QoS → throughput / latency / fairness → связь с CPU, NUMA и packet path. Для PHY / DSP отдельно добавить линейную алгебру, комплексные числа, дискретизацию и Фурье.
 
-1. Clean Architecture
-   [https://www.pearson.com/en-us/subject-catalog/p/clean-architecture/P200000009528](https://www.pearson.com/en-us/subject-catalog/p/clean-architecture/P200000009528)
+**Проект:** модель MAC scheduler с несколькими классами трафика, ограничениями ресурсов и воспроизводимыми сценариями нагрузки. Сравнить минимум две политики; отдельно измерить fairness, задержку, throughput и стоимость вычислений. После этого интегрировать telemetry или data plane.
 
-2. Software Architecture in Practice
-   [https://www.oreilly.com/library/view/software-architecture-in/9780136885979/](https://www.oreilly.com/library/view/software-architecture-in/9780136885979/)
+**Критерий:** различаются ограничения модели и реальные требования radio stack; выбранные release и спецификации зафиксированы; воспроизводятся результаты при изменении нагрузки. Симулятор scheduler не объявляется полноценной реализацией LTE / NR.
 
----
+**Источники:** 3GPP как нормативный источник; LTE for UMTS, LTE: The UMTS Long Term Evolution и 5G NR — для объяснения; код srsRAN и OpenAirInterface. Новые поколения связи добавлять по конкретной рабочей задаче и опубликованным спецификациям.
 
-# LEVEL 13 — Compilers
+### E. GPU, HPC и численные вычисления
 
-1. Compilers: Principles, Techniques, and Tools
-   [https://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools](https://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools)
+**Предпосылки:** C++, CPU memory, конкурентность, измерения и линейная алгебра. Для CUDA-практики нужен совместимый GPU; CPU-реализацию и теорию можно подготовить раньше.
 
-2. Engineering a Compiler
-   [https://www.elsevier.com/books/engineering-a-compiler/cooper/978-0-12-815412-0](https://www.elsevier.com/books/engineering-a-compiler/cooper/978-0-12-815412-0)
+**Порядок:** SIMT, grid / block / thread и warp → global / shared memory и coalescing → synchronization → reduction / scan / histogram → streams / events и transfers → roofline, occupancy, divergence → библиотеки и несколько GPU по необходимости.
 
----
+**Проект:** взять вычислительный участок CPU pipeline, сделать эталонную версию и GPU-вариант. Начать с reduction или transpose; затем перейти к своей задаче. Отдельно измерить kernel, transfers, synchronization и полный путь данных; сравнить на одинаковом результате и одинаковых входах.
 
-# LEVEL 14 — Mathematics
+**Критерий:** проверены крайние размеры, численные допуски и ошибки синхронизации; ускорение оценено для всей задачи. Объяснено, при каких размерах и нагрузках GPU выгоден и когда transfers или запуск kernel поглощают выигрыш.
 
-1. Concrete Mathematics
-   [https://www-cs-faculty.stanford.edu/~knuth/gkp.html](https://www-cs-faculty.stanford.edu/~knuth/gkp.html)
+**Углубление:** tensor cores и mixed precision, sparse algorithms, FFT, multi-GPU communication, PCIe / NUMA / RDMA и GPU networking. Сначала освоить численную корректность и bottleneck одной машины.
 
-2. Mathematics for Computer Science
-   [https://courses.csail.mit.edu/6.042/spring18/mcs.pdf](https://courses.csail.mit.edu/6.042/spring18/mcs.pdf)
+**Источники:** CUDA Programming Guide, CUDA Best Practices Guide и CMU 15-418; документация выбранных библиотек и профилировщика.
 
----
+### F. Протоколы, async runtime и QUIC
 
-# LEVEL 15 — Engineering Mindset
+**Предпосылки:** TCP / UDP, bounded queues, timers и измерение задержек.
 
-1. The Pragmatic Programmer
-   [https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/](https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/)
+**Порядок:** reactor и scheduling → cancellation / timeouts → coroutines и lifetime → pacing / congestion → надёжный обмен поверх UDP → чтение спецификации и исследование готовой QUIC-реализации.
 
-2. Code Complete
-   [https://www.microsoftpressstore.com/store/code-complete-9780735619678](https://www.microsoftpressstore.com/store/code-complete-9780735619678)
+**Проект:** небольшой runtime с сокетами, таймерами, bounded queues и метриками; либо учебный reliable-UDP transport с обработкой потерь и переупорядочивания. Полноценный QUIC включает TLS и значительный объём протокольных требований: учебный транспорт не выдавать за совместимую реализацию.
 
----
+**Критерий:** проверены потери, duplicates, reordered packets, timeout и cancellation; определены границы протокола и совместимости. Для прикладного проекта обоснован выбор существующей библиотеки или собственной реализации.
 
-# MUST READ PAPERS & CONFERENCES
+**Источники:** сетевые книги общей основы, спецификации IETF и код Boost.Asio, Seastar, nginx или Envoy.
 
-## Networking / Systems
+### G. Компиляторы, runtime и бинарный анализ
 
-SIGCOMM
-[https://www.sigcomm.org/](https://www.sigcomm.org/)
+**Предпосылки:** toolchain, ABI, ISA, графы и базовые автоматы.
 
-NSDI
-[https://www.usenix.org/conference/nsdi](https://www.usenix.org/conference/nsdi)
+**Порядок:** lexer / parser → AST и type checking → IR → control-flow graph → оптимизации и анализ → code generation → linking / runtime. Для security добавить форматы бинарных файлов, дизассемблирование, memory corruption и hardening.
 
-OSDI
-[https://www.usenix.org/conference/osdi22](https://www.usenix.org/conference/osdi22)
+**Проект:** интерпретатор или небольшой компилятор с тестами семантики; затем одно преобразование IR и сравнение результата. Альтернатива — binary analyzer, объясняющий символы, секции и зависимости ELF.
 
-SOSP
-[https://sigops.org/s/conferences/sosp/](https://sigops.org/s/conferences/sosp/)
+**Критерий:** результат совпадает с эталоном на выбранном подмножестве языка; оптимизация имеет понятные предпосылки корректности; различаются source-level, ABI и machine-level ограничения.
 
-USENIX
-[https://www.usenix.org/](https://www.usenix.org/)
+**Источники:** Engineering a Compiler или Compilers: Principles, Techniques, and Tools; документация LLVM; Practical Binary Analysis. Hacking: The Art of Exploitation — дополнительное чтение в собственной лабораторной среде.
 
-VLDB
-[https://vldb.org/](https://vldb.org/)
+### H. Драйверы, firmware и аппаратная архитектура
 
----
+**Предпосылки:** архитектура CPU, Linux, ABI, interrupts и аккуратное управление ресурсами.
 
-# MUST STUDY OPEN SOURCE PROJECTS
+**Порядок:** MMIO → interrupts → DMA / IOMMU → PCIe → device lifecycle → error recovery. Для RTL-ветки: цифровая логика → Verilog / SystemVerilog → simulation → verification → простое устройство или ядро; это отдельная специализация, а не обязательный шаг C++-разработчика.
 
-## Networking / Performance
+**Проект:** драйвер виртуального устройства или работа в эмуляторе; для RTL — небольшой модуль с testbench. Сначала определить интерфейс, состояния устройства и сценарии отказа.
 
-Linux Kernel
-[https://github.com/torvalds/linux](https://github.com/torvalds/linux)
+**Критерий:** корректны lifetime и порядок операций; тестируются reset, ошибки и повторная инициализация; границы модели отделены от поведения реального устройства.
 
-DPDK
-[https://github.com/DPDK/dpdk](https://github.com/DPDK/dpdk)
+**Источники:** документация Linux и конкретной платформы; Computer Organization and Design → Computer Architecture: A Quantitative Approach. Modern Processor Design и Structured Computer Organization — для дополнительного аппаратного контекста.
 
-VPP
-[https://github.com/FDio/vpp](https://github.com/FDio/vpp)
+## Сквозной проект
 
-Seastar
-[https://github.com/scylladb/seastar](https://github.com/scylladb/seastar)
+Основной вариант — **pipeline приёма и обработки сообщений**. Он позволяет развивать одну систему вместо набора незаконченных демонстраций. Для ветки компиляторов или hardware можно выбрать другой проект с теми же требованиями к проверке и воспроизводимости.
 
-Folly
-[https://github.com/facebook/folly](https://github.com/facebook/folly)
+| Версия | Что добавить | Что проверить |
+| --- | --- | --- |
+| 1. Локальная | CLI, парсер, явное владение ресурсами, тесты и CI | Повреждённые данные, границы, ошибки и воспроизводимая сборка |
+| 2. Параллельная | Bounded queue, workers, cancellation | Переполнение, остановку, data races, ограничение памяти |
+| 3. Сетевая | TCP, framing, timers, backpressure | Медленных клиентов, partial I/O, disconnect и shutdown |
+| 4. Измеряемая | Нагрузочный стенд, профили, анализ на Python | p50 / p95 / p99, throughput, ошибки и насыщение ресурсов |
+| 5. Устойчивая | Журнал, recovery, наблюдаемость | Повтор запросов, restart и выбранные точки отказа |
+| 6. Специализированная | Один модуль: eBPF monitor, scheduler, GPU stage или replication | Корректность нового контракта и цену интеграции |
 
-Boost.Asio
-[https://think-async.com/](https://think-async.com/)
+На каждую версию сохраняйте исходники, команды запуска, тестовые данные, результаты и короткий отчёт: задача → предположение → измерение → изменение → вывод → ограничения. Не добавляйте одновременно собственный allocator, lock-free queue, QUIC, consensus и GPU: каждое усложнение должно иметь отдельное обоснование.
 
-ClickHouse
-[https://github.com/ClickHouse/ClickHouse](https://github.com/ClickHouse/ClickHouse)
+### Архитектура и техническое влияние
 
-Redis
-[https://github.com/redis/redis](https://github.com/redis/redis)
+Эти навыки развиваются параллельно проекту и работе, а не начинаются на пятом году:
 
-Nginx
-[https://github.com/nginx/nginx](https://github.com/nginx/nginx)
+- Писать design document: проблема, ограничения, альтернативы, выбор и способ проверки.
+- Определять границы компонентов, API, ownership, версии формата и совместимость обновлений.
+- Оценивать capacity, стоимость эксплуатации, SLO и failure domains; планировать rollout / rollback.
+- Проводить code / design review, разбирать инциденты, объяснять решения и помогать коллегам.
+- Сверять учебные результаты с ограничениями командного или открытого проекта и принимать внешнюю обратную связь.
 
-Envoy
-[https://github.com/envoyproxy/envoy](https://github.com/envoyproxy/envoy)
+**Результат:** другой разработчик понимает решение, воспроизводит эксперимент и может безопасно изменить систему. Полезные книги: Software Architecture in Practice, Clean Architecture, The Pragmatic Programmer и Code Complete; применять идеи к конкретному решению, а не превращать их в универсальные правила.
 
-OpenAirInterface
-[https://github.com/OPENAIRINTERFACE/openairinterface5g](https://github.com/OPENAIRINTERFACE/openairinterface5g)
+## Литература и документация
 
-srsRAN
-[https://github.com/srsran/srsRAN_Project](https://github.com/srsran/srsRAN_Project)
+Список — справочник к этапам. Для каждого этапа достаточно одного основного учебного источника и документации используемых интерфейсов. Покупать или читать все книги не требуется. Книги дают модель; версии API, компиляторов, kernel и оборудования сверяются с документацией рабочего стенда.
 
----
+### Основные источники
 
-# MUST LEARN TOOLS
+| Источник | Где использовать | Порядок чтения |
+| --- | --- | --- |
+| [A Tour of C++](https://www.stroustrup.com/tour3.html) | Этап 1 | Обзор языка и STL; возвращаться к механизмам из своего проекта |
+| [Effective Modern C++](https://www.oreilly.com/library/view/effective-modern-c/9781491908419/) | Этап 1 | Deduction, ownership и move semantics |
+| [CS:APP](https://csapp.cs.cmu.edu/) | Этапы 0–2 | Representation → machine code / linking → memory → I/O |
+| [OSTEP](https://pages.cs.wisc.edu/~remzi/OSTEP/) | Этапы 2, 3, 6 | Virtualization → concurrency → persistence; выполнять упражнения |
+| [The Linux Programming Interface](https://man7.org/tlpi/) | Этапы 0, 2–4 | Файлы и процессы → threads / signals → IPC и sockets |
+| [C++ Concurrency in Action](https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition) | Этап 3 | Synchronization и memory model до сложных lock-free structures |
+| [The Algorithm Design Manual](https://www.algorist.com/) | Этап 1 и задачи проекта | Структуры, сложность и выбор алгоритма |
+| [Algorithms, Sedgewick / Wayne](https://algs4.cs.princeton.edu/home/) | Альтернатива по алгоритмам | Выбирать темы по пробелам и реализовывать задачи |
+| [Computer Networking: A Top-Down Approach](https://gaia.cs.umass.edu/kurose_ross/index.php) | Этап 4 | Прикладной уровень → transport → network и link layer |
+| [Systems Performance](https://www.brendangregg.com/systems-performance-2nd-edition-book.html) | Этап 5 | Методика → CPU / memory / I/O → нужная подсистема |
+| [Designing Data-Intensive Applications](https://dataintensive.net/) | Этап 6 и ветка C | Модели данных → хранение → replication / partitioning и гарантии |
+| [Database Internals](https://www.databass.dev/) | Этап 6 и ветка C | Структуры хранения → recovery → распределённая часть |
+| [Google SRE](https://sre.google/books/) | Этап 6 и архитектура | SLO, monitoring, overload и работа с отказами |
 
-## Linux Performance
+### Углубление по задаче
 
-perf
-[https://perf.wiki.kernel.org/](https://perf.wiki.kernel.org/)
+- **C++:** The C++ Programming Language — подробный справочник; C++ Templates: The Complete Guide — templates; Modern C++ Design — история и приёмы generic design; Effective C++ и More Effective C++ — дополнительные обсуждения идиом с учётом эпохи издания; Optimized C++ — разбор оптимизаций после освоения измерений.
+- **Алгоритмы:** CLRS — систематический учебник; [MIT Advanced Data Structures](https://courses.csail.mit.edu/6.851/spring21/) — после базовых структур; [Competitive Programming 4](https://cpbook.net/) — необязательная практика задач, не замена системному проекту.
+- **Конкурентность:** The Art of Multiprocessor Programming; [Is Parallel Programming Hard, And, If So, What Can You Do About It?](https://mirrors.edge.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html); Concurrency with Modern C++ — выбрать нужную тему, а не проходить все источники параллельно.
+- **Архитектура и ОС:** Computer Organization and Design; Structured Computer Organization; Modern Processor Design; Computer Architecture: A Quantitative Approach; Modern Operating Systems или Operating System Concepts — для углубления соответствующей модели.
+- **Сети:** TCP/IP Illustrated, Volume 1; UNIX Network Programming; [High Performance Browser Networking](https://hpbn.co/) — прикладной контекст; HTTP: The Definitive Guide и BGP Design and Implementation — выборочно, с проверкой версий протоколов и стандартов.
+- **Производительность:** [BPF Performance Tools](https://www.brendangregg.com/bpf-performance-tools-book.html); [What Every Programmer Should Know About Memory](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf); [Flame Graphs](https://www.brendangregg.com/flamegraphs.html). Архитектурные детали проверять для своего CPU.
+- **Distributed systems:** [Distributed Systems](https://www.distributed-systems.net/index.php/books/ds4/), [Understanding Distributed Systems](https://understandingdistributed.systems/), Transaction Processing — углубление согласованности, транзакций и отказов.
+- **Telecom:** LTE for UMTS; LTE: The UMTS Long Term Evolution; 5G NR: The Next Generation Wireless Access Technology; [3GPP specifications](https://www.3gpp.org/specifications-technologies) — фиксировать release и номера используемых документов.
+- **Математика:** [Mathematics for Computer Science](https://courses.csail.mit.edu/6.042/spring18/mcs.pdf) и [Concrete Mathematics](https://www-cs-faculty.stanford.edu/~knuth/gkp.html) — логика, доказательства, дискретные структуры; линейную алгебру, анализ, численные методы и DSP добавлять по требованиям ветки.
+- **Компиляторы и безопасность:** Engineering a Compiler или Compilers: Principles, Techniques, and Tools; Practical Binary Analysis; Hacking: The Art of Exploitation — после основ архитектуры и toolchain.
+- **Инженерная работа:** The Pragmatic Programmer, Code Complete, Software Architecture in Practice и Clean Architecture — сопоставлять с реальными ограничениями системы.
 
-ftrace
-[https://www.kernel.org/doc/html/latest/trace/ftrace.html](https://www.kernel.org/doc/html/latest/trace/ftrace.html)
+### Документация для практики
 
-bpftrace
-[https://github.com/iovisor/bpftrace](https://github.com/iovisor/bpftrace)
+- [Linux kernel documentation](https://www.kernel.org/doc/html/latest/): интерфейсы, locking, tracing, networking, драйверы и процесс разработки. На сайте выбирать документацию версии тестового kernel.
+- [Linux man-pages](https://man7.org/linux/man-pages/): контракты syscalls, sockets, `epoll`, memory mapping и ошибок.
+- [CUDA Programming Guide](https://docs.nvidia.com/cuda/cuda-programming-guide/index.html), [CUDA Best Practices Guide](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html): модель → память и synchronization → измерения → оптимизация.
+- [CMU 15-418](https://www.cs.cmu.edu/~418/): parallel architecture, locality и performance; выбирать доступный набор материалов конкретного семестра.
+- [Python Tutorial](https://docs.python.org/3/tutorial/), [NumPy Learn](https://numpy.org/learn/): язык и автоматизация, затем массивы и вычисления.
+- [LLVM documentation](https://llvm.org/docs/), [IETF RFCs](https://www.rfc-editor.org/): источники для веток компиляторов и протоколов; фиксировать версии и конкретные документы.
 
-eBPF
-[https://ebpf.io/](https://ebpf.io/)
+## Чтение кода и исследовательских работ
 
-Flamegraphs
-[https://www.brendangregg.com/flamegraphs.html](https://www.brendangregg.com/flamegraphs.html)
+Выбирайте одну подсистему, связанную с текущим проектом. Зафиксируйте revision, найдите точку входа, проследите один поток данных, сформулируйте инвариант и добавьте небольшой тест или эксперимент. Цель чтения — ответ на вопрос, например «кто владеет буфером при отмене операции», а не число просмотренных файлов.
 
-Valgrind
-[https://valgrind.org/](https://valgrind.org/)
+| Тема | Проекты для изучения | Что искать |
+| --- | --- | --- |
+| Event loop и async | [nginx](https://github.com/nginx/nginx), [Boost.Asio](https://think-async.com/), [Seastar](https://github.com/scylladb/seastar) | Scheduling, timers, buffers, cancellation |
+| Concurrent structures | [Folly](https://github.com/facebook/folly) | Memory ordering, reclamation, границы API |
+| Сетевой путь | [Linux](https://github.com/torvalds/linux), [DPDK](https://github.com/DPDK/dpdk), [VPP](https://github.com/FDio/vpp) | Очереди, ownership, batching и обработку ошибок |
+| Сервисы и хранилища | [Redis](https://github.com/redis/redis), [ClickHouse](https://github.com/ClickHouse/ClickHouse), [Envoy](https://github.com/envoyproxy/envoy) | Протокол, I/O path, backpressure, observability |
+| Telecom | [srsRAN](https://github.com/srsran/srsRAN_Project), [OpenAirInterface](https://github.com/OPENAIRINTERFACE/openairinterface5g) | Границы слоёв, scheduler, timing и telemetry |
 
-Cachegrind
-[https://valgrind.org/docs/manual/cg-manual.html](https://valgrind.org/docs/manual/cg-manual.html)
+Для статей выбирать задачу из своего проекта: очереди, согласованность, tail latency, packet processing или scheduling. Источники: [SIGCOMM](https://www.sigcomm.org/), [NSDI](https://www.usenix.org/conference/nsdi), [USENIX](https://www.usenix.org/), [SOSP](https://sigops.org/s/conferences/sosp/), [VLDB](https://vldb.org/). OSDI искать в архиве USENIX за интересующий год.
 
----
+Одна статья разобрана, когда вы записали постановку задачи, предположения, ключевую идею, метод оценки и ограничения, а затем проверили один вывод небольшим экспериментом. Для вклада в открытый проект начать с воспроизводимого bug report, теста или небольшого исправления и пройти процесс review проекта.
 
-# HIGH VALUE SPECIALIZATIONS
+## Рабочий ритм
 
-extremely high-end engineer:
+Пример цикла на 4 недели при 6–8 часах занятий в неделю:
 
-* Low Latency C++
-* HFT Systems
-* Kernel Networking
-* RDMA
-* Telecom Core
-* 5G/6G Stack
-* eBPF
-* DPDK
-* QUIC / HTTP3
-* Distributed Storage
-* HPC Networking
-* Dataplane Engineering
-* GPU Networking
+| Неделя | Основная работа | Результат |
+| --- | --- | --- |
+| 1 | Прочитать одну тему, определить контракт и baseline | Небольшой design note и план проверки |
+| 2 | Реализовать минимальный вариант | Рабочий код и проверки успешного пути |
+| 3 | Проверить ошибки, ограничения и нагрузку | Тесты, traces и сырые измерения |
+| 4 | Устранить найденную проблему и описать выводы | Отчёт, воспроизводимый запуск и выбор следующего шага |
 
----
+Чтение кода и статей включайте в этот цикл по задаче. Нет необходимости каждую неделю осваивать новый kernel subsystem, RFC и книгу. Если работа уже даёт нужную практику, используйте её результаты без раскрытия закрытых данных; учебное время отдайте пробелам.
 
-# RECOMMENDED LEARNING ORDER
+Для учёта прогресса добавляйте в свой журнал дату, этап, ссылку на артефакт, что проверено и следующий вопрос. Завершённым считается результат, который можно повторить, объяснить и изменить; количество решённых вопросов служит отдельной метрикой повторения.
 
-## YEAR 1
+## Проверка результата
 
-* CSAPP
-* TLPI
-* Effective Modern C++
-* OSTEP
-* TCP/IP Illustrated
+Перед переходом к следующему этапу или расширением специализации проверьте:
 
-## YEAR 2
+- **Корректность:** описаны инварианты, ownership, ошибки и проверяемые гарантии; тесты включают граничные и отрицательные сценарии.
+- **Воспроизводимость:** другой человек может собрать проект, запустить тесты и повторить эксперимент по инструкции.
+- **Измерения:** указаны workload, размеры данных, окружение, версии инструментов, повторные запуски и ограничения; сохранены исходные результаты.
+- **Объяснение:** вы связываете наблюдение с механизмом языка, ОС, сети или оборудования и можете назвать альтернативное решение.
+- **Применимость:** понятны цена сложности, ресурсные ограничения и условия, в которых выбранный подход проигрывает.
+- **Обратная связь:** по мере роста проекта есть внешнее code / design review и исправления по его результатам.
 
-* Concurrency
-* Lock-Free
-* Linux Kernel
-* eBPF
-* DPDK
-* io_uring
-
-## YEAR 3
-
-* Distributed Systems
-* Databases
-* RDMA
-* QUIC
-* Seastar
-
-## YEAR 4
-
-* 5G internals
-* Scheduler Design
-* NUMA
-* SIMD
-* Cache Optimization
-
-## YEAR 5
-
-* Research Papers
-* Large-scale Architecture
-* Open-source contributions
-* Build your own protocol stack
-* Design your own networking framework
-
----
-
-# DETAILED ROADMAP — 2026-2027
-
-realistic roadmap
-
-Цель:
-
-* стать elite systems/network engineer;
-* углубиться в Linux/kernel/performance;
-* выйти на уровень Principal/Staff;
-* стать extremely strong в high-performance C++.
-
-Важно:
-
-* не читать 10 книг одновременно;
-* делать проекты;
-* читать код;
-* совмещать теорию с production engineering.
-
----
-
-# 2026 PLAN — CORE SYSTEMS FOUNDATION
-
-# Q2 2026 (May → July)
-
-## Main Goal
-
-Собрать фундамент:
-
-* memory;
-* Linux;
-* CPU/cache;
-* concurrency;
-* networking internals.
-
----
-
-## BOOKS
-
-### 1. CSAPP
-
-READ:
-
-* chapters about:
-
-  * memory;
-  * processes;
-  * virtual memory;
-  * linking;
-  * concurrency;
-  * caches.
-
-DON'T:
-
-* застревать на каждой формуле.
-
-GOAL:
-понимать:
-
-* cache miss;
-* TLB;
-* syscall cost;
-* context switch;
-* memory layout;
-* binary layout.
-
----
-
-### 2. The Linux Programming Interface
-
-READ DAILY.
-
-FOCUS:
-
-* file descriptors;
-* epoll;
-* threads;
-* signals;
-* mmap;
-* shared memory;
-* pipes;
-* sockets.
-
-GOAL:
-уметь писать production-grade Linux software.
-
----
-
-### 3. TCP/IP Illustrated Vol.1
-
-FOCUS:
-
-* TCP state machine;
-* retransmission;
-* congestion;
-* sliding windows;
-* RTT;
-* packet flow.
-
-GOAL:
-видеть TCP как engineer, а не как API.
-
----
-
-## PROJECTS
-
-### Project 1 — High Performance TCP Server
-
-WRITE:
-
-* epoll-based;
-* thread pool;
-* lock-free queue;
-* metrics;
-* zero-copy experiments.
-
----
-
-### Project 2 — Packet Analyzer
-
-WRITE:
-
-* pcap parser;
-* TCP reassembly;
-* latency metrics;
-* retransmission detector.
-
----
-
-## TOOLS
-
-LEARN:
-
-* perf;
-* gdb;
-* valgrind;
-* flamegraphs;
-* strace;
-* tcpdump;
-* wireshark.
-
----
-
-# Q3 2026 (August → October)
-
-## Main Goal
-
-Стать очень сильным в:
-
-* concurrency;
-* lock-free;
-* scheduling;
-* Linux internals.
-
----
-
-## BOOKS
-
-### 1. C++ Concurrency in Action
-
-FOCUS:
-
-* atomics;
-* memory ordering;
-* mutexes;
-* lock-free structures;
-* futures;
-* thread pools.
-
-GOAL:
-понимать memory model глубоко.
-
----
-
-### 2. The Art of Multiprocessor Programming
-
-READ SLOWLY.
-
-FOCUS:
-
-* ABA problem;
-* lock-free queues;
-* wait-free concepts;
-* CAS;
-* concurrent structures.
-
----
-
-### 3. Linux Kernel Development
-
-FOCUS:
-
-* scheduler;
-* interrupts;
-* softirq;
-* networking stack;
-* memory subsystem.
-
----
-
-## PROJECTS
-
-### Project 3 — Lock-Free Ring Buffer
-
-WRITE:
-
-* SPSC;
-* MPSC;
-* benchmark.
-
-COMPARE:
-
-* mutex vs lock-free.
-
----
-
-### Project 4 — Mini Reactor Framework
-
-BUILD:
-
-* epoll reactor;
-* timers;
-* coroutine experiments;
-* async networking.
-
----
-
-## OPEN SOURCE CODE READING
-
-READ:
-
-* nginx;
-* redis;
-* folly;
-* boost.asio.
-
-GOAL:
-научиться читать industrial C++.
-
----
-
-# Q4 2026 (November → January)
-
-## Main Goal
-
-Performance engineering.
-
----
-
-## BOOKS
-
-### 1. Systems Performance — Brendan Gregg
-
-MOST IMPORTANT BOOK.
-
-FOCUS:
-
-* CPU profiling;
-* scheduler latency;
-* disk I/O;
-* memory bottlenecks;
-* flamegraphs;
-* kernel tracing.
-
----
-
-### 2. What Every Programmer Should Know About Memory
-
-FOCUS:
-
-* NUMA;
-* cache lines;
-* false sharing;
-* prefetching;
-* memory latency.
-
----
-
-## TOOLS
-
-MASTER:
-
-* perf;
-* eBPF basics;
-* bpftrace;
-* ftrace.
-
----
-
-## PROJECTS
-
-### Project 5 — Latency Benchmark Suite
-
-MEASURE:
-
-* syscall latency;
-* mutex latency;
-* cache effects;
-* NUMA effects;
-* packet throughput.
-
----
-
-### Project 6 — User-space Packet Processing
-
-EXPERIMENT:
-
-* AF_XDP;
-* io_uring;
-* DPDK basics.
-
----
-
-# 2027 PLAN — ELITE SYSTEMS / NETWORK ENGINEERING
-
-# Q1 2027 (February → April)
-
-## Main Goal
-
-Distributed systems foundation.
-
----
-
-## BOOKS
-
-### 1. Designing Data-Intensive Applications
-
-FOCUS:
-
-* replication;
-* consensus;
-* partitioning;
-* event streaming;
-* storage engines.
-
----
-
-### 2. Database Internals
-
-FOCUS:
-
-* LSM trees;
-* B+ trees;
-* WAL;
-* MVCC.
-
----
-
-## PROJECTS
-
-### Project 7 — Distributed Message Queue
-
-BUILD:
-
-* TCP protocol;
-* replication;
-* persistence;
-* backpressure.
-
----
-
-# Q2 2027 (May → July)
-
-## Main Goal
-
-Deep Linux networking.
-
----
-
-## STUDY
-
-LEARN:
-
-* kernel networking stack;
-* skb;
-* NIC queues;
-* RSS/RPS;
-* XDP;
-* eBPF.
-
----
-
-## PROJECTS
-
-### Project 8 — eBPF Network Monitor
-
-BUILD:
-
-* packet tracing;
-* TCP latency tracker;
-* socket statistics.
-
----
-
-### Project 9 — QUIC Prototype
-
-IMPLEMENT:
-
-* reliability;
-* retransmission;
-* congestion basics.
-
----
-
-# Q3-Q4 2027
-
-## Main Goal
-
-Telecom + High Performance Infrastructure.
-
----
-
-## STUDY
-
-READ:
-
-* 5G NR;
-* scheduler design;
-* RLC/MAC internals;
-* HARQ;
-* radio resource scheduling.
-
----
-
-## PROJECTS
-
-### Project 10 — Custom MAC Scheduler
-
-EXPERIMENT:
-
-* fairness;
-* throughput;
-* latency.
-
----
-
-### Project 11 — High-performance Telemetry System
-
-BUILD:
-
-* metrics pipeline;
-* async ingestion;
-* lock-free queues;
-* batching.
-
----
-
-# WEEKLY ROUTINE
-
-## DAILY
-
-* 1 hour reading;
-* 1 hour coding;
-* 30 min code reading.
-
----
-
-## WEEKLY
-
-* 1 RFC;
-* 1 Linux kernel subsystem;
-* 1 profiling session;
-* 1 benchmark experiment.
-
----
-
-## MONTHLY
-
-WRITE:
-
-* blog;
-* notes;
-* performance reports.
-
-This massively improves engineering thinking.
-
----
-
-# MOST IMPORTANT SKILLS TO BUILD
-
-## ABSOLUTE PRIORITY
-
-* Linux internals;
-* performance profiling;
-* concurrency;
-* memory/cache understanding;
-* networking internals;
-* protocol design;
-* reading large codebases.
-
----
-
-# DETAILED 5-YEAR MASTER ROADMAP (2026-2030)
-
-extremely detailed long-term roadmap.
-
-Цель:
-
-* стать engineer мирового уровня;
-* deep systems/network/telecom expert;
-* уметь проектировать extremely high-performance systems;
-* понимать Linux/network stack лучше большинства senior engineers;
-* выйти на уровень Principal/Staff/Architect.
-
----
-
-# 2026 — CORE SYSTEMS ENGINEERING
-
-## MAIN TARGET
-
-Построить фундамент:
-
-* Linux internals;
-* memory;
-* CPU/cache;
-* concurrency;
-* networking;
-* performance.
-
----
-
-## HARD SKILLS
-
-MASTER:
-
-* epoll;
-* mmap;
-* atomics;
-* cache lines;
-* NUMA basics;
-* TCP internals;
-* lock-free basics;
-* profiling.
-
----
-
-## MUST READ
-
-* CSAPP
-* TLPI
-* Effective Modern C++
-* TCP/IP Illustrated
-* C++ Concurrency in Action
-* OSTEP
-* Systems Performance
-
----
-
-## BUILD PROJECTS
-
-### 1. High Performance TCP Server
-
-FEATURES:
-
-* epoll;
-* thread pool;
-* lock-free queue;
-* metrics;
-* graceful shutdown.
-
----
-
-### 2. Packet Analyzer
-
-FEATURES:
-
-* pcap parsing;
-* TCP reassembly;
-* retransmission detection;
-* RTT statistics.
-
----
-
-### 3. Reactor Framework
-
-FEATURES:
-
-* async sockets;
-* timer wheel;
-* coroutine experiments;
-* event loop.
-
----
-
-## OPEN SOURCE READING
-
-READ:
-
-* nginx;
-* redis;
-* boost.asio;
-* folly.
-
----
-
-## PERFORMANCE TOOLS
-
-MASTER:
-
-* perf;
-* flamegraphs;
-* valgrind;
-* strace;
-* tcpdump;
-* wireshark.
-
----
-
-# 2027 — ELITE CONCURRENCY & NETWORKING
-
-## MAIN TARGET
-
-Стать very strong в:
-
-* lock-free;
-* Linux networking;
-* kernel path;
-* async systems;
-* packet processing.
-
----
-
-## HARD SKILLS
-
-MASTER:
-
-* memory ordering;
-* CAS;
-* ABA problem;
-* softirq;
-* skb;
-* NIC queues;
-* RSS/RPS;
-* io_uring;
-* AF_XDP.
-
----
-
-## MUST READ
-
-* The Art of Multiprocessor Programming
-* Linux Kernel Development
-* BPF Performance Tools
-* What Every Programmer Should Know About Memory
-
----
-
-## BUILD PROJECTS
-
-### 4. Lock-Free Ring Buffer Library
-
-BUILD:
-
-* SPSC;
-* MPSC;
-* benchmarks;
-* latency tests.
-
----
-
-### 5. eBPF Network Monitor
-
-FEATURES:
-
-* packet tracing;
-* syscall tracing;
-* TCP latency;
-* drops monitoring.
-
----
-
-### 6. QUIC Prototype
-
-IMPLEMENT:
-
-* reliability;
-* retransmission;
-* packet pacing;
-* congestion basics.
-
----
-
-### 7. User-space Packet Processing Engine
-
-EXPERIMENT:
-
-* DPDK;
-* io_uring;
-* AF_XDP.
-
----
-
-## OPEN SOURCE READING
-
-READ:
-
-* Linux networking stack;
-* DPDK;
-* Seastar;
-* Envoy.
-
----
-
-# 2028 — DISTRIBUTED SYSTEMS & INFRASTRUCTURE
-
-## MAIN TARGET
-
-Выйти на уровень infrastructure engineer.
-
-Понимать:
-
-* distributed systems;
-* storage engines;
-* replication;
-* consensus;
-* large-scale systems.
-
----
-
-## HARD SKILLS
-
-MASTER:
-
-* Raft;
-* replication;
-* partitioning;
-* WAL;
-* LSM trees;
-* MVCC;
-* backpressure;
-* stream processing.
-
----
-
-## MUST READ
-
-* Designing Data-Intensive Applications
-* Database Internals
-* Distributed Systems
-* Understanding Distributed Systems
-* Site Reliability Engineering
-
----
-
-## BUILD PROJECTS
-
-### 8. Distributed Message Queue
-
-FEATURES:
-
-* replication;
-* persistence;
-* batching;
-* consumer groups.
-
----
-
-### 9. Time-Series Database Prototype
-
-BUILD:
-
-* WAL;
-* compaction;
-* compression;
-* retention.
-
----
-
-### 10. Distributed Cache
-
-FEATURES:
-
-* sharding;
-* replication;
-* consistent hashing;
-* async replication.
-
----
-
-## OPEN SOURCE READING
-
-READ:
-
-* ClickHouse;
-* Kafka;
-* ScyllaDB;
-* RocksDB.
-
----
-
-# 2029 — TELECOM / KERNEL / HPC LEVEL
-
-## MAIN TARGET
-
-Стать rare specialist.
-
-Соединить:
-
-* telecom;
-* kernel networking;
-* high performance infrastructure.
-
----
-
-## HARD SKILLS
-
-MASTER:
-
-* PDCP internals;
-* RLC internals;
-* MAC scheduling;
-* HARQ;
-* radio scheduling;
-* SIMD;
-* NUMA optimization;
-* cache-aware programming;
-* CPU pinning.
-
----
-
-## MUST READ
-
-* 5G NR
-* LTE: The UMTS Long Term Evolution
-* LTE for UMTS
-* Intel optimization manuals
-
----
-
-## BUILD PROJECTS
-
-### 11. Custom MAC Scheduler
-
-IMPLEMENT:
-
-* fairness;
-* throughput optimization;
-* latency optimization;
-* QoS handling.
-
----
-
-### 12. Telemetry Pipeline
-
-FEATURES:
-
-* millions packets/sec;
-* batching;
-* zero-copy;
-* lock-free queues.
-
----
-
-### 13. RDMA Experiments
-
-LEARN:
-
-* verbs;
-* zero-copy;
-* kernel bypass.
-
----
-
-## OPEN SOURCE READING
-
-READ:
-
-* srsRAN;
-* OpenAirInterface;
-* VPP;
-* DPDK internals.
-
----
-
-# 2030 — ARCHITECT / PRINCIPAL ENGINEER LEVEL
-
-## MAIN TARGET
-
-Перейти от engineer → architect.
-
-Ты должен:
-
-* проектировать системы;
-* делать technical leadership;
-* понимать trade-offs;
-* уметь оптимизировать огромные системы;
-* читать papers легко;
-* понимать bottlenecks интуитивно.
-
----
-
-## HARD SKILLS
-
-MASTER:
-
-* architecture trade-offs;
-* scalability;
-* observability;
-* reliability;
-* performance culture;
-* engineering leadership.
-
----
-
-## MUST READ
-
-* Clean Architecture
-* Software Architecture in Practice
-* Google SRE
-* research papers weekly.
-
----
-
-## BUILD PROJECTS
-
-### 14. Full Networking Framework
-
-BUILD:
-
-* async runtime;
-* scheduler;
-* timer wheel;
-* zero-copy APIs;
-* metrics;
-* tracing.
-
----
-
-### 15. Full Telecom Dataplane Prototype
-
-INTEGRATE:
-
-* packet processing;
-* scheduling;
-* telemetry;
-* performance monitoring.
-
----
-
-## OPEN SOURCE CONTRIBUTIONS
-
-CONTRIBUTE TO:
-
-* Linux kernel;
-* DPDK;
-* srsRAN;
-* ClickHouse;
-* Envoy;
-* Seastar.
-
----
-
-# WEEKLY SYSTEM
-
-## DAILY
-
-* 1 hour reading;
-* 2 hours coding;
-* 30 min profiling/code reading.
-
----
-
-## WEEKLY
-
-* 1 RFC;
-* 1 benchmark;
-* 1 kernel subsystem;
-* 1 open-source deep dive.
-
----
-
-## MONTHLY
-
-WRITE:
-
-* technical notes;
-* benchmarks;
-* architecture reviews;
-* performance reports.
-
----
-
-# ABSOLUTE PRIORITY AREAS
-
-Если времени мало — prioritize:
-
-1. Linux internals
-2. Performance engineering
-3. Concurrency
-4. Networking internals
-5. Memory/cache understanding
-6. Distributed systems
-7. Telecom scheduling
-8. Reading large codebases
-
----
-
-# THINGS THAT WILL MASSIVELY ACCELERATE YOU
-
-## VERY HIGH ROI
-
-* reading kernel code;
-* profiling real systems;
-* writing benchmarks;
-* building packet processing systems;
-* writing lock-free structures;
-* reading RFCs;
-* reading conference papers.
-
----
-
-# MOST IMPORTANT MINDSET
-
-Не пытайся знать всё.
-
-Твоя суперсила должна быть:
-
-* systems;
-* networking;
-* Linux;
-* performance;
-* telecom;
-* protocol engineering.
-
-Это extremely high barrier specialization.
-
-Через 5 лет такого roadmap ты сможешь работать на уровне:
-
-* Principal Engineer;
-* Staff Engineer;
-* Telecom Architect;
-* Infrastructure Architect;
-* Low Latency Engineer;
-* Kernel Networking Engineer.
-
----
-
-# FINAL ADVICE
-
-Не становись generic fullstack developer.
-
-Твой текущий путь намного ценнее:
-
-* Systems Programming
-* Networking
-* Telecom
-* High Performance C++
-* Linux Internals
-* Performance Engineering
-
-Это extremely high barrier domain.
-
-Через 5 лет системного развития ты сможешь конкурировать с:
-
-* Principal Engineers
-* Staff Engineers
-* Distinguished Engineers
-* Telecom Architects
-* Infrastructure Architects
-* HFT Engineers
-* Kernel Developers
-
-в компаниях уровня:
-
-* Nvidia
-* Meta
-* Cloudflare
-* Cisco
-* Ericsson
-* Qualcomm
-* Huawei
-* Jane Street
-* Citadel
-* SpaceX
+Если часть критериев не выполнена, следующий шаг — конкретный эксперимент или исправление в текущем проекте. Новая технология добавляется после того, как понятно, какую проблему она решает.

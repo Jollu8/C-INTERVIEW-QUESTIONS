@@ -294,7 +294,7 @@ function studyContext() {
   }
   document.body = new Element('body');
   document.body.dataset = {};
-  document.body.innerHTML = '<main id="app"></main><footer id="footer-source"></footer><button id="learning-help"></button>';
+  document.body.innerHTML = '<main id="app"></main><footer id="footer-source"></footer><a class="roadmap-link" href="roadmap.html">Roadmap</a>';
   document.querySelector = selector => document.body.querySelector(selector);
   document.querySelectorAll = selector => document.body.querySelectorAll(selector);
   document.documentElement = {style: {setProperty() {}, removeProperty() {}}};

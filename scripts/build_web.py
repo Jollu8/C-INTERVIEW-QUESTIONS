@@ -11,6 +11,11 @@ from urllib.parse import quote, unquote, urlsplit
 
 from markdown_it import MarkdownIt
 
+try:
+    from scripts.validate_links import make_anchor
+except ModuleNotFoundError:
+    from validate_links import make_anchor
+
 ROOT = Path(__file__).resolve().parents[1]
 MARKDOWN = MarkdownIt("commonmark", {"html": False})
 SECTION_NAMES = [
@@ -138,15 +143,7 @@ def build_catalog() -> dict:
                 "plan": f"plans/{directory.name}.html" if plan.exists() else None,
             }
         )
-    tracks = json.loads((ROOT / "learning/paths.json").read_text(encoding="utf-8"))
-    topic_ids = {t["id"] for section in sections for t in section["topics"]}
-    section_ids = {section["id"] for section in sections}
-    for track in tracks:
-        if not set(track.get("topics", [])).issubset(topic_ids):
-            raise ValueError(f"Unknown topic in track {track['id']}")
-        if not set(track.get("sections", [])).issubset(section_ids):
-            raise ValueError(f"Unknown section in track {track['id']}")
-    return {"sections": sections, "tracks": tracks}
+    return {"sections": sections}
 
 
 def write_web(catalog: dict, directory: Path) -> None:
@@ -216,6 +213,7 @@ def write_learning_pages(directory: Path, catalog: dict | None = None) -> None:
     ) -> str:
         title = source.splitlines()[0].removeprefix("# ")
         tokens = renderer.parse(source)
+        anchors: dict[str, int] = {}
         headers: list[str] = []
         column = 0
         table_roles = {
@@ -224,6 +222,11 @@ def write_learning_pages(directory: Path, catalog: dict | None = None) -> None:
             "th_open": "columnheader", "td_open": "cell",
         }
         for index, token in enumerate(tokens):
+            if token.type == "heading_open":
+                base = make_anchor(tokens[index + 1].content)
+                occurrence = anchors.get(base, 0)
+                anchors[base] = occurrence + 1
+                token.attrSet("id", base if occurrence == 0 else f"{base}-{occurrence}")
             # Explicit roles retain table navigation when the mobile layout
             # changes the native table elements to stacked blocks.
             if token.type in table_roles:
@@ -256,6 +259,14 @@ def write_learning_pages(directory: Path, catalog: dict | None = None) -> None:
                     if url.scheme or url.netloc or not url.path:
                         continue
                     target = (origin.parent / unquote(url.path)).resolve()
+                    if target == ROOT / "generate_plane_5.md":
+                        link = posixpath.relpath(
+                            "roadmap.html", posixpath.dirname(destination)
+                        )
+                        if url.fragment:
+                            link += "#" + url.fragment
+                        child.attrSet("href", link)
+                        continue
                     if (
                         target.suffix != ".md"
                         or not target.is_relative_to(ROOT / "content")
@@ -284,10 +295,10 @@ def write_learning_pages(directory: Path, catalog: dict | None = None) -> None:
             + '</main></body></html>\n'
         )
 
-    source = (ROOT / "learning/roadmap.md").read_text(encoding="utf-8")
-    source = source.replace("../web/index.html?track=", "index.html?track=")
+    roadmap = ROOT / "generate_plane_5.md"
+    source = roadmap.read_text(encoding="utf-8")
     (directory / "roadmap.html").write_text(
-        page(source, "index.html", ""), encoding="utf-8"
+        page(source, "index.html", "", roadmap), encoding="utf-8"
     )
     for path, destination in destinations.items():
         source = path.read_text(encoding="utf-8")

@@ -1,120 +1,595 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Маршруты системного разработчика</title><link rel="stylesheet" href="style.css"></head><body><main class="learning-page"><a href="index.html">← К тренировкам</a><h1>Маршруты системного разработчика</h1>
-<p>Выберите цель, начните с первого незнакомого этапа и двигайтесь дальше после практической проверки. Знать все вопросы библиотеки для этого не требуется. Подготовка к собеседованию — один из способов проверить знания.</p>
-<h2>C++ и системная разработка</h2>
-<p>Подходит для развития из C++ LTE/NR в системное ПО, runtime и инструменты разработки.</p>
-<table role="table">
-<thead role="rowgroup">
-<tr role="row">
-<th role="columnheader" scope="col">Этап</th>
-<th role="columnheader" scope="col">Что изучить и прочитать</th>
-<th role="columnheader" scope="col">Практика</th>
-<th role="columnheader" scope="col">Когда переходить дальше</th>
-</tr>
-</thead>
-<tbody role="rowgroup">
-<tr role="row">
-<td role="cell" data-label="Этап">1. Объекты и владение</td>
-<td role="cell" data-label="Что изучить и прочитать">C++: память, lifetime, RAII, move semantics; в CS:APP — представление данных</td>
-<td role="cell" data-label="Практика">Исправить dangling references, собрать примеры с ASan/UBSan</td>
-<td role="cell" data-label="Когда переходить дальше">Объясняете владельца и время жизни каждого объекта</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">2. Компиляция и исполнение</td>
-<td role="cell" data-label="Что изучить и прочитать">Toolchain, linking, ABI; CS:APP: машинный код и linking</td>
-<td role="cell" data-label="Практика">Собрать статическую и динамическую библиотеку, изучить символы и дизассемблирование</td>
-<td role="cell" data-label="Когда переходить дальше">Объясняете путь от исходника до выполнения</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">3. Linux и память</td>
-<td role="cell" data-label="Что изучить и прочитать">Процессы, virtual memory, mmap, system calls; CS:APP: virtual memory и system-level I/O</td>
-<td role="cell" data-label="Практика">Написать обработчик бинарного файла, проверить через strace</td>
-<td role="cell" data-label="Когда переходить дальше">Различаете виртуальную память, физическую память и lifetime C++</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">4. Конкурентность</td>
-<td role="cell" data-label="Что изучить и прочитать">Mutex, condition variable, atomics, happens-before</td>
-<td role="cell" data-label="Практика">Сделать ограниченную очередь с остановкой и backpressure; проверить TSan</td>
-<td role="cell" data-label="Когда переходить дальше">Обосновываете корректность, завершение и поведение при переполнении</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">5. Производительность CPU</td>
-<td role="cell" data-label="Что изучить и прочитать">Cache, TLB, false sharing, NUMA, SIMD; материалы CMU 15-418</td>
-<td role="cell" data-label="Практика">Сравнить layout AoS/SoA и обходы массива; измерить через perf</td>
-<td role="cell" data-label="Когда переходить дальше">Объясняете измеренный bottleneck и воспроизводите результат</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">6. Инженерная практика</td>
-<td role="cell" data-label="Что изучить и прочитать">Тестирование, sanitizers, fuzzing, benchmark</td>
-<td role="cell" data-label="Практика">Собрать pipeline обработки сообщений с тестами и измерением p50/p95/p99</td>
-<td role="cell" data-label="Когда переходить дальше">Документированы корректность, нагрузка и ограничения</td>
-</tr>
-</tbody>
-</table>
-<p><a href="index.html?track=systems">Тренировка по системным темам</a></p>
-<h2>GPU и параллельные вычисления</h2>
-<p>Предварительно: уверенный C++, память CPU, базовая многопоточность и линейная алгебра. CUDA используется для практики на совместимом GPU; чтение и CPU-версию можно пройти заранее.</p>
-<table role="table">
-<thead role="rowgroup">
-<tr role="row">
-<th role="columnheader" scope="col">Этап</th>
-<th role="columnheader" scope="col">Что прочитать</th>
-<th role="columnheader" scope="col">Практика</th>
-<th role="columnheader" scope="col">Критерий освоения</th>
-</tr>
-</thead>
-<tbody role="rowgroup">
-<tr role="row">
-<td role="cell" data-label="Этап">1. Архитектура</td>
-<td role="cell" data-label="Что прочитать">CMU 15-418: parallel machines; CUDA Guide: programming model</td>
-<td role="cell" data-label="Практика">Нарисовать соответствие grid/block/thread и SM/warp</td>
-<td role="cell" data-label="Критерий освоения">Различаете модель программы и аппаратное выполнение</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">2. Память GPU</td>
-<td role="cell" data-label="Что прочитать">CUDA Guide: memory hierarchy, coalescing, synchronization</td>
-<td role="cell" data-label="Практика">Сложение векторов и transpose с проверкой CPU-результата</td>
-<td role="cell" data-label="Критерий освоения">Объясняете обращения к памяти и границы синхронизации</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">3. Параллельные алгоритмы</td>
-<td role="cell" data-label="Что прочитать">Reduction, scan, histogram</td>
-<td role="cell" data-label="Практика">Реализовать reduction, проверить крайние размеры и погрешность</td>
-<td role="cell" data-label="Критерий освоения">Корректны неполные блоки и численные допуски</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">4. Измерения</td>
-<td role="cell" data-label="Что прочитать">CUDA Best Practices Guide: timing, transfers, performance</td>
-<td role="cell" data-label="Практика">Раздельно измерить transfers и kernels, учесть warm-up и синхронизацию</td>
-<td role="cell" data-label="Критерий освоения">Сравниваете CPU/GPU на одинаковой задаче и данных</td>
-</tr>
-<tr role="row">
-<td role="cell" data-label="Этап">5. Оптимизация</td>
-<td role="cell" data-label="Что прочитать">Roofline, arithmetic intensity, occupancy, divergence</td>
-<td role="cell" data-label="Практика">Оптимизировать transpose или матричное умножение</td>
-<td role="cell" data-label="Критерий освоения">Показаны профиль до/после и причина ускорения</td>
-</tr>
-</tbody>
-</table>
-<p><a href="index.html?track=gpu">Тренировка по предварительным темам GPU</a> проверяет C++, конкурентность и performance. После неё переходите к <a href="../content/13_gpu/README.md">разделу GPU</a>: 384 вопроса и задания в 16 темах, от первых kernels до алгоритмов, профилирования и нескольких GPU. Готовые ответы пока не добавлены; в библиотеке отключите «Только с ответами».</p>
-<h2>LTE/NR → системы с высокой пропускной способностью</h2>
-<p>Сохраните телеком-экспертизу как специализацию: timing, scheduling, HARQ, очереди, backpressure, задержки и throughput. Пройдите системный маршрут, затем GPU-маршрут для вычислительных задач. Для сетевого data plane отдельно изучите packet processing, DMA, PCIe, NUMA и RDMA.</p>
-<p>Сквозной проект: генератор сообщений → ограниченные очереди → обработка на CPU → измерение latency/throughput → Python-анализ результатов → перенос подходящего вычислительного этапа на GPU. Фиксируйте нагрузку, версии инструментов, ошибки измерения и компромиссы.</p>
-<p><a href="index.html?track=telecom">Тренировка C++ / Linux / LTE / NR</a></p>
-<h2>Математика и Python</h2>
-<p>В <a href="../content/11_math/README.md">математике</a> подготовлено 600 вопросов и задач в 12 темах, по 50 на тему. Начните с опорных понятий и проходите лёгкий, средний и сложный уровни; затем решайте отдельный практический блок (15 задач на тему, 180 всего). Разборы объясняют ход решения, примеры и критерии проверки помогают повторять материал самостоятельно.</p>
-<p>Для алгоритмов проходите логику → комбинаторику → теорию чисел → графы и автоматы. Для вычислений — линейную алгебру → представление чисел → основы анализа → численные методы. Вероятность изучайте до статистики и моделей очередей; комплексные числа и Фурье — после базового анализа, если нужен DSP. Подробные маршруты и зависимости указаны в оглавлении математики.</p>
-<p>Python изучайте как инструмент автоматизации и вычислительных экспериментов: язык → файлы и процессы → тесты → NumPy → профилирование → интеграция C++.</p>
-<p>В Python подготовлено 395 вопросов и задач: 315 по основному маршруту и 80 по дополнительным веткам. Откройте раздел Python → «План обучения и материалы», затем выберите тему. Ответы пока не добавлены; при выборе через библиотеку отключите «Только с ответами».</p>
-<p><a href="../content/12_computer_architecture/README.md">Архитектура компьютеров</a> содержит 384 вопроса и задания с ответами, примерами, типичными ошибками и источниками в 16 темах: от цифровых основ до устройств и измерения производительности. В каждой теме три уровня сложности; практические разборы дополняйте собственными измерениями на выбранной платформе. Вопросы по GPU собраны в отдельном разделе выше.</p>
-<h2>Другие специализации</h2>
-<p>Драйверы и firmware: после системной основы — kernel/user space, MMIO, DMA, interrupts, PCIe и платформенная документация. Компиляторы: IR, LLVM, анализ и преобразования программ. Проектирование чипов: цифровая логика, SystemVerilog, RTL и верификация — отдельный маршрут, который здесь пока не разработан.</p>
-<h2>Источники и порядок чтения</h2>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Roadmap C++ / Systems / Networking</title><link rel="stylesheet" href="style.css"></head><body><main class="learning-page"><a href="index.html">← К тренировкам</a><h1 id="roadmap-c-systems-networking">Roadmap C++ / Systems / Networking</h1>
+<p>Долгосрочный план развития в C++, Linux, сетях и производительности: общая основа → одна специализация → интеграционный проект → работа с архитектурой и реальными ограничениями. Telecom, GPU, kernel и distributed systems развивают эту основу в разных направлениях.</p>
+<p>Roadmap самостоятелен: порядок изучения не зависит от количества, структуры и готовности вопросов в репозитории. Библиотеку вопросов можно использовать для повторения и подготовки к собеседованиям; практические результаты ниже определяют переход между этапами.</p>
+<p>Цель — уметь объяснить устройство системы, написать корректную реализацию, найти ограничение и обосновать изменение измерениями. Уровень Staff / Principal зависит также от ответственности, влияния и опыта командной работы; календарь обучения сам по себе его не определяет.</p>
+<h2 id="оглавление">Оглавление</h2>
 <ul>
-<li><a href="https://csapp.cs.cmu.edu/3e/">CS:APP, авторский сайт</a>: читать тематически по системному маршруту; упражнения обязательны.</li>
-<li><a href="https://www.cs.cmu.edu/~418/">CMU 15-418: Parallel Computer Architecture and Programming</a>: архитектура параллельных машин, memory consistency, locality и performance; набор материалов зависит от семестра.</li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/index.html">CUDA Programming Guide</a>: programming model → память → синхронизация → углублённые темы.</li>
-<li><a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a>: измерения и оптимизация после первых корректных kernels.</li>
-<li><a href="https://docs.python.org/3/tutorial/">Python Tutorial</a>, <a href="https://numpy.org/learn/">NumPy Learn</a>: язык, затем массивы и вычисления.</li>
+<li><a href="#%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F">Как пользоваться</a></li>
+<li><a href="#%D0%BA%D0%B0%D1%80%D1%82%D0%B0-%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B5%D0%B9">Карта зависимостей</a></li>
+<li><a href="#%D1%82%D0%B5%D0%BC%D0%BF-%D0%B8-%D0%B3%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%BD%D1%82-%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">Темп и горизонт планирования</a></li>
+<li><a href="#%D0%BE%D0%B1%D1%89%D0%B0%D1%8F-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0">Общая основа</a></li>
+<li><a href="#%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8">Специализации</a></li>
+<li><a href="#%D1%81%D0%BA%D0%B2%D0%BE%D0%B7%D0%BD%D0%BE%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82">Сквозной проект</a></li>
+<li><a href="#%D0%BB%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D0%B0-%D0%B8-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F">Литература и документация</a></li>
+<li><a href="#%D1%87%D1%82%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%BE%D0%B4%D0%B0-%D0%B8-%D0%B8%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D1%85-%D1%80%D0%B0%D0%B1%D0%BE%D1%82">Чтение кода и исследовательских работ</a></li>
+<li><a href="#%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9-%D1%80%D0%B8%D1%82%D0%BC">Рабочий ритм</a></li>
+<li><a href="#%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D0%B0">Проверка результата</a></li>
 </ul>
-<p>Ссылка «Источник» в ответе должна подтверждать конкретное утверждение. «Что прочитать» в маршруте объясняет порядок обучения и может охватывать несколько тем.</p>
+<h2 id="как-пользоваться">Как пользоваться</h2>
+<ol>
+<li>Пройдите диагностику и выберите первый этап, результат которого пока не можете воспроизвести самостоятельно.</li>
+<li>Держите в работе один основной этап, один проект и один основной учебный источник. Дополнительные книги открывайте для конкретного пробела.</li>
+<li>Читайте нужную тему → реализуйте небольшой пример → проверьте ошибочные сценарии → объясните результат своими словами.</li>
+<li>После общей основы выберите одну главную специализацию. Остальные добавляйте, когда они нужны проекту или работе.</li>
+<li>Раз в месяц сверяйте план с результатами. Переносить сроки нормально; пропускать проверку корректности ради календаря не следует.</li>
+</ol>
+<p>Если программирование пока незнакомо, сначала освойте переменные, функции, циклы, массивы, простые программы и работу с Git. Дальнейшие этапы предполагают этот минимум.</p>
+<h3 id="диагностика-перед-стартом">Диагностика перед стартом</h3>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Проверка</th>
+<th role="columnheader" scope="col">Что предъявить</th>
+<th role="columnheader" scope="col">Если не получается</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Проверка">Владение и lifetime</td>
+<td role="cell" data-label="Что предъявить">Найти dangling reference и объяснить, кто освобождает ресурс</td>
+<td role="cell" data-label="Если не получается">Этап 1</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Проверка">Сборка</td>
+<td role="cell" data-label="Что предъявить">Собрать библиотеку и приложение, объяснить ошибку линковки</td>
+<td role="cell" data-label="Если не получается">Этап 0</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Проверка">CPU и Linux</td>
+<td role="cell" data-label="Что предъявить">Объяснить путь от указателя к странице памяти и отличить page fault от cache miss</td>
+<td role="cell" data-label="Если не получается">Этап 2</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Проверка">Конкурентность</td>
+<td role="cell" data-label="Что предъявить">Реализовать ограниченную очередь с корректной остановкой</td>
+<td role="cell" data-label="Если не получается">Этап 3</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Проверка">Сеть</td>
+<td role="cell" data-label="Что предъявить">Обработать неполное чтение сообщения, таймаут и разрыв соединения</td>
+<td role="cell" data-label="Если не получается">Этап 4</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Проверка">Измерения</td>
+<td role="cell" data-label="Что предъявить">Воспроизвести профиль и сравнение двух вариантов программы</td>
+<td role="cell" data-label="Если не получается">Этап 5</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Проверка">Надёжность</td>
+<td role="cell" data-label="Что предъявить">Проверить восстановление файла после прерванной записи</td>
+<td role="cell" data-label="Если не получается">Этап 6</td>
+</tr>
+</tbody>
+</table>
+<p>Знакомый этап можно пройти сокращённо: предъявить работающий результат, тесты и объяснение ограничений. Знания названий инструментов недостаточно.</p>
+<h2 id="карта-зависимостей">Карта зависимостей</h2>
+<p>Общий порядок: <strong>0 → 1 → 2 → 3 → 4 → 5 → 6</strong>. Алгоритмы, математика, Python, тестирование и безопасность сопровождают практику с первого этапа, а не откладываются на последний год.</p>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Направление</th>
+<th role="columnheader" scope="col">Что требуется заранее</th>
+<th role="columnheader" scope="col">Что можно изучать параллельно</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Направление">C++ и инструменты</td>
+<td role="cell" data-label="Что требуется заранее">Базовое программирование</td>
+<td role="cell" data-label="Что можно изучать параллельно">Алгоритмы, дискретная математика, Git</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Linux и архитектура CPU</td>
+<td role="cell" data-label="Что требуется заранее">Владение, указатели, двоичное представление</td>
+<td role="cell" data-label="Что можно изучать параллельно">Сборка, ABI, отладка</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Конкурентность</td>
+<td role="cell" data-label="Что требуется заранее">Lifetime, процессы, память</td>
+<td role="cell" data-label="Что можно изучать параллельно">Базовый анализ производительности</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Сетевые сервисы</td>
+<td role="cell" data-label="Что требуется заранее">Linux I/O, конкурентность</td>
+<td role="cell" data-label="Что можно изучать параллельно">TCP/IP, тестирование протокола</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Performance</td>
+<td role="cell" data-label="Что требуется заранее">Корректный работающий сервис</td>
+<td role="cell" data-label="Что можно изучать параллельно">Python-анализ, статистика измерений</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Storage и distributed systems</td>
+<td role="cell" data-label="Что требуется заранее">I/O, протоколы, отказы, очереди</td>
+<td role="cell" data-label="Что можно изучать параллельно">Модели согласованности, эксплуатация</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Kernel / eBPF / DPDK</td>
+<td role="cell" data-label="Что требуется заранее">Этапы 0–5</td>
+<td role="cell" data-label="Что можно изучать параллельно">DMA, NIC queues, NUMA</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Telecom / LTE / NR</td>
+<td role="cell" data-label="Что требуется заранее">Сети, очереди, измерения</td>
+<td role="cell" data-label="Что можно изучать параллельно">Вероятность, DSP, архитектура radio stack</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">GPU / HPC</td>
+<td role="cell" data-label="Что требуется заранее">C++, память, параллелизм, измерения</td>
+<td role="cell" data-label="Что можно изучать параллельно">Линейная алгебра, численная точность</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Направление">Компиляторы и runtime</td>
+<td role="cell" data-label="Что требуется заранее">Toolchain, ABI, архитектура CPU</td>
+<td role="cell" data-label="Что можно изучать параллельно">Графы, автоматы, анализ программ</td>
+</tr>
+</tbody>
+</table>
+<p>Модель памяти C++ и устройство памяти CPU — связанные, но разные темы. Корректность программы обосновывается правилами языка; аппаратные особенности объясняют стоимость выбранной реализации.</p>
+<h2 id="темп-и-горизонт-планирования">Темп и горизонт планирования</h2>
+<p>Выберите устойчивый объём занятий. Пример для 6–8 часов в неделю: 2 часа чтения, 3–4 часа реализации и тестов, 1–2 часа измерений и записи выводов. При 3–4 часах уменьшайте объём проекта, а не число проверок. Профиль работы и исходная подготовка меняют длительность сильнее, чем количество прочитанных страниц.</p>
+<p>Пять лет — удобный горизонт для пересмотра направления, а не обязательный срок или обещание результата. Общая основа может занять несколько месяцев у опытного разработчика или несколько лет при небольшом доступном времени.</p>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Период от старта</th>
+<th role="columnheader" scope="col">Основной фокус</th>
+<th role="columnheader" scope="col">Проверяемый результат</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Период от старта">Первый год</td>
+<td role="cell" data-label="Основной фокус">C++, toolchain, Linux, конкурентность, базовые сети</td>
+<td role="cell" data-label="Проверяемый результат">Небольшой сервис с тестами, обработкой ошибок и воспроизводимой сборкой</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Период от старта">Второй год</td>
+<td role="cell" data-label="Основной фокус">Производительность и углубление сетевого пути</td>
+<td role="cell" data-label="Проверяемый результат">Профиль, нагрузочный стенд и объяснённые изменения latency / throughput</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Период от старта">Третий год</td>
+<td role="cell" data-label="Основной фокус">Одна специализация</td>
+<td role="cell" data-label="Проверяемый результат">Законченный прототип с моделью корректности и проверкой отказов</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Период от старта">Четвёртый год</td>
+<td role="cell" data-label="Основной фокус">Интеграция и эксплуатационные ограничения</td>
+<td role="cell" data-label="Проверяемый результат">Наблюдаемая система, capacity model, восстановление и ограничения ресурсов</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Период от старта">Пятый год</td>
+<td role="cell" data-label="Основной фокус">Архитектура, совместная работа, открытый код</td>
+<td role="cell" data-label="Проверяемый результат">Обоснованные решения, технический обзор и изменения, прошедшие внешнее ревью</td>
+</tr>
+</tbody>
+</table>
+<p>В конце каждого периода решайте: углублять текущую ветку, расширять систему или закрывать обнаруженный пробел в основе. Не требуется закончить все специализации.</p>
+<h2 id="общая-основа">Общая основа</h2>
+<h3 id="этап-0-рабочая-среда-и-toolchain">Этап 0. Рабочая среда и toolchain</h3>
+<p><strong>Цель:</strong> самостоятельно собрать, запустить и исследовать программу.</p>
+<p>Изучить:</p>
+<ul>
+<li>Git, shell, структуру проекта и минимальный CMake-проект; Debug / Release, предупреждения компилятора, зависимости.</li>
+<li>Препроцессинг → компиляцию → объектные файлы → линковку → загрузку; символы, статические и динамические библиотеки.</li>
+<li>GDB или LLDB, stack trace, core dump; основы ABI, calling convention и дизассемблирования.</li>
+<li>Тестовый запуск в CI, фиксацию версий инструментов и воспроизводимые команды сборки.</li>
+</ul>
+<p><strong>Практика:</strong> собрать библиотеку и CLI-приложение; намеренно получить undefined reference и ошибку поиска shared library; разобрать обе. Добавить тесты, ASan / UBSan и инструкцию запуска. На macOS разработку можно начинать локально; Linux-специфические опыты проводить в Linux VM или на отдельной машине.</p>
+<p><strong>Переход:</strong> чистая копия проекта собирается по инструкции; вы находите место падения, объясняете ошибку линковки и отличаете проблему сборки от ошибки выполнения.</p>
+<p><strong>Чтение:</strong> CS:APP — машинный код и linking; TLPI — вводные главы об интерфейсах Linux. Ссылки собраны в <a href="#%D0%BB%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D0%B0-%D0%B8-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F">литературе</a>.</p>
+<h3 id="этап-1-c-владение-и-алгоритмы">Этап 1. C++, владение и алгоритмы</h3>
+<p><strong>Цель:</strong> писать код с понятными lifetime, инвариантами и стоимостью операций.</p>
+<p>Изучить:</p>
+<ul>
+<li>Объекты, lifetime, storage duration, ссылки и указатели; RAII, value semantics, move semantics, exception safety.</li>
+<li>Контейнеры и алгоритмы STL, инвалидацию итераторов, сложность, аллокации, <code>span</code> и <code>string_view</code>.</li>
+<li>Templates, deduction, concepts и constexpr на небольших примерах; углублённое metaprogramming оставить до задачи, которая его требует.</li>
+<li>Массивы, списки, hash tables, деревья, heap, обходы графов, сортировки и поиск; оценку времени и памяти.</li>
+<li>Целочисленные переполнения, преобразования типов, границы буферов и обработку недоверенных входных данных.</li>
+</ul>
+<p><strong>Практика:</strong> написать RAII-обёртку для дескриптора и парсер бинарных сообщений. Покрыть пустые, повреждённые и слишком большие входы; найти lifetime bugs sanitizers и fuzzing. Сравнить два подходящих контейнера на данных проекта.</p>
+<p><strong>Переход:</strong> для каждого ресурса понятен владелец; вы объясняете поведение при исключении и переносе объекта, выбираете структуру данных по нагрузке и исправляете найденную ошибку без маскировки симптома.</p>
+<p><strong>Чтение:</strong> A Tour of C++ — обзор; Effective Modern C++ — владение, move и deduction; один основной источник по алгоритмам: The Algorithm Design Manual, CLRS или Algorithms Седжвика. Читать все три подряд не требуется.</p>
+<h3 id="этап-2-архитектура-cpu-память-и-linux">Этап 2. Архитектура CPU, память и Linux</h3>
+<p><strong>Цель:</strong> связать поведение программы с процессором и операционной системой.</p>
+<p>Изучить:</p>
+<ul>
+<li>Представление чисел, endian, alignment; ISA, регистры, pipeline, branch prediction и основы out-of-order execution.</li>
+<li>Cache hierarchy, cache line, locality, TLB, виртуальную память, page fault, page cache и NUMA.</li>
+<li>Процессы и потоки, scheduling, syscalls, file descriptors, pipes, signals, <code>mmap</code> и shared memory.</li>
+<li>Файловую систему и путь I/O; различие данных в памяти процесса, page cache и устойчивого хранения.</li>
+</ul>
+<p><strong>Практика:</strong> сделать обработчик большого файла с обычным I/O и <code>mmap</code>, сравнить проходы по массиву и layout AoS / SoA. Посмотреть syscalls через <code>strace</code>, размещение памяти процесса и сгенерированный машинный код.</p>
+<p><strong>Переход:</strong> вы различаете lifetime C++, виртуальную и физическую память; объясняете наблюдаемое число syscalls, эффект locality и ограничения эксперимента. NUMA-измерения выполняются только на подходящей машине; отсутствие такого оборудования фиксируется.</p>
+<p><strong>Чтение:</strong> CS:APP — представление данных, memory hierarchy, virtual memory и I/O; OSTEP — virtualization, concurrency и persistence; TLPI — нужные интерфейсы. Computer Organization and Design — для углубления аппаратной части.</p>
+<h3 id="этап-3-конкурентность-и-завершение-работы">Этап 3. Конкурентность и завершение работы</h3>
+<p><strong>Цель:</strong> обеспечить корректный обмен данными и предсказуемую остановку программы.</p>
+<p>Изучить:</p>
+<ul>
+<li>Data race, happens-before, mutex, condition variable, atomics и memory ordering.</li>
+<li>Bounded queues, thread pools, ownership между потоками, backpressure, cancellation и shutdown.</li>
+<li>Deadlock, starvation, false sharing; различие конкурентности, параллелизма и асинхронного I/O.</li>
+<li>Модели корректности concurrent structures. Lock-free, wait-free, CAS, ABA и reclamation — углубление после рабочей версии с блокировками.</li>
+</ul>
+<p><strong>Практика:</strong> реализовать bounded queue с mutex / condition variable, producer–consumer pipeline и остановку при пустой и полной очереди. Проверить TSan, стрессовыми тестами и разбором допустимых interleavings. Затем, если есть измеримая потребность, реализовать SPSC ring buffer и сравнить его с исходным вариантом.</p>
+<p><strong>Переход:</strong> вы обосновываете отсутствие гонки, определяете поведение при переполнении и остановке, показываете отсутствие зависания в проверяемых сценариях. Успешный TSan или стресс-тест дополняет объяснение, но не доказывает корректность алгоритма.</p>
+<p><strong>Чтение:</strong> C++ Concurrency in Action; затем The Art of Multiprocessor Programming или Is Parallel Programming Hard… Для MPSC / MPMC отдельно разбирать memory reclamation и прогресс операций.</p>
+<h3 id="этап-4-сети-и-асинхронный-сервис">Этап 4. Сети и асинхронный сервис</h3>
+<p><strong>Цель:</strong> понимать сетевой путь и поведение приложения при медленных или неисправных клиентах.</p>
+<p>Изучить:</p>
+<ul>
+<li>Ethernet, ARP / ND, IP, routing, TCP и UDP; TCP state machine, RTT, retransmission, flow control и congestion control.</li>
+<li>Sockets, nonblocking I/O, <code>epoll</code>, reactor, timers и framing сообщений.</li>
+<li>Partial reads / writes, half-close, таймауты, лимиты соединений и буферов, очереди и backpressure.</li>
+<li>DNS, TLS, HTTP; разделение прикладного протокола, транспорта и защиты канала.</li>
+</ul>
+<p><strong>Практика:</strong> написать TCP-сервис с явным форматом сообщений, ограниченными очередями, метриками и graceful shutdown. Добавить генератор нагрузки, медленного клиента, оборванные сообщения, повторные соединения и ограничения памяти. Через <code>tcpdump</code> / Wireshark сопоставить packet trace с логами приложения.</p>
+<p><strong>Переход:</strong> сервис корректно обрабатывает фрагментированные сообщения, короткую запись, таймаут и disconnect; память ограничена; вы можете объяснить задержку на стороне клиента, приложения и сети.</p>
+<p><strong>Чтение:</strong> TCP/IP Illustrated или Computer Networking: A Top-Down Approach; TLPI / UNIX Network Programming — sockets и I/O. Boost.Asio — для сравнения собственной реализации с библиотечным подходом.</p>
+<h3 id="этап-5-performance-engineering">Этап 5. Performance engineering</h3>
+<p><strong>Цель:</strong> находить ограничение и проверять гипотезы о производительности.</p>
+<p>Изучить:</p>
+<ul>
+<li>Workload, baseline, latency distribution, throughput, saturation, queueing и resource utilization.</li>
+<li>CPU / off-CPU profiling, flame graphs, allocation profiling, hardware counters; стоимость контекста и системных вызовов в условиях конкретной нагрузки.</li>
+<li>Warm-up, размер выборки, повторные запуски, влияние частот CPU и фоновой нагрузки; отличие microbenchmark от поведения сервиса.</li>
+<li>NUMA, CPU affinity, batching, data layout, SIMD и копирование — в порядке, который подсказывает профиль.</li>
+</ul>
+<p><strong>Практика:</strong> измерить сервис из этапа 4, выделить один bottleneck, сформулировать гипотезу и изменить одну существенную переменную. Зафиксировать p50 / p95 / p99, ошибки, память и CPU при нескольких уровнях нагрузки. Проверить, не ограничен ли результат генератором нагрузки. Хранить сырые результаты и сценарий анализа на Python.</p>
+<p><strong>Переход:</strong> сравнение воспроизводится; вы объясняете выигрыш, потери и диапазон применимости. Отсутствие ускорения — тоже результат, если гипотеза проверена и причина разобрана.</p>
+<p><strong>Чтение:</strong> Systems Performance — основной источник; What Every Programmer Should Know About Memory — для модели памяти и кешей; BPF Performance Tools — после базового профилирования. Детали привязывать к документации своей платформы.</p>
+<h3 id="этап-6-данные-отказы-и-эксплуатация">Этап 6. Данные, отказы и эксплуатация</h3>
+<p><strong>Цель:</strong> понимать поведение системы после сбоя, а не только на успешном пути.</p>
+<p>Изучить:</p>
+<ul>
+<li>Durable log, WAL, checksums, recovery, <code>fsync</code>, write ordering и ограничения накопителя / файловой системы.</li>
+<li>B-tree и LSM-tree, compaction, transactions, MVCC — на уровне устройства и компромиссов.</li>
+<li>Replication, partitioning, idempotency, retries, consistency и consensus; различие подтверждения получения и подтверждения устойчивой записи.</li>
+<li>Метрики, логи, tracing, SLO, capacity planning, rollout и rollback; лимиты ресурсов и наблюдаемость перегрузки.</li>
+</ul>
+<p><strong>Практика:</strong> добавить журнал в сервис, определить контракт подтверждения записи и восстановление после перезапуска. Внедрить fault injection в выбранных точках записи; проверить повтор запроса, повреждённый хвост журнала и недоступность зависимости. Репликацию оставить для специализации, если локальный контракт ещё неясен.</p>
+<p><strong>Переход:</strong> записан контракт потери / дублирования данных; проверки восстановления воспроизводятся; вы различаете process crash и сбой питания и не заявляете более сильные гарантии, чем проверили.</p>
+<p><strong>Чтение:</strong> Designing Data-Intensive Applications — модели и компромиссы; Database Internals — устройство хранения; Google SRE — эксплуатация. Подробная реализация СУБД относится к отдельной ветке.</p>
+<h3 id="сопровождающие-навыки">Сопровождающие навыки</h3>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Навык</th>
+<th role="columnheader" scope="col">Минимум для общей основы</th>
+<th role="columnheader" scope="col">Когда углублять</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Навык">Математика</td>
+<td role="cell" data-label="Минимум для общей основы">Логика, множества, доказательства, комбинаторика, графы, вероятность и статистика</td>
+<td role="cell" data-label="Когда углублять">Очереди и модели производительности; линейная алгебра и численные методы для HPC; комплексные числа и Фурье для DSP</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Навык">Python</td>
+<td role="cell" data-label="Минимум для общей основы">Файлы, процессы, CLI, тесты, typing, виртуальная среда, обработка результатов</td>
+<td role="cell" data-label="Когда углублять">NumPy, анализ больших измерений, интеграция с C++, asyncio по задаче</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Навык">Качество</td>
+<td role="cell" data-label="Минимум для общей основы">Unit / integration tests, sanitizers, negative tests, fuzzing парсера, CI</td>
+<td role="cell" data-label="Когда углублять">Тестирование отказов, нагрузка, compatibility, длительные прогоны</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Навык">Безопасность</td>
+<td role="cell" data-label="Минимум для общей основы">Lifetime, bounds, лимиты, проверка входов, secrets и permissions</td>
+<td role="cell" data-label="Когда углублять">Threat model, TLS, fuzzing, binary analysis и hardening своей специализации</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Навык">Коммуникация</td>
+<td role="cell" data-label="Минимум для общей основы">Инструкция запуска, журнал решений, понятный bug report</td>
+<td role="cell" data-label="Когда углублять">Design review, разбор инцидента, обучение коллег и согласование изменений</td>
+</tr>
+</tbody>
+</table>
+<h2 id="специализации">Специализации</h2>
+<p>Выберите одну основную ветку. Общую основу продолжайте применять во всех проектах; изучение следующего инструмента должно отвечать на конкретный вопрос системы.</p>
+<h3 id="a-linux-kernel-ebpf-и-packet-processing">A. Linux kernel, eBPF и packet processing</h3>
+<p><strong>Предпосылки:</strong> этапы 0–5; уверенная работа с Linux и сетевым сервисом.</p>
+<p><strong>Порядок:</strong> путь пакета через NIC → interrupt / NAPI / softirq → <code>skb</code> и socket buffers → RSS / RPS / XPS и очереди → tracing → eBPF / XDP → AF_XDP или DPDK по задаче. Параллельно: PCIe, DMA, IOMMU, NUMA и CPU pinning.</p>
+<p><strong>Проекты:</strong> сначала монитор задержек и drops с eBPF; затем packet forwarding с одной выбранной технологией. Сравнить baseline, загрузку CPU, packet loss и поведение при перегрузке. <code>io_uring</code> исследовать как отдельную модель асинхронного I/O, а не считать эквивалентом DPDK или AF_XDP.</p>
+<p><strong>Критерий:</strong> можете проследить пакет, объяснить владение буферами, стоимость копирования и границы измерения. Для kernel bypass описаны требования к NIC, драйверу, привилегиям и выделенным CPU. Эксперименты с kernel / NIC проводить на отдельной тестовой среде.</p>
+<p><strong>Источники:</strong> документация Linux своей версии; BPF Performance Tools; код Linux networking, DPDK и VPP. Книги Linux Kernel Development, Understanding the Linux Kernel, Professional Linux Kernel Architecture и Linux Device Drivers полезны как историческое объяснение устройства; актуальные API проверяются по документации и исходникам выбранного kernel.</p>
+<h3 id="b-low-latency-c-и-высокопроизводительный-data-plane">B. Low-latency C++ и высокопроизводительный data plane</h3>
+<p><strong>Предпосылки:</strong> конкурентность, сетевой путь и воспроизводимый performance report.</p>
+<p><strong>Порядок:</strong> распределение задержек и очереди → размещение данных → allocation strategy → batching → affinity / NUMA → SIMD → специализированные concurrent structures → RDMA при наличии подходящей среды.</p>
+<p><strong>Проект:</strong> telemetry pipeline или обработчик потока сообщений с latency budget на каждый этап. Проверить обычную нагрузку, burst и перегрузку; измерить компромисс между batching, throughput и tail latency. Для HFT дополнительно нужны предметная модель, требования к порядку событий и корректности расчётов.</p>
+<p><strong>Критерий:</strong> установлен предел ресурсов и допустимая потеря / задержка; улучшение подтверждено профилем; сложная lock-free структура имеет обоснование корректности. Формулировки «zero-copy» и «миллионы пакетов» сопровождаются точной границей измерения и конфигурацией стенда.</p>
+<p><strong>Углубление:</strong> RDMA verbs, registration и lifetime буферов, completion queues, ordering и failure handling; HPC networking и GPU networking после освоения обеих сторон обмена. Без RDMA-оборудования пройти модель и отложить аппаратные измерения.</p>
+<h3 id="c-distributed-systems-и-storage">C. Distributed systems и storage</h3>
+<p><strong>Предпосылки:</strong> этап 6, тесты протокола и понимание локальной durability.</p>
+<p><strong>Порядок:</strong> storage engine → WAL / recovery → replication → consistency → consensus → partitioning → consumer semantics и эксплуатация. Raft изучать вместе с моделью отказов и проверками, а не только по схеме leader / follower.</p>
+<p><strong>Проект:</strong> выбрать один вариант: message queue, time-series storage или distributed cache. Сначала сделать локальное хранилище; затем добавить репликацию и явно ограниченную модель согласованности. Для очереди проверить повторную доставку и consumer recovery; для TSDB — compaction и retention; для cache — sharding и устаревшие значения.</p>
+<p><strong>Критерий:</strong> описаны инварианты и допустимые аномалии; проверены restart, задержки, повтор сообщений и network partition; результаты тестов соответствуют заявленному контракту.</p>
+<p><strong>Источники:</strong> DDIA, Database Internals, Transaction Processing, Distributed Systems и SRE; код ClickHouse, RocksDB, Kafka или ScyllaDB — одна подсистема за раз.</p>
+<h3 id="d-telecom-lte-и-5g-nr">D. Telecom, LTE и 5G NR</h3>
+<p><strong>Предпосылки:</strong> сети, конкурентность, измерения, очереди; базовая вероятность. Имеющийся опыт LTE / NR можно использовать сразу, закрывая пробелы общей основы параллельно.</p>
+<p><strong>Порядок:</strong> архитектура radio stack → PDCP / RLC / MAC и интерфейсы → HARQ и timing → scheduling / QoS → throughput / latency / fairness → связь с CPU, NUMA и packet path. Для PHY / DSP отдельно добавить линейную алгебру, комплексные числа, дискретизацию и Фурье.</p>
+<p><strong>Проект:</strong> модель MAC scheduler с несколькими классами трафика, ограничениями ресурсов и воспроизводимыми сценариями нагрузки. Сравнить минимум две политики; отдельно измерить fairness, задержку, throughput и стоимость вычислений. После этого интегрировать telemetry или data plane.</p>
+<p><strong>Критерий:</strong> различаются ограничения модели и реальные требования radio stack; выбранные release и спецификации зафиксированы; воспроизводятся результаты при изменении нагрузки. Симулятор scheduler не объявляется полноценной реализацией LTE / NR.</p>
+<p><strong>Источники:</strong> 3GPP как нормативный источник; LTE for UMTS, LTE: The UMTS Long Term Evolution и 5G NR — для объяснения; код srsRAN и OpenAirInterface. Новые поколения связи добавлять по конкретной рабочей задаче и опубликованным спецификациям.</p>
+<h3 id="e-gpu-hpc-и-численные-вычисления">E. GPU, HPC и численные вычисления</h3>
+<p><strong>Предпосылки:</strong> C++, CPU memory, конкурентность, измерения и линейная алгебра. Для CUDA-практики нужен совместимый GPU; CPU-реализацию и теорию можно подготовить раньше.</p>
+<p><strong>Порядок:</strong> SIMT, grid / block / thread и warp → global / shared memory и coalescing → synchronization → reduction / scan / histogram → streams / events и transfers → roofline, occupancy, divergence → библиотеки и несколько GPU по необходимости.</p>
+<p><strong>Проект:</strong> взять вычислительный участок CPU pipeline, сделать эталонную версию и GPU-вариант. Начать с reduction или transpose; затем перейти к своей задаче. Отдельно измерить kernel, transfers, synchronization и полный путь данных; сравнить на одинаковом результате и одинаковых входах.</p>
+<p><strong>Критерий:</strong> проверены крайние размеры, численные допуски и ошибки синхронизации; ускорение оценено для всей задачи. Объяснено, при каких размерах и нагрузках GPU выгоден и когда transfers или запуск kernel поглощают выигрыш.</p>
+<p><strong>Углубление:</strong> tensor cores и mixed precision, sparse algorithms, FFT, multi-GPU communication, PCIe / NUMA / RDMA и GPU networking. Сначала освоить численную корректность и bottleneck одной машины.</p>
+<p><strong>Источники:</strong> CUDA Programming Guide, CUDA Best Practices Guide и CMU 15-418; документация выбранных библиотек и профилировщика.</p>
+<h3 id="f-протоколы-async-runtime-и-quic">F. Протоколы, async runtime и QUIC</h3>
+<p><strong>Предпосылки:</strong> TCP / UDP, bounded queues, timers и измерение задержек.</p>
+<p><strong>Порядок:</strong> reactor и scheduling → cancellation / timeouts → coroutines и lifetime → pacing / congestion → надёжный обмен поверх UDP → чтение спецификации и исследование готовой QUIC-реализации.</p>
+<p><strong>Проект:</strong> небольшой runtime с сокетами, таймерами, bounded queues и метриками; либо учебный reliable-UDP transport с обработкой потерь и переупорядочивания. Полноценный QUIC включает TLS и значительный объём протокольных требований: учебный транспорт не выдавать за совместимую реализацию.</p>
+<p><strong>Критерий:</strong> проверены потери, duplicates, reordered packets, timeout и cancellation; определены границы протокола и совместимости. Для прикладного проекта обоснован выбор существующей библиотеки или собственной реализации.</p>
+<p><strong>Источники:</strong> сетевые книги общей основы, спецификации IETF и код Boost.Asio, Seastar, nginx или Envoy.</p>
+<h3 id="g-компиляторы-runtime-и-бинарный-анализ">G. Компиляторы, runtime и бинарный анализ</h3>
+<p><strong>Предпосылки:</strong> toolchain, ABI, ISA, графы и базовые автоматы.</p>
+<p><strong>Порядок:</strong> lexer / parser → AST и type checking → IR → control-flow graph → оптимизации и анализ → code generation → linking / runtime. Для security добавить форматы бинарных файлов, дизассемблирование, memory corruption и hardening.</p>
+<p><strong>Проект:</strong> интерпретатор или небольшой компилятор с тестами семантики; затем одно преобразование IR и сравнение результата. Альтернатива — binary analyzer, объясняющий символы, секции и зависимости ELF.</p>
+<p><strong>Критерий:</strong> результат совпадает с эталоном на выбранном подмножестве языка; оптимизация имеет понятные предпосылки корректности; различаются source-level, ABI и machine-level ограничения.</p>
+<p><strong>Источники:</strong> Engineering a Compiler или Compilers: Principles, Techniques, and Tools; документация LLVM; Practical Binary Analysis. Hacking: The Art of Exploitation — дополнительное чтение в собственной лабораторной среде.</p>
+<h3 id="h-драйверы-firmware-и-аппаратная-архитектура">H. Драйверы, firmware и аппаратная архитектура</h3>
+<p><strong>Предпосылки:</strong> архитектура CPU, Linux, ABI, interrupts и аккуратное управление ресурсами.</p>
+<p><strong>Порядок:</strong> MMIO → interrupts → DMA / IOMMU → PCIe → device lifecycle → error recovery. Для RTL-ветки: цифровая логика → Verilog / SystemVerilog → simulation → verification → простое устройство или ядро; это отдельная специализация, а не обязательный шаг C++-разработчика.</p>
+<p><strong>Проект:</strong> драйвер виртуального устройства или работа в эмуляторе; для RTL — небольшой модуль с testbench. Сначала определить интерфейс, состояния устройства и сценарии отказа.</p>
+<p><strong>Критерий:</strong> корректны lifetime и порядок операций; тестируются reset, ошибки и повторная инициализация; границы модели отделены от поведения реального устройства.</p>
+<p><strong>Источники:</strong> документация Linux и конкретной платформы; Computer Organization and Design → Computer Architecture: A Quantitative Approach. Modern Processor Design и Structured Computer Organization — для дополнительного аппаратного контекста.</p>
+<h2 id="сквозной-проект">Сквозной проект</h2>
+<p>Основной вариант — <strong>pipeline приёма и обработки сообщений</strong>. Он позволяет развивать одну систему вместо набора незаконченных демонстраций. Для ветки компиляторов или hardware можно выбрать другой проект с теми же требованиями к проверке и воспроизводимости.</p>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Версия</th>
+<th role="columnheader" scope="col">Что добавить</th>
+<th role="columnheader" scope="col">Что проверить</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Версия">1. Локальная</td>
+<td role="cell" data-label="Что добавить">CLI, парсер, явное владение ресурсами, тесты и CI</td>
+<td role="cell" data-label="Что проверить">Повреждённые данные, границы, ошибки и воспроизводимая сборка</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Версия">2. Параллельная</td>
+<td role="cell" data-label="Что добавить">Bounded queue, workers, cancellation</td>
+<td role="cell" data-label="Что проверить">Переполнение, остановку, data races, ограничение памяти</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Версия">3. Сетевая</td>
+<td role="cell" data-label="Что добавить">TCP, framing, timers, backpressure</td>
+<td role="cell" data-label="Что проверить">Медленных клиентов, partial I/O, disconnect и shutdown</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Версия">4. Измеряемая</td>
+<td role="cell" data-label="Что добавить">Нагрузочный стенд, профили, анализ на Python</td>
+<td role="cell" data-label="Что проверить">p50 / p95 / p99, throughput, ошибки и насыщение ресурсов</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Версия">5. Устойчивая</td>
+<td role="cell" data-label="Что добавить">Журнал, recovery, наблюдаемость</td>
+<td role="cell" data-label="Что проверить">Повтор запросов, restart и выбранные точки отказа</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Версия">6. Специализированная</td>
+<td role="cell" data-label="Что добавить">Один модуль: eBPF monitor, scheduler, GPU stage или replication</td>
+<td role="cell" data-label="Что проверить">Корректность нового контракта и цену интеграции</td>
+</tr>
+</tbody>
+</table>
+<p>На каждую версию сохраняйте исходники, команды запуска, тестовые данные, результаты и короткий отчёт: задача → предположение → измерение → изменение → вывод → ограничения. Не добавляйте одновременно собственный allocator, lock-free queue, QUIC, consensus и GPU: каждое усложнение должно иметь отдельное обоснование.</p>
+<h3 id="архитектура-и-техническое-влияние">Архитектура и техническое влияние</h3>
+<p>Эти навыки развиваются параллельно проекту и работе, а не начинаются на пятом году:</p>
+<ul>
+<li>Писать design document: проблема, ограничения, альтернативы, выбор и способ проверки.</li>
+<li>Определять границы компонентов, API, ownership, версии формата и совместимость обновлений.</li>
+<li>Оценивать capacity, стоимость эксплуатации, SLO и failure domains; планировать rollout / rollback.</li>
+<li>Проводить code / design review, разбирать инциденты, объяснять решения и помогать коллегам.</li>
+<li>Сверять учебные результаты с ограничениями командного или открытого проекта и принимать внешнюю обратную связь.</li>
+</ul>
+<p><strong>Результат:</strong> другой разработчик понимает решение, воспроизводит эксперимент и может безопасно изменить систему. Полезные книги: Software Architecture in Practice, Clean Architecture, The Pragmatic Programmer и Code Complete; применять идеи к конкретному решению, а не превращать их в универсальные правила.</p>
+<h2 id="литература-и-документация">Литература и документация</h2>
+<p>Список — справочник к этапам. Для каждого этапа достаточно одного основного учебного источника и документации используемых интерфейсов. Покупать или читать все книги не требуется. Книги дают модель; версии API, компиляторов, kernel и оборудования сверяются с документацией рабочего стенда.</p>
+<h3 id="основные-источники">Основные источники</h3>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Источник</th>
+<th role="columnheader" scope="col">Где использовать</th>
+<th role="columnheader" scope="col">Порядок чтения</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.stroustrup.com/tour3.html">A Tour of C++</a></td>
+<td role="cell" data-label="Где использовать">Этап 1</td>
+<td role="cell" data-label="Порядок чтения">Обзор языка и STL; возвращаться к механизмам из своего проекта</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.oreilly.com/library/view/effective-modern-c/9781491908419/">Effective Modern C++</a></td>
+<td role="cell" data-label="Где использовать">Этап 1</td>
+<td role="cell" data-label="Порядок чтения">Deduction, ownership и move semantics</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://csapp.cs.cmu.edu/">CS:APP</a></td>
+<td role="cell" data-label="Где использовать">Этапы 0–2</td>
+<td role="cell" data-label="Порядок чтения">Representation → machine code / linking → memory → I/O</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/">OSTEP</a></td>
+<td role="cell" data-label="Где использовать">Этапы 2, 3, 6</td>
+<td role="cell" data-label="Порядок чтения">Virtualization → concurrency → persistence; выполнять упражнения</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://man7.org/tlpi/">The Linux Programming Interface</a></td>
+<td role="cell" data-label="Где использовать">Этапы 0, 2–4</td>
+<td role="cell" data-label="Порядок чтения">Файлы и процессы → threads / signals → IPC и sockets</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.manning.com/books/c-plus-plus-concurrency-in-action-second-edition">C++ Concurrency in Action</a></td>
+<td role="cell" data-label="Где использовать">Этап 3</td>
+<td role="cell" data-label="Порядок чтения">Synchronization и memory model до сложных lock-free structures</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.algorist.com/">The Algorithm Design Manual</a></td>
+<td role="cell" data-label="Где использовать">Этап 1 и задачи проекта</td>
+<td role="cell" data-label="Порядок чтения">Структуры, сложность и выбор алгоритма</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://algs4.cs.princeton.edu/home/">Algorithms, Sedgewick / Wayne</a></td>
+<td role="cell" data-label="Где использовать">Альтернатива по алгоритмам</td>
+<td role="cell" data-label="Порядок чтения">Выбирать темы по пробелам и реализовывать задачи</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://gaia.cs.umass.edu/kurose_ross/index.php">Computer Networking: A Top-Down Approach</a></td>
+<td role="cell" data-label="Где использовать">Этап 4</td>
+<td role="cell" data-label="Порядок чтения">Прикладной уровень → transport → network и link layer</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.brendangregg.com/systems-performance-2nd-edition-book.html">Systems Performance</a></td>
+<td role="cell" data-label="Где использовать">Этап 5</td>
+<td role="cell" data-label="Порядок чтения">Методика → CPU / memory / I/O → нужная подсистема</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://dataintensive.net/">Designing Data-Intensive Applications</a></td>
+<td role="cell" data-label="Где использовать">Этап 6 и ветка C</td>
+<td role="cell" data-label="Порядок чтения">Модели данных → хранение → replication / partitioning и гарантии</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://www.databass.dev/">Database Internals</a></td>
+<td role="cell" data-label="Где использовать">Этап 6 и ветка C</td>
+<td role="cell" data-label="Порядок чтения">Структуры хранения → recovery → распределённая часть</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Источник"><a href="https://sre.google/books/">Google SRE</a></td>
+<td role="cell" data-label="Где использовать">Этап 6 и архитектура</td>
+<td role="cell" data-label="Порядок чтения">SLO, monitoring, overload и работа с отказами</td>
+</tr>
+</tbody>
+</table>
+<h3 id="углубление-по-задаче">Углубление по задаче</h3>
+<ul>
+<li><strong>C++:</strong> The C++ Programming Language — подробный справочник; C++ Templates: The Complete Guide — templates; Modern C++ Design — история и приёмы generic design; Effective C++ и More Effective C++ — дополнительные обсуждения идиом с учётом эпохи издания; Optimized C++ — разбор оптимизаций после освоения измерений.</li>
+<li><strong>Алгоритмы:</strong> CLRS — систематический учебник; <a href="https://courses.csail.mit.edu/6.851/spring21/">MIT Advanced Data Structures</a> — после базовых структур; <a href="https://cpbook.net/">Competitive Programming 4</a> — необязательная практика задач, не замена системному проекту.</li>
+<li><strong>Конкурентность:</strong> The Art of Multiprocessor Programming; <a href="https://mirrors.edge.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html">Is Parallel Programming Hard, And, If So, What Can You Do About It?</a>; Concurrency with Modern C++ — выбрать нужную тему, а не проходить все источники параллельно.</li>
+<li><strong>Архитектура и ОС:</strong> Computer Organization and Design; Structured Computer Organization; Modern Processor Design; Computer Architecture: A Quantitative Approach; Modern Operating Systems или Operating System Concepts — для углубления соответствующей модели.</li>
+<li><strong>Сети:</strong> TCP/IP Illustrated, Volume 1; UNIX Network Programming; <a href="https://hpbn.co/">High Performance Browser Networking</a> — прикладной контекст; HTTP: The Definitive Guide и BGP Design and Implementation — выборочно, с проверкой версий протоколов и стандартов.</li>
+<li><strong>Производительность:</strong> <a href="https://www.brendangregg.com/bpf-performance-tools-book.html">BPF Performance Tools</a>; <a href="https://people.freebsd.org/~lstewart/articles/cpumemory.pdf">What Every Programmer Should Know About Memory</a>; <a href="https://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>. Архитектурные детали проверять для своего CPU.</li>
+<li><strong>Distributed systems:</strong> <a href="https://www.distributed-systems.net/index.php/books/ds4/">Distributed Systems</a>, <a href="https://understandingdistributed.systems/">Understanding Distributed Systems</a>, Transaction Processing — углубление согласованности, транзакций и отказов.</li>
+<li><strong>Telecom:</strong> LTE for UMTS; LTE: The UMTS Long Term Evolution; 5G NR: The Next Generation Wireless Access Technology; <a href="https://www.3gpp.org/specifications-technologies">3GPP specifications</a> — фиксировать release и номера используемых документов.</li>
+<li><strong>Математика:</strong> <a href="https://courses.csail.mit.edu/6.042/spring18/mcs.pdf">Mathematics for Computer Science</a> и <a href="https://www-cs-faculty.stanford.edu/~knuth/gkp.html">Concrete Mathematics</a> — логика, доказательства, дискретные структуры; линейную алгебру, анализ, численные методы и DSP добавлять по требованиям ветки.</li>
+<li><strong>Компиляторы и безопасность:</strong> Engineering a Compiler или Compilers: Principles, Techniques, and Tools; Practical Binary Analysis; Hacking: The Art of Exploitation — после основ архитектуры и toolchain.</li>
+<li><strong>Инженерная работа:</strong> The Pragmatic Programmer, Code Complete, Software Architecture in Practice и Clean Architecture — сопоставлять с реальными ограничениями системы.</li>
+</ul>
+<h3 id="документация-для-практики">Документация для практики</h3>
+<ul>
+<li><a href="https://www.kernel.org/doc/html/latest/">Linux kernel documentation</a>: интерфейсы, locking, tracing, networking, драйверы и процесс разработки. На сайте выбирать документацию версии тестового kernel.</li>
+<li><a href="https://man7.org/linux/man-pages/">Linux man-pages</a>: контракты syscalls, sockets, <code>epoll</code>, memory mapping и ошибок.</li>
+<li><a href="https://docs.nvidia.com/cuda/cuda-programming-guide/index.html">CUDA Programming Guide</a>, <a href="https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html">CUDA Best Practices Guide</a>: модель → память и synchronization → измерения → оптимизация.</li>
+<li><a href="https://www.cs.cmu.edu/~418/">CMU 15-418</a>: parallel architecture, locality и performance; выбирать доступный набор материалов конкретного семестра.</li>
+<li><a href="https://docs.python.org/3/tutorial/">Python Tutorial</a>, <a href="https://numpy.org/learn/">NumPy Learn</a>: язык и автоматизация, затем массивы и вычисления.</li>
+<li><a href="https://llvm.org/docs/">LLVM documentation</a>, <a href="https://www.rfc-editor.org/">IETF RFCs</a>: источники для веток компиляторов и протоколов; фиксировать версии и конкретные документы.</li>
+</ul>
+<h2 id="чтение-кода-и-исследовательских-работ">Чтение кода и исследовательских работ</h2>
+<p>Выбирайте одну подсистему, связанную с текущим проектом. Зафиксируйте revision, найдите точку входа, проследите один поток данных, сформулируйте инвариант и добавьте небольшой тест или эксперимент. Цель чтения — ответ на вопрос, например «кто владеет буфером при отмене операции», а не число просмотренных файлов.</p>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Тема</th>
+<th role="columnheader" scope="col">Проекты для изучения</th>
+<th role="columnheader" scope="col">Что искать</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Тема">Event loop и async</td>
+<td role="cell" data-label="Проекты для изучения"><a href="https://github.com/nginx/nginx">nginx</a>, <a href="https://think-async.com/">Boost.Asio</a>, <a href="https://github.com/scylladb/seastar">Seastar</a></td>
+<td role="cell" data-label="Что искать">Scheduling, timers, buffers, cancellation</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема">Concurrent structures</td>
+<td role="cell" data-label="Проекты для изучения"><a href="https://github.com/facebook/folly">Folly</a></td>
+<td role="cell" data-label="Что искать">Memory ordering, reclamation, границы API</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема">Сетевой путь</td>
+<td role="cell" data-label="Проекты для изучения"><a href="https://github.com/torvalds/linux">Linux</a>, <a href="https://github.com/DPDK/dpdk">DPDK</a>, <a href="https://github.com/FDio/vpp">VPP</a></td>
+<td role="cell" data-label="Что искать">Очереди, ownership, batching и обработку ошибок</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема">Сервисы и хранилища</td>
+<td role="cell" data-label="Проекты для изучения"><a href="https://github.com/redis/redis">Redis</a>, <a href="https://github.com/ClickHouse/ClickHouse">ClickHouse</a>, <a href="https://github.com/envoyproxy/envoy">Envoy</a></td>
+<td role="cell" data-label="Что искать">Протокол, I/O path, backpressure, observability</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Тема">Telecom</td>
+<td role="cell" data-label="Проекты для изучения"><a href="https://github.com/srsran/srsRAN_Project">srsRAN</a>, <a href="https://github.com/OPENAIRINTERFACE/openairinterface5g">OpenAirInterface</a></td>
+<td role="cell" data-label="Что искать">Границы слоёв, scheduler, timing и telemetry</td>
+</tr>
+</tbody>
+</table>
+<p>Для статей выбирать задачу из своего проекта: очереди, согласованность, tail latency, packet processing или scheduling. Источники: <a href="https://www.sigcomm.org/">SIGCOMM</a>, <a href="https://www.usenix.org/conference/nsdi">NSDI</a>, <a href="https://www.usenix.org/">USENIX</a>, <a href="https://sigops.org/s/conferences/sosp/">SOSP</a>, <a href="https://vldb.org/">VLDB</a>. OSDI искать в архиве USENIX за интересующий год.</p>
+<p>Одна статья разобрана, когда вы записали постановку задачи, предположения, ключевую идею, метод оценки и ограничения, а затем проверили один вывод небольшим экспериментом. Для вклада в открытый проект начать с воспроизводимого bug report, теста или небольшого исправления и пройти процесс review проекта.</p>
+<h2 id="рабочий-ритм">Рабочий ритм</h2>
+<p>Пример цикла на 4 недели при 6–8 часах занятий в неделю:</p>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader" scope="col">Неделя</th>
+<th role="columnheader" scope="col">Основная работа</th>
+<th role="columnheader" scope="col">Результат</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Неделя">1</td>
+<td role="cell" data-label="Основная работа">Прочитать одну тему, определить контракт и baseline</td>
+<td role="cell" data-label="Результат">Небольшой design note и план проверки</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Неделя">2</td>
+<td role="cell" data-label="Основная работа">Реализовать минимальный вариант</td>
+<td role="cell" data-label="Результат">Рабочий код и проверки успешного пути</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Неделя">3</td>
+<td role="cell" data-label="Основная работа">Проверить ошибки, ограничения и нагрузку</td>
+<td role="cell" data-label="Результат">Тесты, traces и сырые измерения</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Неделя">4</td>
+<td role="cell" data-label="Основная работа">Устранить найденную проблему и описать выводы</td>
+<td role="cell" data-label="Результат">Отчёт, воспроизводимый запуск и выбор следующего шага</td>
+</tr>
+</tbody>
+</table>
+<p>Чтение кода и статей включайте в этот цикл по задаче. Нет необходимости каждую неделю осваивать новый kernel subsystem, RFC и книгу. Если работа уже даёт нужную практику, используйте её результаты без раскрытия закрытых данных; учебное время отдайте пробелам.</p>
+<p>Для учёта прогресса добавляйте в свой журнал дату, этап, ссылку на артефакт, что проверено и следующий вопрос. Завершённым считается результат, который можно повторить, объяснить и изменить; количество решённых вопросов служит отдельной метрикой повторения.</p>
+<h2 id="проверка-результата">Проверка результата</h2>
+<p>Перед переходом к следующему этапу или расширением специализации проверьте:</p>
+<ul>
+<li><strong>Корректность:</strong> описаны инварианты, ownership, ошибки и проверяемые гарантии; тесты включают граничные и отрицательные сценарии.</li>
+<li><strong>Воспроизводимость:</strong> другой человек может собрать проект, запустить тесты и повторить эксперимент по инструкции.</li>
+<li><strong>Измерения:</strong> указаны workload, размеры данных, окружение, версии инструментов, повторные запуски и ограничения; сохранены исходные результаты.</li>
+<li><strong>Объяснение:</strong> вы связываете наблюдение с механизмом языка, ОС, сети или оборудования и можете назвать альтернативное решение.</li>
+<li><strong>Применимость:</strong> понятны цена сложности, ресурсные ограничения и условия, в которых выбранный подход проигрывает.</li>
+<li><strong>Обратная связь:</strong> по мере роста проекта есть внешнее code / design review и исправления по его результатам.</li>
+</ul>
+<p>Если часть критериев не выполнена, следующий шаг — конкретный эксперимент или исправление в текущем проекте. Новая технология добавляется после того, как понятно, какую проблему она решает.</p>
 </main></body></html>

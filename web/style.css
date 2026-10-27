@@ -52,21 +52,16 @@ body>main{width:100%;flex:1}
 .total strong{color:#185f4b;font-size:14px;font-weight:650;font-variant-numeric:tabular-nums}
 @media(max-width:760px){.page-heading{display:flex;flex-wrap:wrap;gap:8px 12px}}
 
-.learning-start{margin:0 0 28px;padding:20px;border:1px solid #d4e2d9;border-radius:10px;background:#fff}
-.learning-start h2{margin-bottom:8px}.learning-start p{color:#536159;margin-top:0}
-.track-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
-.track-card{text-align:left;display:flex;flex-direction:column;gap:8px;font-size:14px;min-height:110px}
-.track-card span{font-size:13px;font-weight:400;color:#536159}
 .plan-link{display:inline-block;margin:0 0 16px 40px;font-size:13px}
 .learning-page{max-width:1050px;overflow-wrap:anywhere}.learning-page h1{margin:24px 0}.learning-page h2{margin:32px 0 16px}.learning-page table{display:block;overflow-x:auto;border-collapse:collapse;margin:20px 0}.learning-page th,.learning-page td{text-align:left;vertical-align:top;border:1px solid #d4ded7;padding:12px;min-width:150px}.learning-page th{background:#eaf2ed}.learning-page li{margin:10px 0}
 select:focus-visible{outline:3px solid #b27919;outline-offset:4px}
-@media(max-width:760px){.track-grid{grid-template-columns:1fr}.track-card{min-height:0}.learning-start{padding:16px}.topbar{height:auto;min-height:60px;flex-wrap:wrap;padding:12px 20px;gap:8px}.learning-page table{font-size:14px}.learning-start h2{font-size:20px}}
+@media(max-width:760px){.topbar{height:auto;min-height:60px;flex-wrap:wrap;padding:12px 20px;gap:8px}.learning-page table{font-size:14px}}
 
-/* Compact library header; learning routes open from the help button. */
+/* Keep the standalone roadmap visible beside the library brand. */
 .topbar{flex-wrap:nowrap;min-height:60px;height:60px;padding:0 5%}
-.help-button{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:44px;height:44px;padding:0;border-radius:50%;font-size:18px;color:#185f4b}
-.help-button[hidden],.learning-start[hidden]{display:none}
-.help-button[aria-expanded=true]{background:#e5eee8;border-color:#8faf9b}
+.topbar nav{flex-shrink:0}
+.roadmap-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 12px;border:1px solid #d4e2d9;border-radius:10px;background:#eaf2ed;font-size:14px;font-weight:650;text-decoration:none;white-space:nowrap}
+.roadmap-link:hover{background:#dce8df}
 .page-heading{justify-content:flex-start;flex-wrap:nowrap;gap:12px;min-height:44px;margin-bottom:16px}
 .page-heading .library-heading{white-space:nowrap}
 .page-heading .resume{margin:0 0 0 auto;padding:0;background:transparent;border:0;gap:12px;flex-wrap:nowrap;white-space:nowrap;font-size:12px}
@@ -142,6 +137,15 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
 .copy-code{min-height:44px}
 .question-rating button{min-width:112px}
 .learning-page> a:first-child{display:inline-flex;align-items:center;min-height:44px}
+.learning-page{line-height:1.75}
+.learning-page h2{padding-top:24px;border-top:1px solid #dde2e0}
+.learning-page h3{font-size:19px;line-height:1.4;margin:28px 0 12px}
+.learning-page :is(h1,h2,h3,h4){scroll-margin-top:24px}
+.learning-page :is(h2,h3,h4):target{color:#14664e}
+.learning-page blockquote{margin:20px 0;padding:12px 20px;border-left:3px solid #236b53;background:#eaf2ed}
+.learning-page blockquote p{margin:4px 0}
+.learning-page hr{margin:32px 0;border:0;border-top:1px solid #dde2e0}
+.learning-page :not(pre)>code{font-size:.9em;background:#e8ecea;padding:2px 5px;border-radius:4px}
 .learning-page pre{overflow-x:auto;padding:16px;border-radius:8px;background:#e8eeea}
 .learning-page img{max-width:100%;height:auto}
 
@@ -152,7 +156,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
   .topbar{height:auto;min-height:64px;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));gap:12px}
   .brand{flex:1;min-width:0;gap:10px;font-size:12px;line-height:1.35}
   .brandmark{flex-shrink:0;min-width:48px;text-align:center;font-size:19px;padding:6px}
-  .help-button{width:44px;height:44px}
+  .roadmap-link{padding:8px 10px;font-size:13px}
   main{padding:20px max(16px,env(safe-area-inset-right,0px)) 28px max(16px,env(safe-area-inset-left,0px))}
   .page-heading{display:flex;align-items:center;flex-wrap:wrap;gap:12px 8px;margin-bottom:8px}
   .page-heading .library-heading{flex:1;font-size:clamp(22px,6vw,28px);line-height:1.25;font-weight:700;letter-spacing:-.6px;text-transform:none;white-space:normal;color:#1c1c1e}
@@ -204,11 +208,6 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
   .select-all{margin-bottom:8px}
   .plan-link{margin:0 0 8px 32px;font-size:14px}
   .empty-section{padding-left:32px;font-size:14px}
-  .learning-start{padding:16px;margin-bottom:20px}
-  .learning-start h2{font-size:20px;margin-bottom:8px}
-  .track-grid{grid-template-columns:1fr}
-  .track-card{min-height:0;padding:14px}
-  .learning-start>a{display:inline-flex;align-items:center;min-height:44px;font-size:14px}
   body[data-view=study]{background:#fff}
   .study-top{position:sticky;top:0;z-index:5;background:#fff;padding:4px 0;gap:12px}
   .study-top .text-button{padding:10px 6px;font-size:14px}
@@ -300,9 +299,6 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,s
   .settings .progress-tools h3{margin:0 auto 0 0;font-size:12px;color:#636366}
   .settings .progress-tools button{min-height:36px;padding:7px 10px;margin:0;font-size:12px;border-radius:8px}
   .settings #import-status{flex-basis:100%;margin:4px 0 0;font-size:12px}
-  .learning-start{padding:24px;border-color:#e2e2e7;border-radius:18px}
-  .learning-start h2{font-size:23px;letter-spacing:-.4px}
-  .track-card{padding:18px;border-radius:12px}
   body[data-view=study]{padding-bottom:calc(var(--action-bar-height) + 40px)}
   .study-top{position:sticky;top:0;z-index:10;max-width:880px;padding:10px 8px;background:#f2f2f7;gap:16px}
   .study-top .text-button{padding:10px 8px;font-size:14px}
